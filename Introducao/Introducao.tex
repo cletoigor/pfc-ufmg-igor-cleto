@@ -1,18 +1,22 @@
 \chapter{Introdução}
 \label{chap:intro} %este label será usado para referenciar este capítulo
 
-As primeiras frases têm a missão de prender a atenção do leitor e por isso são as mais importantes do texto. Diga o quanto antes o que você fez e quais são os resultados alcançados. Ao terminar de ler a introdução o leitor tomará uma nova decisão de se vale a pena ou não continuar lendo o texto. Capte a atenção do leitor bem aqui.
+% As primeiras frases têm a missão de prender a atenção do leitor e por isso são as mais importantes do texto. Diga o quanto antes o que você fez e quais são os resultados alcançados. Ao terminar de ler a introdução o leitor tomará uma nova decisão de se vale a pena ou não continuar lendo o texto. Capte a atenção do leitor bem aqui.
 
-A comunicação escrita é considerada umas das cinco habilidades mais importantes por profissionais de engenharia e um engenheiro passa em média mais de $25$\% do seu tempo escrevendo \cite{eggert2002response,spretnak1982survey}. Uma quantidade similar de tempo é gasta na escrita de correspondência e de relatórios técnicos \cite{cunningham2012perceptions}. Dessa forma, encare a escrita do seu projeto como um treinamento nessa importante habilidade.
+% A comunicação escrita é considerada umas das cinco habilidades mais importantes por profissionais de engenharia e um engenheiro passa em média mais de $25$\% do seu tempo escrevendo \cite{eggert2002response,spretnak1982survey}. Uma quantidade similar de tempo é gasta na escrita de correspondência e de relatórios técnicos \cite{cunningham2012perceptions}. Dessa forma, encare a escrita do seu projeto como um treinamento nessa importante habilidade.
 
-Neste texto você encontrará não apenas uma estrutura para escrever seu trabalho em \LaTeX, mas também um pequeno manual de boas práticas na escrita técnica. Leia com atenção e coloque as sugestões em prática à medida que preenche o texto com o conteúdo do seu próprio projeto. Também será apresentado um número de vícios de escrita comumente encontrados nas monografias de alunos. 
+% Neste texto você encontrará não apenas uma estrutura para escrever seu trabalho em \LaTeX, mas também um pequeno manual de boas práticas na escrita técnica. Leia com atenção e coloque as sugestões em prática à medida que preenche o texto com o conteúdo do seu próprio projeto. Também será apresentado um número de vícios de escrita comumente encontrados nas monografias de alunos. 
 
-A seguir está a estrutura de organização sugerida pelo colegiado do curso. Note que ela não é necessariamente a melhor para contar a história do seu projeto. Você pode por exemplo preferir usar títulos mais pertinentes ao seu contexto. Contudo, o seu texto deve conter cada um dos pontos a seguir.
+% A seguir está a estrutura de organização sugerida pelo colegiado do curso. Note que ela não é necessariamente a melhor para contar a história do seu projeto. Você pode por exemplo preferir usar títulos mais pertinentes ao seu contexto. Contudo, o seu texto deve conter cada um dos pontos a seguir.
 
 \section{Motivação e Justificativa}
 \label{sec:motivacao}
 
-Argumente sobre a importância do projeto desenvolvido usando uma visão de alto nível, sem entrar em detalhes. Contextualize seu projeto dentro do local de execução ou da literatura e explique como ele é necessário ou inovador. É possível fazer uma breve revisão bibliográfica, confrontando seu trabalho com outras referências bibliográficas para mostrar a sua contribuição. No quesito contribuição, é muito importante deixar claro o tempo todo que partes do projetos foram executadas por outros e que partes foram executadas por você. Caso contrário, corre-se o risco de inadvertidademente tomar crédito pelo trabalho de outrem, o que pode ter implicações legais. 
+A crescente demanda por energia elétrica, aliada à necessidade de uso eficiente dos recursos energéticos, torna imperativo o desenvolvimento de soluções inovadoras que permitam aos consumidores monitorar e gerenciar seu consumo de forma eficaz e em tempo real. No contexto residencial, muitas vezes os usuários não têm acesso a informações detalhadas sobre o consumo energético em suas casas, o que dificulta a identificação de desperdícios e a implementação de medidas para a redução do consumo. O cenário se agrava devido à falta de sistemas acessíveis e de fácil implementação para o monitoramento eficiente, o que resulta em uma grande dificuldade para os consumidores em adotar práticas mais sustentáveis e econômicas no seu cotidiano. 
+
+Além disso, a automação residencial enfrenta desafios consideráveis relacionados à integração de dispositivos e sensores de diferentes fabricantes. A grande diversidade de tecnologias, protocolos de comunicação e padrões de mercado, somada à ausência de uma padronização efetiva entre os diferentes fabricantes, cria um ambiente no qual os dispositivos muitas vezes não se comunicam de maneira eficiente, impedindo a criação de sistemas unificados de monitoramento e controle. Esse cenário limita os benefícios da automação, como a otimização do consumo de energia e a melhoria da qualidade de vida dos moradores, além de dificultar o acesso a tecnologias que poderiam proporcionar um ambiente mais confortável, seguro e sustentável.
+
+Adicionalmente, muitas residências não foram originalmente projetadas com infraestrutura para automação, o que torna a adaptação desses ambientes ao uso de tecnologias de monitoramento e controle mais complexa e dispendiosa. A implementação de soluções de automação, frequentemente, exige modificações estruturais significativas, que podem tornar o processo oneroso e inviável para uma grande parcela da população. Isso, por sua vez, desencoraja muitos proprietários a adotarem essas tecnologias, deixando uma significativa quantidade de residências sem os benefícios em termos de eficiência energética, conforto e segurança que poderiam ser proporcionados por sistemas de automação. Assim, a falta de alternativas acessíveis e de fácil implementação para o monitoramento e gestão do consumo energético representa uma grande oportunidade de desenvolvimento de soluções que possam superar essas barreiras técnicas e financeiras e beneficiar uma ampla gama de usuários.
 
 \section{Objetivos do Projeto}
 \label{sec:objetivos}
@@ -20,24 +24,26 @@ Argumente sobre a importância do projeto desenvolvido usando uma visão de alto
 Tendo em vista o exposto acima, este projeto tem por objetivos:
 
 \begin{enumerate}[a)]
-\item Item 1;
-\item Item 2; 
-\item Etc.     
+\item Realizar uma pesquisa e análise de tecnologias existentes que permitam o monitoramento energético sem a necessidade de infraestrutura prévia.
+\item Explorar soluções adequadas para residências convencionais, que não foram originalmente projetadas para automação residencial.
+\item Desenvolver um protótipo de sistema de monitoramento de fácil instalação e uso.
+\item Implementar algoritmos de processamento de dados e previsão de consumo utilizando técnicas de inteligência artificial.
+\item Criar uma plataforma de software intuitiva para visualização e análise dos dados pelos usuários.
+\item Testar e validar o sistema em ambiente real, garantindo sua eficiência e usabilidade.
+\item Promover a viabilidade de implementação em larga escala por meio da análise de custos e estratégias de adoção.
+\item Documentar e divulgar os resultados obtidos, destacando as contribuições para a Engenharia de Controle e Automação e os benefícios sociais e ambientais proporcionados pelo sistema desenvolvido.
 \end{enumerate}
-
-O conteúdo desta seção pode se sobrepor um pouco com o da seção anterior, podendo ela ser um sumário dos pontos expostos anteriormente. A escolha do título da seção talvez seja mais apropriada para a fase de proposta do projeto. Afinal, nesta fase se conhecem os objetivos e não os resultados. Por outro lado, fará pouco sentido discutir objetivos quando o projeto está finalizado, especialmente se tais objetivos não foram alcançados. 
-
 
 \section{Local de Realização}
 \label{sec:empresa}
 
-Faça uma breve apresentação da empresa ou laboratório onde o projeto é desenvolvido. Fale um pouco da história da empresa, do mercado em que atua, da sua organização, do departamento em que está inserido o projeto, etc. Descreva também o seu vínculo com a empresa. 
+O local de realização deste projeto é a residência do próprio desenvolvedor, onde os testes dos equipamentos e a simulação das necessidades reais de automação residencial estão sendo realizados. A escolha deste ambiente se justifica pela possibilidade de realizar uma avaliação prática e realista das soluções de monitoramento e previsão de consumo energético, simulando as condições do dia a dia em uma residência convencional. A residência não foi originalmente projetada com infraestrutura para automação, o que representa um desafio adicional, mas também um aspecto relevante para a validação do sistema, pois permite testar a adaptação de tecnologias em um ambiente que não conta com recursos avançados de automação.
 
+Neste contexto, o projeto visa avaliar a viabilidade de implementação de soluções de monitoramento energético em ambientes residenciais que, assim como muitas casas, não foram concebidos para suportar sistemas automatizados. Dessa forma, o projeto busca não apenas desenvolver uma solução eficiente, mas também uma que seja de fácil adaptação e acessível para a grande maioria dos consumidores. O vínculo com o local de testes é direto, pois, além de ser o ambiente de realização das simulações, a residência do desenvolvedor também serve como um campo de experimentação e validação para os resultados do sistema proposto.
 
 \section{Estrutura da Monografia}
 \label{sec:organizacao}
 
-O trabalho está dividido em quatro capítulos. Este capítulo apresentou uma introdução ao projeto a ser descrito nesta monografia e a empresa onde o trabalho foi realizado. O Capítulo 2 descreve os princípios básicos de um sistema ... (sistema onde se insere o trabalho) e abrange todos os conceitos necessários para um melhor entendimento do projeto. O Capítulo 3 aborda a metodologia de desenvolvimento, seguida pela implementação dos .... No Capítulo 4 tem-se a conclusão da  monografia e algumas sugestões e dificuldades encontradas na realização do projeto.
-
+O trabalho está dividido em quatro capítulos. Este capítulo apresentou uma introdução ao projeto descrito nesta monografia, incluindo o objetivo de desenvolvimento de um sistema inteligente para monitoramento e previsão de consumo de energia em residências, além de descrever o local de realização dos testes, que ocorre na residência do próprio desenvolvedor. O Capítulo 2 descreve os princípios básicos de um sistema de automação residencial e monitoramento energético, abordando todos os conceitos necessários para um melhor entendimento do projeto. O Capítulo 3 explora a metodologia de desenvolvimento, incluindo a análise das tecnologias existentes, a criação do protótipo e a implementação dos algoritmos de processamento de dados e previsão de consumo. No Capítulo 4, apresenta-se a conclusão da monografia, com um resumo dos resultados alcançados e algumas sugestões e dificuldades encontradas durante a realização do projeto.
 
 \clearpage
