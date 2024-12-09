@@ -1,8 +1,9 @@
-\providecommand{\abntreprintinfo}[1]{%
- \citeonline{#1}}
-\begin{thebibliography}{}
-\providecommand{\abntrefinfo}[3]{}
-\providecommand{\abntbstabout}[1]{}
-\abntbstabout{v-1.9.7 }
+\begin{thebibliography}{1}
+
+\bibitem{matter_spec}
+Connectivity Standards Alliance.
+\newblock {\em Matter Specification Version 1.0}.
+\newblock 2022.
+\newblock Disponível em: \url{https://csa-iot.org/all-solutions/matter/}. Acesso em: 09/12/2024.
 
 \end{thebibliography}
