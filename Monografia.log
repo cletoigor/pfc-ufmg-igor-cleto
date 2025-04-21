@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  9 DEC 2024 15:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  26 JAN 2025 23:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -532,38 +532,36 @@ File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 
 ]
 Cap\'{\i }tulo 3.
+[21] [22]
+Overfull \hbox (15.02643pt too wide) has occurred while \output is active
+\T1/cmr/m/sl/12 3.3.  IMPLEMENTA«√O DE ALGORITMOS DE PROCESSAMENTO E PREVIS√O \T1/cmr/m/n/12 23
+ []
 
-Underfull \vbox (badness 1418) has occurred while \output is active []
-
- [21] [22]
-Underfull \vbox (badness 1990) has occurred while \output is active []
-
- [23] [24] [25] [26])
+[23]) [24]
 \openout2 = `Resultados/Resultados.aux'.
 
  (./Resultados/Resultados.tex
 Cap\'{\i }tulo 4.
-[27
+[25
 
 
 
 
-
-] [28]
+] [26]
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line 60.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 
-LaTeX Warning: Reference `sec:revis√£o' on page 29 undefined on input line 62.
+LaTeX Warning: Reference `sec:revis√£o' on page 27 undefined on input line 62.
 
-[29]
+[27]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [30] [31])
+ [28] [29])
 \openout2 = `Conclusao/Conclusao.aux'.
 
- (./Conclusao/Conclusao.tex [32
+ (./Conclusao/Conclusao.tex [30
 
 
 
@@ -571,10 +569,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Cap\'{\i }tulo 5.
-[33])
+[31])
 \openout2 = `Apendices/ApendiceA.aux'.
 
- (./Apendices/ApendiceA.tex [34
+ (./Apendices/ApendiceA.tex [32
 
 
 
@@ -582,17 +580,17 @@ Cap\'{\i }tulo 5.
 
 ]
 Ap\^endice A.
-) [35]
+) [33]
 \openout2 = `Apendices/ApendiceB.aux'.
 
- (./Apendices/ApendiceB.tex [36
+ (./Apendices/ApendiceB.tex [34
 
 
 
 
 ]
 Ap\^endice B.
-) [37] (./Monografia.bbl [38
+) [35] (./Monografia.bbl [36
 
 
 
@@ -601,7 +599,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{cite.matter_sp
 <to be read again> 
                    \relax 
 l.3 \bibitem{matter_spec}
-                         ) [39] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
+                         ) [37] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -614,21 +612,21 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Monografia.out' has not changed.
-(rerunfilecheck)             Checksum: C10846DCDBF065C03E38C380FB4A545B;10241.
+(rerunfilecheck)             Checksum: 5C24F5DF1857150D4DEB5CFB41A94440;11766.
  ) 
 Here is how much of TeX's memory you used:
- 12483 strings out of 474116
- 199767 string characters out of 5743682
- 1939187 words of memory out of 5000000
- 34409 multiletter control sequences out of 15000+600000
+ 12476 strings out of 474116
+ 199701 string characters out of 5743682
+ 1940187 words of memory out of 5000000
+ 34404 multiletter control sequences out of 15000+600000
  579088 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,16n,79p,1174b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Monografia.pdf (55 pages, 554075 bytes).
+Output written on Monografia.pdf (53 pages, 543093 bytes).
 PDF statistics:
- 714 PDF objects out of 1000 (max. 8388607)
- 602 compressed objects within 7 object streams
- 132 named destinations out of 1000 (max. 500000)
+ 704 PDF objects out of 1000 (max. 8388607)
+ 595 compressed objects within 6 object streams
+ 130 named destinations out of 1000 (max. 500000)
  470 words of extra memory for PDF output out of 10000 (max. 10000000)
 

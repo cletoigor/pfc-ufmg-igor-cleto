@@ -1,0 +1,26 @@
+# Cline Rules for TCC Monografia Project
+
+## Project Intelligence & Workflow Patterns
+
+This file captures project-specific conventions, user preferences, and learned patterns to improve consistency and efficiency while working on the UFMG TCC Monograph.
+
+### LaTeX & Formatting Conventions
+
+-   **(Placeholder)** Preferred citation style (e.g., ABNT, IEEE): [Specify Style]
+-   **(Placeholder)** Figure placement preference (e.g., `[htbp]`): [Specify Preference]
+-   **(Placeholder)** Table formatting preference (e.g., use `booktabs`): [Specify Preference]
+-   **(Placeholder)** Labeling convention for sections, figures, tables (e.g., `sec:intro`, `fig:processo`, `tab:resultados`): [Specify Convention]
+-   **(Placeholder)** Any custom LaTeX commands defined for this project: [List Commands]
+-   **(Placeholder)** Specific UFMG template requirements or deviations: [Note Requirements]
+
+### Workflow & Tool Usage
+
+-   **Compilation:** Use `latexmk` for compiling the document (`latexmk -pdf Monografia.tex`).
+-   **(Placeholder)** Preferred method for handling draft comments/notes: [Specify Method, e.g., LaTeX comments `% TODO`, specific package]
+
+### Content & Style
+
+-   **(Placeholder)** Tone and style guidelines (e.g., formal academic Portuguese): [Note Guidelines]
+-   **(Placeholder)** Specific terminology to use/avoid: [List Terms]
+
+*(This file will be updated as we work on the project and identify specific patterns and preferences.)*

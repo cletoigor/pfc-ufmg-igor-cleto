@@ -36,31 +36,31 @@
 \contentsline {subsection}{\numberline {2.2.5}Integração com Outros Sistemas e Evolução Contínua}{17}{subsection.2.2.5}%
 \contentsline {subsection}{\numberline {2.2.6}Benefícios Práticos e Responsabilidade Social}{17}{subsection.2.2.6}%
 \contentsline {chapter}{\numberline {3}Metodologia}{21}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Técnica 1 - Organização do texto}{21}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Técnica 2 - Estilo}{22}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Precisão}{22}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Clareza}{22}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Ojetividade}{23}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Concisão}{23}{subsection.3.2.4}%
-\contentsline {section}{\numberline {3.3}Vícios comuns}{24}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Boas práticas}{24}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Uso de referências}{25}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Honestidade e Plágio}{25}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Cuidado com a gramática}{25}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Resumo do Capítulo}{26}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{27}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{27}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Testes}{27}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Análise dos Resultados}{27}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{28}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{28}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{28}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{29}{subsection.4.7.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{33}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações Finais}{33}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{33}{section.5.2}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{35}{appendix.A}%
-\contentsline {chapter}{Referências Bibliográficas}{34}{section.5.2}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{37}{appendix.B}%
+\contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{21}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{22}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{22}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Desenvolvimento do Sistema de Controle}{22}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Visualização}{22}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Implementação de Algoritmos de Processamento e Previsão}{23}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{23}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{23}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Previsão de Consumo com Inteligência Artificial}{23}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Viabilidade de Implementação em Larga Escala}{24}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{24}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{25}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{25}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Testes}{25}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Análise dos Resultados}{25}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{26}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{26}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{26}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{27}{subsection.4.7.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{31}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Finais}{31}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{31}{section.5.2}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{33}{appendix.A}%
+\contentsline {chapter}{Referências Bibliográficas}{32}{section.5.2}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{35}{appendix.B}%
