@@ -1,0 +1,34 @@
+# Cline Ignore file for LaTeX TCC Monografia project
+
+# Ignore Memory Bank and Rules - Cline manages these separately
+memory-bank/
+.clinerules
+
+# Ignore LaTeX auxiliary and generated files within the latex/ directory
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.idx
+latex/*.ilg
+latex/*.ind
+latex/*.lof
+latex/*.log
+latex/*.lot
+latex/*.out
+latex/*.synctex.gz
+latex/*.toc
+latex/*.ps
+
+# Ignore the final PDF output
+latex/Monografia.pdf
+
+# Ignore intermediate figure conversion files (like EPS to PDF)
+latex/**/*-eps-converted-to.pdf
+
+# Ignore conflicted copy files (example from file list)
+latex/Resultados/*(* conflicted copy*).tex
+
+# Ignore auxiliary files generated within subdirectories
+latex/*/*.aux
