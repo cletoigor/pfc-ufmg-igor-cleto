@@ -13,7 +13,6 @@ from dotenv import load_dotenv
 from tuya_connector import TuyaOpenAPI
 
 # --- Configuration ---
-CODES_TO_QUERY = "cur_current,cur_power,cur_voltage"
 LOG_PAGE_SIZE = 100 # Max recommended by docs is 100
 TIME_WINDOW_HOURS = 1
 
@@ -27,8 +26,8 @@ API_ENDPOINT = os.getenv("API_ENDPOINT")
 def load_device_mapping(file_path):
     """Loads the device ID to name mapping from a JSON file."""
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            mapping = json.load(f)
+        with open(file_path, 'r', encoding='utf-8') as mapping_file:
+            mapping = json.load(mapping_file)
         print(f"Loaded device mapping from {file_path}")
         return mapping
     except FileNotFoundError:
@@ -37,6 +36,29 @@ def load_device_mapping(file_path):
     except json.JSONDecodeError:
         print(f"Error: Could not decode JSON from {file_path}")
         return None
+
+def get_device_supported_codes(openapi_client, p_device_id):
+    """Queries the Tuya API to get the list of supported status codes for a device."""
+    print(f"  - Querying supported codes for device {p_device_id}...")
+    endpoint = f"/v2.0/cloud/thing/{p_device_id}/shadow/properties"
+    try:
+        response = openapi_client.get(endpoint)
+        if response.get("success", False):
+            properties = response.get("result", {}).get("properties", [])
+            codes = [prop.get("code") for prop in properties if prop.get("code")]
+            if codes:
+                print(f"  - Found supported codes: {', '.join(codes)}")
+                return codes
+            else:
+                print(f"  - No supported codes found in API response for {p_device_id}.")
+                return []
+        else:
+            print(f"  - Error querying codes for device {p_device_id}: {response}")
+            return None # Indicate error
+    except ConnectionError as e: # More specific exception
+        print(f"  - Connection error querying codes for device {p_device_id}: {e}")
+        return None # Indicate error
+
 
 def get_time_range_ms(hours_ago):
     """Calculates the start and end time (in milliseconds) for a past time window."""
@@ -52,11 +74,11 @@ def get_time_range_ms(hours_ago):
 def fetch_status_logs(
     openapi_client,
     p_device_id,
-    codes,
+    codes, # Re-added: Now expects comma-separated string of codes
     p_start_time_ms,
     p_end_time_ms
 ):
-    """Fetches device status logs from the Tuya API, handling pagination."""
+    """Fetches specified device status logs from the Tuya API, handling pagination."""
     all_logs = []
     last_row_key = ""
     page_num = 1
@@ -66,23 +88,23 @@ def fetch_status_logs(
     while True:
         endpoint = f"/v2.0/cloud/thing/{p_device_id}/report-logs"
         params = {
-            "codes": codes,
+            "codes": codes, # Use the provided codes string
             "start_time": p_start_time_ms,
             "end_time": p_end_time_ms,
             "size": LOG_PAGE_SIZE, # Use global constant
             "last_row_key": last_row_key
         }
 
-        print(f"  - Requesting page {page_num} (last_row_key: '{last_row_key}')...")
+        print(f"  - Requesting page {page_num} for codes '{codes}' "
+              f"(last_row_key: '{last_row_key}')...")
         response = openapi_client.get(endpoint, params)
 
         if not response.get("success", False):
             print(f"  - Error fetching logs for device {p_device_id}: {response}")
-            # Consider more robust error handling (e.g., retries, specific error codes)
             break # Exit loop on error
 
         result = response.get("result", {})
-        page_logs = result.get("logs", []) # Renamed from 'logs'
+        page_logs = result.get("logs", [])
         has_more = result.get("has_more", False)
         last_row_key = result.get("last_row_key", "")
 
@@ -98,8 +120,6 @@ def fetch_status_logs(
             break # Exit loop if no more pages
 
         page_num += 1
-        # Optional: Add a small delay between pages if needed
-        # time.sleep(0.1)
 
     print(f"Finished fetching logs for device {p_device_id}. Total logs: {len(all_logs)}")
     return all_logs
@@ -151,13 +171,26 @@ if __name__ == "__main__":
         print("-" * 30)
         print(f"Processing: {device_name} ({device_id})")
 
+        # Get supported codes for this device
+        supported_codes = get_device_supported_codes(openapi, device_id)
+
+        if supported_codes is None: # API error querying codes
+            print(f"  - Skipping log fetch for {device_id} due to error retrieving codes.")
+            all_device_logs[device_id] = [] # Ensure key exists but is empty
+            continue # Move to the next device
+        if not supported_codes: # Empty list, no codes found/supported
+            print(f"  - No supported codes found for {device_id}. Skipping log fetch.")
+            all_device_logs[device_id] = []
+            continue
+
+        CODES_STR = ",".join(supported_codes)
+
         logs = fetch_status_logs(
             openapi,
             device_id,
-            CODES_TO_QUERY,
+            CODES_STR, # Pass the dynamically fetched codes
             start_time_ms,
             end_time_ms
-            # LOG_PAGE_SIZE is now used directly inside the function
         )
         all_device_logs[device_id] = logs
 
@@ -169,13 +202,66 @@ if __name__ == "__main__":
                 event_time_sec = log.get('event_time', 0) / 1000
                 readable_time = datetime.fromtimestamp(event_time_sec, timezone.utc).isoformat()
                 print(f"  - Code: {log.get('code')}, Value: {log.get('value')}, "
-                      f"Time: {readable_time} ({log.get('event_time')}ms)") # Line broken
+                      f"Time: {readable_time} ({log.get('event_time')}ms)")
         else:
             print(f"\nNo logs found for {device_name} ({device_id}) "
-                  f"in the specified time range.") # Line broken
+                  f"in the specified time range.")
 
     print("-" * 30)
     print("Log ingestion process finished.")
 
-    # Example: Further processing could happen here
-    # e.g., save all_device_logs to a file, database, etc.
+    # --- Save logs to files ---
+    base_output_dir = os.path.join("..", "data", "raw") # Base directory for all logs
+    os.makedirs(base_output_dir, exist_ok=True) # Ensure base directory exists
+    print(f"Base log directory: {os.path.abspath(base_output_dir)}")
+
+    # Get current time once for the ingestion timestamp
+    ingestion_time_utc = datetime.now(timezone.utc).isoformat()
+    INGESTED_BY_IDENTIFIER = "tuya_log_ingestion_script" # Renamed to conform to UPPER_CASE
+    print(f"Ingestion timestamp (UTC): {ingestion_time_utc}")
+
+    for device_id, logs in all_device_logs.items():
+        if logs: # Only save if logs were fetched
+            try:
+                # Add ingestion metadata to each log record
+                processed_logs = []
+                for log in logs:
+                    log_copy = log.copy() # Avoid modifying the original dict if needed elsewhere
+                    log_copy["ingestion_timestamp_utc"] = ingestion_time_utc
+                    log_copy["ingested_by"] = INGESTED_BY_IDENTIFIER # Use renamed constant
+                    processed_logs.append(log_copy)
+
+                # Get timestamp and date components from the first log entry
+                first_log_time_ms = logs[0].get('event_time', 0)
+                first_log_time_sec = first_log_time_ms / 1000
+                dt_object = datetime.fromtimestamp(first_log_time_sec, timezone.utc)
+                date_folder_str = dt_object.strftime('%Y-%m-%d') # Format YYYY-MM-DD for folder name
+                timestamp_str = dt_object.strftime('%Y%m%d%H%M%S') # For filename
+
+                # Create nested device-specific and date-specific directory
+                # Structure: ../data/raw/DEVICE_ID/YYYY-MM-DD/
+                date_specific_output_dir = os.path.join(
+                    base_output_dir, device_id, date_folder_str # Use single date folder name
+                )
+                os.makedirs(date_specific_output_dir, exist_ok=True)
+
+                # Construct filename and full path
+                FILE_NAME = f"{device_id}_{timestamp_str}_logs.json"
+                output_file_path = os.path.join(date_specific_output_dir, FILE_NAME)
+
+                # Save the processed logs (with metadata)
+                with open(output_file_path, 'w', encoding='utf-8') as f:
+                    json.dump(processed_logs, f, indent=4, ensure_ascii=False)
+                print(f"  - Saved {len(processed_logs)} logs for {device_id} to {output_file_path}")
+            except (
+                IOError,
+                IndexError,
+                KeyError,
+                AttributeError,
+                TypeError
+            ) as e: # Catch potential errors
+                print(f"  - Error processing or saving logs for {device_id}: {e}")
+        else:
+            print(f"  - No logs to save for {device_id}.")
+
+    print("Finished saving logs.")
