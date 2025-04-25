@@ -2,18 +2,24 @@
 
 ## 1. Core Technologies
 
--   **LaTeX:** The primary typesetting system used for document creation. The specific distribution (e.g., TeX Live, MiKTeX) is not yet confirmed but is likely one of these standard distributions.
--   **BibTeX:** Used for managing bibliographic references stored in `ListadeReferencias.bib` and formatting citations within the document.
--   **PDF:** The target output format (`Monografia.pdf`).
+-   **LaTeX:** Primary typesetting system for the monograph (`latex/` directory).
+-   **BibTeX:** Manages bibliographic references (`ListadeReferencias.bib`).
+-   **PDF:** Target output format for the monograph (`Monografia.pdf`).
+-   **Python:** Used for data ingestion and processing scripts (`app/` directory).
+-   **DuckDB:** In-process analytical data management system used for transforming raw JSON to partitioned Parquet (`app/data_processing/`). Replaces `event_time` (ms) with a readable timestamp, performs device name lookup (joining with `device_mapping.json`), adds filename, and partitions output (`PARTITION_BY event_date`).
+-   **Parquet:** Columnar storage format for the staging data layer, stored as a partitioned dataset in `app/data/staging/` based on `event_date`. Includes original fields (except ms `event_time`) and enriched columns (readable `event_time`, `device_name`, `filename`).
+-   **Pandas:** Used within the processing script to load the `device_mapping.json` into a DataFrame for easy registration as a DuckDB view.
 
 ## 2. Development Environment & Tools
 
 -   **Text Editor:** A text editor is used to modify the `.tex` and `.bib` source files (e.g., VS Code, TeXstudio, Overleaf, Sublime Text, etc. - specific editor not confirmed).
 -   **LaTeX Compiler:** A command-line tool like `pdflatex` is used to compile the `.tex` source into a PDF.
--   **BibTeX Compiler:** The `bibtex` command-line tool is used to process the bibliography.
--   **Automation:** `latexmk` appears to be used (based on `.fdb_latexmk`, `.fls` files) to automate the multi-pass compilation process (pdflatex -> bibtex -> pdflatex -> pdflatex).
--   **Version Control:** (Optional but recommended) A system like Git might be used for tracking changes, although not explicitly indicated by the current file list.
--   **Operating System:** macOS (as indicated by the environment details).
+-   **BibTeX Compiler:** The `bibtex` command-line tool.
+-   **LaTeX Automation:** `latexmk` likely used for automating LaTeX compilation.
+-   **Python Interpreter:** Required to run `.py` scripts (e.g., Python 3.x).
+-   **Package Manager:** `pip` used for managing Python dependencies (`app/requirements.txt`, includes `duckdb`, `pandas`).
+-   **Version Control:** Git (`.gitignore` exists).
+-   **Operating System:** macOS.
 
 ## 3. Key LaTeX Packages (Potential/Common)
 
@@ -35,5 +41,9 @@ Common packages for academic writing often include:
 -   Requires a working LaTeX distribution installed on the system.
 -   Compilation errors can be cryptic and require debugging `.log` files (`Monografia.log`).
 -   Maintaining consistency in formatting and style across different `.tex` files.
--   Ensuring all necessary fonts are available.
--   Managing figure file paths correctly relative to the main `.tex` file or using appropriate packages (`graphicx`'s `\graphicspath`).
+-   Ensuring all necessary fonts are available for LaTeX.
+-   Managing figure file paths correctly for LaTeX.
+-   Managing Python dependencies using `app/requirements.txt` (preferably within a virtual environment).
+-   DuckDB performance might depend on available memory, especially when processing large volumes of JSON data in memory.
+-   The processing script relies on the structure of the raw JSON files (including `device_id` and `event_time`) and the `device_mapping.json` file. Changes to these could break the processing step.
+-   Querying the partitioned Parquet dataset in `app/data/staging/` requires tools/libraries that support Hive-style partitioning (e.g., DuckDB, Spark, Pandas with appropriate arguments).

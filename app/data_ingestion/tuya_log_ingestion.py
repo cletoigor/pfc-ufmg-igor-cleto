@@ -14,7 +14,7 @@ from tuya_connector import TuyaOpenAPI
 
 # --- Configuration ---
 LOG_PAGE_SIZE = 100 # Max recommended by docs is 100
-TIME_WINDOW_HOURS = 1
+TIME_WINDOW_HOURS = 168
 
 # --- Load Environment Variables ---
 load_dotenv()
@@ -227,6 +227,7 @@ if __name__ == "__main__":
                 processed_logs = []
                 for log in logs:
                     log_copy = log.copy() # Avoid modifying the original dict if needed elsewhere
+                    log_copy["device_id"] = device_id # Add the device_id to the log record
                     log_copy["ingestion_timestamp_utc"] = ingestion_time_utc
                     log_copy["ingested_by"] = INGESTED_BY_IDENTIFIER # Use renamed constant
                     processed_logs.append(log_copy)

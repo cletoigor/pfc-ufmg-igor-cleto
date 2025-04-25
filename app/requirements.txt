@@ -1,3 +1,5 @@
 tuya-connector-python
 tuya-iot-py-sdk
 python-dotenv
+duckdb
+pandas
