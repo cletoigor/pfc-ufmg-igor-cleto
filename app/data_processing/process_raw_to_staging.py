@@ -9,26 +9,20 @@ the device name from a mapping file. The final dataset is saved in the
 import os
 import glob
 import json
-import sys # Import sys for exit
+import sys
 
-# Third-party imports
 import duckdb
 import pandas as pd
 
-# Define paths using UPPER_CASE for module-level constants
-# Use os.path.join for better cross-platform compatibility
-# Go up one level from data_processing to app, then down to data
+# --- Constants ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_DATA_PATTERN = os.path.join(BASE_DIR, 'data', 'raw', '**', '*.json')
 STAGING_DIR = os.path.join(BASE_DIR, 'data', 'staging')
-# Path to the device mapping file (relative to BASE_DIR)
 DEVICE_MAPPING_PATH = os.path.join(BASE_DIR, 'data_ingestion', 'device_mapping.json')
 
-# Ensure the staging directory exists
 os.makedirs(STAGING_DIR, exist_ok=True)
 
 # --- Load Device Mapping ---
-# Use snake_case for variables that might be reassigned (like the DataFrame)
 device_map_df = None # pylint: disable=invalid-name
 try:
     with open(DEVICE_MAPPING_PATH, 'r', encoding='utf-8') as f:
@@ -40,16 +34,13 @@ try:
     )
     print(f"Successfully loaded device mapping from {DEVICE_MAPPING_PATH}")
 except FileNotFoundError:
-    # Use specific exception
     print(f"Error: Device mapping file not found at {DEVICE_MAPPING_PATH}. "
           "Cannot add device names.")
 except json.JSONDecodeError:
-    # Use specific exception
     print(f"Error: Could not decode JSON from {DEVICE_MAPPING_PATH}. "
           "Cannot add device names.")
 except Exception as e: # pylint: disable=broad-except # Catch other potential errors during loading/conversion
     print(f"An unexpected error occurred loading device mapping: {e}")
-    # device_map_df remains None
 
 
 # Find all JSON files matching the pattern recursively
@@ -61,7 +52,6 @@ if not json_files:
     sys.exit() # Use sys.exit() for clarity
 
 # Using an in-memory database
-# Use snake_case for the connection variable
 db_connection = None # pylint: disable=invalid-name
 try:
     db_connection = duckdb.connect(database=':memory:', read_only=False)
@@ -71,12 +61,8 @@ try:
     print("Processing files:")
     for file_path in json_files:
         print(f"  - {file_path}")
-
-    # Use snake_case for this derived string variable
     files_list_str = ', '.join([f"'{f}'" for f in json_files]) # pylint: disable=invalid-name
 
-    # Register the pandas DataFrame as a virtual table if it loaded successfully
-    # Use snake_case for these conditional variables
     join_clause = "" # pylint: disable=invalid-name
     select_device_name = "NULL AS device_name" # pylint: disable=invalid-name # Default to NULL
 
@@ -88,10 +74,6 @@ try:
     else:
         print("Skipping device name enrichment due to mapping load error.")
 
-
-    # Construct the main query with CTE, join, and timestamp conversion
-    # Break down the query string for readability and line length
-    # Use snake_case for the query variable
     copy_query = f"""
     COPY (
         WITH raw_logs AS (
@@ -103,7 +85,6 @@ try:
             )
         )
         SELECT
-            -- Explicitly list columns, excluding original event_time
             rl.code,
             rl.value,
             rl.device_id,
