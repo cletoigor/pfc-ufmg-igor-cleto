@@ -1,74 +1,106 @@
-import duckdb
+"""
+Processes raw JSON logs from Tuya devices into a partitioned Parquet dataset.
+
+Reads JSON files from the `../data/raw/` directory structure, enriches the data
+by converting the event timestamp, adding the source filename, and looking up
+the device name from a mapping file. The final dataset is saved in the
+`../data/staging/` directory, partitioned by event date.
+"""
 import os
 import glob
 import json
-import pandas as pd # Import pandas
+import sys # Import sys for exit
 
-# Define paths
+# Third-party imports
+import duckdb
+import pandas as pd
+
+# Define paths using UPPER_CASE for module-level constants
 # Use os.path.join for better cross-platform compatibility
 # Go up one level from data_processing to app, then down to data
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-raw_data_pattern = os.path.join(base_dir, 'data', 'raw', '**', '*.json')
-staging_dir = os.path.join(base_dir, 'data', 'staging')
-# Path to the device mapping file (relative to base_dir)
-device_mapping_path = os.path.join(base_dir, 'data_ingestion', 'device_mapping.json')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAW_DATA_PATTERN = os.path.join(BASE_DIR, 'data', 'raw', '**', '*.json')
+STAGING_DIR = os.path.join(BASE_DIR, 'data', 'staging')
+# Path to the device mapping file (relative to BASE_DIR)
+DEVICE_MAPPING_PATH = os.path.join(BASE_DIR, 'data_ingestion', 'device_mapping.json')
 
 # Ensure the staging directory exists
-os.makedirs(staging_dir, exist_ok=True)
+os.makedirs(STAGING_DIR, exist_ok=True)
 
 # --- Load Device Mapping ---
+# Use snake_case for variables that might be reassigned (like the DataFrame)
+device_map_df = None # pylint: disable=invalid-name
 try:
-    with open(device_mapping_path, 'r', encoding='utf-8') as f:
+    with open(DEVICE_MAPPING_PATH, 'r', encoding='utf-8') as f:
         device_mapping_dict = json.load(f)
     # Convert mapping dict to DataFrame for easier joining in DuckDB
-    device_map_df = pd.DataFrame(list(device_mapping_dict.items()), columns=['device_id', 'device_name'])
-    print(f"Successfully loaded device mapping from {device_mapping_path}")
+    device_map_df = pd.DataFrame(
+        list(device_mapping_dict.items()),
+        columns=['device_id', 'device_name']
+    )
+    print(f"Successfully loaded device mapping from {DEVICE_MAPPING_PATH}")
 except FileNotFoundError:
-    print(f"Error: Device mapping file not found at {device_mapping_path}. Cannot add device names.")
-    device_map_df = None # Set to None to handle gracefully later
+    # Use specific exception
+    print(f"Error: Device mapping file not found at {DEVICE_MAPPING_PATH}. "
+          "Cannot add device names.")
 except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from {device_mapping_path}. Cannot add device names.")
-    device_map_df = None
-except Exception as e:
+    # Use specific exception
+    print(f"Error: Could not decode JSON from {DEVICE_MAPPING_PATH}. "
+          "Cannot add device names.")
+except Exception as e: # pylint: disable=broad-except # Catch other potential errors during loading/conversion
     print(f"An unexpected error occurred loading device mapping: {e}")
-    device_map_df = None
+    # device_map_df remains None
 
 
 # Find all JSON files matching the pattern recursively
-json_files = glob.glob(raw_data_pattern, recursive=True)
+# Use snake_case for this list variable
+json_files = glob.glob(RAW_DATA_PATTERN, recursive=True)
 
 if not json_files:
     print("No JSON files found in app/data/raw/. Exiting.")
-    exit()
+    sys.exit() # Use sys.exit() for clarity
 
 # Using an in-memory database
-con = duckdb.connect(database=':memory:', read_only=False)
-
-print(f"Found {len(json_files)} JSON files to process.")
-print(f"Processing files: {json_files}") # Log the files being processed
-
+# Use snake_case for the connection variable
+db_connection = None # pylint: disable=invalid-name
 try:
-    files_list_str = ', '.join([f"'{f}'" for f in json_files])
+    db_connection = duckdb.connect(database=':memory:', read_only=False)
+
+    print(f"Found {len(json_files)} JSON files to process.")
+    # Break long print statement
+    print("Processing files:")
+    for file_path in json_files:
+        print(f"  - {file_path}")
+
+    # Use snake_case for this derived string variable
+    files_list_str = ', '.join([f"'{f}'" for f in json_files]) # pylint: disable=invalid-name
 
     # Register the pandas DataFrame as a virtual table if it loaded successfully
+    # Use snake_case for these conditional variables
+    join_clause = "" # pylint: disable=invalid-name
+    select_device_name = "NULL AS device_name" # pylint: disable=invalid-name # Default to NULL
+
     if device_map_df is not None:
-        con.register('device_map_view', device_map_df)
+        db_connection.register('device_map_view', device_map_df)
         print("Device mapping registered as DuckDB view 'device_map_view'.")
-        join_clause = "LEFT JOIN device_map_view dm ON rl.device_id = dm.device_id"
-        select_device_name = "dm.device_name"
+        join_clause = "LEFT JOIN device_map_view dm ON rl.device_id = dm.device_id" # pylint: disable=invalid-name
+        select_device_name = "dm.device_name" # pylint: disable=invalid-name
     else:
-        # If mapping failed, create a dummy NULL column for device_name
         print("Skipping device name enrichment due to mapping load error.")
-        join_clause = "" # No join needed
-        select_device_name = "NULL AS device_name" # Select NULL
+
 
     # Construct the main query with CTE, join, and timestamp conversion
-    # The WITH clause must be *inside* the COPY statement's subquery
-    query = f"""
+    # Break down the query string for readability and line length
+    # Use snake_case for the query variable
+    copy_query = f"""
     COPY (
         WITH raw_logs AS (
             SELECT *
-            FROM read_json_auto([{files_list_str}], format='auto', filename=true)
+            FROM read_json_auto(
+                [{files_list_str}],
+                format='auto',
+                filename=true
+            )
         )
         SELECT
             -- Explicitly list columns, excluding original event_time
@@ -85,17 +117,25 @@ try:
             strftime(to_timestamp(rl.event_time / 1000), '%Y-%m-%d') AS event_date
         FROM raw_logs rl
         {join_clause} -- Add the join clause (or empty string if no mapping)
-    ) TO '{staging_dir}' (FORMAT PARQUET, PARTITION_BY (event_date), OVERWRITE_OR_IGNORE 1);
+    ) TO '{STAGING_DIR}' (
+        FORMAT PARQUET,
+        PARTITION_BY (event_date),
+        OVERWRITE_OR_IGNORE 1
+    );
     """
 
-    print(f"Executing query:\n{query}")
-    con.execute(query)
-    print(f"Successfully processed raw data and saved partitioned Parquet files to {staging_dir}")
+    print(f"Executing query:\n{copy_query}")
+    db_connection.execute(copy_query)
+    print("Successfully processed raw data and saved partitioned Parquet files to "
+          f"{STAGING_DIR}")
 
-except Exception as e:
-    print(f"An error occurred during DuckDB processing: {e}")
+except duckdb.Error as e: # Catch specific DuckDB errors
+    print(f"A DuckDB error occurred during processing: {e}")
+except Exception as e: # pylint: disable=broad-except # Catch any other unexpected errors during processing
+    print(f"An unexpected error occurred during processing: {e}")
 
 finally:
-    # Close the database connection
-    con.close()
-    print("Database connection closed.")
+    # Close the database connection if it was opened
+    if db_connection:
+        db_connection.close()
+        print("Database connection closed.")
