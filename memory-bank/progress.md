@@ -8,20 +8,15 @@
 -   **Supporting Files:** Files for generating the cover, acknowledgements, abstract, lists of figures/tables, and table of contents exist.
 -   **Initial Memory Bank:** Core files created and populated with baseline info.
 -   **Compilation Setup (LaTeX):** Evidence of `latexmk` usage suggests an automated compilation process is likely functional.
--   **Data Pipeline (Raw to Staging):**
-    -   Dependencies (`duckdb`, `pandas`) added to `app/requirements.txt`.
-    -   `app/data_ingestion/tuya_log_ingestion.py` updated to add `device_id` field to raw JSON records.
-    -   `app/data/staging/` directory created.
-    -   `app/data_processing/process_raw_to_staging.py` script updated to:
-        - Read raw JSON (including `device_id`).
-        - Add `filename` column.
-        - Replace `event_time` (ms) with a readable timestamp format (aliased as `event_time`).
-        - Look up `device_name` from `device_mapping.json`.
-        - Derive `event_date` (from original ms timestamp).
-        - Write daily partitioned Parquet files using `PARTITION_BY(event_date)`.
-    -   Old single `staging_logs.parquet` file removed.
-    -   Dependencies installed and processing script successfully executed, generating partitioned Parquet files in `app/data/staging/` with final schema (including replaced `event_time`, `device_id`, `filename`, `device_name`).
--   **Memory Bank Update:** `activeContext.md`, `systemPatterns.md`, `techContext.md`, and `progress.md` updated to reflect the final enhanced and partitioned data pipeline implementation.
+-   **Data Pipeline Orchestration (Dagster):**
+    -   Added Dagster dependencies (`dagster`, `dagster-duckdb`, `dagster-webserver`) to `app/requirements.txt`.
+    -   Refactored ingestion and processing logic into Dagster assets (`raw_tuya_logs`, `staging_tuya_logs`) in `app/assets.py`.
+    -   Created helper functions module `app/data_ingestion/ingestion_utils.py`.
+    -   Defined a Dagster job (`tuya_processing_job`) targeting both assets.
+    -   Defined an hourly schedule (`hourly_schedule`) for the job.
+    -   Configured `DuckDBResource` (in-memory) and `TuyaCredentials` Config (using EnvVar) in `app/assets.py`.
+    -   Created Dagster instance configuration (`dagster.yaml`) and workspace definition (`workspace.yaml`).
+-   **Memory Bank Update:** `activeContext.md`, `systemPatterns.md`, `techContext.md`, and `progress.md` updated to reflect the Dagster implementation.
 
 ## 2. What's Left to Build / In Progress
 
@@ -30,23 +25,24 @@
 -   **Bibliography Entries:** Populating `ListadeReferencias.bib` with all required references and ensuring they are cited correctly in the text.
 -   **Formatting Refinement:** Ensuring strict adherence to UFMG formatting guidelines.
 -   **Review and Revision:** Thorough proofreading, technical review, and revisions based on feedback.
--   **`.clinerules`:** Creation and population of the `.clinerules` file.
--   **Memory Bank Refinement:** Updating Memory Bank files (including this one) with specific project details as work progresses.
+-   **`.clinerules`:** Creation and population of the `.clinerules` file (ongoing).
+-   **Memory Bank Refinement:** Updating Memory Bank files with specific project details as work progresses (ongoing).
+-   **Dagster Verification:** Starting `dagster dev` and verifying the pipeline runs correctly via UI and schedule.
 -   **Data Pipeline Utilization:** Defining and implementing downstream uses for the partitioned Parquet dataset in `app/data/staging/`.
 
-## 3. Current Status Snapshot (as of 2025-04-25)
+## 3. Current Status Snapshot (as of 2025-04-26)
 
 -   The foundational LaTeX structure and Memory Bank framework are established.
--   A data pipeline (raw JSON -> daily partitioned staging Parquet) using DuckDB is implemented and functional, including replacement of `event_time` with a readable timestamp and device name enrichment.
--   The core task is now focused on writing/completing the monograph's content and refining the existing structure and documentation.
--   The exact completeness of each section (`.tex` file) is unknown without reviewing their content.
+-   The data pipeline (raw JSON -> staging Parquet) is now implemented and orchestrated using Dagster assets, jobs, resources, and schedules.
+-   The pipeline is scheduled to run hourly.
+-   Memory Bank documentation has been updated to reflect the Dagster implementation.
+-   The next immediate step for the data pipeline is to start the Dagster UI/daemon and verify its operation.
+-   The core task for the monograph itself remains writing/completing content.
 
 ## 4. Known Issues / Blockers
 
--   None explicitly identified yet. Potential issues could arise from:
-    -   LaTeX compilation errors.
-    -   Formatting inconsistencies.
-    -   Incomplete sections or references.
-    -   Missing figures or data for the monograph.
--   Potential schema changes in raw JSON data (including `device_id`, `event_time`) or `device_mapping.json` affecting the processing script.
--   Scalability of the in-memory DuckDB process if raw data volume grows significantly.
+-   **Dagster Runtime:** Potential issues related to environment variables not being accessible to the Dagster process, Python environment inconsistencies, or Dagster daemon/UI startup problems.
+-   **API/Network:** Potential failures in the `raw_tuya_logs` asset due to Tuya API rate limits, credential errors, or network connectivity issues.
+-   **Data Schema/Mapping:** Potential failures in `staging_tuya_logs` if the raw JSON schema changes unexpectedly or if `device_mapping.json` is missing/corrupt.
+-   **Resource Configuration:** The in-memory DuckDB resource will lose state between runs; may need reconfiguration to a file DB if persistence is needed. Dagster instance storage defaults might need adjustment for long-term use.
+-   **LaTeX:** Potential issues remain as listed previously (compilation errors, formatting, content completion).

@@ -17,42 +17,50 @@ The "system" is the TCC monograph document and its generation process. The archi
 -   **Bibliography:** `ListadeReferencias.bib` stores bibliographic entries, managed by BibTeX.
 -   **Figures:** Figures seem to be organized within subdirectories of the relevant content modules (e.g., `DescricaoProcesso/Figuras/`, `Metodologia/Figuras/`).
 
-### Data Pipeline Architecture (`app/` directory)
+### Data Pipeline Architecture (`app/` directory with Dagster)
 
-Alongside the LaTeX monograph structure, a data processing pipeline exists within the `app/` directory:
+Alongside the LaTeX monograph structure, a data processing pipeline exists within the `app/` directory, orchestrated by Dagster:
 
--   **Raw Data Storage:** JSON log files are stored in `app/data/raw/`, organized by device ID and date (e.g., `app/data/raw/<device_id>/<date>/<log_file>.json`). Each JSON record *also* contains a `device_id` field added during ingestion.
--   **Processing Script:** A Python script `app/data_processing/process_raw_to_staging.py` uses DuckDB to read all JSON files (including `device_id`), replaces `event_time` (ms) with a readable timestamp format (aliased as `event_time`), looks up `device_name` from `device_mapping.json`, adds the source `filename`, and derives `event_date` (from original ms timestamp).
--   **Staging Data Storage:** The processed data is saved as partitioned Parquet files in `app/data/staging/`, partitioned by `event_date`. Key columns include original fields (except ms `event_time`), `device_id`, `filename`, the readable `event_time`, and `device_name`.
+-   **Orchestration:** Dagster (`dagster`, `dagster-webserver`) manages the pipeline execution, scheduling, and monitoring. Configuration is handled via `dagster.yaml` and `workspace.yaml` in the project root.
+-   **Code Location:** Asset, job, schedule, and resource definitions reside in `app/assets.py`. Helper functions for ingestion are in `app/data_ingestion/ingestion_utils.py`.
+-   **Ingestion Asset (`raw_tuya_logs`):**
+    -   Fetches logs from the Tuya API using `tuya-connector-python`.
+    -   Uses helper functions from `ingestion_utils.py`.
+    -   Adds `device_id` and ingestion metadata.
+    -   Saves raw logs as JSON files in `app/data/raw/`, organized by device ID and date (`app/data/raw/<device_id>/<YYYY-MM-DD>/<log_file>.json`).
+    -   Returns the absolute path to the `app/data/raw/` directory.
+-   **Processing Asset (`staging_tuya_logs`):**
+    -   Depends on `raw_tuya_logs` (receives the raw data path as input).
+    -   Uses the `dagster-duckdb` integration with a `DuckDBResource` (currently in-memory).
+    -   Reads all JSON files from the input path.
+    -   Loads device mapping (`app/data_ingestion/device_mapping.json`) using Pandas and registers it as a DuckDB view.
+    -   Transforms data: replaces `event_time` (ms) with a readable timestamp, adds `filename`, joins `device_name`.
+    -   Derives `event_date` for partitioning.
+    -   Saves processed data as partitioned Parquet files in `app/data/staging/`, partitioned by `event_date`.
+    -   Returns the absolute path to the `app/data/staging/` directory.
+-   **Job (`tuya_processing_job`):** Defines the execution graph containing both assets.
+-   **Schedule (`hourly_schedule`):** Triggers the `tuya_processing_job` to run every hour (`0 * * * *`).
 
 ```mermaid
-flowchart LR
-    subgraph Raw Data
-        direction TB
-        JSON1[raw/.../*.json]
-        JSON2[...]
-        JSON3[...]
+graph TD
+    subgraph Dagster Orchestration
+        direction LR
+        Schedule[Hourly Schedule (0 * * * *)] --> Job(tuya_processing_job)
     end
 
-    subgraph Processing
+    subgraph Job Execution
         direction TB
-        Script[process_raw_to_staging.py]
-        DuckDB[(DuckDB)]
-        Script -- Reads --> JSON1
-        Script -- Reads --> JSON2
-        Script -- Reads --> JSON3
-        Script -- Uses --> DuckDB
+        Asset1[raw_tuya_logs Asset] --> Asset2[staging_tuya_logs Asset]
+        Asset1 -- Reads --> TuyaAPI[(Tuya Cloud API)]
+        Asset1 -- Writes --> RawData[app/data/raw/.../*.json]
+        Asset2 -- Reads --> RawData
+        Asset2 -- Uses --> DuckDB[(DuckDBResource)]
+        Asset2 -- Reads --> Mapping[app/data_ingestion/device_mapping.json]
+        Asset2 -- Writes --> StagingData[app/data/staging/event_date=YYYY-MM-DD/data.parquet]
     end
 
-    subgraph Staging Data
-        direction TB
-        PartitionDir[staging/event_date=YYYY-MM-DD/]
-        ParquetFile[data.parquet]
-        PartitionDir --> ParquetFile
-    end
+    Job --> Asset1
 
-    Raw --> Processing
-    Processing -- Writes --> Staging Data
 ```
 
 ## 2. Key Technical Decisions
@@ -60,9 +68,13 @@ flowchart LR
 -   **LaTeX:** Chosen for the monograph typesetting.
 -   **BibTeX:** Used for monograph bibliography management.
 -   **Modular LaTeX Structure:** Breaking the monograph into smaller `.tex` files.
--   **Python:** Used for data ingestion (`app/data_ingestion/`) and processing (`app/data_processing/`).
--   **DuckDB:** Chosen for efficient in-process querying and transformation of raw JSON data into Parquet.
--   **Parquet:** Selected as the format for the staging data layer due to its efficiency for analytical workloads.
+-   **Python:** Used for data pipeline logic within Dagster assets.
+-   **Dagster:** Chosen for pipeline orchestration, scheduling, and monitoring.
+    -   `dagster-duckdb`: Integration for using DuckDB within assets.
+    -   `dagster-webserver`: Provides the Dagit UI.
+-   **DuckDB:** Used via `DuckDBResource` for efficient in-process querying and transformation of raw JSON data into Parquet within the `staging_tuya_logs` asset.
+-   **Parquet:** Selected as the format for the staging data layer (`app/data/staging/`), partitioned by `event_date`.
+-   **Pandas:** Used to load the device mapping JSON for registration as a DuckDB view.
 
 ## 3. Workflow Patterns
 
@@ -79,12 +91,27 @@ flowchart LR
     *Note: Tools like `latexmk` (indicated by `.fdb_latexmk`, `.fls` files) automate this multi-pass compilation.*
 5.  **Review:** Check the output `Monografia.pdf` for correctness and formatting.
 
-### Data Pipeline Workflow
+### Data Pipeline Workflow (Dagster)
 
-1.  **Data Ingestion:** The `app/data_ingestion/tuya_log_ingestion.py` script fetches logs and saves them as JSON files in `app/data/raw/`, adding a `device_id` field to each log record within the JSON.
-2.  **Run Processing Script:** Execute `python app/data_processing/process_raw_to_staging.py`.
-3.  **Output:** The script reads raw JSONs, replaces `event_time` with a readable timestamp, adds `filename`, looks up `device_name`, derives `event_date`, and writes/overwrites partitioned Parquet files into `app/data/staging/`, organized by `event_date`.
-4.  **Consume Staged Data:** Use the partitioned Parquet dataset in `app/data/staging/` (containing original fields (except ms `event_time`), `device_id`, `filename`, readable `event_time`, `device_name`) for downstream tasks.
+1.  **Start Dagster:**
+    -   Ensure the Python environment with dependencies (`app/requirements.txt`) is active.
+    -   Ensure necessary environment variables (`ACCESS_ID`, `ACCESS_SECRET`, `API_ENDPOINT`) are set (e.g., in `app/.env`).
+    -   Run `dagster dev` from the project root (`/Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto`). This starts the Dagit UI and the Dagster daemon (which manages schedules).
+2.  **Monitor & Trigger:**
+    -   Access the Dagit UI (usually `http://localhost:3000`).
+    -   Observe the `tuya_data` asset group and the `hourly_schedule`.
+    -   The schedule will automatically trigger the `tuya_processing_job` every hour.
+    -   Alternatively, manually trigger a run of the `tuya_processing_job` from the UI.
+3.  **Execution:**
+    -   Dagster executes the `raw_tuya_logs` asset.
+        - Fetches data from Tuya API.
+        - Saves raw JSON files to `app/data/raw/`.
+        - Passes the raw data path to the downstream asset.
+    -   Dagster executes the `staging_tuya_logs` asset.
+        - Reads raw JSONs from the path provided by the upstream asset.
+        - Uses the DuckDB resource to process data.
+        - Writes partitioned Parquet files to `app/data/staging/`.
+4.  **Consume Staged Data:** Use the partitioned Parquet dataset in `app/data/staging/` for downstream tasks (analysis, visualization, potentially feeding into the monograph).
 
 ## 4. Potential Areas for Rules (.clinerules)
 

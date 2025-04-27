@@ -1,41 +1,44 @@
-# Active Context: Data Pipeline Setup & TCC Monografia
+# Active Context: Dagster Orchestration Setup & TCC Monografia
 
 ## 1. Current Focus
 
--   Setting up a data pipeline to process raw JSON logs into a staging Parquet file using DuckDB.
--   Updating project documentation (Memory Bank) to reflect the new data processing components.
+-   Implementing Dagster to orchestrate the existing Tuya data ingestion and processing pipeline.
+-   Refactoring Python scripts into Dagster assets.
+-   Setting up an hourly schedule for the pipeline.
+-   Updating project documentation (Memory Bank) to reflect the Dagster implementation.
 
 ## 2. Recent Changes
 
--   Updated `.clineignore` to allow access to `memory-bank/`.
--   Read all core Memory Bank files.
--   Added `duckdb` dependency to `app/requirements.txt`.
--   Created `app/data_processing/` directory.
--   Updated `app/data_ingestion/tuya_log_ingestion.py` to add `device_id` field to each raw log record.
--   Created `app/data_processing/` directory.
--   Added `pandas` dependency to `app/requirements.txt`.
--   Updated `app/data_processing/process_raw_to_staging.py` script to:
-    -   Read raw JSON logs (including `device_id`).
-    -   Add a `filename` column.
-    -   Replace `event_time` (ms) with a readable timestamp format (aliased as `event_time`).
-    -   Load `device_mapping.json` and join to add a `device_name` column.
-    -   Derive an `event_date` (from original ms timestamp) for partitioning.
-    -   Output daily partitioned Parquet files.
--   Created `app/data/staging/` directory.
--   Removed the old single `staging_logs.parquet` file.
--   Successfully installed dependencies and re-ran the processing script, generating partitioned Parquet files in `app/data/staging/` with the final schema (including replaced `event_time`, `device_id`, `filename`, `device_name`).
+-   Added Dagster dependencies (`dagster`, `dagster-duckdb`, `dagster-webserver`) to `app/requirements.txt`.
+-   Created `app/data_ingestion/ingestion_utils.py` and moved helper functions from the original ingestion script into it.
+-   Created `app/assets.py` containing:
+    -   `raw_tuya_logs` asset: Refactored from `app/data_ingestion/tuya_log_ingestion.py`, uses helpers from `ingestion_utils.py`, configured via `TuyaCredentials` Config class (using EnvVar). Returns the absolute path to the raw data output directory (`data/raw/`).
+    -   `staging_tuya_logs` asset: Refactored from `app/data_processing/process_raw_to_staging.py`, depends on `raw_tuya_logs`, uses `DuckDBResource` (configured for in-memory DB), loads device mapping, processes raw JSONs, and writes partitioned Parquet to `data/staging/`. Returns the absolute path to the staging directory.
+    -   `tuya_processing_job`: A job definition targeting both assets.
+    -   `hourly_schedule`: A `ScheduleDefinition` targeting `tuya_processing_job` with a cron schedule of `0 * * * *`.
+    -   `defs`: A `Definitions` object containing assets, resources (DuckDB), job, and schedule.
+-   Created `dagster.yaml` (using default instance storage settings).
+-   Created `workspace.yaml` pointing to `app/assets.py`.
+-   *Previous changes related to the standalone scripts (adding device_id, partitioning, etc.) are now part of the asset logic.*
 
 ## 3. Next Steps
 
--   Update `memory-bank/systemPatterns.md` to reflect the final staging schema (replaced `event_time`) and partitioning.
--   Update `memory-bank/techContext.md` to reflect the final transformations.
--   Update `memory-bank/progress.md` to reflect the completed pipeline enhancements.
+-   Update `memory-bank/systemPatterns.md` to reflect the Dagster orchestration pattern.
+-   Update `memory-bank/techContext.md` to include Dagster and related packages.
+-   Update `memory-bank/progress.md` to reflect the completed Dagster setup.
+-   Start the Dagster UI (`dagster dev`) to visualize assets and schedules.
+-   Verify the hourly schedule is active and runs successfully.
+-   Consider configuring persistent storage for Dagster instance in `dagster.yaml` if needed beyond local testing.
+-   Consider configuring the DuckDB resource to use a file-based database instead of in-memory if persistence is required between runs or for external querying.
 -   Continue work on the TCC Monografia LaTeX content as needed.
--   Define further steps for utilizing the staged data (e.g., analysis, visualization).
 
 ## 4. Active Decisions & Considerations
 
--   The `device_id` is now included directly within the raw JSON data during ingestion.
--   The data pipeline processing script (`process_raw_to_staging.py`) reads raw JSON, adds `filename`, replaces `event_time` with a readable timestamp, looks up `device_name` from `device_mapping.json` (loaded via pandas into DuckDB), derives `event_date`, and uses `PARTITION_BY(event_date)`.
--   The staging layer in `app/data/staging/` consists of partitioned Parquet files. Each file contains original fields (except ms `event_time`) plus `device_id`, `filename`, the readable `event_time`, and `device_name`.
--   Memory Bank files are being updated to reflect the final implementation.
+-   The data pipeline is now orchestrated by Dagster.
+-   The ingestion and processing steps are defined as separate assets (`raw_tuya_logs`, `staging_tuya_logs`) with an explicit dependency.
+-   Helper functions for ingestion are kept separate in `app/data_ingestion/ingestion_utils.py`.
+-   The pipeline is scheduled to run hourly via `ScheduleDefinition`.
+-   Tuya API credentials and mapping file path for ingestion are configured via a Dagster `Config` object using `EnvVar`.
+-   The processing asset uses the `dagster-duckdb` integration and `DuckDBResource` (currently configured for in-memory).
+-   Dagster instance configuration (`dagster.yaml`) uses defaults (likely `~/.dagster`).
+-   `workspace.yaml` points Dagster to the code location in `app/assets.py`.

@@ -1,0 +1,25 @@
+{
+    "python.testing.pytestArgs": [
+        "tests_morpheus",
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "pylint.args": [
+        "--rcfile=.pylintrc"
+    ],
+    "pylint.importStrategy": "fromEnvironment",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/__pycache__": true,
+        "tmp*/": true,
+        "*.egg-info/": true,
+        ".venv/": true,
+        ".pytest_cache/": true,
+        "**/.gitkeep": false,
+        "build/": true,
+        "htmlcov/": true,
+        ".coverage*": true,
+        ".vscode/": false,
+    },
+}

@@ -5,10 +5,15 @@
 -   **LaTeX:** Primary typesetting system for the monograph (`latex/` directory).
 -   **BibTeX:** Manages bibliographic references (`ListadeReferencias.bib`).
 -   **PDF:** Target output format for the monograph (`Monografia.pdf`).
--   **Python:** Used for data ingestion and processing scripts (`app/` directory).
--   **DuckDB:** In-process analytical data management system used for transforming raw JSON to partitioned Parquet (`app/data_processing/`). Replaces `event_time` (ms) with a readable timestamp, performs device name lookup (joining with `device_mapping.json`), adds filename, and partitions output (`PARTITION_BY event_date`).
--   **Parquet:** Columnar storage format for the staging data layer, stored as a partitioned dataset in `app/data/staging/` based on `event_date`. Includes original fields (except ms `event_time`) and enriched columns (readable `event_time`, `device_name`, `filename`).
--   **Pandas:** Used within the processing script to load the `device_mapping.json` into a DataFrame for easy registration as a DuckDB view.
+-   **Python:** Used for data pipeline logic within Dagster assets (`app/assets.py`, `app/data_ingestion/ingestion_utils.py`).
+-   **Dagster:** Orchestration framework (`dagster` package).
+    -   **`dagster-webserver`:** Provides the Dagit UI for monitoring and interaction.
+    -   **`dagster-duckdb`:** Integration for using DuckDB as a resource.
+-   **DuckDB:** In-process analytical data management system used via `DuckDBResource` within the `staging_tuya_logs` asset for transforming raw JSON to partitioned Parquet. Logic includes replacing `event_time`, joining `device_name`, adding `filename`, and partitioning.
+-   **Parquet:** Columnar storage format for the staging data layer (`app/data/staging/`), partitioned by `event_date`.
+-   **Pandas:** Used within the `staging_tuya_logs` asset to load `device_mapping.json` into a DataFrame for registration as a DuckDB view.
+-   **Tuya Connector (`tuya-connector-python`):** Used by the `raw_tuya_logs` asset to interact with the Tuya Cloud API.
+-   **Dotenv (`python-dotenv`):** Used to load environment variables (e.g., API keys) for Dagster configuration.
 
 ## 2. Development Environment & Tools
 
@@ -16,8 +21,10 @@
 -   **LaTeX Compiler:** A command-line tool like `pdflatex` is used to compile the `.tex` source into a PDF.
 -   **BibTeX Compiler:** The `bibtex` command-line tool.
 -   **LaTeX Automation:** `latexmk` likely used for automating LaTeX compilation.
--   **Python Interpreter:** Required to run `.py` scripts (e.g., Python 3.x).
--   **Package Manager:** `pip` used for managing Python dependencies (`app/requirements.txt`, includes `duckdb`, `pandas`).
+-   **Python Interpreter:** Required to run Dagster assets and UI (e.g., Python 3.x).
+-   **Package Manager:** `pip` used for managing Python dependencies (`app/requirements.txt`, includes `dagster`, `dagster-duckdb`, `dagster-webserver`, `duckdb`, `pandas`, `tuya-connector-python`, `python-dotenv`). Managed within a virtual environment (`app/.venv/`).
+-   **Dagster CLI:** Command-line interface for interacting with Dagster (e.g., `dagster dev`).
+-   **Dagit:** Web-based UI for Dagster (started via `dagster dev`).
 -   **Version Control:** Git (`.gitignore` exists).
 -   **Operating System:** macOS.
 
@@ -43,7 +50,10 @@ Common packages for academic writing often include:
 -   Maintaining consistency in formatting and style across different `.tex` files.
 -   Ensuring all necessary fonts are available for LaTeX.
 -   Managing figure file paths correctly for LaTeX.
--   Managing Python dependencies using `app/requirements.txt` (preferably within a virtual environment).
--   DuckDB performance might depend on available memory, especially when processing large volumes of JSON data in memory.
--   The processing script relies on the structure of the raw JSON files (including `device_id` and `event_time`) and the `device_mapping.json` file. Changes to these could break the processing step.
--   Querying the partitioned Parquet dataset in `app/data/staging/` requires tools/libraries that support Hive-style partitioning (e.g., DuckDB, Spark, Pandas with appropriate arguments).
+-   Managing Python dependencies using `app/requirements.txt` within a virtual environment (`app/.venv/`).
+-   Requires environment variables (`ACCESS_ID`, `ACCESS_SECRET`, `API_ENDPOINT`) to be set for the `raw_tuya_logs` asset to connect to the Tuya API. These are loaded via `.env` and configured in `app/assets.py`.
+-   The `staging_tuya_logs` asset relies on the structure of the raw JSON files produced by `raw_tuya_logs` and the `device_mapping.json` file. Changes to these could break the asset.
+-   The `DuckDBResource` is currently configured for an in-memory database. For persistence across runs or external querying, it might need reconfiguration to use a file-based database.
+-   Dagster instance data (runs, schedules) defaults to storage in `~/.dagster` unless `DAGSTER_HOME` is set or `dagster.yaml` is configured for specific storage locations.
+-   The Dagster daemon process needs to be running (usually started by `dagster dev`) for schedules to be active.
+-   Querying the output partitioned Parquet dataset in `app/data/staging/` requires tools/libraries that support Hive-style partitioning.
