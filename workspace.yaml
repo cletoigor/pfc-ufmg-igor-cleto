@@ -1,0 +1,9 @@
+# workspace.yaml - Defines the code locations Dagster should load
+
+load_from:
+  - python_module:
+      module_name: app.assets
+      # Optional: Specify the attribute name if it's not 'defs'
+      # attribute: defs
+      # Optional: Give the code location a specific name
+      # location_name: tuya_pipeline_location

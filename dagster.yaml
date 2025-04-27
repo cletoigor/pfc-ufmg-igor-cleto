@@ -1,0 +1,27 @@
+# dagster.yaml - Instance configuration for local development
+
+# Optional: Define where Dagster stores run data, schedules, etc.
+# If not specified, Dagster uses DAGSTER_HOME environment variable,
+# defaulting to ~/.dagster on Linux/macOS or %USERPROFILE%/.dagster on Windows.
+
+# Example using local file storage (adjust paths as needed):
+# run_storage:
+#   module: dagster.core.storage.runs
+#   class: SqliteRunStorage
+#   config:
+#     base_dir: "dagster_storage/runs" # Relative to DAGSTER_HOME or project root if DAGSTER_HOME not set
+
+# event_log_storage:
+#   module: dagster.core.storage.event_log
+#   class: SqliteEventLogStorage
+#   config:
+#     base_dir: "dagster_storage/event_logs" # Relative to DAGSTER_HOME or project root
+
+# schedule_storage:
+#   module: dagster.core.storage.schedules
+#   class: SqliteScheduleStorage
+#   config:
+#     base_dir: "dagster_storage/schedules" # Relative to DAGSTER_HOME or project root
+
+# For simplicity, we can omit these and use Dagster's defaults based on DAGSTER_HOME.
+# If DAGSTER_HOME is not set, it defaults to ~/.dagster

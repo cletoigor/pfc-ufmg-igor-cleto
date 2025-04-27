@@ -1,9 +1,5 @@
 # Cline Ignore file for LaTeX TCC Monografia project
 
-# Ignore Memory Bank and Rules - Cline manages these separately
-memory-bank/
-.clinerules
-
 # Ignore LaTeX auxiliary and generated files within the latex/ directory
 latex/*.aux
 latex/*.bbl
