@@ -41,6 +41,12 @@
     -   Enhanced visual separation in "Resumo da Casa" using additional dividers.
     -   Added emojis to sidebar navigation options for a more engaging look.
     -   Created and loaded a custom CSS file (`app/streamlit/style.css`) to apply styles for metrics, headers, and layout padding, improving overall visual appeal.
+    -   **Code Refactoring:**
+        -   Created `app/streamlit/utils/` directory.
+        -   Moved data loading functions (`load_data`, `get_available_devices`) to `app/streamlit/utils/data_helpers.py`.
+        -   Moved CSS loading function (`local_css`) to `app/streamlit/utils/ui_helpers.py`.
+        -   Moved page rendering functions (`show_resumo_casa`, `show_detalhes_dispositivo`, `show_analise_avancada`) to `app/streamlit/utils/page_functions.py`.
+        -   Updated `app/streamlit/streamlit_app.py` to import and use these refactored functions, making the main script cleaner and focused on UI flow.
 
 ## 3. Next Steps
 
