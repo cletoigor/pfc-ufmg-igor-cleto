@@ -17,6 +17,20 @@
     -   Configured `DuckDBResource` (in-memory) and `TuyaCredentials` Config (using EnvVar) in `app/assets.py`.
     -   Created Dagster instance configuration (`dagster.yaml`) and workspace definition (`workspace.yaml`).
 -   **Memory Bank Update:** `activeContext.md`, `systemPatterns.md`, `techContext.md`, and `progress.md` updated to reflect the Dagster implementation.
+-   **Streamlit App Enhancement:**
+    -   Further simplified the "Perfil de Potência (Análise Multicanal)" tab in `app/streamlit/streamlit_app.py` by removing the "Estatísticas Descritivas do Perfil de Potência", "Perfil de Energia Estimada por Hora do Dia e Dia da Semana", and "Análise de Correlação Multicanal" sections. The Peak Power Analysis section was retained.
+    -   Corrected a bug in `app/streamlit/streamlit_app.py` related to `day_of_week` generation to ensure all days are correctly displayed in relevant plots, addressing an issue where plots might only show partial data (e.g., only Saturday/Sunday).
+    -   Enriched `tab1` ("Visão Geral") of `app/streamlit/streamlit_app.py` with detailed analyses for Voltage (V) and Current (mA), including key indicators, time series plots, and distribution plots. Tab names were also updated for brevity.
+    -   Adjusted the UI in `app/streamlit/streamlit_app.py` to move the "Desenvolvido por Igor Cleto." credit from the sidebar to the bottom of the main page.
+    -   **Redesigned Streamlit App for Homeowner Focus:**
+        -   Changed app structure from tabs to a multi-page layout ("Resumo da Casa", "Detalhes por Dispositivo", "Análise Avançada") navigated via sidebar.
+        -   "Resumo da Casa" page now shows total energy (kWh) for Today, Last 7 Days, and This Month; lists Top 5 energy consuming devices with a bar chart; and includes consolidated power metrics.
+        -   "Detalhes por Dispositivo" page displays device-specific energy (kWh) for Today, Last 7 Days, This Month; power metrics (Avg, Max, Min, Estimated Energy); a power time series chart; a daily energy (kWh) chart; and an average hourly power profile chart. It now also includes detailed Voltage and Current analysis (metrics, time series, distribution plots) within collapsible sections for better organization.
+        -   Sidebar filters enhanced with predefined period selections (e.g., "Hoje", "Últimos 7 Dias") for easier date range selection, and navigation options now include emojis.
+        -   Moved "Desenvolvido por Igor Cleto." attribution to the bottom of the navigation sidebar.
+        -   Integrated CEP/SPC analysis (CUSUM chart, fault logs) into the "Análise Avançada" page.
+        -   Improved visual separation in "Resumo da Casa" with additional dividers.
+        -   Created and loaded `app/streamlit/style.css` to apply custom styles for metrics, headers, and layout, enhancing the visual appeal.
 
 ## 2. What's Left to Build / In Progress
 

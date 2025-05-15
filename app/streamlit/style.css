@@ -1,0 +1,46 @@
+/* style.css */
+
+/* Style metric containers for a "boxed" look */
+div[data-testid="stMetric"] {
+    background-color: #f8f9fa; /* A light grey background */
+    border: 1px solid #dee2e6; /* A light border */
+    padding: 1em; /* Add some padding inside the box */
+    border-radius: 0.25rem; /* Slightly rounded corners */
+    margin-bottom: 1em; /* Space below each metric box */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Subtle shadow for depth */
+}
+
+/* Style for subheaders to make them stand out a bit more */
+h2 { /* Streamlit's st.subheader renders as h2 */
+    border-bottom: 2px solid #ff4800; /* A blue bottom border, example color */
+    padding-bottom: 0.3em;
+    margin-top: 1.5em; /* Add some space above subheaders */
+    margin-bottom: 0.8em; /* Space below subheader before content */
+    color: #0056b3; /* Darker blue for text */
+}
+
+/* Style for main headers */
+h1 { /* Streamlit's st.header renders as h1 */
+    color: #004085; /* A deep blue for main section headers */
+    margin-bottom: 0.5em;
+}
+
+/* Sidebar styling */
+div[data-testid="stSidebarNavItems"] { /* Targets the radio button navigation */
+    padding-bottom: 1rem;
+}
+
+div[data-testid="stSidebarUserContent"] > div > h2 { /* Targets st.sidebar.header */
+    font-size: 1.3em;
+    color: #495057;
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+}
+
+/* Add some padding to the main content area to prevent sticking to edges */
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
