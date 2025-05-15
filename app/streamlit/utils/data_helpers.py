@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import duckdb
 import os
+from PyPDF2 import PdfReader
+import re
 
 # Relative to this file (app/streamlit/utils/data_helpers.py)
 # to reach app/data/staging
@@ -93,3 +95,49 @@ def get_available_devices(start_date, end_date):
         # Consider logging this error or making it more visible if needed
         # st.warning(f"Could not fetch device list from data_helpers: {e}")
         return []
+
+def parse_cemig_bill(file_path, password=None):
+    """Parse CEMIG PDF bill using PyPDF2 instead of docling"""
+    reader = PdfReader(file_path)
+    
+    if reader.is_encrypted:
+        if password:
+            reader.decrypt(password)
+        else:
+            raise ValueError("PDF is encrypted but no password provided")
+
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text() + "\n"
+
+    # Custom parsing logic for CEMIG bills
+    bill_data = {
+        "invoice_number": extract_field(r'Número da Fatura\s+(\d+)', text),
+        "due_date": extract_field(r'Vencimento\s+(\d{2}/\d{2}/\d{4})', text),
+        "total_amount": extract_field(r'Valor a pagar \(R\$\)\s+([\d,.]+)', text),
+        "consumption_kwh": extract_field(r'Energia Elétrica\s+\d+\s+([\d,.]+)', text),
+        "consumption_days": extract_field(r'Energia Elétrica\s+(\d+)\s+[\d,.]+', text),
+        "billing_period": extract_field(r'Vencimento\s+\d{2}/\d{2}/\d{4}\s+(\d{2}/\d{2}/\d{4} a \d{2}/\d{2}/\d{4})', text)
+    }
+    
+    return bill_data
+
+def extract_field(pattern, text):
+    match = re.search(pattern, text)
+    return match.group(1) if match else None
+
+def generate_report(bill_data):
+    """
+    Generates a Streamlit report from the parsed bill data.
+    """
+    if bill_data is None:
+        st.warning("Could not parse the bill.")
+        return
+
+    st.subheader("CEMIG Bill Report")
+    st.write(f"Invoice Number: {bill_data.get('invoice_number', 'N/A')}")
+    st.write(f"Due Date: {bill_data.get('due_date', 'N/A')}")
+    st.write(f"Total Amount: {bill_data.get('total_amount', 'N/A')}")
+    st.write(f"Consumption (kWh): {bill_data.get('consumption_kwh', 'N/A')}")
+    st.write(f"Consumption Days: {bill_data.get('consumption_days', 'N/A')}")
+    st.write(f"Billing Period: {bill_data.get('billing_period', 'N/A')}")

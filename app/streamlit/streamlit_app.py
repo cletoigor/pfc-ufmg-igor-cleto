@@ -5,15 +5,17 @@ from datetime import datetime, timedelta
 import numpy as np # Keep for any direct numpy use, or if page functions need it passed explicitly
 
 # Import refactored functions
-from utils.data_helpers import load_data, get_available_devices
+from utils.data_helpers import load_data, get_available_devices, parse_cemig_bill, generate_report
 from utils.ui_helpers import local_css
 from utils.page_functions import show_resumo_casa, show_detalhes_dispositivo, show_analise_avancada
 
 # --- Streamlit App UI ---
 st.set_page_config(layout="wide", page_title="Análise de Energia Residencial")
 
-STYLE_CSS_PATH = "app/streamlit/style.css" 
-local_css(STYLE_CSS_PATH) 
+STYLE_CSS_PATH = "style.css"
+with open("style.css") as f:
+    css = f.read()
+st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 st.title("Análise de Consumo de Energia Residencial")
 
@@ -21,7 +23,7 @@ st.title("Análise de Consumo de Energia Residencial")
 st.sidebar.header("Navegação")
 app_page = st.sidebar.radio(
     "Selecione uma Página",
-    ["🏠 Resumo da Casa", "🔌 Detalhes por Dispositivo", "📊 Análise Avançada"]
+    ["🏠 Resumo da Casa", "🔌 Detalhes por Dispositivo", "📊 Análise Avançada", "🧾 Analisar Conta CEMIG"] # Add "Analisar Conta CEMIG"
 )
 
 st.sidebar.header("Filtros Gerais")
@@ -86,11 +88,6 @@ elif app_page == "🔌 Detalhes por Dispositivo":
         default_device_for_detail = selected_devices_list[0] if len(selected_devices_list) == 1 else None
         if not available_devices_list and default_device_for_detail: 
              default_device_for_detail = None
-
-        # Ensure default_device_for_detail is valid if selected_devices_list is not empty
-        # and default_device_for_detail might not be in available_devices_list if filters changed
-        # However, selectbox options are from available_devices_list, so it should be fine.
-        # The index calculation needs default_device_for_detail to be in available_devices_list.
         
         current_index = 0 # Default to first item
         if default_device_for_detail and default_device_for_detail in available_devices_list:
@@ -107,6 +104,30 @@ elif app_page == "🔌 Detalhes por Dispositivo":
     show_detalhes_dispositivo(data_df, selected_device_for_detail, start_date_filter, end_date_filter)
 elif app_page == "📊 Análise Avançada": 
     show_analise_avancada(data_df, selected_devices_list, start_date_filter, end_date_filter)
+elif app_page == "🧾 Analisar Conta CEMIG":
+    st.sidebar.header("Analisar Conta CEMIG")
+    uploaded_file = st.sidebar.file_uploader("Upload da Conta CEMIG (PDF)", type=["pdf"])
+
+    if uploaded_file is not None:
+        try:
+            # Save the uploaded file to a temporary location
+            with open("temp.pdf", "wb") as f:
+                f.write(uploaded_file.getbuffer())
+            
+            # Parse the bill with fixed password
+            file_path = "temp.pdf"
+            password = "0219"  # Senha fixa conforme especificado
+            bill_data = parse_cemig_bill(file_path, password)
+
+            # Generate and display the report
+            generate_report(bill_data)
+
+        except Exception as e:
+            st.error(f"Erro ao processar o arquivo: {str(e)}")
+        finally:
+            # Clean up the temporary file
+            if os.path.exists("temp.pdf"):
+                os.remove("temp.pdf")
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Desenvolvido por Igor Cleto.")

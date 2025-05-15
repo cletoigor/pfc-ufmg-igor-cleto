@@ -12,3 +12,6 @@ streamlit
 plotly
 scipy
 numpy
+docling
+docling-parse
+PyPDF2
