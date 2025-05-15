@@ -243,8 +243,6 @@ with tab1:
 with tab2:
     st.header("Perfil de Potência (Análise Multicanal)")
     if not data_df.empty and 'power_W' in data_df.columns:
-        st.write("Implementação do perfil de potência (Análise Multicanal) virá aqui.")
-        # Placeholder for Multichannel Analysis
         # 1. Add hour of day and day of week columns
         data_df['hour_of_day'] = data_df['event_time'].dt.hour
         data_df['day_of_week'] = data_df['event_time'].dt.day_name(locale='pt_BR.UTF-8') # For Portuguese day names
@@ -252,12 +250,14 @@ with tab2:
         days_ordered = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"]
         data_df['day_of_week'] = pd.Categorical(data_df['day_of_week'], categories=days_ordered, ordered=True)
 
-        # 2. Group by device, day_of_week, hour_of_day and calculate mean power
+        # 2. Group by device, day_of_week, hour_of_day and calculate mean and std dev power
         # Explicitly use observed=False for groupby with categorical data to avoid FutureWarnings and ensure all categories are present
-        profile_df = data_df.groupby(['device_name', 'day_of_week', 'hour_of_day'], observed=False)['power_W'].mean().reset_index()
-        profile_std_df = data_df.groupby(['device_name', 'day_of_week', 'hour_of_day'], observed=False)['power_W'].std().reset_index().rename(columns={'power_W':'power_std_W'})
-        profile_df = pd.merge(profile_df, profile_std_df, on=['device_name', 'day_of_week', 'hour_of_day'], how='left')
+        profile_df = data_df.groupby(['device_name', 'day_of_week', 'hour_of_day'], observed=False)['power_W'].agg(['mean', 'std', 'min', 'max', 'median']).reset_index()
+        profile_df.rename(columns={'mean': 'power_mean_W', 'std': 'power_std_W', 'min': 'power_min_W', 'max': 'power_max_W', 'median': 'power_median_W'}, inplace=True)
 
+        st.subheader("Estatísticas Descritivas do Perfil de Potência")
+        st.write("Estatísticas agregadas por dispositivo, dia da semana e hora do dia.")
+        st.dataframe(profile_df)
 
         st.subheader("Perfil Médio de Potência por Hora do Dia (Agregado)")
         # Aggregate across all selected days for a general hourly profile per device
@@ -269,6 +269,21 @@ with tab2:
                                  title="Perfil Médio de Potência por Hora do Dia (Todos os Dias Selecionados)")
         st.plotly_chart(fig_hourly_avg, use_container_width=True)
 
+        st.subheader("Variabilidade do Perfil de Potência por Hora do Dia")
+        st.write("Distribuição da potência para cada hora do dia, por dispositivo.")
+        fig_hourly_box = px.box(data_df, x='hour_of_day', y='power_W', color='device_name',
+                                labels={'hour_of_day': 'Hora do Dia', 'power_W': 'Potência (W)', 'device_name': 'Dispositivo'},
+                                title="Distribuição da Potência por Hora do Dia e Dispositivo")
+        st.plotly_chart(fig_hourly_box, use_container_width=True)
+
+        st.subheader("Variabilidade do Perfil de Potência por Dia da Semana")
+        st.write("Distribuição da potência para cada dia da semana, por dispositivo.")
+        fig_daily_box = px.box(data_df, x='day_of_week', y='power_W', color='device_name',
+                               labels={'day_of_week': 'Dia da Semana', 'power_W': 'Potência (W)', 'device_name': 'Dispositivo'},
+                               category_orders={"day_of_week": days_ordered}, # Ensure correct order
+                               title="Distribuição da Potência por Dia da Semana e Dispositivo")
+        st.plotly_chart(fig_daily_box, use_container_width=True)
+
 
         st.subheader("Perfil Detalhado de Potência (Heatmap)")
         for device in selected_devices:
@@ -276,7 +291,7 @@ with tab2:
             if not device_profile_data.empty:
                 st.markdown(f"**{device}**")
                 # Explicitly use observed=False for pivot_table with categorical index
-                heatmap_data_pivoted = device_profile_data.pivot_table(index='day_of_week', columns='hour_of_day', values='power_W', observed=False)
+                heatmap_data_pivoted = device_profile_data.pivot_table(index='day_of_week', columns='hour_of_day', values='power_mean_W', observed=False)
                 # Reindex to ensure all days are present in the correct order for imshow, fill missing with NaN
                 heatmap_data = heatmap_data_pivoted.reindex(index=days_ordered, columns=list(range(24)))
                 
