@@ -33,7 +33,7 @@ Alongside the LaTeX monograph structure, a data processing pipeline exists withi
     -   Depends on `raw_tuya_logs` (receives the raw data path as input).
     -   Uses the `dagster-duckdb` integration with a `DuckDBResource` (currently in-memory).
     -   Reads all JSON files from the input path.
-    -   Loads device mapping (`app/data_ingestion/device_mapping.json`) using Pandas and registers it as a DuckDB view.
+    -   Loads device mapping (`app/data/device_mapping.json`) using Pandas and registers it as a DuckDB view. The path is configured via the `DEVICE_MAPPING_PATH` environment variable using `EnvVar` in the `TuyaCredentials` Config object, defaulting to `app/data/device_mapping.json` if the environment variable is not set.
     -   Transforms data: replaces `event_time` (ms) with a readable timestamp, adds `filename`, joins `device_name`.
     -   Derives `event_date` for partitioning.
     -   Saves processed data as partitioned Parquet files in `app/data/staging/`, partitioned by `event_date`.

@@ -9,8 +9,14 @@
             "justMyCode": false,
             "args": [
                 "dev",
+                "-w",
+                "workspace.yaml"
             ],
-            "subProcess": true
+            "subProcess": true,
+            "cwd": "${workspaceFolder}/app",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
         },
         {
             "name": "Streamlit",

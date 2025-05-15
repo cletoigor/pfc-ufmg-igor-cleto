@@ -175,3 +175,8 @@ cython_debug/
 
 # Dagster temporary files
 tmp*/
+
+# Generated data directories
+app/data/raw/
+app/data/staging/
+app/dagster/data_ingestion/data/

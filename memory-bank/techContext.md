@@ -6,10 +6,10 @@
 -   **BibTeX:** Manages bibliographic references (`ListadeReferencias.bib`).
 -   **PDF:** Target output format for the monograph (`Monografia.pdf`).
 -   **Python:** Used for data pipeline logic within Dagster assets (`app/assets.py`, `app/data_ingestion/ingestion_utils.py`).
--   **Dagster:** Orchestration framework (`dagster` package).
+-   **Dagster:** Orchestration framework (`dagster` package). Note: The installed version does not support the `default_value` keyword argument for `EnvVar`, requiring a workaround in `app/dagster/data_ingestion/assets.py` where `os.getenv` is used for the default value if the environment variable is not set.
     -   **`dagster-webserver`:** Provides the Dagit UI for monitoring and interaction.
     -   **`dagster-duckdb`:** Integration for using DuckDB as a resource.
--   **DuckDB:** In-process analytical data management system used via `DuckDBResource` within the `staging_tuya_logs` asset for transforming raw JSON to partitioned Parquet. Logic includes replacing `event_time`, joining `device_name`, adding `filename`, and partitioning.
+-   **DuckDB:** In-process analytical data management system used via `DuckDBResource` within the `staging_tuya_logs` asset for transforming raw JSON to partitioned Parquet within the `staging_tuya_logs` asset. Logic includes replacing `event_time`, joining `device_name`, adding `filename`, and partitioning.
 -   **Parquet:** Columnar storage format for the staging data layer (`app/data/staging/`), partitioned by `event_date`.
 -   **Pandas:** Used within the `staging_tuya_logs` asset to load `device_mapping.json` into a DataFrame for registration as a DuckDB view.
 -   **Tuya Connector (`tuya-connector-python`):** Used by the `raw_tuya_logs` asset to interact with the Tuya Cloud API.

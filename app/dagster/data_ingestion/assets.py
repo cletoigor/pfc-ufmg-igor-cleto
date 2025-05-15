@@ -22,7 +22,7 @@ from dagster import (
 from dagster_duckdb import DuckDBResource # Added
 
 # Import helper functions from the utils module
-from app.data_ingestion.ingestion_utils import (
+from .ingestion_utils import (
     load_device_mapping,
     get_time_range_ms,
     get_device_supported_codes,
@@ -32,14 +32,14 @@ from app.data_ingestion.ingestion_utils import (
 # --- Configuration ---
 # Ingestion Config
 TIME_WINDOW_HOURS = 1
-# Path relative to app dir for ingestion asset
-DEFAULT_INGESTION_MAPPING_PATH = "device_mapping.json"
-BASE_OUTPUT_DIR = "data/raw"  # Path relative to app dir for ingestion asset
+# Path relative to project root (Dagster workspace CWD) for ingestion asset
+DEFAULT_INGESTION_MAPPING_PATH = "app/data/device_mapping.json"
+BASE_OUTPUT_DIR = "../../data/raw"  # Path relative to app dir for ingestion asset
 
 # Processing Config
-STAGING_DIR = "data/staging"  # Path relative to app dir for staging asset
-# Path relative to app dir for processing asset
-DEFAULT_PROCESSING_MAPPING_PATH = "device_mapping.json"
+STAGING_DIR = "../../data/staging"  # Path relative to app dir for staging asset
+# Path relative to this script's directory (app/dagster/data_ingestion/) for processing asset
+DEFAULT_PROCESSING_MAPPING_PATH = "../../data/device_mapping.json"
 
 # --- Load Environment Variables ---
 # Ensure .env file is in the 'app' directory or accessible from where Dagster runs
@@ -53,10 +53,10 @@ class TuyaCredentials(Config):
     access_id: str = EnvVar("ACCESS_ID")
     access_secret: str = EnvVar("ACCESS_SECRET")
     api_endpoint: str = EnvVar("API_ENDPOINT")
-    # Store relative path from env or default, resolve later
-    device_mapping_path: str = os.getenv(
-        "DEVICE_MAPPING_PATH", DEFAULT_INGESTION_MAPPING_PATH
-    )
+    # Path to the device mapping file, sourced from EnvVar or default
+    # Note: default_value keyword requires Dagster >= 1.1.0. Using older syntax for compatibility.
+    device_mapping_path: str = EnvVar("DEVICE_MAPPING_PATH")
+    # The default is handled by os.getenv in the raw_tuya_logs asset if EnvVar is not set.
 
 
 @asset(group_name="data_ingestion")
@@ -73,10 +73,9 @@ def raw_tuya_logs(context: AssetExecutionContext, config: TuyaCredentials) -> st
     access_id = config.access_id
     access_secret = config.access_secret
     api_endpoint = config.api_endpoint
-    # Resolve the mapping path relative to this script's directory
+    # Construct the absolute path to the device mapping file relative to the current file's directory
     script_dir = os.path.dirname(__file__)
-    relative_mapping_path = config.device_mapping_path
-    absolute_mapping_path = os.path.abspath(os.path.join(script_dir, relative_mapping_path))
+    absolute_mapping_path = os.path.abspath(os.path.join(script_dir, "../../data/device_mapping.json"))
 
     context.log.info(f"Using device mapping file: {absolute_mapping_path}")
 

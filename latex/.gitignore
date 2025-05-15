@@ -1,0 +1,16 @@
+# Ignore LaTeX auxiliary and generated files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+*-eps-converted-to.pdf

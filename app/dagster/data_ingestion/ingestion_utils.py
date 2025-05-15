@@ -10,21 +10,20 @@ LOG_PAGE_SIZE = 100
 def load_device_mapping(file_path):
     """Loads the device ID to name mapping from a JSON file."""
     try:
-        # Ensure path is absolute or correctly relative to execution context
-        abs_file_path = os.path.abspath(file_path)
-        print(f"Attempting to load device mapping from: {abs_file_path}")
-        with open(abs_file_path, 'r', encoding='utf-8') as mapping_file:
+        # Use the provided file_path directly (expected to be absolute)
+        print(f"Attempting to load device mapping from: {file_path}")
+        with open(file_path, 'r', encoding='utf-8') as mapping_file:
             mapping = json.load(mapping_file)
-        print(f"Successfully loaded device mapping from {abs_file_path}")
+        print(f"Successfully loaded device mapping from {file_path}")
         return mapping
     except FileNotFoundError:
-        print(f"Error: Mapping file not found at {abs_file_path}")
+        print(f"Error: Mapping file not found at {file_path}")
         return None
     except json.JSONDecodeError:
-        print(f"Error: Could not decode JSON from {abs_file_path}")
+        print(f"Error: Could not decode JSON from {file_path}")
         return None
     except Exception as e:
-        print(f"An unexpected error occurred loading mapping file {abs_file_path}: {e}")
+        print(f"An unexpected error occurred loading mapping file {file_path}: {e}")
         return None
 
 

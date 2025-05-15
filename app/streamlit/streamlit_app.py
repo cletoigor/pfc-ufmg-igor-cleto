@@ -8,7 +8,7 @@ from datetime import datetime, time
 import numpy as np # Added for CUSUM calculations
 
 # --- Configuration ---
-STAGING_DATA_PATH = "data/staging" # Relative to the app directory
+STAGING_DATA_PATH = "../data/staging" # Relative to the app directory
 
 # --- Helper Functions ---
 
