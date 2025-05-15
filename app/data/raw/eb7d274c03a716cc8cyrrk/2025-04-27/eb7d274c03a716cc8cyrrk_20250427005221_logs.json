@@ -1,0 +1,90 @@
+[
+    {
+        "code": "power_memory",
+        "event_time": 1745715141570,
+        "value": "AAEAAAPoA+gD6APo",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cycle_timing",
+        "event_time": 1745715141271,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "random_timing",
+        "event_time": 1745715140957,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "wakeup_mode",
+        "event_time": 1745715140656,
+        "value": "AAA=",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "sleep_mode",
+        "event_time": 1745715140372,
+        "value": "AAA=",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "rhythm_mode",
+        "event_time": 1745715137926,
+        "value": "AAAAAAA=",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cycle_timing",
+        "event_time": 1745715137494,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "random_timing",
+        "event_time": 1745715137196,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_led",
+        "event_time": 1745715137184,
+        "value": "true",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "work_mode",
+        "event_time": 1745715137184,
+        "value": "white",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "do_not_disturb",
+        "event_time": 1745715137184,
+        "value": "true",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-29T00:46:51.609824+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    }
+]

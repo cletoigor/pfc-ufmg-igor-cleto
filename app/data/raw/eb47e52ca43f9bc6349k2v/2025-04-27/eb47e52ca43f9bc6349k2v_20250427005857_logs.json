@@ -1,0 +1,18 @@
+[
+    {
+        "code": "cur_voltage",
+        "event_time": 1745715537356,
+        "value": "1222",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745714040832,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "code": "cur_voltage",
+        "event_time": 1745716510765,
+        "value": "1240",
+        "device_id": "ebf51d0d4012b176f2xhna",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    }
+]

@@ -6,3 +6,9 @@ pandas
 dagster
 dagster-duckdb
 dagster-webserver
+
+# Streamlit App Dependencies
+streamlit
+plotly
+scipy
+numpy

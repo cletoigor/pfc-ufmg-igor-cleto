@@ -1,0 +1,2082 @@
+[
+    {
+        "code": "cur_voltage",
+        "event_time": 1745621190375,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745617583046,
+        "value": "1193",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745613976251,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745610369591,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745603156009,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745599549023,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745599110052,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745595503380,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745591896170,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745588289418,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745584683091,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745584229289,
+        "value": "1205",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745580155615,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745579818953,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745579256060,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745575649583,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745575638555,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745573658997,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745573203001,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745570051618,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745566445538,
+        "value": "1274",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745563814807,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745560208432,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745556602006,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745552995110,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745549388696,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745545782067,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745545460452,
+        "value": "1180",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745540944394,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745538072518,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745534465745,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745530858837,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745527252507,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745523646136,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745520038629,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745516431895,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745512825459,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745509218692,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745505612315,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745502005547,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745498398365,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745494792004,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745494371264,
+        "value": "1205",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745493750175,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745486536832,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745482930117,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745482203520,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745474989935,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745471382907,
+        "value": "1270",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745467775852,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745464169068,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745460562224,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745460562224,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745460556723,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745460434960,
+        "value": "140",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745460434960,
+        "value": "113",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745460434960,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745460404964,
+        "value": "true",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745459400119,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745457199883,
+        "value": "1201",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745455793799,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745452187353,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745448581005,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745447783577,
+        "value": "1197",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745447361634,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745443755202,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745440149126,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745436542781,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745429330404,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745425723777,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745423684038,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745422117641,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745418510575,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745414903613,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745411296996,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745410577631,
+        "value": "1197",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745409178025,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745405571059,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "light_mode",
+        "event_time": 1745402179607,
+        "value": "relay",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_inching",
+        "event_time": 1745402179607,
+        "value": "",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "child_lock",
+        "event_time": 1745402177496,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cycle_time",
+        "event_time": 1745402177489,
+        "value": "",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "random_time",
+        "event_time": 1745402177476,
+        "value": "",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "relay_status",
+        "event_time": 1745402177460,
+        "value": "last",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "overcharge_switch",
+        "event_time": 1745402177434,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745402177423,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745402177423,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745402177423,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745402177410,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "countdown_1",
+        "event_time": 1745402177410,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745398818485,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745395215840,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745391613280,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745388010737,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745384408546,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745380806271,
+        "value": "1270",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745377203785,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745373601591,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745369999400,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745366397174,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745366121000,
+        "value": "3",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745365997939,
+        "value": "1193",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745365323538,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745365323538,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745365323538,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745365315702,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745364320000,
+        "value": "6",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745364163786,
+        "value": "147",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745364163786,
+        "value": "128",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745364163786,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745362519000,
+        "value": "6",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745360718000,
+        "value": "1",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745360561392,
+        "value": "145",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745360561392,
+        "value": "114",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745360561392,
+        "value": "1213",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745360530196,
+        "value": "true",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745360493338,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745356890845,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745353288584,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745349686140,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745346084019,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745342481815,
+        "value": "1213",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745340212408,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745340057318,
+        "value": "1188",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745338098089,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745337316587,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745333714279,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745333588209,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745329986100,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745326383649,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745326350627,
+        "value": "1205",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745322310113,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745321479642,
+        "value": "1188",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745318090648,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745314487763,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745311009643,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745307407454,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745300202258,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745296599935,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745292997603,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745289395420,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745285790109,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745282187579,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745278585482,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745274983286,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745271887000,
+        "value": "2",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745271380567,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745271181443,
+        "value": "1185",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745270805127,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745270797139,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745270797139,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745270797139,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745270791217,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745270086000,
+        "value": "1",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745269876353,
+        "value": "144",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745269876353,
+        "value": "116",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745269876353,
+        "value": "1201",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745269846179,
+        "value": "true",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745269349920,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745265747582,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745264287683,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745262145292,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745258542839,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745254940515,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745251338329,
+        "value": "1274",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745250113559,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745246511445,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745246234273,
+        "value": "1221",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745238340803,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745237909536,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745237839504,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745234236920,
+        "value": "1274",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745227031804,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745223429520,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745212622414,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745209020309,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745201815946,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745199156000,
+        "value": "3",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745198213695,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745198213695,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745198213695,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745198207863,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745197354000,
+        "value": "6",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745195553000,
+        "value": "1",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745195288664,
+        "value": "141",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745195288664,
+        "value": "116",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745195288664,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745195259241,
+        "value": "true",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745194938458,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745192391000,
+        "value": "3",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745191336059,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745191336059,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745191336059,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745191330320,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745190600566,
+        "value": "141",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745190600566,
+        "value": "116",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745190590000,
+        "value": "1",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745190568769,
+        "value": "true",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745190416442,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745190117241,
+        "value": "1205",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745190106235,
+        "value": "1180",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745190073209,
+        "value": "1188",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745189227687,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745189227687,
+        "value": "0",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745189227687,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745189221479,
+        "value": "false",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1745188789000,
+        "value": "1",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1745188513229,
+        "value": "140",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1745188513229,
+        "value": "115",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745188513229,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745188483260,
+        "value": "true",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745186522949,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745182920705,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745180883352,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745175715729,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745172113255,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745164908434,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745161306226,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745157703941,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745157371649,
+        "value": "1217",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745153396753,
+        "value": "1274",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745149794247,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745146192036,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745142589587,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745138986744,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745131781937,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745128179211,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745125028237,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745121426045,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745117823853,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745114221668,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745110619105,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745107016499,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745103414175,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745098639791,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745095037407,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745094738197,
+        "value": "1180",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745094580084,
+        "value": "1229",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745090977930,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745087375754,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745083773179,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745080170898,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745076568308,
+        "value": "1233",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745076314164,
+        "value": "1205",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745070179648,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745066577052,
+        "value": "1253",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745066156775,
+        "value": "1208",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745064476716,
+        "value": "1242",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745060874440,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745057271747,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745056612132,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745049407813,
+        "value": "1258",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745045805586,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745042203395,
+        "value": "1266",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745041575760,
+        "value": "1245",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745034371341,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745030769068,
+        "value": "1262",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745027166219,
+        "value": "1249",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745023563680,
+        "value": "1238",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1745019961179,
+        "value": "1225",
+        "device_id": "ebb50554f386a6d20fvbwv",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    }
+]

@@ -1,0 +1,2802 @@
+[
+    {
+        "code": "cur_voltage",
+        "event_time": 1747260977477,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747260493483,
+        "value": "1222",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747257374625,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747253771931,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747243222246,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747239619149,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747236016245,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747232412962,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747228809943,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747225207309,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747221604646,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747221083267,
+        "value": "1177",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747220786498,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747220694980,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747220661366,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747220599295,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747219287892,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747216833847,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747213230890,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747209627825,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747206024932,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747202422284,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747202422284,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747202422284,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1747202414982,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747202348000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747200646022,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747200547000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747198746000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747196945000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747195143000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747193440190,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747193341000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747191540000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747189864000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747189837426,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747189837426,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747189837426,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747188062000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747186261000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747186234701,
+        "value": "76",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747186234701,
+        "value": "94",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747186234701,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1747186202363,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747183464327,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747179861535,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747172655815,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747169052625,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747165450007,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747161847263,
+        "value": "1280",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747158706925,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747155104114,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747145419550,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747141811098,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747134595151,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747133940612,
+        "value": "1214",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747132456247,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747128847711,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747126847140,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747124805227,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747123238479,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747119630164,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747116021499,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747116021499,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747116021499,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1747116012784,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747115964000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747114274404,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747114274404,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747114160000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747112356000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747110666205,
+        "value": "25",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747110666205,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747110552000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747108748000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747107058048,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747107058048,
+        "value": "31",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747107058048,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747106944000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747105140000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747104038000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747103449794,
+        "value": "27",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747103449794,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747103449794,
+        "value": "1210",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747102234000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747100430000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747099841510,
+        "value": "78",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747099841510,
+        "value": "96",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747099841510,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1747099812144,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747097679741,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747094071802,
+        "value": "1222",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747091797849,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747089034321,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747084627057,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747083132756,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747075914192,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747072305673,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747068697085,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747065088624,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747064424218,
+        "value": "1197",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747061899560,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747058291749,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747051171460,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747047562949,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747043954359,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747040346043,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747036835622,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747033227472,
+        "value": "1276",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747029619176,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747029619176,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747029619176,
+        "value": "1267",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1747029612075,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747029566000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747027871141,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747027762000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747025958000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747024153000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747022349000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747020653911,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747020545000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747018740000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747017290000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747017045278,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747017045278,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747017045278,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747015486000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1747013682000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1747013436940,
+        "value": "78",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1747013436940,
+        "value": "97",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747013436940,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1747013404784,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747010352822,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747007283817,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747006744317,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1747003136079,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746999527856,
+        "value": "1214",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746992311453,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746985095466,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746981487388,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746977879016,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746974270876,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746970662778,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746970235831,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746966627931,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746963019661,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746961866079,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746961644548,
+        "value": "1193",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746961261710,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746957653947,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746954045532,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746950437773,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746943221209,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746943221209,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746943215863,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746943170000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746941480167,
+        "value": "25",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746941480167,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746941366000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746939562000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746937872270,
+        "value": "31",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746937872270,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746937758000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746935954000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746934263665,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746934263665,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746934263665,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746934150000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746932346000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746931424000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746930655756,
+        "value": "25",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746930655756,
+        "value": "31",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746930655756,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746929620000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746927816000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746927047789,
+        "value": "75",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746927047789,
+        "value": "94",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746927047789,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746927016154,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746926714096,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746923105956,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746919497960,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746917244500,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746916489772,
+        "value": "1172",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "light_mode",
+        "event_time": 1746914162603,
+        "value": "relay",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_inching",
+        "event_time": 1746914162603,
+        "value": "",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746914161645,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "child_lock",
+        "event_time": 1746914160442,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cycle_time",
+        "event_time": 1746914160440,
+        "value": "",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "random_time",
+        "event_time": 1746914160431,
+        "value": "",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "relay_status",
+        "event_time": 1746914160417,
+        "value": "last",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "overcharge_switch",
+        "event_time": 1746914160389,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746914160381,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746914160381,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746914160381,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746914160369,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "countdown_1",
+        "event_time": 1746914160369,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746909230788,
+        "value": "1214",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746906888959,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746906337545,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746905991236,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746905627930,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746902025038,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746898421995,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746898230838,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746894627877,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746892776378,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746892377038,
+        "value": "1189",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746890203562,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746886601080,
+        "value": "1222",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746885595323,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746881992645,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746874786931,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746874399594,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746871226841,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746860418588,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746856815635,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746856815635,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746856815635,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746856810528,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746856749000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746855049782,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746854947000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746853146000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746851447069,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746851344000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746849543000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746847844315,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746847844315,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746847741000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746845940000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746844792000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746844241465,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746844241465,
+        "value": "31",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746844241465,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746842991000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746841189000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746840638735,
+        "value": "79",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746840638735,
+        "value": "96",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746840638735,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746840608761,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746838917431,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746838906423,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746833780620,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746830177979,
+        "value": "1202",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746827670999,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746827349783,
+        "value": "1189",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746827061555,
+        "value": "1206",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746825171168,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746821568233,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746814362286,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746807156789,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746803553661,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746799951069,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746796348425,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746792745530,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746789142872,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746788588518,
+        "value": "1202",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746786160690,
+        "value": "1288",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746786149678,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746786138652,
+        "value": "1140",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746783119984,
+        "value": "1267",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746781225632,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746777622437,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746774019355,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746770416736,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746770416736,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746770410631,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746770350000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746768660270,
+        "value": "1263",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746768548000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746766747000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746765056695,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746764945000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746763143000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746761453476,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746761342000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746759540000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746757980000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746757850619,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746757850619,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746757850619,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746756178000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746754377000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746754247730,
+        "value": "78",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746754247730,
+        "value": "97",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746754247730,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746754216244,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746751344520,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746747741658,
+        "value": "1222",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746747331371,
+        "value": "1197",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746744464102,
+        "value": "1231",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746740861464,
+        "value": "1214",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746733656118,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746732370127,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746732348079,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746730053057,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746726450343,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746724225209,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746723571748,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746720622454,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746719123158,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746717169625,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746715033494,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746711430645,
+        "value": "1271",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746709656156,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746706052540,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746705038656,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746701435307,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746701146042,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746700569576,
+        "value": "1206",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746698435786,
+        "value": "1226",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746694832863,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746691229514,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746687734158,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746687626035,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746687488921,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746684022910,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746684022910,
+        "value": "0",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746684022910,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746684014518,
+        "value": "false",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746683949000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746683843748,
+        "value": "1267",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746682147000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746680346000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746680240751,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746680240751,
+        "value": "1256",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746678545000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746676743000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746676637965,
+        "value": "1260",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746674941000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746673140000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746673034680,
+        "value": "31",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746673034680,
+        "value": "1251",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746672139000,
+        "value": "2",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746670337000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746669431596,
+        "value": "26",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746669431596,
+        "value": "32",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746669431596,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "add_ele",
+        "event_time": 1746668536000,
+        "value": "1",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_current",
+        "event_time": 1746667835173,
+        "value": "79",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_power",
+        "event_time": 1746667835173,
+        "value": "97",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746667835173,
+        "value": "1243",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1746667803753,
+        "value": "true",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746667559838,
+        "value": "1247",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746667548828,
+        "value": "1219",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746666840191,
+        "value": "1238",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746663237384,
+        "value": "1234",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746659633999,
+        "value": "1222",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cur_voltage",
+        "event_time": 1746658836389,
+        "value": "1168",
+        "device_id": "eb47e52ca43f9bc6349k2v",
+        "ingestion_timestamp_utc": "2025-05-14T22:44:27.796538+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    }
+]

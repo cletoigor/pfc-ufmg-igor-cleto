@@ -1,0 +1,106 @@
+[
+    {
+        "code": "switch_inching",
+        "event_time": 1745715137729,
+        "value": "",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "child_lock",
+        "event_time": 1745715137728,
+        "value": "false",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "cycle_time",
+        "event_time": 1745715137726,
+        "value": "",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "random_time",
+        "event_time": 1745715137725,
+        "value": "",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "relay_status",
+        "event_time": 1745715137701,
+        "value": "power_on",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_1",
+        "event_time": 1745715137597,
+        "value": "true",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "countdown_2",
+        "event_time": 1745715137597,
+        "value": "0",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "countdown_3",
+        "event_time": 1745715137597,
+        "value": "0",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "countdown_4",
+        "event_time": 1745715137597,
+        "value": "0",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_2",
+        "event_time": 1745715137597,
+        "value": "true",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_3",
+        "event_time": 1745715137597,
+        "value": "true",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "switch_4",
+        "event_time": 1745715137597,
+        "value": "true",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    },
+    {
+        "code": "countdown_1",
+        "event_time": 1745715137597,
+        "value": "0",
+        "device_id": "eb135cd2e81b1f85edglc6",
+        "ingestion_timestamp_utc": "2025-04-27T01:30:04.120428+00:00",
+        "ingested_by": "dagster_tuya_log_ingestion_asset"
+    }
+]

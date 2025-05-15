@@ -1,0 +1,90 @@
+[
+    {
+        "code": "power_memory",
+        "event_time": 1745191634337,
+        "value": "AAEAAAPoA+gD6APo",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cycle_timing",
+        "event_time": 1745191634033,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "random_timing",
+        "event_time": 1745191633725,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "wakeup_mode",
+        "event_time": 1745191633425,
+        "value": "AAA=",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "sleep_mode",
+        "event_time": 1745191633109,
+        "value": "AAA=",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "rhythm_mode",
+        "event_time": 1745191632819,
+        "value": "AAAAAAA=",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "cycle_timing",
+        "event_time": 1745191632593,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "switch_led",
+        "event_time": 1745191632311,
+        "value": "true",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "work_mode",
+        "event_time": 1745191632311,
+        "value": "white",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "do_not_disturb",
+        "event_time": 1745191632311,
+        "value": "true",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    },
+    {
+        "code": "random_timing",
+        "event_time": 1745191632304,
+        "value": "AAAA",
+        "device_id": "eb7d274c03a716cc8cyrrk",
+        "ingestion_timestamp_utc": "2025-04-25T23:35:18.579808+00:00",
+        "ingested_by": "tuya_log_ingestion_script"
+    }
+]

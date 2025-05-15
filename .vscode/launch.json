@@ -11,6 +11,21 @@
                 "dev",
             ],
             "subProcess": true
+        },
+        {
+            "name": "Streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/streamlit",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONUNBUFFERED": "1"
+            },
+            "cwd": "${workspaceFolder}/apps/",
+            "args": [
+                "run",
+                "streamlit_app.py"
+            ]
         }
     ]
 }
