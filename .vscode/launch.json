@@ -21,7 +21,7 @@
             "env": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "cwd": "${workspaceFolder}/apps/",
+            "cwd": "${workspaceFolder}/app/",
             "args": [
                 "run",
                 "streamlit_app.py"
