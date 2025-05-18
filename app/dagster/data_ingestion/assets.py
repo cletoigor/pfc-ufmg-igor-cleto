@@ -31,7 +31,7 @@ from .ingestion_utils import (
 
 # --- Configuration ---
 # Ingestion Config
-TIME_WINDOW_HOURS = 1
+TIME_WINDOW_HOURS = 168
 # Path relative to project root (Dagster workspace CWD) for ingestion asset
 DEFAULT_INGESTION_MAPPING_PATH = "app/data/device_mapping.json"
 BASE_OUTPUT_DIR = "../../data/raw"  # Path relative to app dir for ingestion asset
