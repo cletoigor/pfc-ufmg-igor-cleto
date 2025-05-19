@@ -7,7 +7,7 @@ import numpy as np # Keep for any direct numpy use, or if page functions need it
 # Import refactored functions
 from utils.data_helpers import load_data, get_available_devices, parse_cemig_bill, generate_report
 from utils.ui_helpers import local_css
-from utils.page_functions import show_resumo_casa, show_detalhes_dispositivo, show_analise_avancada, generate_2d_statistical_profile_plot, generate_3d_multichannel_profiles_plot
+from utils.page_functions import show_resumo_casa, show_detalhes_dispositivo, show_analise_avancada, generate_2d_statistical_profile_plot, generate_3d_multichannel_profiles_plot, generate_2d_overlaid_weekly_profiles_plot
 
 # --- Streamlit App UI ---
 st.set_page_config(layout="wide", page_title="Análise de Energia Residencial")
@@ -124,45 +124,63 @@ elif app_page == "📊 Análise Avançada":
     show_analise_avancada(data_df, selected_devices_list, start_date_filter, end_date_filter)
     
     st.markdown("---")
-    st.subheader("Perfil Estatístico Multicanal 2D (kWh)")
+    st.subheader("Perfis Multicanais de Energia (kWh)") # Updated section title
     
-    # Device selection for the multichannel plot
-    # Reuse selected_devices_list if not empty, otherwise use available_devices_list
+    # Device selection for the multichannel plots
     devices_for_multichannel_select = selected_devices_list if selected_devices_list else available_devices_list
     
     if devices_for_multichannel_select:
         multichannel_device = st.selectbox(
             "Selecione um dispositivo para os Perfis Multicanais:", 
             options=devices_for_multichannel_select, 
-            key="multichannel_device_selector_combined" # Changed key to avoid conflict
+            key="multichannel_device_selector_combined"
         )
         if multichannel_device and not data_df.empty:
             device_specific_df_for_multichannel = data_df[data_df['device_name'] == multichannel_device]
             if not device_specific_df_for_multichannel.empty:
-                # Generate and display 2D plot
-                st.markdown("##### Perfil Estatístico 2D (Média Histórica, Desvios e Semana Atual)")
-                help_text_2d = "Este gráfico 2D mostra a média histórica do consumo de energia (kWh) para cada hora da semana (168 canais), com bandas de desvio padrão. A linha da semana atual é sobreposta para comparação com o padrão histórico."
-                st.subheader("Perfil Estatístico 2D", help=help_text_2d)
-                fig_2d_profile = generate_2d_statistical_profile_plot(device_specific_df_for_multichannel, start_date_filter, end_date_filter)
-                if fig_2d_profile.data:
-                    st.plotly_chart(fig_2d_profile, use_container_width=True)
+                # Generate and display 2D Overlaid plot
+                st.markdown("##### Perfis Semanais Sobrepostos 2D")
+                help_text_2d_overlay = "Este gráfico 2D sobrepõe os perfis de consumo de energia (kWh) para cada hora da semana (168 canais) para as últimas semanas selecionadas. Permite comparar diretamente os padrões semanais."
+                st.subheader("Perfis Semanais Sobrepostos 2D", help=help_text_2d_overlay)
+                fig_2d_overlay = generate_2d_overlaid_weekly_profiles_plot(device_specific_df_for_multichannel, start_date_filter, end_date_filter)
+                if fig_2d_overlay.data:
+                    st.plotly_chart(fig_2d_overlay, use_container_width=True, key="multichannel_2d_overlay_plot") # Added unique key
                 else:
-                    st.info(f"Não foi possível gerar o perfil estatístico 2D para '{multichannel_device}'. Verifique os dados.")
+                    st.info(f"Não foi possível gerar o gráfico de perfis sobrepostos 2D para '{multichannel_device}'. Verifique os dados.")
 
+                st.markdown("---")
+                # Generate and display 2D Statistical plot
+                st.markdown("##### Perfil Estatístico Multicanal 2D (Média Histórica, Desvios e Semana Atual)")
+                help_text_2d_statistical = "Este gráfico 2D mostra a média histórica (EWMA) do consumo de energia (kWh) para cada hora da semana (168 canais), com bandas de desvio padrão. A linha da semana atual é sobreposta para comparação com o padrão histórico."
+                st.subheader("Perfil Estatístico Semanal 2D", help=help_text_2d_statistical)
+                fig_2d_weekly_profile, fig_daily_profiles = generate_2d_statistical_profile_plot(device_specific_df_for_multichannel, start_date_filter, end_date_filter)
+                
+                if fig_2d_weekly_profile.data:
+                    st.plotly_chart(fig_2d_weekly_profile, use_container_width=True, key="multichannel_2d_weekly_statistical_plot")
+                else:
+                    st.info(f"Não foi possível gerar o perfil estatístico semanal 2D para '{multichannel_device}'. Verifique os dados.")
+
+                st.markdown("---")
+                st.subheader("Perfis Médios Diários 2D", help="Estes gráficos mostram o perfil médio de consumo (kW) para cada hora de cada dia da semana.")
+                if fig_daily_profiles.data:
+                    st.plotly_chart(fig_daily_profiles, use_container_width=True, key="multichannel_2d_daily_profiles_plot")
+                else:
+                    st.info(f"Não foi possível gerar os perfis diários 2D para '{multichannel_device}'. Verifique os dados.")
+                
                 st.markdown("---")
                 # Generate and display 3D plot
                 st.markdown("##### Perfis Semanais 3D (Média Histórica e Últimas Semanas Individuais)")
-                help_text_3d = "Este gráfico 3D exibe a média histórica do consumo de energia (kWh) para cada hora da semana e os perfis individuais das últimas 4 semanas. Permite a visualização de tendências e desvios recentes em relação à média."
+                help_text_3d = "Este gráfico 3D exibe a média histórica (EWMA) do consumo de energia (kWh) para cada hora da semana e os perfis individuais das últimas 4 semanas. Permite a visualização de tendências e desvios recentes em relação à média."
                 st.subheader("Perfis Semanais 3D", help=help_text_3d)
                 fig_3d_profiles, hist_avg_plotted = generate_3d_multichannel_profiles_plot(device_specific_df_for_multichannel, start_date_filter, end_date_filter)
                 if fig_3d_profiles.data:
-                    st.plotly_chart(fig_3d_profiles, use_container_width=True)
+                    st.plotly_chart(fig_3d_profiles, use_container_width=True, key="multichannel_3d_profiles_plot") # Added unique key
                     if not hist_avg_plotted:
                          st.caption("Nota: Média histórica não pôde ser calculada/plotada devido a dados insuficientes.")
                 else:
                     st.info(f"Não foi possível gerar os perfis 3D para '{multichannel_device}'. Verifique os dados.")
             else:
-                st.info(f"Nenhum dado de potência encontrado para '{multichannel_device}' no período selecionado para os perfis multicanais.")
+                st.info(f"Nenhum dado de potência encontrado para '{multicanal_device}' no período selecionado para os perfis multicanais.")
         elif data_df.empty and multichannel_device:
              st.info(f"Dados globais não carregados. Selecione dispositivos no filtro geral e tente novamente para ver os perfis de '{multichannel_device}'.")
         else:
