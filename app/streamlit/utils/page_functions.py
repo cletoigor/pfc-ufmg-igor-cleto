@@ -84,36 +84,32 @@ def show_resumo_casa(data_df, selected_devices_list, start_date_filter, end_date
             else:
                 current_device_energy_global_period[device_name_iter] = 0
     
-    st.subheader(f"Principais Consumidores ({start_date_filter.strftime('%d/%m')} a {end_date_filter.strftime('%d/%m')})", help="Lista os 5 principais dispositivos por consumo de energia (kWh) no período selecionado.")
+    st.subheader(f"Principais Consumidores ({start_date_filter.strftime('%d/%m')} a {end_date_filter.strftime('%d/%m')})", help="Lista os 3 principais dispositivos por consumo de energia (kWh) no período selecionado.")
     if current_device_energy_global_period:
         sorted_top_consumers = sorted(current_device_energy_global_period.items(), key=lambda item: item[1], reverse=True)
         
-        num_to_display = min(len(sorted_top_consumers), 3) # Limit to top 3
+        num_to_display = min(len(sorted_top_consumers), 3) 
         if num_to_display > 0:
-            top_consumers_df = pd.DataFrame(sorted_top_consumers[:3], columns=['Dispositivo', 'Consumo (kWh)']) # Limit to top 3
+            top_consumers_df = pd.DataFrame(sorted_top_consumers[:num_to_display], columns=['Dispositivo', 'Consumo (kWh)'])
             
-            # Add trophy emojis
             trophy_emojis = ["🥇", "🥈", "🥉"]
             top_consumers_df_display = top_consumers_df.copy()
-            for i in range(min(len(top_consumers_df_display), 3)):
+            for i in range(min(len(top_consumers_df_display), 3)): 
                 top_consumers_df_display.loc[i, 'Dispositivo'] = f"{trophy_emojis[i]} {top_consumers_df_display.loc[i, 'Dispositivo']}"
 
-            # Display as list with emojis
             st.markdown("##### Pódio dos Consumidores:")
             for index, row in top_consumers_df_display.iterrows():
                 st.markdown(f"- {row['Dispositivo']}: {row['Consumo (kWh)']:.2f} kWh")
 
             if not top_consumers_df_display.empty:
-                # Create Horizontal Bar Chart for Top Consumers with Trophies in labels
                 fig_top_consumers_bar = px.bar(top_consumers_df_display, 
                                                y='Dispositivo', 
                                                x='Consumo (kWh)',
                                                orientation='h',
-                                               title="Top 3 Consumidores de Energia", # Updated title
+                                               title="Top 3 Consumidores de Energia",
                                                labels={'Consumo (kWh)': 'Energia Consumida (kWh)', 'Dispositivo': 'Dispositivo'},
                                                text='Consumo (kWh)')
                 fig_top_consumers_bar.update_traces(texttemplate='%{text:.2f} kWh', textposition='outside')
-                # Sort bars by consumption value (descending for horizontal bar means ascending y-axis)
                 fig_top_consumers_bar.update_layout(yaxis={'categoryorder':'total ascending'},
                                                     xaxis_title="Energia Consumida (kWh)",
                                                     yaxis_title="Dispositivo")
@@ -146,7 +142,6 @@ def show_resumo_casa(data_df, selected_devices_list, start_date_filter, end_date
             for dev, eng in sorted_devices_by_energy:
                 st.markdown(f"**{dev}**: {eng:.3f} kWh")
 
-        # Add Hourly Average Consumption Chart
         st.markdown("---")
         st.subheader("Perfil Médio de Consumo Horário (Todos Dispositivos)", help="Potência média consumida por todos os dispositivos selecionados para cada hora do dia, calculado sobre o período selecionado.")
         if not data_df.empty and 'power_W' in data_df.columns and not data_df['power_W'].dropna().empty:
@@ -166,28 +161,26 @@ def show_resumo_casa(data_df, selected_devices_list, start_date_filter, end_date
         else:
             st.info("Dados de potência (power_W) não disponíveis para o perfil horário.")
 
-        # Add Device Contribution Pie Chart
         st.markdown("---")
         st.subheader("Distribuição do Consumo por Dispositivo", help="Contribuição de cada dispositivo para o consumo total de energia (kWh) no período selecionado.")
         if current_device_energy_global_period:
             positive_energy_consumers = {dev: eng for dev, eng in current_device_energy_global_period.items() if eng > 0.001}
             if positive_energy_consumers:
                 bar_df = pd.DataFrame(list(positive_energy_consumers.items()), columns=['Dispositivo', 'Consumo (kWh)'])
-                bar_df = bar_df.sort_values(by='Consumo (kWh)', ascending=False) # Sort for better readability
+                bar_df = bar_df.sort_values(by='Consumo (kWh)', ascending=False) 
                 
                 fig_bar_consumers = px.bar(bar_df, y='Dispositivo', x='Consumo (kWh)', 
                                            orientation='h',
                                            title="Consumo de Energia por Dispositivo",
                                            labels={'Consumo (kWh)': 'Energia Consumida (kWh)', 'Dispositivo': 'Dispositivo'},
-                                           text='Consumo (kWh)') # Show values on bars
+                                           text='Consumo (kWh)') 
                 fig_bar_consumers.update_traces(texttemplate='%{text:.2f} kWh', textposition='outside')
-                fig_bar_consumers.update_layout(yaxis={'categoryorder':'total ascending'}) # Ensure y-axis is sorted by value
+                fig_bar_consumers.update_layout(yaxis={'categoryorder':'total ascending'}) 
                 st.plotly_chart(fig_bar_consumers, use_container_width=True)
             else:
                 st.info("Nenhum dispositivo com consumo significativo para exibir no gráfico de barras.")
         else:
             st.info("Cálculo de consumo por dispositivo não disponível para o gráfico de barras.")
-
     else:
         st.info("Dados de potência (power_W) não disponíveis para o resumo.")
 
@@ -272,33 +265,16 @@ def show_detalhes_dispositivo(data_df, selected_device_for_detail, start_date_fi
             col4_p.metric("Energia Estimada (período filtrado)", f"{estimated_energy_kWh_period:.3f} kWh" if total_duration_hours > 0 else "N/A")
             
             st.markdown("---")
-            st.subheader("Série Temporal da Potência (W)", help="Este gráfico mostra a variação da potência (em Watts) do dispositivo ao longo do tempo selecionado, com uma banda de incerteza estimada.")
+            st.subheader("Série Temporal da Potência (W)", help="Este gráfico mostra a variação da potência (em Watts) do dispositivo ao longo do tempo selecionado.")
             
-            # Calculate uncertainty for Power (assumed +/- 5%)
-            ru_power_percentage = 0.05
-            power_data_with_uncertainty = device_specific_data.copy()
-            power_data_with_uncertainty['power_upper'] = power_data_with_uncertainty['power_W'] * (1 + ru_power_percentage)
-            power_data_with_uncertainty['power_lower'] = power_data_with_uncertainty['power_W'] * (1 - ru_power_percentage)
-
             fig_power_ts = go.Figure()
             fig_power_ts.add_trace(go.Scatter(
-                x=power_data_with_uncertainty['event_time'], 
-                y=power_data_with_uncertainty['power_upper'],
-                mode='lines', line=dict(width=0), showlegend=False, name='Power Upper Bound'
-            ))
-            fig_power_ts.add_trace(go.Scatter(
-                x=power_data_with_uncertainty['event_time'], 
-                y=power_data_with_uncertainty['power_lower'],
-                mode='lines', line=dict(width=0), fillcolor='rgba(255,165,0,0.2)', # Light orange
-                fill='tonexty', showlegend=False, name='Power Lower Bound'
-            ))
-            fig_power_ts.add_trace(go.Scatter(
-                x=power_data_with_uncertainty['event_time'], 
-                y=power_data_with_uncertainty['power_W'],
+                x=device_specific_data['event_time'], 
+                y=device_specific_data['power_W'],
                 mode='lines', name='Potência (W)', line=dict(color='rgb(255,165,0)') # Orange
             ))
             fig_power_ts.update_layout(
-                title=f"Potência de {selected_device_for_detail} ao Longo do Tempo (com Incerteza de ±{ru_power_percentage*100}%)",
+                title=f"Potência de {selected_device_for_detail} ao Longo do Tempo",
                 xaxis_title='Tempo', yaxis_title='Potência (W)'
             )
             st.plotly_chart(fig_power_ts, use_container_width=True)
@@ -358,33 +334,16 @@ def show_detalhes_dispositivo(data_df, selected_device_for_detail, start_date_fi
             col_v2.metric("Tensão Máxima", f"{max_voltage:.2f} V")
             col_v3.metric("Tensão Mínima", f"{min_voltage:.2f} V")
 
-            st.subheader("Série Temporal da Tensão (V)", help="Este gráfico mostra a variação da tensão (em Volts) do dispositivo ao longo do tempo selecionado, com uma banda de incerteza estimada.")
+            st.subheader("Série Temporal da Tensão (V)", help="Este gráfico mostra a variação da tensão (em Volts) do dispositivo ao longo do tempo selecionado.")
             
-            # Calculate uncertainty for Voltage (assumed +/- 2%)
-            ru_voltage_percentage = 0.02
-            voltage_data_with_uncertainty = device_specific_data.copy()
-            voltage_data_with_uncertainty['voltage_upper'] = voltage_data_with_uncertainty['voltage_V'] * (1 + ru_voltage_percentage)
-            voltage_data_with_uncertainty['voltage_lower'] = voltage_data_with_uncertainty['voltage_V'] * (1 - ru_voltage_percentage)
-
             fig_voltage_ts = go.Figure()
             fig_voltage_ts.add_trace(go.Scatter(
-                x=voltage_data_with_uncertainty['event_time'],
-                y=voltage_data_with_uncertainty['voltage_upper'],
-                mode='lines', line=dict(width=0), showlegend=False, name='Voltage Upper Bound'
-            ))
-            fig_voltage_ts.add_trace(go.Scatter(
-                x=voltage_data_with_uncertainty['event_time'],
-                y=voltage_data_with_uncertainty['voltage_lower'],
-                mode='lines', line=dict(width=0), fillcolor='rgba(0,128,0,0.2)', # Light green
-                fill='tonexty', showlegend=False, name='Voltage Lower Bound'
-            ))
-            fig_voltage_ts.add_trace(go.Scatter(
-                x=voltage_data_with_uncertainty['event_time'],
-                y=voltage_data_with_uncertainty['voltage_V'],
+                x=device_specific_data['event_time'],
+                y=device_specific_data['voltage_V'],
                 mode='lines', name='Tensão (V)', line=dict(color='rgb(0,128,0)') # Green
             ))
             fig_voltage_ts.update_layout(
-                title=f"Tensão de {selected_device_for_detail} ao Longo do Tempo (com Incerteza de ±{ru_voltage_percentage*100}%)",
+                title=f"Tensão de {selected_device_for_detail} ao Longo do Tempo",
                 xaxis_title='Tempo', yaxis_title='Tensão (V)'
             )
             st.plotly_chart(fig_voltage_ts, use_container_width=True)
@@ -408,33 +367,16 @@ def show_detalhes_dispositivo(data_df, selected_device_for_detail, start_date_fi
             col_c2.metric("Corrente Máxima", f"{max_current:.2f} mA")
             col_c3.metric("Corrente Mínima", f"{min_current:.2f} mA")
 
-            st.subheader("Série Temporal da Corrente (mA)", help="Este gráfico mostra a variação da corrente (em miliamperes) do dispositivo ao longo do tempo selecionado, com uma banda de incerteza estimada.")
+            st.subheader("Série Temporal da Corrente (mA)", help="Este gráfico mostra a variação da corrente (em miliamperes) do dispositivo ao longo do tempo selecionado.")
             
-            # Calculate uncertainty for Current (assumed +/- 5%)
-            ru_current_percentage = 0.05
-            current_data_with_uncertainty = device_specific_data.copy()
-            current_data_with_uncertainty['current_upper'] = current_data_with_uncertainty['current_mA'] * (1 + ru_current_percentage)
-            current_data_with_uncertainty['current_lower'] = current_data_with_uncertainty['current_mA'] * (1 - ru_current_percentage)
-
             fig_current_ts = go.Figure()
             fig_current_ts.add_trace(go.Scatter(
-                x=current_data_with_uncertainty['event_time'],
-                y=current_data_with_uncertainty['current_upper'],
-                mode='lines', line=dict(width=0), showlegend=False, name='Current Upper Bound'
-            ))
-            fig_current_ts.add_trace(go.Scatter(
-                x=current_data_with_uncertainty['event_time'],
-                y=current_data_with_uncertainty['current_lower'],
-                mode='lines', line=dict(width=0), fillcolor='rgba(128,0,128,0.2)', # Light purple
-                fill='tonexty', showlegend=False, name='Current Lower Bound'
-            ))
-            fig_current_ts.add_trace(go.Scatter(
-                x=current_data_with_uncertainty['event_time'],
-                y=current_data_with_uncertainty['current_mA'],
+                x=device_specific_data['event_time'],
+                y=device_specific_data['current_mA'],
                 mode='lines', name='Corrente (mA)', line=dict(color='rgb(128,0,128)') # Purple
             ))
             fig_current_ts.update_layout(
-                title=f"Corrente de {selected_device_for_detail} ao Longo do Tempo (com Incerteza de ±{ru_current_percentage*100}%)",
+                title=f"Corrente de {selected_device_for_detail} ao Longo do Tempo",
                 xaxis_title='Tempo', yaxis_title='Corrente (mA)'
             )
             st.plotly_chart(fig_current_ts, use_container_width=True)
@@ -470,125 +412,107 @@ def generate_2d_statistical_profile_plot(device_df, start_date_filter, end_date_
     df_processed['channel'] = df_processed['event_time'].dt.dayofweek * 24 + df_processed['event_time'].dt.hour
     df_processed['day_of_week_num'] = df_processed['event_time'].dt.dayofweek # Monday=0, Sunday=6
     df_processed['hour_of_day'] = df_processed['event_time'].dt.hour
-    # Create a unique week identifier that is sortable chronologically
-    df_processed['year_week_id'] = df_processed['event_time'].dt.strftime('%Y-%U') # YYYY-WeekNumber (Sunday as first day)
-                                                                                 # or use '%Y-%W' for Monday as first day
+    df_processed['year_week_id'] = df_processed['event_time'].dt.strftime('%Y-%U') 
 
-    # --- Generate Daily Profiles Plot ---
     day_names_map = {0: 'Segunda', 1: 'Terça', 2: 'Quarta', 3: 'Quinta', 4: 'Sexta', 5: 'Sábado', 6: 'Domingo'}
     df_processed['day_name'] = df_processed['day_of_week_num'].map(day_names_map)
     
     daily_avg_power = df_processed.groupby(['day_name', 'day_of_week_num', 'hour_of_day'])['power_W'].mean().reset_index()
     daily_avg_power = daily_avg_power.sort_values(by=['day_of_week_num', 'hour_of_day'])
 
-    # Increased vertical_spacing and adjusted height for better layout
     fig_daily_profiles = make_subplots(
         rows=4, cols=2, 
-        subplot_titles=[day_names_map[i] for i in range(7)] + [" "], # One empty subplot title for the 8th position
-        vertical_spacing=0.15, # Increased vertical spacing
-        shared_xaxes=False # Each subplot will have its own x-axis title if specified
+        subplot_titles=[day_names_map[i] for i in range(7)] + [" "], 
+        vertical_spacing=0.15, 
+        shared_xaxes=False 
     )
 
-    day_plot_positions = [(1,1), (1,2), (2,1), (2,2), (3,1), (3,2), (4,1)] # Row, Col for each day
+    day_plot_positions = [(1,1), (1,2), (2,1), (2,2), (3,1), (3,2), (4,1)] 
 
-    for i in range(7): # Iterate through Monday to Sunday
+    for i in range(7): 
         day_data = daily_avg_power[daily_avg_power['day_of_week_num'] == i]
         row_idx, col_idx = day_plot_positions[i]
         
         show_xaxis_title = False
-        # Show x-axis title "Hora" only for the bottom-most plots in each column
-        if row_idx == 4: # Bottom row for the first column (Domingo)
+        if row_idx == 4: 
              show_xaxis_title = True
-        elif row_idx == 3 and col_idx == 2: # Bottom row for the second column (Sábado)
+        elif row_idx == 3 and col_idx == 2: 
              show_xaxis_title = True
-
 
         if not day_data.empty:
             fig_daily_profiles.add_trace(
-                go.Scatter(x=day_data['hour_of_day'], y=day_data['power_W'], mode='lines', name=day_names_map[i], showlegend=False), # showlegend is false for all
+                go.Scatter(x=day_data['hour_of_day'], y=day_data['power_W'], mode='lines', name=day_names_map[i], showlegend=False), 
                 row=row_idx, col=col_idx
             )
             fig_daily_profiles.update_xaxes(
                 tickvals=list(range(0, 24, 5)), 
-                title_text="Hora" if show_xaxis_title else "", # Only show title if it's a bottom plot
+                title_text="Hora" if show_xaxis_title else "", 
                 row=row_idx, col=col_idx
             )
-            fig_daily_profiles.update_yaxes(title_text="Potência (kW)", row=row_idx, col=col_idx) # Assuming power_W is in kW as per image
+            fig_daily_profiles.update_yaxes(title_text="Potência (kW)", row=row_idx, col=col_idx) 
     
     fig_daily_profiles.update_layout(
-        height=1000, # Adjusted height
+        height=1000, 
         title_text="Perfis Médios Diários de Consumo (kW)", 
         showlegend=False,
-        margin=dict(t=60, b=50, l=50, r=30) # Adjust margins if needed
+        margin=dict(t=60, b=50, l=50, r=30) 
     )
 
-    # --- Original 2D Statistical Profile Plot Logic ---
     if df_processed['year_week_id'].nunique() < 2:
         st.info("Dados insuficientes para análise estatística semanal (necessário pelo menos 2 semanas de dados: 1 histórica e 1 atual).")
-        # Still return the daily plot if it could be generated
         return go.Figure(), fig_daily_profiles if not daily_avg_power.empty else go.Figure()
     
     unique_sorted_weeks = sorted(df_processed['year_week_id'].unique())
-    last_full_week_id = unique_sorted_weeks[-1] # Most recent week in the data
+    last_full_week_id = unique_sorted_weeks[-1] 
     
     current_week_df = df_processed[df_processed['year_week_id'] == last_full_week_id]
-    historical_df = df_processed[df_processed['year_week_id'] < last_full_week_id] # All weeks before the last one
+    historical_df = df_processed[df_processed['year_week_id'] < last_full_week_id] 
 
     if historical_df.empty:
         st.info("Não há dados históricos suficientes (pelo menos uma semana completa antes da semana atual) para calcular o perfil médio semanal.")
-        # Still return the daily plot if it could be generated
         return go.Figure(), fig_daily_profiles if not daily_avg_power.empty else go.Figure()
 
-    # Calculate historical EWMA and std dev per channel
-    alpha = 0.18 # Smoothing factor for EWMA (e.g., equivalent to ~10 past weeks)
+    alpha = 0.18 
     
-    # Pivot historical_df to have weeks as index, channels as columns, values as power_W
     historical_pivot = historical_df.pivot_table(index='year_week_id', columns='channel', values='power_W')
-    historical_pivot = historical_pivot.reindex(columns=range(168)) # Ensure all 168 channels are present
+    historical_pivot = historical_pivot.reindex(columns=range(168)) 
     
-    # Calculate EWMA for each channel (column). adjust=False for standard EWMA formula.
     ewma_per_channel = historical_pivot.ewm(alpha=alpha, adjust=False, min_periods=1).mean()
     
     historical_avg_ewma_kwh = pd.Series([0.0] * 168, index=range(168))
     if not ewma_per_channel.empty:
-        historical_avg_ewma_kwh = ewma_per_channel.iloc[-1].fillna(0.0) # Get the last EWMA value for each channel
-    else: # Fallback if EWMA is empty (e.g., only one historical week)
+        historical_avg_ewma_kwh = ewma_per_channel.iloc[-1].fillna(0.0) 
+    else: 
         temp_avg = historical_df.groupby('channel')['power_W'].mean().reindex(range(168), fill_value=0.0)
         historical_avg_ewma_kwh = temp_avg
 
-    # Standard deviation is calculated on the raw historical values for the bands
     historical_std_dev_kwh = historical_df.groupby('channel')['power_W'].std().reindex(range(168), fill_value=0.0)
     
     historical_stats = pd.DataFrame({
         'channel': range(168),
-        'avg_kWh': historical_avg_ewma_kwh.values, # These are already Series with channel index
+        'avg_kWh': historical_avg_ewma_kwh.values, 
         'std_kWh': historical_std_dev_kwh.values
     })
-    historical_stats['std_kWh'].fillna(0, inplace=True) # If a channel had 0 variance or 1 data point
+    historical_stats['std_kWh'].fillna(0, inplace=True) 
 
-    # Prepare current week's profile
     current_week_profile = pd.Series([np.nan] * 168, index=range(168))
     for _, row in current_week_df.iterrows():
         current_week_profile[int(row['channel'])] = row['power_W']
     
-    # Ensure all channels 0-167 are present in historical_stats, filling missing with NaN or 0
     full_channel_range = pd.DataFrame({'channel': range(168)})
     historical_stats = pd.merge(full_channel_range, historical_stats, on='channel', how='left')
-    historical_stats['avg_kWh'].fillna(0, inplace=True) # Or np.nan if you prefer gaps
-    historical_stats['std_kWh'].fillna(0, inplace=True) # Or np.nan
+    historical_stats['avg_kWh'].fillna(0, inplace=True) 
+    historical_stats['std_kWh'].fillna(0, inplace=True) 
 
-    # Create the 2D plot
     fig = go.Figure()
     channels_x = list(range(168))
 
-    # Add historical average
     fig.add_trace(go.Scatter(
         x=channels_x, y=historical_stats['avg_kWh'],
         mode='lines', name='Média Histórica (kWh)',
         line=dict(color='blue')
     ))
 
-    # Add uncertainty bands (+/- 1 std dev)
     fig.add_trace(go.Scatter(
         x=channels_x, y=historical_stats['avg_kWh'] + historical_stats['std_kWh'],
         mode='lines', name='+1 Desvio Padrão',
@@ -600,12 +524,10 @@ def generate_2d_statistical_profile_plot(device_df, start_date_filter, end_date_
         mode='lines', name='-1 Desvio Padrão',
         line=dict(width=0),
         fillcolor='rgba(0,100,80,0.2)',
-        fill='tonexty', # Fill area between this trace and the one above
+        fill='tonexty', 
         showlegend=False
     ))
     
-    # Add current week's profile
-    # Only plot if there's actual data for the current week profile
     if not current_week_profile.isnull().all():
         fig.add_trace(go.Scatter(
             x=channels_x, y=current_week_profile,
@@ -625,17 +547,12 @@ def generate_2d_statistical_profile_plot(device_df, start_date_filter, end_date_
         legend_title_text='Legenda',
         margin=dict(l=0, r=0, b=0, t=50)
     )
-    # The function now returns two figures
     return fig, fig_daily_profiles if not daily_avg_power.empty else go.Figure()
 
 
 def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_date_filter):
-    """
-    Generates a 3D multichannel power profile plot for a selected device.
-    Shows the historical average profile and up to 4 most recent individual weekly profiles.
-    """
     if device_df.empty or 'power_W' not in device_df.columns or device_df['power_W'].isnull().all():
-        return go.Figure(), False # Figure and a flag indicating if historical average was plotted
+        return go.Figure(), False 
 
     device_df['event_time'] = pd.to_datetime(device_df['event_time'])
     device_df = device_df.sort_values(by='event_time')
@@ -649,17 +566,15 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
     df_processed = hourly_energy_kWh_series.reset_index()
     df_processed['channel'] = df_processed['event_time'].dt.dayofweek * 24 + df_processed['event_time'].dt.hour
     df_processed['year_week_id'] = df_processed['event_time'].dt.strftime('%Y-%U')
-    df_processed['week_id'] = df_processed['year_week_id'] # or some other logic for week_id
+    df_processed['week_id'] = df_processed['year_week_id'] 
 
-    if df_processed['week_id'].nunique() == 0: # Need at least one week of data
+    if df_processed['week_id'].nunique() == 0: 
         return go.Figure(), False
 
-    # --- Calculate Historical Average Profile (EWMA) for 3D plot ---
     historical_avg_profile_kWh_3d = pd.Series([0.0] * 168, index=range(168))
     historical_data_available_3d = False
-    alpha_3d = 0.18 # Smoothing factor for EWMA
+    alpha_3d = 0.18 
 
-    # Use all available weeks in df_processed for the 3D plot's EWMA baseline
     if not df_processed.empty:
         pivot_all_data_for_3d_ewma = df_processed.pivot_table(index='year_week_id', columns='channel', values='power_W')
         pivot_all_data_for_3d_ewma = pivot_all_data_for_3d_ewma.reindex(columns=range(168))
@@ -668,25 +583,19 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
         if not ewma_all_data_3d.empty:
             historical_avg_profile_kWh_3d = ewma_all_data_3d.iloc[-1].fillna(0.0)
             historical_data_available_3d = True
-        else: # Fallback
+        else: 
             temp_avg_3d = df_processed.groupby('channel')['power_W'].mean().reindex(range(168), fill_value=0.0)
             historical_avg_profile_kWh_3d = temp_avg_3d
             if not temp_avg_3d.empty: historical_data_available_3d = True
             
-    # --- Prepare Individual Recent Weekly Profiles ---
     plot_data_3d = []
-    # Use the unique_sorted_weeks from the 2D plot section for consistency in defining weeks
-    # actual_unique_weeks_for_3d = df_processed['year_week_id'].unique() # Already sorted if df_processed is sorted by time
     actual_unique_weeks_for_3d = sorted(df_processed['year_week_id'].unique())
 
-
-    # Select up to the last 4 individual weeks for the 3D plot
     num_recent_weeks_to_plot = min(len(actual_unique_weeks_for_3d), 4)
     weeks_to_plot_ids_3d = actual_unique_weeks_for_3d[-num_recent_weeks_to_plot:]
     
-    week_plot_index_counter = 1 # For Y-axis positioning in 3D, starts after historical
+    week_plot_index_counter = 1 
 
-    # Add historical average as the first trace (Y=0)
     if historical_data_available_3d:
         plot_data_3d.append({
             'week_label': "Média Histórica (EWMA)",
@@ -695,7 +604,6 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
             'line_style': dict(color='rgba(0,0,255,0.7)', width=3, dash='solid') 
         })
 
-    # Iterate through the selected recent weeks for individual plotting
     for i, week_id_val_3d in enumerate(weeks_to_plot_ids_3d):
         current_week_data_3d = df_processed[df_processed['year_week_id'] == week_id_val_3d]
         week_profile_kWh_3d = pd.Series([0.0] * 168, index=range(168))
@@ -703,14 +611,14 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
             week_profile_kWh_3d[int(row_3d['channel'])] = row_3d['power_W']
         
         plot_data_3d.append({
-            'week_label': f"Semana {i + 1}", # Simple week number for legend (1 to 4)
+            'week_label': f"Semana {i + 1}", 
             'week_index_for_plot': week_plot_index_counter, 
             'channels': week_profile_kWh_3d.tolist(),
             'line_style': dict(width=2) 
         })
         week_plot_index_counter += 1
         
-    if not plot_data_3d: # Should not happen if historical_data_available_3d was true or weeks_to_plot_ids_3d was not empty
+    if not plot_data_3d: 
         return go.Figure(), historical_data_available_3d
 
     fig3d = go.Figure()
@@ -734,9 +642,7 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
     channels_tick_text_3d = [str(val) for val in channels_tick_vals_3d]
     
     week_tick_vals_3d = [wd['week_index_for_plot'] for wd in plot_data_3d]
-    # Use the simplified week_label for tick text
     week_tick_text_3d = [wd['week_label'] for wd in plot_data_3d]
-
 
     fig3d.update_layout(
         title=f"Perfis Semanais 3D e Média Histórica (EWMA, kWh)",
@@ -745,7 +651,7 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
             yaxis_title='Semanas/Média',
             zaxis_title='kWh',
             xaxis=dict(tickvals=channels_tick_vals_3d, ticktext=channels_tick_text_3d),
-            yaxis=dict(tickvals=week_tick_vals_3d, ticktext=week_tick_text_3d), # Removed autorange reversed
+            yaxis=dict(tickvals=week_tick_vals_3d, ticktext=week_tick_text_3d), 
             zaxis=dict(range=[z_min_3d, z_max_3d]),
             camera=dict(eye=dict(x=1.7, y=-2.0, z=0.7))
         ),
@@ -756,12 +662,6 @@ def generate_3d_multichannel_profiles_plot(device_df, start_date_filter, end_dat
 
 
 def generate_2d_overlaid_weekly_profiles_plot(device_df, start_date_filter, end_date_filter):
-    """
-    Generates a 2D plot showing multiple recent individual weekly energy profiles overlaid.
-    X-axis: Channels (hours of the week, 0-167)
-    Y-axis: Energy (kWh)
-    Each line represents a different recent week.
-    """
     if device_df.empty or 'power_W' not in device_df.columns or device_df['power_W'].isnull().all():
         return go.Figure()
 
@@ -780,7 +680,6 @@ def generate_2d_overlaid_weekly_profiles_plot(device_df, start_date_filter, end_
 
     unique_weeks_sorted = sorted(df_processed['year_week_id'].unique())
 
-    # Select up to the last 5 individual weeks to overlay
     num_recent_weeks_to_plot = min(len(unique_weeks_sorted), 5)
     weeks_to_plot_ids = unique_weeks_sorted[-num_recent_weeks_to_plot:]
 
@@ -793,7 +692,7 @@ def generate_2d_overlaid_weekly_profiles_plot(device_df, start_date_filter, end_
             week_profile_kWh[int(row['channel'])] = row['power_W']
 
         plot_data_2d_overlay.append({
-            'week_label': f"Semana {i + 1}", # Simple sequential label for legend
+            'week_label': f"Semana {i + 1}", 
             'channels': week_profile_kWh.tolist()
         })
 
@@ -850,16 +749,6 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
     st.subheader("Controle Estatístico de Processo (CEP/SPC)", help="Ferramentas de CEP para monitorar a estabilidade do consumo de energia.")
     if not data_df.empty and 'power_W' in data_df.columns and selected_devices_list:
         
-        # Check if the selected period is at least 30 days
-        date_format = "%Y-%m-%d" # Assuming start_date_filter and end_date_filter are date objects
-        # If they are already datetime.date objects, no need to parse
-        # If they are strings, they need to be parsed:
-        # start_date_obj = datetime.strptime(str(start_date_filter), date_format).date()
-        # end_date_obj = datetime.strptime(str(end_date_filter), date_format).date()
-        # For this case, assuming they are already date objects from Streamlit's date_input
-        
-        # Ensure start_date_filter and end_date_filter are datetime.date objects
-        # Streamlit's date_input returns datetime.date, so direct subtraction is fine.
         if isinstance(start_date_filter, datetime):
             start_date_obj = start_date_filter.date()
         else:
@@ -878,121 +767,99 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
 
             if cusum_device:
                 device_data_for_cusum = data_df[data_df['device_name'] == cusum_device].copy()
-            # ... (rest of the CUSUM logic remains nested under this 'if cusum_device:')
-            # The original CUSUM logic will only execute if period_duration >= 30 AND a cusum_device is selected.
             
-            # Ensure the rest of the CUSUM logic is correctly indented under the new condition
-            # This means the original 'if cusum_device:' block and its contents should now be inside 'if period_duration >= 30:'
-            
-            # The following is the original CUSUM logic, now conditionally executed
-            # if cusum_device: # This line is now part of the outer if, so the inner logic needs to be at this indentation
-                if cusum_device: # This check is still valid for the device selection
-                    device_data_for_cusum = data_df[data_df['device_name'] == cusum_device].copy()
-            device_data_for_cusum.sort_values(by='event_time', inplace=True)
+                device_data_for_cusum.sort_values(by='event_time', inplace=True)
 
-            if len(device_data_for_cusum) < 2: # Need enough data for at least two distinct weeks
-                st.warning("Dados insuficientes para o dispositivo selecionado para gerar o CUSUM Multicanal (necessário pelo menos 2 semanas).")
-            else:
-                # Prepare data: hourly energy, channel, week_id
-                hourly_energy_cusum = device_data_for_cusum.set_index('event_time')['power_W'].resample('h').mean() / 1000.0
-                hourly_energy_cusum = hourly_energy_cusum.dropna().reset_index()
-                hourly_energy_cusum['channel'] = hourly_energy_cusum['event_time'].dt.dayofweek * 24 + hourly_energy_cusum['event_time'].dt.hour
-                hourly_energy_cusum['year_week_id'] = hourly_energy_cusum['event_time'].dt.strftime('%Y-%U')
-
-                unique_weeks_cusum = sorted(hourly_energy_cusum['year_week_id'].unique())
-
-                if len(unique_weeks_cusum) < 2:
-                    st.warning("CUSUM Multicanal requer pelo menos 2 semanas de dados (1 para referência EWMA, 1 para análise).")
+                if len(device_data_for_cusum) < 2: 
+                    st.warning("Dados insuficientes para o dispositivo selecionado para gerar o CUSUM Multicanal (necessário pelo menos 2 semanas).")
                 else:
-                    current_week_id_cusum = unique_weeks_cusum[-1]
-                    historical_weeks_df_cusum = hourly_energy_cusum[hourly_energy_cusum['year_week_id'] < current_week_id_cusum]
-                    current_week_df_cusum = hourly_energy_cusum[hourly_energy_cusum['year_week_id'] == current_week_id_cusum]
+                    hourly_energy_cusum = device_data_for_cusum.set_index('event_time')['power_W'].resample('h').mean() / 1000.0
+                    hourly_energy_cusum = hourly_energy_cusum.dropna().reset_index()
+                    hourly_energy_cusum['channel'] = hourly_energy_cusum['event_time'].dt.dayofweek * 24 + hourly_energy_cusum['event_time'].dt.hour
+                    hourly_energy_cusum['year_week_id'] = hourly_energy_cusum['event_time'].dt.strftime('%Y-%U')
 
-                    if historical_weeks_df_cusum.empty:
-                        st.warning("Não há semanas históricas suficientes para calcular a média EWMA para o CUSUM Multicanal.")
+                    unique_weeks_cusum = sorted(hourly_energy_cusum['year_week_id'].unique())
+
+                    if len(unique_weeks_cusum) < 2:
+                        st.warning("CUSUM Multicanal requer pelo menos 2 semanas de dados (1 para referência EWMA, 1 para análise).")
                     else:
-                        alpha_ewma_cusum = 0.18 # Smoothing factor
-                        historical_pivot_cusum = historical_weeks_df_cusum.pivot_table(index='year_week_id', columns='channel', values='power_W')
-                        historical_pivot_cusum = historical_pivot_cusum.reindex(columns=range(168))
-                        ewma_per_channel_cusum = historical_pivot_cusum.ewm(alpha=alpha_ewma_cusum, adjust=False, min_periods=1).mean()
-                        
-                        X_hat_i = pd.Series([0.0] * 168, index=range(168)) # Historical EWMA for each channel
-                        if not ewma_per_channel_cusum.empty:
-                            X_hat_i = ewma_per_channel_cusum.iloc[-1].fillna(0.0)
-                        
-                        V_vmv_current_week = pd.Series([0.0] * 168, index=range(168)) # Current week's value for each channel
-                        for _, row in current_week_df_cusum.iterrows():
-                            V_vmv_current_week[int(row['channel'])] = row['power_W']
-                        
-                        epsilon_j_i = V_vmv_current_week - X_hat_i # Residuals for current week's channels
-                        s_j_i_current_week = epsilon_j_i**2 # Squared residuals
+                        current_week_id_cusum = unique_weeks_cusum[-1]
+                        historical_weeks_df_cusum = hourly_energy_cusum[hourly_energy_cusum['year_week_id'] < current_week_id_cusum]
+                        current_week_df_cusum = hourly_energy_cusum[hourly_energy_cusum['year_week_id'] == current_week_id_cusum]
 
-                        # Parameters for CUSUM (ν and h) - these are design parameters
-                        # For s_j,i (squared residuals), nu and h will be different from those for raw power.
-                        # These need careful tuning. For now, using example values.
-                        # The article does not specify how to set nu and h from data, they are "design parameters".
-                        # Let's make them configurable with some defaults.
-                        # The standard deviation of s_j,i itself could be used to set these, but that requires more historical s_j,i values.
-                        
-                        st.markdown("**Parâmetros do CUSUM Multicanal (para $s_{j,i} = (\epsilon_{j,i})^2$):**")
-                        param_col1_mc, param_col2_mc = st.columns(2)
-                        # Default nu might be related to the expected variance of s_j,i (e.g. half of it)
-                        # Default h might be 4-5 times that expected variance of s_j,i
-                        # For now, simple defaults:
-                        nu_cusum_channel = param_col1_mc.number_input("Parâmetro ν (allowance/drift) para $s_{j,i}$:", 
-                                                                   min_value=0.0, value=0.001, step=0.0001, format="%.4f", key="nu_cusum_channel")
-                        h_cusum_channel = param_col2_mc.number_input("Limite h (threshold) para $g_{j,i}$:", 
-                                                                  min_value=0.0, value=0.005, step=0.001, format="%.4f", key="h_cusum_channel")
-
-                        # In a true stateful CUSUM, g_j_minus_1_i would be stored.
-                        # For this on-demand app, we are showing an "instantaneous" CUSUM check for the current week.
-                        # g_j,i = max(0, s_j,i - ν)  (assuming g_j-1,i = 0 for a single cycle check)
-                        g_j_i_current_week = (s_j_i_current_week - nu_cusum_channel).clip(lower=0)
-                        
-                        alarms_current_week = g_j_i_current_week > h_cusum_channel
-                        
-                        cusum_results_df = pd.DataFrame({
-                            'Canal': range(168),
-                            'Média Hist. EWMA (X_hat_i)': X_hat_i,
-                            'Valor Semana Atual (V_vmv)': V_vmv_current_week,
-                            'Residual (epsilon_j,i)': epsilon_j_i,
-                            'Residual Quadrático (s_j,i)': s_j_i_current_week,
-                            'g_j,i (CUSUM Stat)': g_j_i_current_week,
-                            'Alarme (g_j,i > h)': alarms_current_week
-                        })
-
-                        st.write(f"Análise CUSUM Multicanal para a semana: {current_week_id_cusum}")
-                        
-                        fig_cusum_bars = px.bar(cusum_results_df, x='Canal', y='g_j,i (CUSUM Stat)', 
-                                                title=f"Estatística CUSUM (g_j,i) por Canal para Semana {current_week_id_cusum}",
-                                                color='Alarme (g_j,i > h)',
-                                                color_discrete_map={True: 'red', False: 'blue'},
-                                                labels={'g_j,i (CUSUM Stat)': 'Valor g_j,i'})
-                        fig_cusum_bars.add_hline(y=h_cusum_channel, line_dash="dash", line_color="red", annotation_text=f"Limite h={h_cusum_channel:.4f}")
-                        st.plotly_chart(fig_cusum_bars, use_container_width=True)
-
-                        alarming_channels = cusum_results_df[cusum_results_df['Alarme (g_j,i > h)']]
-                        if not alarming_channels.empty:
-                            st.write("Canais em Alarme:")
-                            st.dataframe(alarming_channels[['Canal', 'Média Hist. EWMA (X_hat_i)', 'Valor Semana Atual (V_vmv)', 'g_j,i (CUSUM Stat)']])
+                        if historical_weeks_df_cusum.empty:
+                            st.warning("Não há semanas históricas suficientes para calcular a média EWMA para o CUSUM Multicanal.")
                         else:
-                            st.write("Nenhum canal em alarme para a semana atual com os parâmetros definidos.")
-        else: # Else for period_duration < 30
+                            alpha_ewma_cusum = 0.18 
+                            historical_pivot_cusum = historical_weeks_df_cusum.pivot_table(index='year_week_id', columns='channel', values='power_W')
+                            historical_pivot_cusum = historical_pivot_cusum.reindex(columns=range(168))
+                            ewma_per_channel_cusum = historical_pivot_cusum.ewm(alpha=alpha_ewma_cusum, adjust=False, min_periods=1).mean()
+                            
+                            X_hat_i = pd.Series([0.0] * 168, index=range(168)) 
+                            if not ewma_per_channel_cusum.empty:
+                                X_hat_i = ewma_per_channel_cusum.iloc[-1].fillna(0.0)
+                            
+                            V_vmv_current_week = pd.Series([0.0] * 168, index=range(168)) 
+                            for _, row in current_week_df_cusum.iterrows():
+                                V_vmv_current_week[int(row['channel'])] = row['power_W']
+                            
+                            epsilon_j_i = V_vmv_current_week - X_hat_i 
+                            s_j_i_current_week = epsilon_j_i**2 
+                            
+                            st.markdown("**Parâmetros do CUSUM Multicanal (para $s_{j,i} = (\epsilon_{j,i})^2$):**")
+                            param_col1_mc, param_col2_mc = st.columns(2)
+                            nu_cusum_channel = param_col1_mc.number_input("Parâmetro ν (allowance/drift) para $s_{j,i}$:", 
+                                                                       min_value=0.0, value=0.001, step=0.0001, format="%.4f", key="nu_cusum_channel")
+                            h_cusum_channel = param_col2_mc.number_input("Limite h (threshold) para $g_{j,i}$:", 
+                                                                      min_value=0.0, value=0.005, step=0.001, format="%.4f", key="h_cusum_channel")
+
+                            g_j_i_current_week = (s_j_i_current_week - nu_cusum_channel).clip(lower=0)
+                            alarms_current_week = g_j_i_current_week > h_cusum_channel
+                            
+                            cusum_results_df = pd.DataFrame({
+                                'Canal': range(168),
+                                'Média Hist. EWMA (X_hat_i)': X_hat_i,
+                                'Valor Semana Atual (V_vmv)': V_vmv_current_week,
+                                'Residual (epsilon_j,i)': epsilon_j_i,
+                                'Residual Quadrático (s_j,i)': s_j_i_current_week,
+                                'g_j,i (CUSUM Stat)': g_j_i_current_week,
+                                'Alarme (g_j,i > h)': alarms_current_week
+                            })
+
+                            st.write(f"Análise CUSUM Multicanal para a semana: {current_week_id_cusum}")
+                            
+                            fig_cusum_bars = px.bar(cusum_results_df, x='Canal', y='g_j,i (CUSUM Stat)', 
+                                                    title=f"Estatística CUSUM (g_j,i) por Canal para Semana {current_week_id_cusum}",
+                                                    color='Alarme (g_j,i > h)',
+                                                    color_discrete_map={True: 'red', False: 'blue'},
+                                                    labels={'g_j,i (CUSUM Stat)': 'Valor g_j,i'})
+                            fig_cusum_bars.add_hline(y=h_cusum_channel, line_dash="dash", line_color="red", annotation_text=f"Limite h={h_cusum_channel:.4f}")
+                            st.plotly_chart(fig_cusum_bars, use_container_width=True)
+
+                            alarming_channels = cusum_results_df[cusum_results_df['Alarme (g_j,i > h)']]
+                            if not alarming_channels.empty:
+                                st.write("Canais em Alarme:")
+                                st.dataframe(alarming_channels[['Canal', 'Média Hist. EWMA (X_hat_i)', 'Valor Semana Atual (V_vmv)', 'g_j,i (CUSUM Stat)']])
+                            else:
+                                st.write("Nenhum canal em alarme para a semana atual com os parâmetros definidos.")
+        else: 
             st.info("A análise CUSUM Multicanal requer um período de dados de pelo menos 30 dias. Por favor, ajuste os filtros.")
             
         st.markdown("---")
         if 'fault' in data_df.columns and not data_df[data_df['fault'].notna()].empty:
             st.subheader("Registros de Falha", help="Exibe os registros de falha (código 'fault') reportados pelos dispositivos no período selecionado.")
             fault_display_data_avancada = data_df 
-            if cusum_device: 
-                fault_display_data_avancada = data_df[data_df['device_name'] == cusum_device]
-            
+            # Ensure cusum_device is defined if period_duration < 30
+            cusum_device_for_fault = st.selectbox("Selecione um dispositivo para filtrar falhas (opcional):", ["Todos"] + selected_devices_list, key="fault_device_selector_avancada")
+            if cusum_device_for_fault != "Todos":
+                fault_display_data_avancada = data_df[data_df['device_name'] == cusum_device_for_fault]
+
             fault_data_filtered = fault_display_data_avancada[fault_display_data_avancada['fault'].notna()][['event_time', 'device_name', 'fault']].copy()
             if not fault_data_filtered.empty:
                 fault_data_filtered['fault_description'] = fault_data_filtered['fault'].apply(lambda x: x if isinstance(x, str) else str(x)) 
                 st.dataframe(fault_data_filtered)
             else:
-                st.info(f"Nenhum registro de falha encontrado para {cusum_device if cusum_device else 'os dispositivos selecionados'} no período selecionado.")
+                st.info(f"Nenhum registro de falha encontrado para '{cusum_device_for_fault if cusum_device_for_fault != 'Todos' else 'os dispositivos selecionados'}' no período selecionado.")
         else:
             st.info("Nenhum registro de falha encontrado no período selecionado para os dispositivos filtrados.")
             
@@ -1000,74 +867,3 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
         st.info("Por favor, selecione um dispositivo na barra lateral para ver a Análise Avançada.")
     else: 
         st.info("Carregue os dados e selecione dispositivos para ver a Análise Avançada.")
-
-
-def generate_2d_overlaid_weekly_profiles_plot(device_df, start_date_filter, end_date_filter):
-    """
-    Generates a 2D plot showing multiple recent individual weekly energy profiles overlaid.
-    X-axis: Channels (hours of the week, 0-167)
-    Y-axis: Energy (kWh)
-    Each line represents a different recent week.
-    """
-    if device_df.empty or 'power_W' not in device_df.columns or device_df['power_W'].isnull().all():
-        return go.Figure()
-
-    device_df['event_time'] = pd.to_datetime(device_df['event_time'])
-    device_df = device_df.sort_values(by='event_time')
-
-    hourly_energy_kWh_series = device_df.set_index('event_time')['power_W'].resample('h').mean() / 1000.0
-    hourly_energy_kWh_series = hourly_energy_kWh_series.dropna()
-
-    if hourly_energy_kWh_series.empty:
-        return go.Figure()
-
-    df_processed = hourly_energy_kWh_series.reset_index()
-    df_processed['channel'] = df_processed['event_time'].dt.dayofweek * 24 + df_processed['event_time'].dt.hour
-    df_processed['year_week_id'] = df_processed['event_time'].dt.strftime('%Y-%U')
-
-    unique_weeks_sorted = sorted(df_processed['year_week_id'].unique())
-
-    # Select up to the last 5 individual weeks to overlay
-    num_recent_weeks_to_plot = min(len(unique_weeks_sorted), 5)
-    weeks_to_plot_ids = unique_weeks_sorted[-num_recent_weeks_to_plot:]
-
-    plot_data_2d_overlay = []
-
-    for i, week_id_val in enumerate(weeks_to_plot_ids):
-        current_week_df = df_processed[df_processed['year_week_id'] == week_id_val]
-        week_profile_kWh = pd.Series([0.0] * 168, index=range(168))
-        for _, row in current_week_df.iterrows():
-            week_profile_kWh[int(row['channel'])] = row['power_W']
-
-        plot_data_2d_overlay.append({
-            'week_label': f"Semana {i + 1}", # Simple sequential label for legend
-            'channels': week_profile_kWh.tolist()
-        })
-
-    if not plot_data_2d_overlay:
-        return go.Figure()
-
-    fig2d_overlay = go.Figure()
-    channels_x_axis = list(range(168))
-
-    for week_data in plot_data_2d_overlay:
-        fig2d_overlay.add_trace(go.Scatter(
-            x=channels_x_axis,
-            y=week_data['channels'],
-            mode='lines',
-            name=week_data['week_label']
-        ))
-
-    day_names_short = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]
-    tick_positions = [i * 24 for i in range(7)]
-    tick_labels = [day_names_short[i] for i in range(7)]
-
-    fig2d_overlay.update_layout(
-        title=f"Perfis Semanais Sobrepostos (kWh por Hora da Semana)",
-        xaxis_title='Hora da Semana (Canal)',
-        yaxis_title='Energia Consumida (kWh)',
-        xaxis=dict(tickmode='array', tickvals=tick_positions, ticktext=tick_labels),
-        legend_title_text='Semanas',
-        margin=dict(l=0, r=0, b=0, t=50)
-    )
-    return fig2d_overlay
