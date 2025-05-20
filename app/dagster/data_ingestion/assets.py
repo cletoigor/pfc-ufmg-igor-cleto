@@ -251,11 +251,25 @@ def staging_tuya_logs(context: AssetExecutionContext, raw_tuya_logs_path: str) -
         # Use the correctly resolved absolute path
         with open(device_mapping_path_abs, 'r', encoding='utf-8') as f:
             device_mapping_dict = json.load(f)
-        device_map_df = pd.DataFrame(
-            list(device_mapping_dict.items()),
-            columns=['device_id', 'device_name']
-        )
-        context.log.info(f"Successfully loaded device mapping from {device_mapping_path_abs}")
+        
+        # Adapt to new structure: {"device_id": {"name": "Name", "on_off_code": "code"}}
+        # Or handle old structure: {"device_id": "Name"}
+        processed_for_df = []
+        for dev_id, dev_info in device_mapping_dict.items():
+            if isinstance(dev_info, dict) and "name" in dev_info:
+                processed_for_df.append({'device_id': dev_id, 'device_name': dev_info['name']})
+            elif isinstance(dev_info, str): # Old format
+                processed_for_df.append({'device_id': dev_id, 'device_name': dev_info})
+            else:
+                context.log.warning(f"Skipping malformed device entry in mapping: {dev_id}")
+        
+        if processed_for_df:
+            device_map_df = pd.DataFrame(processed_for_df)
+            context.log.info(f"Successfully loaded and processed device mapping from {device_mapping_path_abs}")
+        else:
+            device_map_df = None # Ensure it's None if no valid data was processed
+            context.log.warning(f"Device mapping loaded from {device_mapping_path_abs} but resulted in no processable data.")
+
     except FileNotFoundError:
         # Wrapped long line
         context.log.error(

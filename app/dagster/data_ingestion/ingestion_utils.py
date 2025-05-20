@@ -8,14 +8,38 @@ LOG_PAGE_SIZE = 100
 
 # --- Helper Functions ---
 def load_device_mapping(file_path):
-    """Loads the device ID to name mapping from a JSON file."""
+    """
+    Loads the device mapping from a JSON file.
+    The JSON file is expected to have device IDs as keys and objects as values,
+    where each object contains at least a "name" key.
+    Returns a dictionary mapping device IDs to device names.
+    """
     try:
         # Use the provided file_path directly (expected to be absolute)
         print(f"Attempting to load device mapping from: {file_path}")
         with open(file_path, 'r', encoding='utf-8') as mapping_file:
-            mapping = json.load(mapping_file)
-        print(f"Successfully loaded device mapping from {file_path}")
-        return mapping
+            raw_mapping = json.load(mapping_file)
+        
+        # Process the raw mapping to extract device IDs and names
+        processed_mapping = {}
+        for device_id, device_info in raw_mapping.items():
+            if isinstance(device_info, dict) and "name" in device_info:
+                processed_mapping[device_id] = device_info["name"]
+            else:
+                # Handle old format or malformed entries if necessary, or log a warning
+                # For now, let's assume new format or skip malformed ones
+                print(f"Warning: Device entry for {device_id} is not in the expected format or missing 'name'. Skipping.")
+        
+        if not processed_mapping and raw_mapping: # If raw_mapping was not empty but processed is
+             print(f"Warning: Processed mapping is empty. Original mapping might be in old format or malformed: {raw_mapping}")
+             # Fallback to return raw_mapping if it seems to be the old simple format
+             # This is a basic check; more robust checking might be needed if mixed formats are possible
+             if all(isinstance(val, str) for val in raw_mapping.values()):
+                 print("Info: Original mapping appears to be in the old format (ID: Name). Using as is.")
+                 return raw_mapping # Return old format if it matches
+
+        print(f"Successfully loaded and processed device mapping from {file_path}. Found {len(processed_mapping)} devices.")
+        return processed_mapping
     except FileNotFoundError:
         print(f"Error: Mapping file not found at {file_path}")
         return None

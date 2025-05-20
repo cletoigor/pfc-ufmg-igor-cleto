@@ -1,8 +1,26 @@
 {
-  "ebb50554f386a6d20fvbwv": "Fita de LED",
-  "ebb1ae44e3bb8945c7colh": "Hack Sala",
-  "eb47e52ca43f9bc6349k2v": "Repelente",
-  "ebf51d0d4012b176f2xhna": "Ventilador do quarto",
-  "eb135cd2e81b1f85edglc6": "Tomadas escritório",
-  "eb7d274c03a716cc8cyrrk": "Luminária escritório"
+  "ebb50554f386a6d20fvbwv": {
+    "name": "Fita de LED",
+    "on_off_code": "switch_1"
+  },
+  "ebb1ae44e3bb8945c7colh": {
+    "name": "Hack Sala",
+    "on_off_code": "switch_led"
+  },
+  "eb47e52ca43f9bc6349k2v": {
+    "name": "Repelente",
+    "on_off_code": "switch_led"
+  },
+  "ebf51d0d4012b176f2xhna": {
+    "name": "Ventilador do quarto",
+    "on_off_code": "switch_led"
+  },
+  "eb135cd2e81b1f85edglc6": {
+    "name": "Tomadas escritório",
+    "on_off_code": "switch_led"
+  },
+  "eb7d274c03a716cc8cyrrk": {
+    "name": "Luminária escritório",
+    "on_off_code": "switch_led"
+  }
 }
