@@ -384,17 +384,17 @@ tuya_processing_job = define_asset_job(
 )
 
 # --- Schedule Definition ---
-# Define the hourly schedule for the job
-hourly_schedule = ScheduleDefinition(
+# Define the daily midnight schedule for the job
+daily_midnight_schedule = ScheduleDefinition(
     job=tuya_processing_job,
-    cron_schedule="0 * * * *",  # Every hour at minute 0
+    cron_schedule="0 0 * * *",  # Every day at midnight
 )
 
 # --- Repository Definition ---
 defs = Definitions(
     assets=[raw_tuya_logs, staging_tuya_logs],
     jobs=[tuya_processing_job, scene_scheduler_job],
-    schedules=[hourly_schedule, scene_execution_schedule],
+    schedules=[daily_midnight_schedule, scene_execution_schedule],
     resources={
         "duckdb": DuckDBResource(database=":memory:"), # Existing resource
         "tuya_api": tuya_api_resource # Add new resource for scene scheduler

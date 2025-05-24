@@ -1,0 +1,21 @@
+{
+  "Cena teste": {
+    "actions": {
+      "ebb50554f386a6d20fvbwv": {
+        "code": "switch_1",
+        "value": true
+      },
+      "ebf51d0d4012b176f2xhna": {
+        "code": "switch_1",
+        "value": true
+      }
+    },
+    "schedule": {
+      "time": "17:22",
+      "days": [
+        "S\u00e1bado"
+      ],
+      "recurring": false
+    }
+  }
+}

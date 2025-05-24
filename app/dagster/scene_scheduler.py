@@ -14,7 +14,7 @@ from app.streamlit.utils.tuya_api_helpers import execute_scene, get_tuya_openapi
 # ".." goes to app/
 # "data" goes into app/data/
 SCHEDULED_SCENES_FILE_PATH_DEFAULT = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "data", "scheduled_scenes.json")
+    os.path.join(os.path.dirname(__file__), "..", "streamlit", "app", "data", "scheduled_scenes.json")
 )
 SCHEDULED_SCENES_FILE_ENV_VAR = "SCHEDULED_SCENES_FILE_PATH" # Store the env var name
 
