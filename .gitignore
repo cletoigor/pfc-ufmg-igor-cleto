@@ -180,3 +180,4 @@ tmp*/
 app/data/raw/
 app/data/staging/
 app/dagster/data_ingestion/data/
+.env

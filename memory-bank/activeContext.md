@@ -47,15 +47,51 @@
         -   Moved CSS loading function (`local_css`) to `app/streamlit/utils/ui_helpers.py`.
         -   Moved page rendering functions (`show_resumo_casa`, `show_detalhes_dispositivo`, `show_analise_avancada`) to `app/streamlit/utils/page_functions.py`.
         -   Updated `app/streamlit/streamlit_app.py` to import and use these refactored functions, making the main script cleaner and focused on UI flow.
+    -   **Performance Improvement (Device Controls):**
+        -   Refactored the "Controle Individual de Dispositivos" section in `app/streamlit/streamlit_app.py` to use `st.fragment`.
+        -   Created a `device_control_fragment(device_info)` function decorated with `@st.fragment` to handle the UI and interaction logic for a single device.
+        -   Replaced `st.button` with `st.toggle` for device controls within the fragment, providing a standard on/off switch interface.
+        -   Maintained the "optimistic update" pattern using `st.session_state` with `st.toggle`. This ensures the toggle visually changes state immediately upon user interaction, providing instant UI feedback, while the actual API command is sent. If the API command fails, the toggle state reverts.
+        -   Removed the diagnostic caption previously used for observing optimistic vs. actual states.
+        -   Updated `app/data/device_mapping.json` to change `on_off_code` for "Repelente" and "Ventilador do quarto" to `"switch_1"` (matching "Fita de LED") to address activation issues.
+        -   These changes further enhance the usability and responsiveness of device controls.
+    -   **Scene Management UI Refactor & Enhancements:**
+        -   Corrected various errors (`NameError`, `IndentationError`, Streamlit widget warnings) in scene management.
+        -   Refactored scene creation into a more granular three-step process using `st.session_state` to manage flow:
+            1.  **Step 1 (Name & Devices):** Form to input scene name and select devices. Button: "Próximo: Definir Horário e Ações".
+            2.  **Step 2 (Schedule & Actions):** Form to define schedule (time, days, recurrence) and device actions (Ligar/Desligar). Buttons: "Voltar (Nome e Dispositivos)" and "Próximo: Revisar Cena".
+            3.  **Step 3 (Review & Final Save):** Displays a summary of all defined details. Buttons: "Modificar Detalhes" (returns to Step 1, pre-filling data) and "Salvar Cena Definitivamente".
+        -   Ensured temporary scene data is pre-filled when navigating back between steps.
+        -   Implemented functionality to delete saved scenes, including a confirmation step.
+        -   Streamlit app continues to save/load scene definitions (including schedules) to/from `app/data/scheduled_scenes.json`.
+        -   Display of saved scenes remains user-friendly with `st.expander` and now includes a delete button.
+    -   **Dagster for Scene Scheduling (Initial Setup - Unchanged in this iteration):**
+        -   Created `app/dagster/scene_scheduler.py` containing:
+            -   `tuya_api_resource`: For Dagster to access Tuya API credentials.
+            -   `check_and_trigger_scenes_op`: Reads `scheduled_scenes.json`, checks schedules, and triggers due scenes. Includes basic logic for non-recurring scenes.
+            -   `scene_scheduler_job`: Wraps the op.
+            -   `scene_execution_schedule`: Schedules the job to run every minute.
+        -   Updated `app/dagster/data_ingestion/assets.py` to include these new Dagster components in the main `Definitions` object.
+        -   Corrected import paths and `Definitions` structure in Dagster files.
+    -   **Caching for Device Controls:** Modified `app/streamlit/utils/tuya_api_helpers.py` so that `send_device_command` clears the entire cache for `get_device_status`. This ensures that after a device action, all device statuses in the "Controle Individual de Dispositivos" section are refreshed from the API on their next display.
+    -   **Scene Deletion Logic:** Improved scene deletion in `app/streamlit/streamlit_app.py`. Deletion now involves a confirmation step and correctly removes the scene from both `st.session_state.saved_scenes` and the `scheduled_scenes.json` file, ensuring the "Executar Cena Salva" list is accurate.
+    -   **File Path Robustness (Streamlit):** Modified `app/streamlit/streamlit_app.py` to use absolute paths for `scheduled_scenes.json` and `style.css` by constructing them based on the script's directory. This resolves issues where these files might not be found if the app is run from a different working directory.
 
 ## 3. Next Steps
 
 -   Refine content and visualizations on the "Resumo da Casa" and "Detalhes por Dispositivo" pages.
 -   Populate the "Análise Avançada" page with relevant technical charts if needed.
--   Thoroughly test the redesigned Streamlit application.
--   Update `memory-bank/systemPatterns.md` and `memory-bank/progress.md` to reflect the Streamlit app redesign.
--   Start the Dagster UI (`dagster dev`) to visualize assets and schedules.
--   Verify the hourly Dagster schedule is active and runs successfully.
+-   Thoroughly test the redesigned Streamlit application, including scene creation with schedules.
+-   Discuss and decide on the implementation strategy for automatic scene triggering based on saved schedules (e.g., in-app limited polling, Dagster integration, or other backend service). **Current: Dagster setup for scene scheduling is complete.**
+-   User to test Dagster scene scheduling:
+    - Ensure Tuya API env vars are available to Dagster.
+    - Reload Dagster definitions in Dagit.
+    - Enable `scene_execution_schedule`.
+    - Create a scheduled scene in Streamlit and observe Dagster logs.
+-   Address timezone handling and robustness of non-recurring scene logic in Dagster op as future enhancements.
+-   Update `memory-bank/systemPatterns.md` and `memory-bank/progress.md` to reflect the Streamlit app redesign and new Dagster-based scheduling capabilities.
+-   Start the Dagster UI (`dagster dev`) to visualize all assets, jobs, and schedules.
+-   Verify both the hourly Dagster data pipeline schedule and the per-minute scene execution schedule are active and run as expected.
 -   Continue work on the TCC Monografia LaTeX content as needed.
 
 ## 4. Active Decisions & Considerations
@@ -67,4 +103,4 @@
 -   Tuya API credentials and mapping file path for ingestion are configured via a Dagster `Config` object using `EnvVar`.
 -   The processing asset uses the `dagster-duckdb` integration and `DuckDBResource` (currently configured for in-memory).
 -   Dagster instance configuration (`dagster.yaml`) uses defaults (likely `~/.dagster`).
--   `workspace.yaml` points Dagster to the code location in `app/assets.py`.
+-   `workspace.yaml` points Dagster to the code location in `app/dagster/data_ingestion/assets.py` (assuming this was implicitly corrected, as `app/assets.py` did not exist).

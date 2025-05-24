@@ -12,7 +12,9 @@ from utils.tuya_api_helpers import list_devices, get_device_status, send_device_
 
 # --- Streamlit App UI ---
 
-SCHEDULED_SCENES_FILE = "app/streamlit/app/data/scheduled_scenes.json"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SCHEDULED_SCENES_FILE = os.path.join(SCRIPT_DIR, "app/data/scheduled_scenes.json")
+CSS_FILE = os.path.join(SCRIPT_DIR, "style.css")
 
 def load_scenes_from_file():
     """Loads scenes from the JSON file."""
@@ -85,10 +87,10 @@ def device_control_fragment(device_info):
 
 st.set_page_config(layout="wide", page_title="Análise de Energia Residencial")
 try:
-    with open("style.css") as f: css = f.read()
+    with open(CSS_FILE) as f: css = f.read() # Use robust CSS_FILE path
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 except FileNotFoundError:
-    st.warning("Arquivo style.css não encontrado. Estilos personalizados não serão aplicados.")
+    st.warning(f"Arquivo style.css não encontrado em {CSS_FILE}. Estilos personalizados não serão aplicados.")
 
 st.title("Análise de Consumo de Energia Residencial")
 
@@ -97,7 +99,7 @@ main_menu = st.sidebar.radio("Selecione o Menu", ["📊 Relatórios", "💡 Acio
 app_page = None
 if main_menu == "📊 Relatórios":
     app_page = st.sidebar.radio("Selecione a Página de Relatório",
-                                ["🏠 Resumo da Casa", "🔌 Detalhes por Dispositivo", "📊 Análise Avançada", "🧾 Analisar Conta CEMIG"],
+                                ["🏠 Resumo da Casa", "🔌 Detalhes por Dispositivo", "📊 Análise Avançada"],
                                 key="report_page_selector")
 elif main_menu == "💡 Acionamentos":
     app_page = st.sidebar.radio("Selecione a Página de Acionamento", ["💡 Controle de Dispositivos"], key="action_page_selector")
@@ -129,17 +131,17 @@ selected_devices_list = []
 if available_devices_list:
     default_selection = []
     if app_page == "🏠 Resumo da Casa": default_selection = available_devices_list
-    elif app_page and app_page != "💡 Controle de Dispositivos" and app_page != "🧾 Analisar Conta CEMIG":
+    elif app_page and app_page != "💡 Controle de Dispositivos":
         if "Hack Sala" in available_devices_list: default_selection = ["Hack Sala"]
         elif available_devices_list: default_selection = [available_devices_list[0]]
     selected_devices_list = st.sidebar.multiselect("Filtrar Dispositivos (Global)", options=available_devices_list, default=default_selection, key="global_device_multiselect")
-    if not selected_devices_list and app_page not in ["💡 Controle de Dispositivos", "🧾 Analisar Conta CEMIG"]:
+    if not selected_devices_list and app_page not in ["💡 Controle de Dispositivos"]:
          st.sidebar.warning("Selecione ao menos um dispositivo para carregar os dados.")
-elif app_page not in ["💡 Controle de Dispositivos", "🧾 Analisar Conta CEMIG"]:
+elif app_page not in ["💡 Controle de Dispositivos"]:
     st.sidebar.info("Nenhum dispositivo encontrado para o período selecionado ou dados não disponíveis.")
 
 data_df = pd.DataFrame()
-if app_page not in ["💡 Controle de Dispositivos", "🧾 Analisar Conta CEMIG"]:
+if app_page not in ["💡 Controle de Dispositivos"]:
     if start_date_filter and end_date_filter and start_date_filter <= end_date_filter and selected_devices_list:
         data_df = load_data(start_date_filter, end_date_filter, selected_devices_list)
     elif not selected_devices_list and available_devices_list:
@@ -221,8 +223,7 @@ elif app_page == "💡 Controle de Dispositivos":
     st.markdown("---")
     st.subheader("Gerenciamento de Cenas")
 
-    if 'saved_scenes' not in st.session_state:
-        st.session_state.saved_scenes = load_scenes_from_file()
+    st.session_state.saved_scenes = load_scenes_from_file()
 
     # Initialize states for multi-step scene creation
     if 'scene_creation_step' not in st.session_state: st.session_state.scene_creation_step = 'step1_name_devices'
@@ -232,7 +233,7 @@ elif app_page == "💡 Controle de Dispositivos":
     if 'temp_scene_schedule_time' not in st.session_state: st.session_state.temp_scene_schedule_time = None
     if 'temp_scene_schedule_days' not in st.session_state: st.session_state.temp_scene_schedule_days = []
     if 'temp_scene_schedule_recurring' not in st.session_state: st.session_state.temp_scene_schedule_recurring = False
-    if 'confirm_delete_scene_name' not in st.session_state: st.session_state.confirm_delete_scene_name = None
+    if 'pending_delete_scene' not in st.session_state: st.session_state.pending_delete_scene = None # Renamed for clarity
 
 
     all_devices_list_for_scenes = list_devices()
@@ -359,7 +360,7 @@ elif app_page == "💡 Controle de Dispositivos":
                 st.session_state.temp_scene_schedule_time = None
                 st.session_state.temp_scene_schedule_days = []
                 st.session_state.temp_scene_schedule_recurring = False
-                if 'confirm_delete_scene_name' in st.session_state: del st.session_state.confirm_delete_scene_name
+                if 'pending_delete_scene' in st.session_state: del st.session_state.pending_delete_scene # Updated variable name
                 st.rerun()
 
     st.markdown("---")
@@ -383,11 +384,12 @@ elif app_page == "💡 Controle de Dispositivos":
 
     if not st.session_state.get('saved_scenes'): st.write("Nenhuma cena salva ainda.")
     else:
-        for scene_name_saved, scene_data_saved in st.session_state.saved_scenes.items():
-            if st.session_state.get('confirm_delete_scene_name') == scene_name_saved: continue
+        scenes_to_iterate = list(st.session_state.get('saved_scenes', {}).items()) # Iterate over a copy
+        for scene_name_saved, scene_data_saved in scenes_to_iterate:
             with st.expander(f"Cena: {scene_name_saved}"):
                 scene_actions_saved = scene_data_saved.get("actions", {})
                 scene_schedule_saved = scene_data_saved.get("schedule", {})
+                
                 if not scene_actions_saved: st.write("Nenhuma ação definida.")
                 else:
                     st.markdown("**Ações:**")
@@ -395,6 +397,7 @@ elif app_page == "💡 Controle de Dispositivos":
                         dev_name = device_id_to_name_map_for_scenes.get(dev_id, f"ID: {dev_id}")
                         action_str = "Ligar" if action_details.get('value') else "Desligar"
                         st.write(f"- **{dev_name}**: {action_str}")
+                
                 if scene_schedule_saved and scene_schedule_saved.get("time"):
                     st.markdown("**Horário Agendado:**")
                     st.write(f"Horário: {scene_schedule_saved['time']}")
@@ -403,23 +406,35 @@ elif app_page == "💡 Controle de Dispositivos":
                         st.write(f"Repetir: {'Semanalmente nos dias indicados' if scene_schedule_saved.get('recurring') else 'Uma vez nos dias indicados'}")
                     else: st.write("Repetir: Apenas uma vez no próximo horário indicado.")
                 else: st.write("Nenhum horário agendado (acionamento manual).")
-                if st.button("🗑️ Excluir esta Cena", key=f"delete_btn_{scene_name_saved}"):
-                    st.session_state.confirm_delete_scene_name = scene_name_saved
-                    st.rerun()
 
-elif app_page == "🧾 Analisar Conta CEMIG":
-    st.sidebar.header("Analisar Conta CEMIG")
-    uploaded_file = st.sidebar.file_uploader("Upload da Conta CEMIG (PDF)", type=["pdf"])
-    if uploaded_file is not None:
-        try:
-            with open("temp.pdf", "wb") as f: f.write(uploaded_file.getbuffer())
-            file_path = "temp.pdf"
-            password = "0219"  
-            bill_data = parse_cemig_bill(file_path, password)
-            generate_report(bill_data)
-        except Exception as e: st.error(f"Erro ao processar o arquivo: {str(e)}")
-        finally:
-            if os.path.exists("temp.pdf"): os.remove("temp.pdf")
+                # Improved Deletion Logic
+                delete_key_confirm = f"confirm_delete_{scene_name_saved}"
+                delete_key_cancel = f"cancel_delete_{scene_name_saved}"
+
+                if st.session_state.get('pending_delete_scene') == scene_name_saved:
+                    st.warning(f"Tem certeza que deseja excluir a cena '{scene_name_saved}'?")
+                    col_confirm, col_cancel = st.columns(2)
+                    with col_confirm:
+                        if st.button("Sim, Excluir Permanentemente", key=delete_key_confirm, type="primary"):
+                            if scene_name_saved in st.session_state.saved_scenes:
+                                del st.session_state.saved_scenes[scene_name_saved]
+                                if save_scenes_to_file(st.session_state.saved_scenes):
+                                    st.success(f"Cena '{scene_name_saved}' excluída permanentemente.")
+                                else:
+                                    st.error(f"Erro ao excluir cena '{scene_name_saved}' do arquivo.")
+                                    # Consider re-adding to session_state if file save fails, or other error handling
+                            if 'pending_delete_scene' in st.session_state:
+                                del st.session_state.pending_delete_scene
+                            st.rerun()
+                    with col_cancel:
+                        if st.button("Cancelar Exclusão", key=delete_key_cancel):
+                            if 'pending_delete_scene' in st.session_state:
+                                del st.session_state.pending_delete_scene
+                            st.rerun()
+                else:
+                    if st.button("🗑️ Excluir esta Cena", key=f"delete_btn_{scene_name_saved}"):
+                        st.session_state.pending_delete_scene = scene_name_saved
+                        st.rerun()
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Desenvolvido por Igor Cleto.")

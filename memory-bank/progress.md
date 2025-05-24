@@ -31,6 +31,30 @@
         -   Integrated CEP/SPC analysis (CUSUM chart, fault logs) into the "Análise Avançada" page.
         -   Improved visual separation in "Resumo da Casa" with additional dividers.
         -   Created and loaded `app/streamlit/style.css` to apply custom styles for metrics, headers, and layout, enhancing the visual appeal.
+    -   **Performance Optimization & UI Enhancement (Device Controls):**
+        -   Used `st.fragment` in `app/streamlit/streamlit_app.py` for the "Controle Individual de Dispositivos" section.
+        -   Replaced `st.button` with `st.toggle` for a standard on/off switch interface.
+        -   Maintained "optimistic updates" using `st.session_state` with `st.toggle` (via `on_change` callback), ensuring immediate visual feedback and reliable command execution.
+        -   Removed the diagnostic caption related to optimistic/actual states.
+        -   Corrected `on_off_code` in `app/data/device_mapping.json` for "Repelente" and "Ventilador do quarto" to `"switch_1"` to fix activation issues, aligning them with "Fita de LED".
+    -   **Scene Management UI Enhancements & Fixes (Streamlit App):**
+        -   Resolved various errors (`NameError`, `IndentationError`, Streamlit widget warnings) in scene management.
+        -   Refactored scene creation into a three-step process ("Step 1: Name & Devices", "Step 2: Schedule & Actions", "Step 3: Review & Final Save") managed by `st.session_state`, using `st.form` for the first two input steps. This provides a clearer, more granular workflow and ensures data is pre-filled when navigating back between steps.
+        -   Implemented functionality to delete saved scenes, including a confirmation step.
+        -   Streamlit app continues to save/load scene definitions (including schedules) to/from `app/data/scheduled_scenes.json`.
+        -   Display of saved scenes remains user-friendly with `st.expander` and now includes a delete button.
+    -   **Dagster for Scene Scheduling (Initial Setup - Unchanged in this iteration):**
+        -   Created `app/dagster/scene_scheduler.py` containing:
+            -   `tuya_api_resource`: For Dagster to access Tuya API credentials.
+            -   `check_and_trigger_scenes_op`: Reads `scheduled_scenes.json`, checks schedules against current time, and triggers due scenes. Includes basic logic for non-recurring scenes (marking as triggered).
+            -   `scene_scheduler_job`: Wraps the op.
+            -   `scene_execution_schedule`: Configured to run the job every minute.
+        -   Integrated these new Dagster components (job, schedule, resource) into the main `Definitions` object in `app/dagster/data_ingestion/assets.py`.
+        -   Corrected import paths and `Definitions` structure in Dagster files.
+        -   (Note: Automatic scene triggering by Dagster requires user to enable the schedule in Dagit and ensure Dagster environment is correctly configured with API credentials.)
+    -   **Device Control Caching:** Updated `app/streamlit/utils/tuya_api_helpers.py` to ensure that when a device command is sent, the cache for *all* device statuses (`get_device_status`) is cleared. This ensures the "Controle Individual de Dispositivos" section reflects the latest states after any action.
+    -   **Scene Deletion Logic (Streamlit App):** Improved the scene deletion process in `app/streamlit/streamlit_app.py`. It now includes a confirmation step and correctly removes the scene from both the session state (`st.session_state.saved_scenes`) and the persistent `scheduled_scenes.json` file. This ensures the "Executar Cena Salva" dropdown accurately reflects the available scenes.
+    -   **File Path Robustness (Streamlit App):** Modified `app/streamlit/streamlit_app.py` to use absolute paths for `scheduled_scenes.json` and `style.css`, constructed relative to the script's own directory. This should prevent issues where the app fails to load these files if run from a different working directory, which was likely causing scenes to not appear even if present in the JSON file.
 
 ## 2. What's Left to Build / In Progress
 

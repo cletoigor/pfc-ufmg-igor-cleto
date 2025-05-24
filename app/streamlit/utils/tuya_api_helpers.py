@@ -2,6 +2,7 @@ import os
 import json # Import json
 from tuya_connector import TuyaOpenAPI
 from dotenv import load_dotenv
+import streamlit as st # Added for caching
 
 # Load environment variables from .env file
 load_dotenv()
@@ -64,13 +65,12 @@ def _load_device_mapping_from_path(path_to_check):
         print(f"An unexpected error occurred loading device mapping from {path_to_check}: {e}")
         return None
 
+@st.cache_data(ttl=3600) # Cache for 1 hour, or until invalidated
 def list_devices():
     """
     Lists devices from the device mapping file.
     Tries path from DEVICE_MAPPING_PATH env var first, then a default path.
     """
-    devices_list = []
-    
     devices_list = []
     
     # Determine script's directory to build absolute paths
@@ -114,6 +114,7 @@ def list_devices():
 
     return devices_list if devices_list else []
 
+@st.cache_data(ttl=60) # Cache device status for 60 seconds, or until invalidated
 def get_device_status(device_id):
     """Gets the current status of a specific device."""
     openapi = get_tuya_openapi()
@@ -135,6 +136,8 @@ def send_device_command(device_id, code, value):
     response = openapi.post(f"/v1.0/iot-03/devices/{device_id}/commands", commands)
     # Assuming success is indicated by 'success' field
     if response and response.get('success'):
+        # Invalidate the cache for all device statuses
+        get_device_status.clear()
         return True
     else:
         # Handle API error
