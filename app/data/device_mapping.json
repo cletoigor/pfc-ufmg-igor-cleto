@@ -5,15 +5,15 @@
   },
   "ebb1ae44e3bb8945c7colh": {
     "name": "Hack Sala",
-    "on_off_code": "switch_led"
+    "on_off_code": "switch_1"
   },
   "eb47e52ca43f9bc6349k2v": {
     "name": "Repelente",
-    "on_off_code": "switch_led"
+    "on_off_code": "switch_1"
   },
   "ebf51d0d4012b176f2xhna": {
     "name": "Ventilador do quarto",
-    "on_off_code": "switch_led"
+    "on_off_code": "switch_1"
   },
   "eb135cd2e81b1f85edglc6": {
     "name": "Tomadas escritório",

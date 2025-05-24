@@ -21,6 +21,13 @@ from dagster import (
 )
 from dagster_duckdb import DuckDBResource # Added
 
+# Import scene scheduler components
+from app.dagster.scene_scheduler import (
+    scene_scheduler_job,
+    scene_execution_schedule,
+    tuya_api_resource
+)
+
 # Import helper functions from the utils module
 from .ingestion_utils import (
     load_device_mapping,
@@ -386,10 +393,10 @@ hourly_schedule = ScheduleDefinition(
 # --- Repository Definition ---
 defs = Definitions(
     assets=[raw_tuya_logs, staging_tuya_logs],
+    jobs=[tuya_processing_job, scene_scheduler_job],
+    schedules=[hourly_schedule, scene_execution_schedule],
     resources={
-        # Configure the DuckDB resource (can be customized further)
-        "duckdb": DuckDBResource(database=":memory:") # Use in-memory for now
-    },
-    jobs=[tuya_processing_job],
-    schedules=[hourly_schedule],
+        "duckdb": DuckDBResource(database=":memory:"), # Existing resource
+        "tuya_api": tuya_api_resource # Add new resource for scene scheduler
+    }
 )
