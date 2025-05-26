@@ -1,8 +1,8 @@
-PWD /Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto
+PWD /Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/latex
 INPUT /usr/local/texlive/2024/texmf.cnf
 INPUT /usr/local/texlive/2024/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/Monografia.tex
+INPUT /Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/latex/Monografia.tex
 OUTPUT Monografia.log
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/book.cls
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/book.cls
@@ -304,9 +304,6 @@ INPUT ./DescricaoProcesso/Figuras/matter_big_arc.png
 INPUT ./DescricaoProcesso/Figuras/matter_big_arc.png
 INPUT ./DescricaoProcesso/Figuras/matter_big_arc.png
 INPUT ./DescricaoProcesso/Figuras/matter_big_arc.png
-INPUT ./Monografia.bbl
-INPUT ./Monografia.bbl
-INPUT Monografia.bbl
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
@@ -365,6 +362,8 @@ OUTPUT Apendices/ApendiceB.aux
 INPUT ./Apendices/ApendiceB.tex
 INPUT ./Apendices/ApendiceB.tex
 INPUT Apendices/ApendiceB.tex
+INPUT ./Monografia.bbl
+INPUT ./Monografia.bbl
 INPUT Monografia.bbl
 INPUT Monografia.aux
 INPUT ./Capa/capa.aux

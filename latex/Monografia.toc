@@ -7,7 +7,7 @@
 \contentsline {chapter}{\numberline {1}Introdução}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivação e Justificativa}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Objetivos do Projeto}{2}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Local de Realização}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Local de Realização}{3}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Estrutura da Monografia}{3}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Princípios de Automação Residencial}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Arquitetura de um Sistema de Automação Residencial}{6}{section.2.1}%
@@ -35,32 +35,39 @@
 \contentsline {subsection}{\numberline {2.2.4}Privacidade, LGPD e Proteção dos Dados Energéticos}{16}{subsection.2.2.4}%
 \contentsline {subsection}{\numberline {2.2.5}Integração com Outros Sistemas e Evolução Contínua}{17}{subsection.2.2.5}%
 \contentsline {subsection}{\numberline {2.2.6}Benefícios Práticos e Responsabilidade Social}{17}{subsection.2.2.6}%
-\contentsline {chapter}{\numberline {3}Metodologia}{21}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{21}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{22}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{22}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Desenvolvimento do Sistema de Controle}{22}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Visualização}{22}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Implementação de Algoritmos de Processamento e Previsão}{23}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{23}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{23}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Previsão de Consumo com Inteligência Artificial}{23}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{23}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Viabilidade de Implementação em Larga Escala}{24}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{24}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Resultados}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{25}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{25}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Testes}{25}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Análise dos Resultados}{25}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{26}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{26}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{26}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{27}{subsection.4.7.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{31}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações Finais}{31}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{31}{section.5.2}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{33}{appendix.A}%
-\contentsline {chapter}{Referências Bibliográficas}{32}{section.5.2}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{35}{appendix.B}%
+\contentsline {section}{\numberline {2.3}Arquitetura do Sistema Desenvolvido}{18}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Visão Geral do Sistema}{18}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Coleta de Dados com Dispositivos Inteligentes Tuya}{18}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Orquestração e Processamento de Dados com Dagster}{18}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Interface de Usuário, Controle e Visualização com Streamlit}{20}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Gerenciamento e Agendamento de Cenas com Dagster}{21}{subsection.2.3.5}%
+\contentsline {chapter}{\numberline {3}Metodologia}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{23}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{24}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{24}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Desenvolvimento do Backend, Lógica de Controle e Orquestração de Dados}{24}{subsection.3.2.2}%
+\contentsline {subsubsection}{Implementação da Pipeline de Dados com Dagster}{24}{section*.11}%
+\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{25}{section*.12}%
+\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{26}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Implementação de Algoritmos de Processamento e Análise}{27}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{27}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{27}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{27}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Viabilidade de Implementação em Larga Escala}{28}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{28}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{29}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{29}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Testes}{29}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Análise dos Resultados}{29}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{30}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{30}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{30}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{31}{subsection.4.7.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{35}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Finais}{35}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{35}{section.5.2}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{37}{appendix.A}%
+\contentsline {chapter}{Referências Bibliográficas}{36}{section.5.2}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{39}{appendix.B}%

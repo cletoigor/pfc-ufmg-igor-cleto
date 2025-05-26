@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  26 JAN 2025 23:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  25 MAY 2025 22:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/Monografia.tex
-(/Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/Monografia.tex
+**/Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/latex/Monografia.tex
+(/Users/igorcleto/Documents/UFMG/PFC/PFC_1_igor_cleto/latex/Monografia.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/book.cls
@@ -299,11 +299,7 @@ Writing index file Monografia.idx
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
 \l__pdf_internal_box=\box53
-) (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux)
-
-LaTeX Warning: Label `matter_spec' multiply defined.
-
-)
+) (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
 \openout1 = `Monografia.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
@@ -511,57 +507,129 @@ Overfull \hbox (17.91725pt too wide) in paragraph at lines 42--43
  []
 
 [7] [8] [9]
-<DescricaoProcesso/Figuras/matter_big_arc.png, id=425, 1606.0pt x 634.37pt>
+<DescricaoProcesso/Figuras/matter_big_arc.png, id=451, 1606.0pt x 634.37pt>
 File: DescricaoProcesso/Figuras/matter_big_arc.png Graphic file (type png)
 <use DescricaoProcesso/Figuras/matter_big_arc.png>
 Package pdftex.def Info: DescricaoProcesso/Figuras/matter_big_arc.png  used on input line 103.
 (pdftex.def)             Requested size: 396.91325pt x 156.782pt.
- [10 <./DescricaoProcesso/Figuras/matter_big_arc.png>] [11] [12] [13] [14] [15] [16] (./Monografia.bbl [17] [18]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 7.
+ [10 <./DescricaoProcesso/Figuras/matter_big_arc.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11] [12]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13] [14] [15] [16] [17]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 275.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-))) [19
+) [18]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 278.
 
-]
+Overfull \hbox (72.96635pt too wide) in paragraph at lines 291--292
+[]\T1/cmr/bx/n/12 Agendamento \T1/cmtt/m/n/12 hourly_schedule\T1/cmr/m/n/12 : Para man-ter os da-dos atu-a-li-za-dos, o \T1/cmtt/m/n/12 tuya_processing_job
+ []
+
+[19]
+Overfull \hbox (5.80377pt too wide) in paragraph at lines 306--307
+\T1/cmr/m/n/12 A apli-ca-ção Stre-am-lit uti-liza um ar-quivo CSS cus-to-mi-zado (\T1/cmtt/m/n/12 app/streamlit/style.css\T1/cmr/m/n/12 )
+ []
+
+[20]
+Overfull \hbox (12.81578pt too wide) in paragraph at lines 316--317
+[]\T1/cmr/bx/n/12 Job \T1/cmtt/m/n/12 scene_scheduler_job\T1/cmr/m/n/12 : En-volve o \T1/cmtt/m/n/12 check_and_trigger_scenes_op\T1/cmr/m/n/12 , definindo-
+ []
+
+) [21]
 \openout2 = `Metodologia/Metodologia.aux'.
 
- (./Metodologia/Metodologia.tex [20
+ (./Metodologia/Metodologia.tex [22
 
 
 
 
 ]
 Cap\'{\i }tulo 3.
-[21] [22]
-Overfull \hbox (15.02643pt too wide) has occurred while \output is active
-\T1/cmr/m/sl/12 3.3.  IMPLEMENTAÇÃO DE ALGORITMOS DE PROCESSAMENTO E PREVISÃO \T1/cmr/m/n/12 23
+[23]
+Overfull \hbox (4.35027pt too wide) in paragraph at lines 38--39
+\T1/cmr/m/n/12 logs de dis-po-si-ti-vos e salvá-los em for-mato JSON no di-re-tó-rio \T1/cmtt/m/n/12 app/data/raw/\T1/cmr/m/n/12 ,
  []
 
-[23]) [24]
+[24]
+Overfull \hbox (56.20428pt too wide) in paragraph at lines 39--40
+\T1/cmr/m/n/12 jun-ção com da-dos de ma-pe-a-mento de dis-po-si-ti-vos (de \T1/cmtt/m/n/12 app/data/device_mapping.json
+ []
+
+
+Overfull \hbox (6.04367pt too wide) in paragraph at lines 43--44
+[]\T1/cmr/bx/n/12 Configuração do Am-bi-ente Dags-ter\T1/cmr/m/n/12 : Fo-ram cri-a-dos os ar-qui-vos \T1/cmtt/m/n/12 dagster.yaml
+ []
+
+
+Overfull \hbox (7.27458pt too wide) in paragraph at lines 55--56
+[]\T1/cmr/m/n/12 Implementar ló-gica para mar-car ce-nas não re-cor-ren-tes como "exe-cu-ta-das"para
+ []
+
+
+Overfull \hbox (94.03082pt too wide) in paragraph at lines 57--58
+\T1/cmr/m/n/12 para en-vol-ver o \T1/cmtt/m/n/12 check_and_trigger_scenes_op\T1/cmr/m/n/12 , e um agen-da-mento (\T1/cmtt/m/n/12 scene_execution_schedule\T1/cmr/m/n/12 )
+ []
+
+[25]
+Overfull \hbox (10.20421pt too wide) in paragraph at lines 70--71
+[]\T1/cmr/m/n/12 Para o con-trole in-di-vi-dual de dis-po-si-ti-vos, fo-ram uti-li-za-dos wid-gets \T1/cmtt/m/n/12 st.toggle\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (84.8265pt too wide) in paragraph at lines 71--72
+\T1/cmr/m/n/12 das ce-nas são sal-vas e car-re-ga-das de um ar-quivo JSON (\T1/cmtt/m/n/12 app/data/scheduled_scenes.json\T1/cmr/m/n/12 ).
+ []
+
+
+Overfull \hbox (148.79784pt too wide) in paragraph at lines 73--74
+[]\T1/cmr/bx/n/12 Organização do Có-digo\T1/cmr/m/n/12 : Para man-ter o có-digo da apli-ca-ção Stre-am-lit (\T1/cmtt/m/n/12 app/streamlit/streamlit_app.py\T1/cmr/m/n/12 )
+ []
+
+
+Overfull \hbox (62.73964pt too wide) in paragraph at lines 73--74
+\T1/cmr/m/n/12 limpo e mo-du-lar, fun-ções au-xi-li-a-res fo-ram mo-vi-das para um di-re-tó-rio \T1/cmtt/m/n/12 app/streamlit/utils/\T1/cmr/m/n/12 ,
+ []
+
+[26]
+Overfull \hbox (26.65701pt too wide) in paragraph at lines 83--84
+\T1/cmr/m/n/12 men-tal deste pré-processamento é re-a-li-zada au-to-ma-ti-ca-mente pelo ativo \T1/cmtt/m/n/12 staging_tuya_logs
+ []
+
+
+Overfull \hbox (5.72456pt too wide) has occurred while \output is active
+\T1/cmr/m/sl/12 3.3.  IMPLEMENTAÇÃO DE ALGORITMOS DE PROCESSAMENTO E ANÁLISE \T1/cmr/m/n/12 27
+ []
+
+[27]) [28]
 \openout2 = `Resultados/Resultados.aux'.
 
  (./Resultados/Resultados.tex
 Cap\'{\i }tulo 4.
-[25
+[29
 
 
 
 
-] [26]
+] [30]
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line 60.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 
-LaTeX Warning: Reference `sec:revisÃ£o' on page 27 undefined on input line 62.
+LaTeX Warning: Reference `sec:revisÃ£o' on page 31 undefined on input line 62.
 
-[27]
+[31]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [28] [29])
+ [32] [33])
 \openout2 = `Conclusao/Conclusao.aux'.
 
- (./Conclusao/Conclusao.tex [30
+ (./Conclusao/Conclusao.tex [34
 
 
 
@@ -569,10 +637,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Cap\'{\i }tulo 5.
-[31])
+[35])
 \openout2 = `Apendices/ApendiceA.aux'.
 
- (./Apendices/ApendiceA.tex [32
+ (./Apendices/ApendiceA.tex [36
 
 
 
@@ -580,26 +648,21 @@ Cap\'{\i }tulo 5.
 
 ]
 Ap\^endice A.
-) [33]
+) [37]
 \openout2 = `Apendices/ApendiceB.aux'.
 
- (./Apendices/ApendiceB.tex [34
+ (./Apendices/ApendiceB.tex [38
 
 
 
 
 ]
 Ap\^endice B.
-) [35] (./Monografia.bbl [36
+) [39] (./Monografia.bbl [40
 
 
 
-]
-pdfTeX warning (ext4): destination with the same identifier (name{cite.matter_spec}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.3 \bibitem{matter_spec}
-                         ) [37] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
+]) [41] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -608,25 +671,22 @@ L3 programming layer <2024-02-20>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `Monografia.out' has not changed.
-(rerunfilecheck)             Checksum: 5C24F5DF1857150D4DEB5CFB41A94440;11766.
+(rerunfilecheck)             Checksum: 2CA3EEB250E832F072D4D3BD15CC691E;13466.
  ) 
 Here is how much of TeX's memory you used:
- 12476 strings out of 474116
- 199701 string characters out of 5743682
+ 12524 strings out of 474116
+ 200483 string characters out of 5743682
  1940187 words of memory out of 5000000
- 34404 multiletter control sequences out of 15000+600000
+ 34439 multiletter control sequences out of 15000+600000
  579088 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,16n,79p,1174b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,16n,79p,1373b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Monografia.pdf (53 pages, 543093 bytes).
+Output written on Monografia.pdf (57 pages, 573817 bytes).
 PDF statistics:
- 704 PDF objects out of 1000 (max. 8388607)
- 595 compressed objects within 6 object streams
- 130 named destinations out of 1000 (max. 500000)
- 470 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 755 PDF objects out of 1000 (max. 8388607)
+ 641 compressed objects within 7 object streams
+ 145 named destinations out of 1000 (max. 500000)
+ 510 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -25,8 +25,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-Database file #1: ListadeReferencias.bib
-Warning--I didn't find a database entry for "matter_spec"
+Database file #1: Monografia.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
@@ -36,45 +35,44 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-You've used 0 entries,
+You've used 6 entries,
             6714 wiz_defined-function locations,
-            1208 strings with 9662 characters,
-and the built_in function-call counts, 679 in all, are:
-= -- 182
-> -- 0
-< -- 0
-+ -- 46
-- -- 0
-* -- 27
-:= -- 155
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
-chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 139
+            1244 strings with 10593 characters,
+and the built_in function-call counts, 4572 in all, are:
+= -- 459
+> -- 103
+< -- 10
++ -- 85
+- -- 32
+* -- 288
+:= -- 666
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 48
+chr.to.int$ -- 15
+cite$ -- 6
+duplicate$ -- 233
+empty$ -- 327
+format.name$ -- 162
+if$ -- 1056
 int.to.chr$ -- 0
 int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 8
-num.names$ -- 0
-pop$ -- 25
+missing$ -- 106
+newline$ -- 36
+num.names$ -- 24
+pop$ -- 160
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 20
 quote$ -- 0
-skip$ -- 41
+skip$ -- 259
 stack$ -- 1
-substring$ -- 44
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 213
+swap$ -- 104
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 2
+while$ -- 38
 width$ -- 0
-write$ -- 7
-(There was 1 warning)
+write$ -- 89

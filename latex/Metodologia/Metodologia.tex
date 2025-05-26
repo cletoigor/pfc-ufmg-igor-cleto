@@ -1,6 +1,6 @@
 \chapter{Metodologia}
 
-Neste capítulo, são detalhadas as etapas metodológicas adotadas no desenvolvimento do sistema inteligente para monitoramento e previsão do consumo de energia residencial. A abordagem foi projetada para atender aos objetivos do projeto, combinando análise técnica, desenvolvimento de soluções e validação experimental. Os procedimentos descritos têm como objetivo garantir a reprodução, escalabilidade e eficácia do sistema proposto, contribuindo para o avanço na área de automação e eficiência energética.
+Neste capítulo, são detalhadas as etapas metodológicas adotadas no desenvolvimento do sistema inteligente para monitoramento e controle estatístico de processo (CEP) para o monitoramento de energia residencial. A abordagem foi projetada para atender aos objetivos do projeto, combinando análise técnica, desenvolvimento de soluções e validação experimental. Os procedimentos descritos têm como objetivo garantir a reprodução, escalabilidade e eficácia do sistema proposto, contribuindo para o avanço na área de automação e eficiência energética.
 
 \section{Pesquisa e Análise de Tecnologias Existentes}
 
@@ -23,35 +23,68 @@ Com base nas tecnologias identificadas, foi desenvolvido um protótipo funcional
 
 As tomadas \textit{Tuya Smart Wi-Fi} foram configuradas para monitorar o consumo energético em tempo real. Estes dispositivos enviam os dados para a plataforma \textit{Tuya Cloud}, de onde são acessados por meio de APIs.
 
-\subsection{Desenvolvimento do Sistema de Controle}
+\subsection{Desenvolvimento do Backend, Lógica de Controle e Orquestração de Dados}
 
-O sistema de controle foi desenvolvido utilizando as APIs fornecidas pela \textit{Tuya Cloud}, permitindo a comunicação entre as tomadas e o sistema central. O controlador é responsável por:
+O backend do sistema, a lógica de controle e a orquestração dos fluxos de dados foram desenvolvidos com foco na robustez, automação e escalabilidade. As APIs da \textit{Tuya Cloud} foram utilizadas para a comunicação com os dispositivos de hardware (tomadas inteligentes).
 
+\subsubsection{Implementação da Pipeline de Dados com Dagster}
+
+Para o gerenciamento do fluxo de dados de consumo energético, desde a coleta até o armazenamento para análise, optou-se pela ferramenta de orquestração Dagster. A escolha se justifica pela sua capacidade de definir pipelines de dados como código Python, oferecer monitoramento via interface Dagit, gerenciar dependências entre etapas de processamento e facilitar a programação de execuções recorrentes.
+
+A metodologia de implementação da pipeline com Dagster envolveu:
 \begin{itemize}
-    \item Receber e processar os dados coletados pelas tomadas.
-    \item Aplicar algoritmos de análise e previsão de consumo.
-    \item Integrar os dados a uma interface de visualização desenvolvida especificamente para o projeto.
+    \item \textbf{Definição de Ativos (Assets)}: Foram criados dois ativos principais:
+    \begin{itemize}
+        \item \texttt{raw\_tuya\_logs}: Responsável por extrair os dados brutos da API Tuya. A metodologia incluiu a configuração do acesso à API utilizando variáveis de ambiente (carregadas via \texttt{python-dotenv} e gerenciadas pelo objeto \texttt{TuyaCredentials} no Dagster) para armazenar de forma segura \texttt{ACCESS\_ID}, \texttt{ACCESS\_SECRET}, e \texttt{API\_ENDPOINT}. O ativo foi programado para requisitar os logs de dispositivos e salvá-los em formato JSON no diretório \texttt{app/data/raw/}, particionados por dispositivo e data.
+        \item \texttt{staging\_tuya\_logs}: Este ativo depende do \texttt{raw\_tuya\_logs}. Sua metodologia de desenvolvimento envolveu a utilização do \texttt{DuckDBResource} para ler os arquivos JSON, realizar transformações como a conversão de timestamps, junção com dados de mapeamento de dispositivos (de \texttt{app/data/device\_mapping.json} via Pandas), e a derivação de colunas para particionamento. O resultado é armazenado em formato Parquet no diretório \texttt{app/data/staging/}.
+    \end{itemize}
+    \item \textbf{Criação de Job}: Um job (\texttt{tuya\_processing\_job}) foi definido para encapsular os ativos e suas dependências, especificando a ordem de execução.
+    \item \textbf{Agendamento (Schedule)}: Um agendamento (\texttt{hourly\_schedule}) foi criado para executar o \texttt{tuya\_processing\_job} automaticamente a cada hora, garantindo que os dados sejam atualizados regularmente.
+    \item \textbf{Configuração do Ambiente Dagster}: Foram criados os arquivos \texttt{dagster.yaml} (para configuração da instância Dagster) e \texttt{workspace.yaml} (para apontar o Dagster para as definições de código da pipeline em \texttt{app/assets.py}).
 \end{itemize}
 
-\subsection{Desenvolvimento da Interface de Visualização}
+\subsubsection{Implementação do Agendamento de Cenas com Dagster}
 
-A interface de monitoramento foi desenvolvida pelo autor do trabalho utilizando linguagens de programação voltadas para desenvolvimento web e visualização de dados. Esta interface exibe de forma intuitiva os padrões de consumo energético, permitindo que os usuários identifiquem desperdícios e ajustem seu comportamento para otimizar o uso de energia.
+A metodologia para automatizar a execução de cenas de automação também utilizou Dagster, aproveitando sua capacidade de agendamento e execução de lógica Python.
+\begin{itemize}
+    \item \textbf{Definição da Operação (Op) \texttt{check\_and\_trigger\_scenes\_op}}: A lógica central foi encapsulada nesta operação. A metodologia consistiu em programar o \texttt{op} para:
+    \begin{itemize}
+        \item Ler as definições de cena do arquivo \texttt{app/data/scheduled\_scenes.json}.
+        \item Iterar por cada cena, comparando seu agendamento (horário, dias da semana, status de recorrência) com o momento atual.
+        \item Para cenas que devem ser ativadas, utilizar o \texttt{tuya\_api\_resource} (configurado com as credenciais da API Tuya) para enviar os comandos de ligar/desligar aos dispositivos correspondentes.
+        \item Implementar lógica para marcar cenas não recorrentes como "executadas" para evitar reativações.
+    \end{itemize}
+    \item \textbf{Criação de Job e Agendamento}: Um job (\texttt{scene\_scheduler\_job}) foi criado para envolver o \texttt{check\_and\_trigger\_scenes\_op}, e um agendamento (\texttt{scene\_execution\_schedule}) foi configurado para executar este job em intervalos curtos (e.g., a cada minuto), assegurando a execução pontual das cenas.
+\end{itemize}
 
-\section{Implementação de Algoritmos de Processamento e Previsão}
+\subsection{Desenvolvimento da Interface de Usuário com Streamlit}
+
+A interface de visualização e interação com o usuário foi desenvolvida utilizando a biblioteca Streamlit em Python. A escolha desta ferramenta baseou-se na sua facilidade de uso para criar aplicações web interativas diretamente a partir de scripts Python, ideal para prototipagem rápida e desenvolvimento de dashboards de dados.
+
+A metodologia de desenvolvimento da interface com Streamlit seguiu os seguintes passos:
+\begin{itemize}
+    \item \textbf{Estruturação Multi-Página}: A aplicação foi organizada em um layout multi-página para melhor navegação e separação de funcionalidades, incluindo "Resumo da Casa", "Detalhes por Dispositivo", "Análise Avançada", "Controle Individual de Dispositivos" e "Gerenciamento de Cenas".
+    \item \textbf{Visualização de Dados}: Foram implementados diversos gráficos (séries temporais, barras, distribuições) utilizando as capacidades nativas do Streamlit e bibliotecas como Plotly (indiretamente através do Streamlit) para apresentar os dados de consumo energético, potência, tensão e corrente de forma clara e informativa.
+    \item \textbf{Desenvolvimento de Funcionalidades de Controle}:
+    \begin{itemize}
+        \item Para o controle individual de dispositivos, foram utilizados widgets \texttt{st.toggle}. A metodologia incluiu a implementação de um padrão de "atualização otimista" com \texttt{st.session\_state} e callbacks \texttt{on\_change} para fornecer feedback visual instantâneo ao usuário, enquanto o comando real é enviado à API Tuya. O uso de \texttt{st.fragment} foi adotado para otimizar o desempenho da interface nesta seção.
+        \item Para o gerenciamento de cenas, foi desenvolvida uma interface com formulários (\texttt{st.form}) multi-etapas para guiar o usuário na criação de cenas (nome, seleção de dispositivos, definição de ações e agendamento). As configurações das cenas são salvas e carregadas de um arquivo JSON (\texttt{app/data/scheduled\_scenes.json}). Funcionalidades para visualizar, modificar e excluir cenas existentes também foram implementadas.
+    \end{itemize}
+    \item \textbf{Organização do Código}: Para manter o código da aplicação Streamlit (\texttt{app/streamlit/streamlit\_app.py}) limpo e modular, funções auxiliares foram movidas para um diretório \texttt{app/streamlit/utils/}, contendo módulos para carregamento de dados (\texttt{data\_helpers.py}), funções de UI (\texttt{ui\_helpers.py}, como o carregamento de CSS customizado) e lógica de renderização de páginas (\texttt{page\_functions.py}).
+    \item \textbf{Estilização Customizada}: Um arquivo CSS (\texttt{app/streamlit/style.css}) foi criado e carregado pela aplicação para aplicar estilos personalizados, melhorando a aparência visual e a experiência do usuário.
+\end{itemize}
+
+\section{Implementação de Algoritmos de Processamento e Análise}
 
 Para o tratamento dos dados coletados, foram desenvolvidos e implementados algoritmos específicos, detalhados a seguir:
 
 \subsection{Pré-processamento dos Dados}
 
-Os dados brutos coletados pelas tomadas passaram por etapas de limpeza e normalização, eliminando leituras espúrias e garantindo consistência nos resultados.
+Os dados brutos coletados pelas tomadas passaram por etapas de limpeza e normalização, eliminando leituras espúrias e garantindo consistência nos resultados. Parte fundamental deste pré-processamento é realizada automaticamente pelo ativo \texttt{staging\_tuya\_logs} da pipeline Dagster, que converte tipos de dados, enriquece os registros com informações de mapeamento de dispositivos e estrutura os dados em um formato Parquet otimizado para análise.
 
 \subsection{Análise Estatística e Controle Estatístico de Processos (CEP)}
 
 O CEP foi utilizado para identificar variações significativas no consumo energético, estabelecendo limites de controle e detectando anomalias. Esta abordagem foi complementada por métodos estatísticos descritivos para caracterizar os padrões de consumo.
-
-\subsection{Previsão de Consumo com Inteligência Artificial}
-
-Modelos de aprendizado de máquina foram treinados utilizando dados históricos para prever demandas futuras de energia. Técnicas como regressão linear e redes neurais foram aplicadas, visando maior precisão e adaptabilidade.
 
 \section{Validação em Ambiente Real}
 
@@ -78,4 +111,4 @@ A análise de viabilidade considerou aspectos técnicos, econômicos e sociais, 
 
 \section{Resumo do Capítulo}
 
-Este capítulo detalhou as etapas metodológicas seguidas no desenvolvimento do sistema inteligente para monitoramento e previsão de consumo de energia residencial. As etapas compreenderam a análise de tecnologias, desenvolvimento do protótipo utilizando as tomadas \textit{Tuya Smart Wi-Fi}, implementação de algoritmos avançados, validação experimental e estudo de viabilidade em larga escala. A abordagem proposta combina rigor técnico e aplicabilidade prática, destacando-se como uma solução promissora para o setor de automação residencial.
+Este capítulo detalhou as etapas metodológicas seguidas no desenvolvimento do sistema inteligente para monitoramento e controle estatístico de processo (CEP) para o monitoramento de energia residencial. As etapas compreenderam a análise de tecnologias, desenvolvimento do protótipo utilizando as tomadas \textit{Tuya Smart Wi-Fi}, implementação de algoritmos avançados, validação experimental e estudo de viabilidade em larga escala. A abordagem proposta combina rigor técnico e aplicabilidade prática, destacando-se como uma solução promissora para o setor de automação residencial.

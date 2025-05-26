@@ -105,7 +105,7 @@ Seus principais objetivos incluem:
   \label{fig:matter-layer}
 \end{figure}
 
-Como descrito em \cite{matter_spec}, o protocolo Matter garante interoperabilidade entre diferentes dispositivos.
+% Como descrito em \cite{matter_spec}, o protocolo Matter garante interoperabilidade entre diferentes dispositivos. % Citation commented out
 
 \subsection{Interface de Usuário}
 
@@ -252,5 +252,70 @@ Quando bem implementado, o monitoramento energético, aliado ao CEP e à anális
 \end{itemize}
 
 A responsabilidade social emerge ao assegurar que tais benefícios sejam obtidos sem invadir a privacidade ou violar direitos fundamentais. A conformidade com a LGPD, o uso ético da análise de dados e a adoção de CEP garantem que a tecnologia melhore a vida dos moradores, mantendo a confiança e a proteção das informações pessoais.
-Em síntese, o monitoramento energético aplicado a um sistema de automação residencial, quando embasado em um arcabouço analítico sólido, conformidade regulatória, uso de CEP e cuidado com a privacidade, transcende a mera coleta de dados. Ele estabelece um processo contínuo de aprendizado, ajuste e otimização que beneficia usuários, meio ambiente e sociedade em geral.  
-\bibliography{Monografia}%,library}
+Em síntese, o monitoramento energético aplicado a um sistema de automação residencial, quando embasado em um arcabouço analítico sólido, conformidade regulatória, uso de CEP e cuidado com a privacidade, transcende a mera coleta de dados. Ele estabelece um processo contínuo de aprendizado, ajuste e otimização que beneficia usuários, meio ambiente e sociedade em geral.
+
+\section{Arquitetura do Sistema Desenvolvido}
+\label{sec:arquitetura_desenvolvida}
+
+Com base nos princípios e tecnologias discutidos anteriormente, foi desenvolvido um sistema integrado para monitoramento e controle de processos para o consumo de energia residencial. Este sistema visa oferecer uma solução prática e inteligente, especialmente para residências sem infraestrutura de automação preexistente. A arquitetura do sistema é composta por três pilares principais: dispositivos inteligentes para coleta de dados, uma pipeline de dados robusta orquestrada por Dagster para processamento e armazenamento, e uma aplicação interativa desenvolvida com Streamlit para visualização, análise e controle pelo usuário.
+
+\subsection{Visão Geral do Sistema}
+
+O sistema proposto opera em um fluxo contínuo, desde a aquisição de dados de consumo energético em tempo real até a apresentação de insights e funcionalidades de controle ao usuário final. % A Figura \ref{fig:arquitetura_sistema_proposto} (a ser criada pelo autor) ilustraria os componentes e suas interações. % Reference commented out
+Os dados são coletados por tomadas inteligentes (Tuya Smart Plugs), que se comunicam com a nuvem Tuya. A pipeline de dados, gerenciada por Dagster, extrai esses dados da API Tuya, processa-os e armazena-os de forma estruturada. Finalmente, a aplicação Streamlit consome esses dados processados para oferecer ao usuário uma interface rica em informações e funcionalidades, incluindo o controle direto dos dispositivos e o agendamento de cenas de automação, cujo acionamento também é gerenciado por Dagster.
+
+% TODO: Adicionar Figura \ref{fig:arquitetura_sistema_proposto} com um diagrama de blocos da arquitetura.
+
+\subsection{Coleta de Dados com Dispositivos Inteligentes Tuya}
+
+A base da coleta de dados do sistema são as tomadas inteligentes do ecossistema Tuya, especificamente modelos que oferecem monitoramento de energia. Estes dispositivos são de fácil instalação (\textit{plug and play}) e se conectam à rede Wi-Fi residencial. Cada tomada monitora parâmetros como tensão (V), corrente (mA), potência ativa (W) e consumo acumulado de energia (kWh) do aparelho a ela conectado. Os dados são enviados periodicamente para a plataforma \textit{Tuya Cloud}, tornando-os acessíveis através de suas APIs. A escolha por dispositivos Tuya se deu pela sua popularidade, custo acessível e pela disponibilidade de APIs para integração com sistemas customizados.
+
+\subsection{Orquestração e Processamento de Dados com Dagster}
+
+Para garantir a coleta, transformação e armazenamento confiável e automatizado dos dados de consumo energético, foi implementada uma pipeline de dados utilizando a ferramenta de orquestração Dagster. Esta pipeline é composta por ativos (assets), um job e um agendamento, conforme detalhado no \texttt{memory\_bank/systemPatterns.md}.
+
+\begin{itemize}
+    \item \textbf{Ativo \texttt{raw\_tuya\_logs}}: Este ativo é responsável por se conectar à API da Tuya Cloud utilizando as credenciais fornecidas (via variáveis de ambiente). Ele requisita os logs de status e consumo dos dispositivos configurados e armazena os dados brutos em formato JSON. Os arquivos são organizados por dispositivo e data no diretório \texttt{app/data/raw/}. Este processo garante que os dados originais sejam preservados para futuras análises ou reprocessamentos.
+
+    \item \textbf{Ativo \texttt{staging\_tuya\_logs}}: Dependente do \texttt{raw\_tuya\_logs}, este ativo consome os arquivos JSON brutos. Utilizando o recurso \texttt{DuckDBResource} do Dagster, ele realiza diversas transformações nos dados:
+    \begin{itemize}
+        \item Conversão do timestamp do evento (originalmente em milissegundos) para um formato de data e hora legível.
+        \item Adição de metadados, como o nome do arquivo de origem.
+        \item Junção com informações de mapeamento de dispositivos (localizado em \texttt{app/data/device\_mapping.json}), que associa o \texttt{device\_id} a um nome amigável (e.g., "Geladeira", "TV da Sala").
+        \item Derivação de uma coluna \texttt{event\_date} para particionamento.
+    \end{itemize}
+    Os dados processados e enriquecidos são então salvos em formato Parquet no diretório \texttt{app/data/staging/}, particionados por \texttt{event\_date}. O formato Parquet foi escolhido por sua eficiência em armazenamento e consulta para cargas de trabalho analíticas.
+
+    \item \textbf{Job \texttt{tuya\_processing\_job}}: Este job define o grafo de execução que inclui os ativos \texttt{raw\_tuya\_logs} e \texttt{staging\_tuya\_logs}, garantindo a ordem correta de execução e o fluxo de dados entre eles.
+
+    \item \textbf{Agendamento \texttt{hourly\_schedule}}: Para manter os dados atualizados, o \texttt{tuya\_processing\_job} é configurado para rodar automaticamente a cada hora (`0 * * * *`), conforme definido pelo \texttt{hourly\_schedule}.
+\end{itemize}
+A utilização do Dagster proporciona automação, monitoramento da execução da pipeline (via interface Dagit), tratamento de dependências e facilita a manutenção e evolução do processo de ETL (Extract, Transform, Load) dos dados energéticos.
+
+\subsection{Interface de Usuário, Controle e Visualização com Streamlit}
+
+A interação do usuário com o sistema é realizada através de uma aplicação web desenvolvida com a biblioteca Streamlit. Esta plataforma foi escolhida pela sua capacidade de criar rapidamente interfaces de dados interativas e ricas em Python. A aplicação, descrita em \texttt{memory\_bank/activeContext.md}, é estruturada em múltiplas páginas para uma navegação intuitiva e focada no usuário residencial:
+
+\begin{itemize}
+    \item \textbf{Resumo da Casa}: Apresenta uma visão geral do consumo energético da residência, incluindo métricas totais (consumo de hoje, últimos 7 dias, este mês) e um ranking dos principais dispositivos consumidores, tanto em lista quanto em gráfico de barras.
+    \item \textbf{Detalhes por Dispositivo}: Permite ao usuário selecionar um dispositivo específico e visualizar métricas detalhadas de consumo energético e de qualidade de energia (tensão e corrente). Inclui gráficos de série temporal da potência, consumo diário de energia (kWh) e perfil médio de potência horária. As análises de tensão e corrente são apresentadas em seções expansíveis, com indicadores chave, séries temporais e gráficos de distribuição.
+    \item \textbf{Análise Avançada}: Esta seção é destinada a análises mais técnicas, como a integração de ferramentas de Controle Estatístico de Processo (CEP), como gráficos CUSUM e logs de falhas, para identificar comportamentos anormais de consumo.
+    \item \textbf{Controle Individual de Dispositivos}: Oferece uma interface com botões de alternância (`st.toggle`) para ligar ou desligar os dispositivos inteligentes Tuya remotamente. A interface utiliza um padrão de "atualização otimista" para feedback visual imediato, enquanto o comando real é enviado à API Tuya.
+    \item \textbf{Gerenciamento de Cenas}: Permite aos usuários criar, visualizar, modificar e excluir cenas de automação. Uma cena consiste em um conjunto de ações (ligar/desligar) para dispositivos selecionados, associadas a um nome e um agendamento (horário, dias da semana, recorrência). A criação é feita através de um formulário multi-etapas. As cenas salvas são armazenadas em um arquivo \texttt{app/data/scheduled\_scenes.json}.
+\end{itemize}
+A aplicação Streamlit utiliza um arquivo CSS customizado (\texttt{app/streamlit/style.css}) para melhorar a estética e a experiência do usuário. A lógica da aplicação é modularizada em funções auxiliares para carregamento de dados, elementos de UI e renderização de páginas, localizadas no diretório \texttt{app/streamlit/utils/}.
+
+\subsection{Gerenciamento e Agendamento de Cenas com Dagster}
+\label{subsec:dagster_scene_scheduling}
+
+Além da orquestração da pipeline de dados, o Dagster também é utilizado para o agendamento e execução automática das cenas de automação criadas pelos usuários na aplicação Streamlit. Esta funcionalidade é implementada através de componentes definidos em \texttt{app/dagster/scene\_scheduler.py}:
+
+\begin{itemize}
+    \item \textbf{Recurso \texttt{tuya\_api\_resource}}: Fornece ao Dagster as credenciais necessárias para interagir com a API Tuya, de forma similar ao ativo de ingestão de logs.
+    \item \textbf{Operação (Op) \texttt{check\_and\_trigger\_scenes\_op}}: Este \texttt{op} é o núcleo da lógica de execução de cenas. Ele lê o arquivo \texttt{scheduled\_scenes.json} (onde a aplicação Streamlit salva as definições de cena), itera sobre cada cena agendada e verifica se o horário e dia atuais correspondem ao agendamento da cena. Para cenas que devem ser executadas, o \texttt{op} envia os comandos apropriados (ligar/desligar dispositivos) para a API Tuya. A lógica inclui tratamento para cenas não recorrentes, marcando-as como já executadas para evitar repetições.
+    \item \textbf{Job \texttt{scene\_scheduler\_job}}: Envolve o \texttt{check\_and\_trigger\_scenes\_op}, definindo-o como uma unidade de execução para o Dagster.
+    \item \textbf{Agendamento \texttt{scene\_execution\_schedule}}: Este agendamento é configurado para executar o \texttt{scene\_scheduler\_job} em intervalos frequentes (e.g., a cada minuto), garantindo que as cenas sejam disparadas próximo ao horário programado pelo usuário.
+\end{itemize}
+Esta integração com Dagster para o agendamento de cenas oferece uma solução de backend robusta e confiável para a automação residencial, separando a lógica de agendamento da interface do usuário e permitindo que as automações funcionem independentemente da aplicação Streamlit estar aberta.
+
+% \bibliography{Monografia}%,library} % Comentado pois a bibliografia principal está em Monografia.tex
