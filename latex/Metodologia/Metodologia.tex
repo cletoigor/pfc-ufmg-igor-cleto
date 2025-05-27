@@ -3,17 +3,42 @@
 Neste capítulo, são detalhadas as etapas metodológicas adotadas no desenvolvimento do sistema inteligente para monitoramento e controle estatístico de processo (CEP) para o monitoramento de energia residencial. A abordagem foi projetada para atender aos objetivos do projeto, combinando análise técnica, desenvolvimento de soluções e validação experimental. Os procedimentos descritos têm como objetivo garantir a reprodução, escalabilidade e eficácia do sistema proposto, contribuindo para o avanço na área de automação e eficiência energética.
 
 \section{Pesquisa e Análise de Tecnologias Existentes}
+\label{sec:pesquisa_tecnologias}
 
-A fase inicial do projeto consistiu na identificação e análise das tecnologias disponíveis no mercado para o monitoramento de consumo energético em residências. Esta etapa foi guiada por uma revisão bibliográfica abrangente e um estudo comparativo das soluções existentes, considerando os seguintes critérios:
+A fase inicial do projeto, crucial para a definição da arquitetura do sistema, consistiu na identificação e análise aprofundada das diversas tecnologias e abordagens disponíveis para o monitoramento de consumo energético em ambientes residenciais. Esta etapa envolveu uma revisão bibliográfica sistemática e um estudo comparativo de soluções, avaliando alternativas que variavam desde o desenvolvimento de hardware customizado até a utilização de dispositivos comerciais com diferentes protocolos de comunicação. A seleção da tecnologia mais adequada foi pautada por um conjunto de critérios técnicos e práticos, detalhados a seguir.
+
+Diversas abordagens para medição e coleta de dados foram consideradas:
+
+\begin{enumerate}
+    \item \textbf{Desenvolvimento de Hardware Customizado}: Esta abordagem envolve o projeto e a construção de um dispositivo de medição de energia próprio. Tipicamente, utilizaria microcontroladores (e.g., ESP32, Arduino) acoplados a sensores de corrente não invasivos (e.g., SCT-013) e sensores de tensão.
+    \begin{itemize}
+        \item \textit{Vantagens}: Oferece máxima flexibilidade no design, na seleção de componentes para precisão desejada, na frequência de amostragem e no formato dos dados. Permite um profundo aprendizado sobre os princípios de medição de energia e eletrônica de potência. A comunicação dos dados poderia ser implementada via Wi-Fi, Ethernet, ou outros módulos de rádio frequência.
+        \item \textit{Desvantagens}: Requer conhecimento especializado em eletrônica, design de PCB (Printed Circuit Board), calibração de sensores e programação embarcada. Os custos de desenvolvimento e prototipagem para uma solução robusta e segura (especialmente ao lidar com tensões de rede elétrica) podem ser significativos. O tempo de desenvolvimento é consideravelmente maior em comparação com soluções prontas. A certificação para uso comercial ou mesmo doméstico seguro seria um obstáculo adicional.
+    \end{itemize}
+
+    \item \textbf{Tomadas Inteligentes Comerciais com Protocolos Diversos}: O mercado oferece uma vasta gama de tomadas inteligentes que já incorporam funcionalidades de medição de energia. Estas se diferenciam principalmente pelo protocolo de comunicação utilizado.
+    \begin{itemize}
+        \item \textit{Protocolo Wi-Fi (como a linha Tuya)}: Conectam-se diretamente à rede Wi-Fi doméstica existente, sem necessidade de um hub central. A configuração é geralmente simples, via aplicativo móvel. A comunicação com a nuvem do fabricante é comum, e a disponibilidade de APIs para acesso aos dados é um fator chave.
+        \item \textit{Protocolos de Baixo Consumo e Redes Mesh (e.g., Zigbee, Z-Wave)}: Estes protocolos são projetados para automação residencial, oferecendo baixo consumo de energia e comunicação robusta através de redes mesh. Dispositivos Zigbee ou Z-Wave normalmente requerem um hub ou gateway específico para se conectar à rede local (LAN) e, subsequentemente, à internet. Este hub centraliza a comunicação e pode oferecer uma API local ou na nuvem.
+        \item \textit{Bluetooth Low Energy (BLE)}: Dispositivos BLE são caracterizados pelo consumo energético extremamente baixo. Para monitoramento contínuo de energia, geralmente necessitariam de um gateway BLE para coletar os dados e retransmiti-los via Wi-Fi ou Ethernet, pois o alcance do BLE é limitado e a conexão direta contínua com um smartphone não é prática para um sistema de monitoramento residencial completo.
+    \end{itemize}
+\end{enumerate}
+
+A avaliação dessas alternativas foi realizada com base nos seguintes critérios fundamentais para os objetivos do projeto:
 
 \begin{itemize}
-    \item \textbf{Compatibilidade com infraestruturas residenciais convencionais}: Tecnologias que não exigem modificações estruturais significativas, como sensores de fácil instalação e dispositivos autônomos.
-    \item \textbf{Eficiência técnica}: Precisão na coleta de dados, robustez e confiabilidade das medições.
-    \item \textbf{Interoperabilidade}: Capacidade de integração com diferentes sistemas e protocolos, como Wi-Fi, Zigbee e Bluetooth Low Energy.
-    \item \textbf{Custo-benefício}: Viabilidade econômica para implementação em larga escala.
+    \item \textbf{Compatibilidade com infraestruturas residenciais convencionais}: Este critério prioriza tecnologias que minimizam a necessidade de modificações estruturais ou elétricas complexas na residência. Soluções \textit{plug and play}, como tomadas inteligentes, são altamente desejáveis, pois podem ser facilmente instaladas por usuários finais sem conhecimento técnico. O desenvolvimento de hardware customizado, embora pudesse ser projetado para ser não invasivo (e.g., com sensores de corrente de encaixe), ainda apresentaria uma barreira de instalação e segurança maior. Dispositivos Zigbee/Z-Wave, embora também sejam frequentemente \textit{plug and play}, introduzem a necessidade de um hub, adicionando um componente à infraestrutura.
+
+    \item \textbf{Eficiência técnica}: Refere-se à precisão, resolução e confiabilidade das medições de energia (potência, corrente, tensão, consumo acumulado), bem como à robustez do dispositivo e à frequência de coleta de dados. Hardware customizado permitiria, teoricamente, alta precisão, mas exigiria calibração cuidadosa. Dispositivos comerciais variam em qualidade; a documentação técnica sobre a precisão dos sensores internos nem sempre é transparente. A capacidade de obter dados com granularidade suficiente (e.g., a cada poucos segundos ou minutos) é vital para análises como o CEP.
+
+    \item \textbf{Interoperabilidade}: Avalia a capacidade da tecnologia de se integrar com outros sistemas, plataformas ou protocolos. Padrões abertos como Zigbee e Z-Wave são projetados com a interoperabilidade em mente, embora muitas vezes dentro de seus próprios ecossistemas ou através de plataformas de automação que suportam múltiplos protocolos. Dispositivos Wi-Fi podem ser mais isolados, dependendo da abertura da API do fabricante. Hardware customizado poderia ser projetado para usar protocolos abertos (e.g., MQTT), mas isso adiciona complexidade ao desenvolvimento.
+
+    \item \textbf{Custo-benefício}: Considera o custo total da solução, incluindo aquisição de hardware, desenvolvimento (se aplicável), instalação e manutenção, em relação aos benefícios oferecidos. Tomadas inteligentes baseadas em Wi-Fi geralmente apresentam um custo unitário baixo. Dispositivos Zigbee/Z-Wave podem ter um custo unitário similar ou ligeiramente superior, mas o custo adicional do hub deve ser considerado. O desenvolvimento de hardware customizado, especialmente para produção em pequena escala ou prototipagem única, tende a ser a opção mais cara em termos de componentes e, principalmente, tempo de desenvolvimento.
+
+    \item \textbf{Disponibilidade de API e Ecossistema de Desenvolvimento}: Para este projeto, a capacidade de acessar programaticamente os dados de consumo e, idealmente, controlar os dispositivos é fundamental. Uma API bem documentada, estável e que ofereça os endpoints necessários é um requisito crítico. Um ecossistema de desenvolvimento ativo, com bibliotecas de cliente, fóruns de suporte e exemplos de código, acelera significativamente o desenvolvimento do software de coleta e análise.
 \end{itemize}
 
-A análise resultou na seleção de componentes que atendem aos requisitos do projeto. Foi escolhida a linha de tomadas \textit{Tuya Smart Wi-Fi}, cuja modularidade permite fácil instalação em diversos locais, utilizando a metodologia \textit{plug and play}. Estas tomadas oferecem integração com a plataforma \textit{Tuya Cloud} e suas APIs, garantindo flexibilidade e escalabilidade.
+Após ponderar esses critérios e as características das alternativas, a linha de tomadas inteligentes \textit{Tuya Smart Wi-Fi} foi selecionada. A decisão baseou-se em sua combinação favorável de: (a) baixo custo de aquisição e ampla disponibilidade no mercado; (b) facilidade de instalação e configuração (\textit{plug and play}) diretamente na rede Wi-Fi existente, alinhando-se com o critério de compatibilidade; (c) acesso a uma API de nuvem (\textit{Tuya Cloud API}) que, embora com suas complexidades, permite a extração programática de dados de consumo (potência, corrente, tensão) e o envio de comandos de controle, atendendo ao critério de disponibilidade de API; e (d) modularidade, permitindo a fácil expansão do sistema para monitorar múltiplos dispositivos. Embora a precisão exata e a granularidade dos dados pudessem variar e exigir validação, a plataforma Tuya representou o melhor compromisso entre os critérios avaliados para a rápida prototipagem e desenvolvimento de um sistema funcional conforme os objetivos deste TCC. Estas tomadas oferecem integração com a plataforma \textit{Tuya Cloud} e suas APIs, garantindo flexibilidade e escalabilidade para o sistema proposto.
 
 \section{Desenvolvimento do Protótipo}
 
@@ -21,7 +46,7 @@ Com base nas tecnologias identificadas, foi desenvolvido um protótipo funcional
 
 \subsection{Seleção e Configuração de Sensores}
 
-As tomadas \textit{Tuya Smart Wi-Fi} foram configuradas para monitorar o consumo energético em tempo real. Estes dispositivos enviam os dados para a plataforma \textit{Tuya Cloud}, de onde são acessados por meio de APIs.
+As tomadas inteligentes \textit{Tuya Smart Wi-Fi} selecionadas foram configuradas individualmente utilizando o aplicativo móvel do fabricante (e.g., Tuya Smart ou Smart Life). Este processo envolveu a conexão de cada tomada à rede Wi-Fi local e sua associação à conta do usuário na plataforma \textit{Tuya Cloud}. Uma vez configuradas, as tomadas iniciaram o monitoramento do consumo energético dos aparelhos a elas conectados, enviando os dados em tempo real para a plataforma \textit{Tuya Cloud}. Estes dados de consumo (potência, corrente, tensão) tornam-se então acessíveis para coleta e análise por meio das APIs da plataforma.
 
 \subsection{Desenvolvimento do Backend, Lógica de Controle e Orquestração de Dados}
 
@@ -80,23 +105,52 @@ Para o tratamento dos dados coletados, foram desenvolvidos e implementados algor
 
 \subsection{Pré-processamento dos Dados}
 
-Os dados brutos coletados pelas tomadas passaram por etapas de limpeza e normalização, eliminando leituras espúrias e garantindo consistência nos resultados. Parte fundamental deste pré-processamento é realizada automaticamente pelo ativo \texttt{staging\_tuya\_logs} da pipeline Dagster, que converte tipos de dados, enriquece os registros com informações de mapeamento de dispositivos e estrutura os dados em um formato Parquet otimizado para análise.
+Os dados brutos coletados pelas tomadas passaram por etapas de limpeza, transformação e normalização, visando garantir a qualidade e a consistência necessárias para as análises subsequentes. Este pré-processamento incluiu:
+\begin{itemize}
+    \item \textbf{Tratamento de Leituras Espúrias}: Identificação e tratamento de dados anômalos, como valores de potência ou corrente negativos ou excessivamente elevados (considerados fisicamente implausíveis para os dispositivos monitorados), que foram removidos ou ajustados com base em limiares predefinidos e análise de outliers.
+    \item \textbf{Normalização e Consistência}: Verificação da uniformidade das unidades de medida e tratamento de possíveis dados faltantes, utilizando interpolação linear para pequenas lacunas temporais ou remoção de períodos com ausência significativa de dados, quando aplicável.
+    \item \textbf{Enriquecimento dos Dados}: Adição de informações contextuais, como identificação do dispositivo e timestamp padronizado.
+\end{itemize}
+Parte fundamental deste pré-processamento é realizada automaticamente pelo ativo \texttt{staging\_tuya\_logs} da pipeline Dagster. Este ativo converte tipos de dados (e.g., timestamp de milissegundos para formato de data e hora padrão), enriquece os registros com informações de mapeamento de dispositivos (nome do dispositivo, local, etc.) provenientes do arquivo \texttt{app/data/device\_mapping.json}, e estrutura os dados em um formato Parquet particionado e otimizado para análises temporais eficientes.
 
 \subsection{Análise Estatística e Controle Estatístico de Processos (CEP)}
 
-O CEP foi utilizado para identificar variações significativas no consumo energético, estabelecendo limites de controle e detectando anomalias. Esta abordagem foi complementada por métodos estatísticos descritivos para caracterizar os padrões de consumo.
+Para a detecção de variações significativas e anomalias no consumo energético, foi aplicada a metodologia de Controle Estatístico de Processos (CEP). A principal técnica empregada foi o gráfico de Soma Acumulada (CUSUM), escolhido por sua sensibilidade na detecção de pequenas mudanças persistentes no processo, o que é particularmente relevante para identificar alterações graduais nos padrões de consumo ou o início de falhas em equipamentos.
+
+A implementação do CEP envolveu:
+\begin{itemize}
+    \item \textbf{Estabelecimento da Fase de Controle (Linha de Base)}: Para cada dispositivo, foi definido um período inicial de observação considerado como de operação normal. Os dados deste período foram utilizados para calcular os parâmetros de referência do processo, como a média ($\mu_0$) e o desvio padrão ($\sigma_0$) do consumo energético (ou potência instantânea).
+    \item \textbf{Cálculo dos Limites de Controle para Gráficos CUSUM}: Com base nos parâmetros da linha de base e em valores de referência (K, H) ajustados para a sensibilidade desejada, foram calculados os limites de controle superior e inferior para o gráfico CUSUM. O valor K representa a folga (allowance) e H o limite de decisão.
+    \item \textbf{Monitoramento Contínuo}: Após o estabelecimento da linha de base, os novos dados de consumo foram continuamente adicionados ao cálculo do CUSUM.
+    \item \textbf{Detecção de Anomalias}: Uma anomalia ou mudança significativa no processo foi sinalizada quando o valor do CUSUM ultrapassou os limites de controle H. Isso indicaria um desvio do padrão de consumo esperado, podendo sugerir mau funcionamento, alteração no uso do dispositivo ou outras condições atípicas.
+\end{itemize}
+Esta abordagem de CEP foi complementada por métodos estatísticos descritivos para caracterizar os padrões de consumo de cada dispositivo e do agregado residencial. Estes métodos incluíram o cálculo de médias, medianas, desvios padrão, valores mínimos e máximos, e a visualização de dados através de histogramas, boxplots e séries temporais para identificar tendências, sazonalidades e a distribuição geral do consumo energético.
 
 \section{Validação em Ambiente Real}
 
-O protótipo foi testado em um ambiente residencial que não possuía infraestrutura prévia de automação. A validação envolveu:
+O protótipo foi submetido a uma fase de validação em um ambiente residencial real, caracterizado pela ausência de infraestrutura prévia de automação, permitindo uma avaliação do sistema em condições de uso típicas. Esta etapa foi crucial para aferir a aplicabilidade e eficácia da solução proposta e envolveu os seguintes aspectos:
 
 \begin{itemize}
-    \item \textbf{Avaliação de desempenho}: Testes para verificar a precisão das tomadas \textit{Tuya Smart Wi-Fi} e a eficiência dos algoritmos.
-    \item \textbf{Usabilidade}: Análise da interface para garantir que usuários finais pudessem interpretar os dados facilmente.
-    \item \textbf{Robustez}: Monitoramento contínuo em condições reais, avaliando a resiliência do sistema a falhas.
+    \item \textbf{Avaliação de Desempenho dos Sensores e Algoritmos}:
+    \begin{itemize}
+        \item \textit{Precisão das Medições}: A acurácia das tomadas inteligentes \textit{Tuya Smart Wi-Fi} foi avaliada comparando suas leituras de potência instantânea e consumo acumulado com as de um medidor de energia calibrado, conectado em série com os aparelhos monitorados. Foram realizados testes com diferentes tipos de carga (resistiva, indutiva, eletrônica) para verificar a consistência das medições.
+        \item \textit{Eficiência dos Algoritmos de CEP}: A capacidade dos algoritmos de CEP, especialmente os gráficos CUSUM, em detectar anomalias foi testada através da simulação de eventos controlados (e.g., introdução de um aparelho defeituoso, alteração significativa no padrão de uso de um dispositivo) e da observação da rapidez e precisão da sinalização pelo sistema. A eficiência computacional, em termos de tempo de processamento para atualização dos gráficos e alertas, também foi monitorada.
+    \end{itemize}
+    \item \textbf{Análise de Usabilidade da Interface Streamlit}:
+    \begin{itemize}
+        \item A interface de usuário desenvolvida com Streamlit foi avaliada por um grupo restrito de usuários-teste, representativos do público-alvo (residentes sem conhecimento técnico aprofundado em análise de dados energéticos).
+        \item A avaliação focou na clareza da apresentação dos dados (gráficos, métricas), na facilidade de navegação entre as diferentes seções da aplicação ("Resumo da Casa", "Detalhes por Dispositivo", etc.), na intuitividade das funcionalidades de controle de dispositivos e no gerenciamento de cenas.
+        \item O feedback foi coletado por meio de observação direta da interação dos usuários com o sistema e através de um questionário simplificado, abordando aspectos como facilidade de aprendizado, satisfação com a interface e utilidade percebida das informações fornecidas.
+    \end{itemize}
+    \item \textbf{Teste de Robustez e Confiabilidade do Sistema}:
+    \begin{itemize}
+        \item O sistema foi operado continuamente por um período estendido (e.g., algumas semanas) para monitorar sua estabilidade e resiliência em condições reais de uso.
+        \item Foram observadas as respostas do sistema a eventos como interrupções na conexão Wi-Fi, falhas temporárias na API Tuya (simuladas ou ocorridas naturalmente), e reinicializações dos dispositivos de hardware e do servidor da aplicação.
+        \item A capacidade de recuperação automática da pipeline de dados Dagster e do agendador de cenas, bem como a integridade dos dados armazenados após tais eventos, foram pontos chave desta avaliação.
+    \end{itemize}
 \end{itemize}
 
-Os resultados dos testes foram documentados e utilizados para refinar o sistema, corrigindo inconsistências e melhorando sua eficiência.
+Os resultados detalhados de cada teste de validação foram sistematicamente documentados. Este conjunto de informações foi fundamental para identificar pontos de melhoria, corrigir inconsistências encontradas e refinar o comportamento geral do sistema, visando otimizar sua eficiência, confiabilidade e a experiência do usuário final.
 
 \section{Viabilidade de Implementação em Larga Escala}
 

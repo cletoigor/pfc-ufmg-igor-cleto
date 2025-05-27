@@ -55,6 +55,9 @@
     -   **Device Control Caching:** Updated `app/streamlit/utils/tuya_api_helpers.py` to ensure that when a device command is sent, the cache for *all* device statuses (`get_device_status`) is cleared. This ensures the "Controle Individual de Dispositivos" section reflects the latest states after any action.
     -   **Scene Deletion Logic (Streamlit App):** Improved the scene deletion process in `app/streamlit/streamlit_app.py`. It now includes a confirmation step and correctly removes the scene from both the session state (`st.session_state.saved_scenes`) and the persistent `scheduled_scenes.json` file. This ensures the "Executar Cena Salva" dropdown accurately reflects the available scenes.
     -   **File Path Robustness (Streamlit App):** Modified `app/streamlit/streamlit_app.py` to use absolute paths for `scheduled_scenes.json` and `style.css`, constructed relative to the script's own directory. This should prevent issues where the app fails to load these files if run from a different working directory, which was likely causing scenes to not appear even if present in the JSON file.
+    -   **TCC Monografia - Chapter 3 (Metodologia) Iteratively Enhanced:**
+        -   The Methodology chapter (`latex/Metodologia/Metodologia.tex`) was initially detailed and improved, particularly in areas of technology selection rationale, sensor configuration, data pre-processing, CEP application (CUSUM charts), and the validation process in a real-world environment.
+        -   Following feedback, Section 3.1 ("Pesquisa e Análise de Tecnologias Existentes") was further expanded to include a comprehensive discussion of alternative energy measurement approaches (custom hardware, other smart plug protocols like Zigbee/Z-Wave/BLE) and a more thorough elaboration of the five key selection criteria in relation to these alternatives.
 
 ## 2. What's Left to Build / In Progress
 
