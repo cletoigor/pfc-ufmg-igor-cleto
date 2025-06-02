@@ -61,6 +61,25 @@ Foram consideradas algumas alternativas ao Python para o desenvolvimento princip
 \end{itemize}
 No entanto, Python ofereceu o melhor compromisso entre poder analítico, velocidade de desenvolvimento e disponibilidade de bibliotecas específicas para as tarefas centrais do projeto, superando as alternativas no contexto deste PFC.
 
+\subsubsection{Biblioteca Pandas e Estrutura DataFrame}
+\label{subsubsec:pandas_dataframe}
+A biblioteca Pandas é uma ferramenta fundamental no ecossistema Python para manipulação e análise de dados. Ela introduz estruturas de dados de alto desempenho e fáceis de usar, sendo a principal delas o DataFrame.
+
+\begin{itemize}
+    \item \textbf{DataFrame Pandas:} Um DataFrame é uma estrutura de dados tabular bidimensional, semelhante a uma planilha ou tabela SQL, com colunas rotuladas e linhas indexadas. Ele é capaz de armazenar dados de tipos heterogêneos (numéricos, strings, booleanos, etc.) em suas colunas. Os DataFrames oferecem uma vasta gama de funcionalidades para limpeza, transformação, análise e visualização de dados, incluindo:
+    \begin{itemize}
+        \item Leitura e escrita de dados em diversos formatos (CSV, Excel, JSON, SQL, Parquet, entre outros).
+        \item Seleção e filtragem de dados com base em rótulos de colunas, índices de linhas ou condições lógicas.
+        \item Tratamento de dados ausentes (e.g., preenchimento ou remoção).
+        \item Operações de agrupamento (\textit{group by}) para realizar agregações (soma, média, contagem, etc.) sobre subconjuntos de dados.
+        \item Junção e mesclagem de múltiplos DataFrames (semelhante a JOINs em SQL).
+        \item Transformações de dados, como adição ou modificação de colunas.
+        \item Análise de séries temporais.
+        \item Integração com outras bibliotecas de visualização (como Matplotlib e Plotly) e de modelagem estatística (como Scikit-learn).
+    \end{itemize}
+    A flexibilidade e o poder computacional dos DataFrames Pandas tornam-nos uma escolha padrão para cientistas de dados e engenheiros que trabalham com dados tabulares em Python. No contexto deste projeto, Pandas foi extensivamente utilizado para carregar o mapeamento de dispositivos, auxiliar no pré-processamento dos dados coletados pela API Tuya (como visto na pipeline Dagster, Seção \ref{subsubsec:pipeline_dagster}), e na preparação dos dados para visualização na interface Streamlit (Seção \ref{subsec:desenvolvimento_streamlit}).
+\end{itemize}
+
 \subsubsection{Plataforma de Interface de Usuário: Streamlit}
 Para a construção da interface de usuário (UI) destinada à visualização dos dados e interação com o sistema de controle, a plataforma Streamlit foi selecionada. Os principais motivos para esta escolha foram:
 \begin{itemize}
@@ -209,6 +228,14 @@ Esta arquitetura de pipeline de dados com Dagster proporciona uma solução robu
 
 \subsubsection{Implementação do Agendamento de Cenas com Dagster}
 \label{subsubsec:agendamento_cenas_dagster}
+
+Antes de detalhar a implementação do agendamento de cenas, é relevante contextualizar alguns dos mecanismos de comunicação e segurança empregados na interação com serviços externos, como a API Tuya, mencionada anteriormente. A comunicação com tais APIs frequentemente envolve conceitos como HMAC-SHA256 para segurança, o paradigma de APIs REST e o uso de chamadas HTTP.
+
+\begin{itemize}
+    \item \textbf{HMAC-SHA256:} O HMAC-SHA256 (Hash-based Message Authentication Code using SHA-256) é um mecanismo de autenticação de mensagens que utiliza uma função de hash criptográfica (SHA-256) em conjunto com uma chave secreta. Ele garante tanto a integridade dos dados (que a mensagem não foi alterada em trânsito) quanto a autenticidade (que a mensagem provém de uma fonte que possui a chave secreta), sendo fundamental para a segurança na comunicação com APIs.
+    \item \textbf{APIs REST:} As APIs REST (Representational State Transfer) são um estilo arquitetural para projetar aplicações em rede. Elas utilizam requisições HTTP para acessar e manipular representações de recursos web. Cada recurso é identificado por uma URI (Uniform Resource Identifier) única, e as interações são tipicamente realizadas através dos métodos HTTP padrão.
+    \item \textbf{Chamadas HTTP:} As chamadas HTTP (Hypertext Transfer Protocol) são o fundamento da comunicação de dados na World Wide Web. Elas consistem em requisições enviadas por um cliente (como o software de coleta de dados) a um servidor (como a Tuya Cloud API) e as respostas correspondentes. Métodos comuns incluem GET (para obter dados), POST (para enviar dados para processamento), PUT (para atualizar um recurso) e DELETE (para remover um recurso).
+\end{itemize}
 
 A automação da execução de cenas de controle de dispositivos (e.g., ligar ou desligar um conjunto de aparelhos em horários pré-determinados ou sob condições específicas) foi implementada utilizando as capacidades de agendamento e execução de lógica Python da plataforma Dagster. Esta abordagem foi escolhida por centralizar a lógica de automação, aproveitar a infraestrutura de monitoramento e logging do Dagster, e permitir uma integração coesa com o restante do sistema de gerenciamento de dados.
 

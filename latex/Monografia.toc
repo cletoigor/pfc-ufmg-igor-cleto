@@ -38,34 +38,35 @@
 \contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{29}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Seleção de Ferramentas de Software e Plataformas de Desenvolvimento}{34}{subsection.3.1.1}%
 \contentsline {subsubsection}{Linguagem de Programação: Python}{34}{section*.4}%
-\contentsline {subsubsection}{Plataforma de Interface de Usuário: Streamlit}{35}{section*.5}%
-\contentsline {subsubsection}{Plataforma de Orquestração de Dados: Dagster}{38}{section*.6}%
-\contentsline {subsubsection}{Banco de Dados Analítico Embutido: DuckDB}{41}{section*.7}%
-\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{43}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{43}{subsection.3.2.1}%
+\contentsline {subsubsection}{Biblioteca Pandas e Estrutura DataFrame}{35}{section*.5}%
+\contentsline {subsubsection}{Plataforma de Interface de Usuário: Streamlit}{36}{section*.6}%
+\contentsline {subsubsection}{Plataforma de Orquestração de Dados: Dagster}{39}{section*.7}%
+\contentsline {subsubsection}{Banco de Dados Analítico Embutido: DuckDB}{42}{section*.8}%
+\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{44}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{44}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Arquitetura e Desenvolvimento do Software de Coleta, Processamento e Controle}{47}{subsection.3.2.2}%
-\contentsline {subsubsection}{Implementação da Pipeline de Dados com Dagster}{47}{section*.8}%
-\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{49}{section*.9}%
-\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{52}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Implementação de Algoritmos de Processamento e Análise}{55}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{55}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{55}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{56}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Viabilidade de Implementação em Larga Escala}{58}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{58}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Resultados}{59}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{59}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{59}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{59}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Testes}{59}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Análise dos Resultados}{59}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{60}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{60}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{60}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{61}{subsection.4.7.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{65}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações Finais}{65}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{65}{section.5.2}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{67}{appendix.A}%
-\contentsline {chapter}{Referências Bibliográficas}{66}{section.5.2}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{69}{appendix.B}%
+\contentsline {subsubsection}{Implementação da Pipeline de Dados com Dagster}{48}{section*.9}%
+\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{50}{section*.10}%
+\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{54}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Implementação de Algoritmos de Processamento e Análise}{56}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{56}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{57}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{58}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Viabilidade de Implementação em Larga Escala}{59}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{60}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{61}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{61}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{61}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{61}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Testes}{61}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Análise dos Resultados}{61}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{62}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{62}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{62}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{63}{subsection.4.7.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{67}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Finais}{67}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{67}{section.5.2}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{69}{appendix.A}%
+\contentsline {chapter}{Referências Bibliográficas}{68}{section.5.2}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{71}{appendix.B}%

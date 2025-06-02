@@ -58,6 +58,8 @@
     -   **TCC Monografia - Chapter 3 (Metodologia) Iteratively Enhanced:**
         -   The Methodology chapter (`latex/Metodologia/Metodologia.tex`) was initially detailed and improved, particularly in areas of technology selection rationale, sensor configuration, data pre-processing, CEP application (CUSUM charts), and the validation process in a real-world environment.
         -   Following feedback, Section 3.1 ("Pesquisa e Análise de Tecnologias Existentes") was further expanded to include a comprehensive discussion of alternative energy measurement approaches (custom hardware, other smart plug protocols like Zigbee/Z-Wave/BLE) and a more thorough elaboration of the five key selection criteria in relation to these alternatives.
+        -   Added brief explanations of HMAC-SHA256, REST APIs, and HTTP calls at the beginning of subsection 3.2.2 (`Implementação do Agendamento de Cenas com Dagster`) in `latex/Metodologia/Metodologia.tex` for better context on API communication.
+        -   Added a new subsubsection 3.2.1.1 (`Biblioteca Pandas e Estrutura DataFrame`) in `latex/Metodologia/Metodologia.tex` to detail the Pandas library and DataFrame structure, including their usage within the project.
 
 ## 2. What's Left to Build / In Progress
 
