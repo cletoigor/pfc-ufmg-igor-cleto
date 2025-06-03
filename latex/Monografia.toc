@@ -53,20 +53,20 @@
 \contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{60}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{64}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Viabilidade de Implementação em Larga Escala}{66}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{66}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Resultados}{67}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{67}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{67}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{67}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Testes}{67}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Análise dos Resultados}{67}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{68}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{68}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{68}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{69}{subsection.4.7.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{73}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações Finais}{73}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{73}{section.5.2}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{75}{appendix.A}%
-\contentsline {chapter}{Referências Bibliográficas}{74}{section.5.2}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{77}{appendix.B}%
+\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{70}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{71}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{71}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{71}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimeto e Implementação}{71}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Testes}{71}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Análise dos Resultados}{71}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{72}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{72}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{72}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{73}{subsection.4.7.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{77}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Finais}{77}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Propostas de Continuidade}{77}{section.5.2}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{79}{appendix.A}%
+\contentsline {chapter}{Referências Bibliográficas}{78}{section.5.2}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{81}{appendix.B}%

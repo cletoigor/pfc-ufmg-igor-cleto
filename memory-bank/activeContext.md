@@ -90,6 +90,8 @@
         -   Streamlit device control logic (toggle with optimistic update).
     -   **Monograph Flowcharts (Update):** Re-inserted `\includegraphics` commands for flowcharts into `latex/Metodologia/Metodologia.tex`, with paths adjusted to `latex/` directory where user has placed the PNG images. Adjusted width of `streamlit_scene_creation.png` to `0.9\textwidth` to prevent it from being cut off.
     -   **TCC Monografia - Chapter 3 (Metodologia) CEP Section Enhancement:** Expanded subsection 3.3.2 ("Análise Estatística e Controle Estatístico de Processos (CEP)") in `latex/Metodologia/Metodologia.tex` with more detailed statistical and mathematical explanations of CUSUM charts, including formulas for $S_{Hi}$, $S_{Li}$, discussions on parameters $K$ and $H$, and added a paragraph detailing the practical implementation and visualization of CUSUM/CEP within the Streamlit application.
+    -   **TCC Monografia - Chapter 3 (Metodologia) Real-Time Validation Enhancement:** Improved the description in section 3.4 ("Validação em Ambiente Real") of `latex/Metodologia/Metodologia.tex` to more explicitly detail the validation of the system's real-time (or near real-time) aspects, including data pipeline latency, UI responsiveness, and timeliness of CEP alerts and scene execution.
+    -   **TCC Monografia - Chapter 3 (Metodologia) Large-Scale Viability Enhancement:** Expanded section 3.5 ("Viabilidade de Implementação em Larga Escala") of `latex/Metodologia/Metodologia.tex` to provide a more comprehensive discussion on costs, economic benefits, environmental/social impacts, and adoption/scalability strategies.
 
 ## 3. Next Steps
 
