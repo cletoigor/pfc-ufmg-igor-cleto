@@ -60,6 +60,14 @@
         -   Following feedback, Section 3.1 ("Pesquisa e Análise de Tecnologias Existentes") was further expanded to include a comprehensive discussion of alternative energy measurement approaches (custom hardware, other smart plug protocols like Zigbee/Z-Wave/BLE) and a more thorough elaboration of the five key selection criteria in relation to these alternatives.
         -   Added brief explanations of HMAC-SHA256, REST APIs, and HTTP calls at the beginning of subsection 3.2.2 (`Implementação do Agendamento de Cenas com Dagster`) in `latex/Metodologia/Metodologia.tex` for better context on API communication.
         -   Added a new subsubsection 3.2.1.1 (`Biblioteca Pandas e Estrutura DataFrame`) in `latex/Metodologia/Metodologia.tex` to detail the Pandas library and DataFrame structure, including their usage within the project.
+    -   **Monograph Flowcharts:** Generated Mermaid code for several flowcharts to illustrate Dagster pipelines and Streamlit app functionalities, ready for conversion to images and inclusion in the LaTeX document. This includes:
+        -   Dagster data processing pipeline.
+        -   Dagster scene scheduling pipeline.
+        -   Streamlit app overall navigation.
+        -   Streamlit scene creation process.
+        -   Streamlit device control logic.
+    -   **Monograph Flowcharts (Update):** Re-inserted `\includegraphics` commands for flowcharts into `latex/Metodologia/Metodologia.tex`, with paths adjusted to point to the `latex/` directory where the user has placed the PNG images. Adjusted width of `streamlit_scene_creation.png` to `0.9\textwidth`.
+    -   **TCC Monografia - Chapter 3 (Metodologia) CEP Section Enhancement:** Expanded subsection 3.3.2 ("Análise Estatística e Controle Estatístico de Processos (CEP)") in `latex/Metodologia/Metodologia.tex` with a more detailed introduction to CEP, a step-by-step explanation of CUSUM chart implementation (including mathematical/statistical basis), and added details on its practical implementation and visualization within the Streamlit application.
 
 ## 2. What's Left to Build / In Progress
 

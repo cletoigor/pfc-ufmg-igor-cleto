@@ -226,6 +226,13 @@ A metodologia de implementação da pipeline de dados com Dagster compreendeu os
 \end{itemize}
 Esta arquitetura de pipeline de dados com Dagster proporciona uma solução robusta, monitorável e automatizada para a ingestão e preparação dos dados de consumo energético, fundamentais para as análises subsequentes e para a interface de usuário.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{dagster_data_pipeline.png}
+    \caption{Fluxograma da pipeline de processamento de dados de consumo energético com Dagster.}
+    \label{fig:dagster_data_pipeline}
+\end{figure}
+
 \subsubsection{Implementação do Agendamento de Cenas com Dagster}
 \label{subsubsec:agendamento_cenas_dagster}
 
@@ -262,6 +269,13 @@ A metodologia de implementação envolveu os seguintes componentes técnicos e l
 \end{itemize}
 A integração desta funcionalidade de agendamento de cenas no Dagster permite que ela seja tão robusta, monitorável e configurável quanto a pipeline de ingestão de dados, utilizando uma plataforma unificada para todas as tarefas de backend automatizadas e orquestradas do projeto. Isso simplifica a manutenção e a observabilidade do sistema como um todo.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{dagster_scene_scheduler.png}
+    \caption{Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}
+    \label{fig:dagster_scene_scheduler}
+\end{figure}
+
 \subsection{Desenvolvimento da Interface de Usuário com Streamlit}
 \label{subsec:desenvolvimento_streamlit}
 
@@ -270,6 +284,14 @@ A interface de visualização e interação com o usuário (frontend) foi desenv
 A metodologia de desenvolvimento da interface com Streamlit abrangeu os seguintes aspectos técnicos e funcionais:
 \begin{itemize}
     \item \textbf{Estruturação Multi-Página e Navegação}: A aplicação foi organizada em um layout multi-página para oferecer uma navegação clara e intuitiva entre as diferentes seções de funcionalidade. Utilizou-se o padrão de seleção de página na barra lateral (\texttt{st.sidebar.radio} ou similar) para alternar entre as visualizações principais: "Resumo da Casa", "Detalhes por Dispositivo", "Análise Avançada", "Controle Individual de Dispositivos" e "Gerenciamento de Cenas". Cada página foi encapsulada em sua própria função Python para modularidade.
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{streamlit_app_navigation.png}
+        \caption{Fluxograma da navegação geral da aplicação Streamlit.}
+        \label{fig:streamlit_app_navigation}
+    \end{figure}
+
     \item \textbf{Carregamento e Filtragem de Dados}: Funções dedicadas em \texttt{app/streamlit/utils/data\_helpers.py} foram desenvolvidas para carregar os dados processados da camada de staging (arquivos Parquet em \texttt{app/data/staging/}). Estas funções utilizam Pandas para ler os dados e aplicar filtros com base nas seleções do usuário na interface (e.g., intervalo de datas, seleção de dispositivos específicos), disponibilizando DataFrames Pandas para as rotinas de visualização e análise. O cacheamento (\texttt{@st.cache\_data}) foi empregado em funções de carregamento de dados para otimizar o desempenho, evitando releituras desnecessárias de arquivos.
     \item \textbf{Visualização de Dados Interativa}: Foram implementados diversos tipos de gráficos para apresentar os dados de consumo energético, potência, tensão e corrente. Utilizaram-se as capacidades de plotagem nativas do Streamlit (que por sua vez podem usar bibliotecas como Matplotlib, Plotly ou Vega-Lite internamente) para criar:
     \begin{itemize}
@@ -282,7 +304,23 @@ A metodologia de desenvolvimento da interface com Streamlit abrangeu os seguinte
     \item \textbf{Desenvolvimento de Funcionalidades de Controle de Dispositivos}:
     \begin{itemize}
         \item \textbf{Controle Individual}: Para o controle direto de ligar/desligar dispositivos, foram utilizados widgets \texttt{st.toggle}. A interação com estes toggles aciona callbacks que, por sua vez, chamam funções auxiliares (em \texttt{app/streamlit/utils/tuya\_api\_helpers.py}) para enviar os comandos correspondentes à API Tuya. Foi implementado um padrão de "atualização otimista" utilizando o \texttt{st.session\_state} do Streamlit: o estado visual do toggle é alterado imediatamente na interface, enquanto o comando é enviado à API em background. Em caso de falha na comunicação com a API, o estado do toggle pode ser revertido, e uma mensagem de erro é exibida ao usuário (\texttt{st.error}). O uso de \texttt{st.fragment} foi adotado para esta seção para otimizar as atualizações da interface, garantindo que apenas o widget do dispositivo alterado seja re-renderizado, melhorando a responsividade.
+
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=0.7\textwidth]{streamlit_device_control.png}
+            \caption{Fluxograma da lógica de controle individual de dispositivo na aplicação Streamlit.}
+            \label{fig:streamlit_device_control}
+        \end{figure}
+
         \item \textbf{Gerenciamento de Cenas}: Uma interface mais elaborada, utilizando formulários (\texttt{st.form}), foi desenvolvida para permitir que os usuários criem, visualizem, modifiquem e excluam cenas de automação. A criação de cena foi dividida em múltiplas etapas (wizard-style) gerenciadas com \texttt{st.session\_state} para coletar nome da cena, dispositivos envolvidos, ações desejadas (ligar/desligar) e parâmetros de agendamento (horário, dias da semana, recorrência). As definições das cenas são persistidas em um arquivo JSON (\texttt{app/data/scheduled\_scenes.json}), que é lido e atualizado pela aplicação Streamlit e também utilizado pelo job Dagster de execução de cenas.
+
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=0.45\textwidth]{streamlit_scene_creation.png}
+            \caption{Fluxograma do processo de criação de cenas na aplicação Streamlit.}
+            \label{fig:streamlit_scene_creation}
+        \end{figure}
+
     \end{itemize}
     \item \textbf{Organização e Modularização do Código}: Para manter a clareza e a manutenibilidade do código principal da aplicação Streamlit (\texttt{app/streamlit/streamlit\_app.py}), grande parte da lógica foi refatorada em módulos auxiliares dentro do diretório \texttt{app/streamlit/utils/}. Isso incluiu:
     \begin{itemize}
@@ -310,17 +348,78 @@ Os dados brutos coletados pelas tomadas passaram por etapas de limpeza, transfor
 Parte fundamental deste pré-processamento é realizada automaticamente pelo ativo \texttt{staging\_tuya\_logs} da pipeline Dagster. Este ativo converte tipos de dados (e.g., timestamp de milissegundos para formato de data e hora padrão), enriquece os registros com informações de mapeamento de dispositivos (nome do dispositivo, local, etc.) provenientes do arquivo \texttt{app/data/device\_mapping.json}, e estrutura os dados em um formato Parquet particionado e otimizado para análises temporais eficientes.
 
 \subsection{Análise Estatística e Controle Estatístico de Processos (CEP)}
+\label{subsec:analise_cep} % Adicionando label para a subseção se não existir
 
-Para a detecção de variações significativas e anomalias no consumo energético, foi aplicada a metodologia de Controle Estatístico de Processos (CEP). A principal técnica empregada foi o gráfico de Soma Acumulada (CUSUM), escolhido por sua sensibilidade na detecção de pequenas mudanças persistentes no processo, o que é particularmente relevante para identificar alterações graduais nos padrões de consumo ou o início de falhas em equipamentos.
-
-A implementação do CEP envolveu:
+O Controle Estatístico de Processo (CEP), ou Statistical Process Control (SPC), é uma metodologia robusta fundamentada em princípios estatísticos, utilizada para monitorar, controlar e, idealmente, otimizar processos. O objetivo primordial do CEP é a redução da variabilidade inerente a qualquer processo, levando a uma melhoria na qualidade e previsibilidade dos resultados. Uma distinção fundamental no CEP é feita entre dois tipos de variação:
 \begin{itemize}
-    \item \textbf{Estabelecimento da Fase de Controle (Linha de Base)}: Para cada dispositivo, foi definido um período inicial de observação considerado como de operação normal. Os dados deste período foram utilizados para calcular os parâmetros de referência do processo, como a média ($\mu_0$) e o desvio padrão ($\sigma_0$) do consumo energético (ou potência instantânea).
-    \item \textbf{Cálculo dos Limites de Controle para Gráficos CUSUM}: Com base nos parâmetros da linha de base e em valores de referência (K, H) ajustados para a sensibilidade desejada, foram calculados os limites de controle superior e inferior para o gráfico CUSUM. O valor K representa a folga (allowance) e H o limite de decisão.
-    \item \textbf{Monitoramento Contínuo}: Após o estabelecimento da linha de base, os novos dados de consumo foram continuamente adicionados ao cálculo do CUSUM.
-    \item \textbf{Detecção de Anomalias}: Uma anomalia ou mudança significativa no processo foi sinalizada quando o valor do CUSUM ultrapassou os limites de controle H. Isso indicaria um desvio do padrão de consumo esperado, podendo sugerir mau funcionamento, alteração no uso do dispositivo ou outras condições atípicas.
+    \item \textbf{Variação por Causas Comuns (ou Aleatórias)}: É a variabilidade natural e inerente a um processo que está estatisticamente sob controle. É resultado de múltiplas causas pequenas e inevitáveis.
+    \item \textbf{Variação por Causas Especiais (ou Atribuíveis)}: Resulta de eventos ou circunstâncias específicas que não são parte intrínseca do processo. Estas causas são geralmente esporádicas e podem ser identificadas e eliminadas.
 \end{itemize}
-Esta abordagem de CEP foi complementada por métodos estatísticos descritivos para caracterizar os padrões de consumo de cada dispositivo e do agregado residencial. Estes métodos incluíram o cálculo de médias, medianas, desvios padrão, valores mínimos e máximos, e a visualização de dados através de histogramas, boxplots e séries temporais para identificar tendências, sazonalidades e a distribuição geral do consumo energético.
+O CEP utiliza ferramentas gráficas, principalmente os gráficos de controle, para distinguir entre esses dois tipos de variação. Um gráfico de controle plota uma estatística do processo (e.g., média, amplitude, proporção) ao longo do tempo, em relação a uma linha central (Center Line - CL), um Limite Superior de Controle (Upper Control Limit - UCL) e um Limite Inferior de Controle (Lower Control Limit - LCL). Um processo é considerado estatisticamente sob controle se os pontos plotados variarem aleatoriamente dentro desses limites, sem padrões não aleatórios. Se pontos caem fora dos limites ou exibem padrões específicos, isso indica a presença de uma causa especial de variação, sinalizando que o processo está fora de controle e requer investigação.
+
+Para a detecção de variações significativas e anomalias no consumo energético residencial, a principal técnica de CEP empregada neste trabalho foi o gráfico de Soma Acumulada (CUSUM). Os gráficos CUSUM são particularmente eficazes na detecção de pequenas mudanças persistentes na média de um processo, às quais os gráficos de Shewhart tradicionais (como $\bar{X}-R$ ou XmR) podem ser menos sensíveis. A força do CUSUM reside em sua capacidade de incorporar informações de toda a sequência de observações passadas, em vez de avaliar cada ponto de dados isoladamente.
+
+A implementação do CEP com gráficos CUSUM neste projeto seguiu uma abordagem estruturada, com uma base matemática e estatística detalhada a seguir:
+
+\begin{itemize}
+    \item \textbf{Fase I: Estabelecimento dos Parâmetros de Controle (Linha de Base)}:
+    Antes do monitoramento prospectivo (Fase II), é crucial estabelecer uma linha de base representativa do processo operando sob controle. Para cada dispositivo ou agregado de consumo energético a ser monitorado, coletou-se um conjunto de $m$ observações históricas ($X_1, X_2, \ldots, X_m$) consideradas como representativas da operação normal. Assumindo que a métrica de interesse (e.g., consumo diário de energia em kWh, potência média horária em W) $X_j$ segue uma distribuição aproximadamente normal quando o processo está sob controle, com média $\mu_0$ e desvio padrão $\sigma_0$, estas são estimadas a partir dos dados da Fase I:
+    \begin{itemize}
+        \item Estimativa da média do processo sob controle ($\hat{\mu}_0$):
+        \begin{equation}
+            \hat{\mu}_0 = \bar{X} = \frac{1}{m}\sum_{j=1}^{m} X_j
+            \label{eq:media_controle}
+        \end{equation}
+        \item Estimativa do desvio padrão do processo sob controle ($\hat{\sigma}_0$):
+        \begin{equation}
+            \hat{\sigma}_0 = s = \sqrt{\frac{1}{m-1}\sum_{j=1}^{m} (X_j - \bar{X})^2}
+            \label{eq:desvio_padrao_controle}
+        \end{equation}
+        Para dados individuais, como leituras de consumo em intervalos de tempo, esta estimativa de $s$ é apropriada. Em alguns contextos de CEP, se os dados são agrupados em subgrupos, outras estimativas de $\sigma_0$ (e.g., baseadas na amplitude média $\bar{R}$) podem ser usadas.
+    \end{itemize}
+    Estes parâmetros $\hat{\mu}_0$ e $\hat{\sigma}_0$ são então utilizados como os valores de referência $\mu_0$ e $\sigma_0$ para a Fase II de monitoramento.
+
+    \item \textbf{Fase II: Monitoramento com Gráficos CUSUM Tabulares}:
+    Com os parâmetros $\mu_0$ e $\sigma_0$ estabelecidos, o monitoramento de novas observações $X_i$ (para $i=1, 2, \ldots$ na Fase II) é realizado utilizando duas estatísticas CUSUM unilaterais para detectar aumentos ou diminuições na média do processo.
+
+    \begin{itemize}
+        \item \textbf{CUSUM Superior ($S_{Hi}$)}: Projetado para detectar um aumento na média do processo. É calculado recursivamente para cada nova observação $X_i$:
+        \begin{equation}
+            S_{Hi} = \max(0, X_i - (\mu_0 + K) + S_{H(i-1)})
+            \label{eq:cusum_superior_v2}
+        \end{equation}
+        onde $S_{H0} = 0$ (o CUSUM é inicializado em zero). O valor $K$ é um parâmetro de referência, frequentemente chamado de folga (allowance ou slack value). A lógica é que $S_{Hi}$ acumula desvios positivos de $X_i$ em relação a um valor alvo ajustado $\mu_0 + K$. Se $X_i$ é menor ou igual a $\mu_0 + K$, a soma acumulada não aumenta ou é resetada para zero se o termo $X_i - (\mu_0 + K) + S_{H(i-1)}$ for negativo.
+
+        \item \textbf{CUSUM Inferior ($S_{Li}$)}: Projetado para detectar uma diminuição na média do processo. É calculado recursivamente:
+        \begin{equation}
+            S_{Li} = \max(0, (\mu_0 - K) - X_i + S_{L(i-1)})
+            \label{eq:cusum_inferior_v2}
+        \end{equation}
+        onde $S_{L0} = 0$. Similarmente, $S_{Li}$ acumula desvios quando $X_i$ cai abaixo de um valor alvo ajustado $\mu_0 - K$.
+    \end{itemize}
+
+    \item \textbf{Seleção dos Parâmetros do CUSUM ($K$ e $H$)}:
+    A performance de um gráfico CUSUM é determinada pela escolha de dois parâmetros: $K$ (o valor de referência ou folga) e $H$ (o limite de decisão).
+    \begin{itemize}
+        \item \textbf{Valor de Referência ($K$)}: O parâmetro $K$ é a magnitude do desvio da média alvo $\mu_0$ que é considerado suficientemente pequeno para não ser acumulado. É tipicamente expresso em termos do desvio padrão do processo, $K = k \cdot \sigma_0$. Um valor comum para o fator $k$ é $0.5$. Esta escolha torna o gráfico CUSUM ótimo para detectar rapidamente um desvio na média do processo de magnitude $\Delta = 2K = 2k\sigma_0$. Por exemplo, se $k=0.5$, o CUSUM é otimizado para detectar um desvio de $1\sigma_0$ na média. O valor $K$ nas Equações \ref{eq:cusum_superior_v2} e \ref{eq:cusum_inferior_v2} representa esta folga.
+        \item \textbf{Limite de Decisão ($H$)}: O parâmetro $H$ é o limite de controle. Um sinal de fora de controle é gerado se $S_{Hi}$ exceder $H$ ou se $S_{Li}$ exceder $H$. Assim como $K$, $H$ também é frequentemente expresso em termos do desvio padrão, $H = h \cdot \sigma_0$. Valores comuns para o fator $h$ variam tipicamente de 4 a 5.
+    \end{itemize}
+    A escolha dos fatores $h$ e $k$ (e, consequentemente, $H$ e $K$) é um compromisso que afeta o Comprimento Médio de Corrida (Average Run Length - ARL) do gráfico. O ARL$_0$ é o número médio de amostras antes de um falso alarme (quando o processo está, de fato, sob controle), enquanto o ARL$_1$ é o número médio de amostras necessárias para detectar uma mudança real de uma determinada magnitude na média do processo. Valores maiores de $H$ aumentam o ARL$_0$ (menos falsos alarmes) mas também aumentam o ARL$_1$ (detecção mais lenta de mudanças reais). No contexto deste projeto, os valores de $K$ e $H$ foram ajustados empiricamente com base na análise dos dados históricos de cada dispositivo e na sensibilidade desejada, visando um equilíbrio prático entre a detecção de anomalias no consumo energético e a ocorrência de alarmes espúrios.
+
+    \item \textbf{Regra de Sinalização e Ação}:
+    O processo é considerado fora de controle e uma investigação é acionada se:
+    \begin{itemize}
+        \item $S_{Hi} > H$: Indica um aumento significativo e persistente na média do consumo energético.
+        \item $S_{Li} > H$: Indica uma diminuição significativa e persistente na média do consumo energético.
+    \end{itemize}
+    Após um sinal, é prática comum resetar o valor do CUSUM que excedeu $H$ de volta para zero (ou para um valor de "headstart", embora zero seja comum para CUSUMs tabulares) e investigar a causa especial. A magnitude da inclinação no gráfico CUSUM antes do sinal pode também ser usada para estimar a nova média do processo.
+
+\end{itemize}
+
+\textbf{Implementação Prática e Visualização no Streamlit}:
+No sistema desenvolvido, a análise de CEP utilizando gráficos CUSUM foi integrada à interface Streamlit na página "Análise Avançada". Nesta seção, o usuário pode selecionar um dispositivo específico e o período de interesse para análise. Com base nos dados históricos e nos parâmetros de controle ($\mu_0, \sigma_0, K, H$) definidos para o dispositivo (conforme descrito na Fase I e na seleção de parâmetros), a aplicação calcula e exibe dinamicamente os gráficos CUSUM superior ($S_{Hi}$) e inferior ($S_{Li}$) para a métrica de consumo energético selecionada (e.g., potência média diária). Os gráficos são renderizados utilizando a biblioteca Plotly, permitindo interatividade como zoom e visualização de valores pontuais. Os limites de decisão $H$ são plotados como linhas horizontais nos gráficos. Quando um valor de $S_{Hi}$ ou $S_{Li}$ cruza seu respectivo limite $H$, um ponto de "fora de controle" é indicado visualmente no gráfico. Adicionalmente, um registro de "fault logs" (registros de falha) é apresentado, listando os timestamps e as magnitudes dos desvios que levaram à sinalização, auxiliando o usuário na identificação e diagnóstico de anomalias no consumo do dispositivo. Os parâmetros $K$ e $H$ foram, para esta implementação, definidos com base na análise empírica dos dados históricos de cada tipo de dispositivo, mas a arquitetura permite a futura inclusão de interfaces para que usuários avançados possam ajustar esses parâmetros, se necessário.
+
+Esta abordagem de CEP, utilizando gráficos CUSUM, foi complementada por métodos estatísticos descritivos para caracterizar os padrões de consumo de cada dispositivo e do agregado residencial. Estes métodos incluíram o cálculo de médias, medianas, desvios padrão, valores mínimos e máximos, e a visualização de dados através de histogramas, boxplots e séries temporais para identificar tendências, sazonalidades e a distribuição geral do consumo energético. A combinação dessas técnicas permitiu uma análise mais robusta e detalhada dos padrões de consumo e a identificação de comportamentos atípicos.
 
 \section{Validação em Ambiente Real}
 

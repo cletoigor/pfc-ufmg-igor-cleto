@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  1 JUN 2025 21:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  2 JUN 2025 23:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -562,89 +562,123 @@ Overfull \hbox (51.70778pt too wide) in paragraph at lines 224--225
 \T1/cmr/m/n/12 con-fi-gu-rado com uma ex-pres-são cron (\T1/cmtt/m/n/12 "0 * * * *"\T1/cmr/m/n/12 ) para exe-cu-tar o \T1/cmtt/m/n/12 tuya_processing_job
  []
 
-
-Overfull \hbox (5.73843pt too wide) in paragraph at lines 235--236
+<dagster_data_pipeline.png.jpeg, id=652, 1284.8pt x 635.37375pt>
+File: dagster_data_pipeline.png.jpeg Graphic file (type jpg)
+<use dagster_data_pipeline.png.jpeg>
+Package pdftex.def Info: dagster_data_pipeline.png.jpeg  used on input line 231.
+(pdftex.def)             Requested size: 396.91325pt x 196.28517pt.
+[50 <./dagster_data_pipeline.png.jpeg>]
+Overfull \hbox (5.73843pt too wide) in paragraph at lines 242--243
 []\T1/cmr/bx/n/12 HMAC-SHA256: \T1/cmr/m/n/12 O HMAC-SHA256 (Hash-based Mes-sage Authen-ti-ca-tion Code
  []
 
-[50]
-Overfull \hbox (100.09775pt too wide) in paragraph at lines 248--249
+[51]
+Overfull \hbox (100.09775pt too wide) in paragraph at lines 255--256
 \T1/cmr/m/n/12 ni-ções de ce-nas, que são per-sis-ti-das em um ar-quivo JSON (\T1/cmtt/m/n/12 app/data/scheduled_scenes.json\T1/cmr/m/n/12 ).
  []
 
-[51] [52]
-Overfull \hbox (97.16466pt too wide) in paragraph at lines 259--260
+[52]
+Overfull \hbox (97.16466pt too wide) in paragraph at lines 266--267
 \T1/cmr/m/n/12 nado \T1/cmtt/m/n/12 scene_scheduler_job\T1/cmr/m/n/12 , foi cri-ado para en-cap-su-lar a ope-ra-ção \T1/cmtt/m/n/12 check_and_trigger_scenes_op\T1/cmr/m/n/12 .
  []
 
 
-Overfull \hbox (31.44049pt too wide) in paragraph at lines 261--262
+Overfull \hbox (31.44049pt too wide) in paragraph at lines 268--269
 \T1/cmr/m/n/12 liza uma ex-pres-são cron para de-fi-nir a frequên-cia de exe-cu-ção do \T1/cmtt/m/n/12 scene_scheduler_job\T1/cmr/m/n/12 .
  []
 
+[53]
+<dagster_scene_scheduler.png.jpeg, id=676, 1244.65pt x 1284.8pt>
+File: dagster_scene_scheduler.png.jpeg Graphic file (type jpg)
+<use dagster_scene_scheduler.png.jpeg>
+Package pdftex.def Info: dagster_scene_scheduler.png.jpeg  used on input line 274.
+(pdftex.def)             Requested size: 396.91325pt x 409.71327pt.
+ [54 <./dagster_scene_scheduler.png.jpeg>]
+<streamlit_app_navigation.png.jpeg, id=682, 1284.8pt x 418.56375pt>
+File: streamlit_app_navigation.png.jpeg Graphic file (type jpg)
+<use streamlit_app_navigation.png.jpeg>
+Package pdftex.def Info: streamlit_app_navigation.png.jpeg  used on input line 290.
+(pdftex.def)             Requested size: 352.81552pt x 114.93613pt.
 
-Underfull \vbox (badness 5696) has occurred while \output is active []
-
- [53]
-Overfull \hbox (134.8539pt too wide) in paragraph at lines 273--274
+Overfull \hbox (134.8539pt too wide) in paragraph at lines 295--296
 []\T1/cmr/bx/n/12 Carregamento e Fil-tra-gem de Da-dos\T1/cmr/m/n/12 : Fun-ções de-di-ca-das em \T1/cmtt/m/n/12 app/streamlit/utils/data_helpers.py
  []
 
 
-Overfull \hbox (8.3248pt too wide) in paragraph at lines 273--274
+Overfull \hbox (8.3248pt too wide) in paragraph at lines 295--296
 \T1/cmr/m/n/12 Pan-das para as ro-ti-nas de vi-su-a-li-za-ção e aná-lise. O ca-che-a-mento (\T1/cmtt/m/n/12 @st.cache_data\T1/cmr/m/n/12 )
  []
 
-[54]
-Overfull \hbox (5.78693pt too wide) in paragraph at lines 281--282
+[55 <./streamlit_app_navigation.png.jpeg>]
+Overfull \hbox (5.78693pt too wide) in paragraph at lines 303--304
 \T1/cmr/m/n/12 data (\T1/cmtt/m/n/12 st.date_input\T1/cmr/m/n/12 ), se-le-to-res de dis-po-si-tivo (\T1/cmtt/m/n/12 st.selectbox\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 st.multiselect\T1/cmr/m/n/12 ),
  []
 
+<streamlit_device_control.png.jpeg, id=687, 667.49374pt x 1284.8pt>
+File: streamlit_device_control.png.jpeg Graphic file (type jpg)
+<use streamlit_device_control.png.jpeg>
+Package pdftex.def Info: streamlit_device_control.png.jpeg  used on input line 310.
+(pdftex.def)             Requested size: 308.71106pt x 594.23032pt.
 
-Overfull \hbox (18.01628pt too wide) in paragraph at lines 285--286
+Overfull \hbox (18.01628pt too wide) in paragraph at lines 315--316
 \T1/cmr/m/n/12 di-vi-dida em múl-ti-plas eta-pas (wizard-style) ge-ren-ci-a-das com \T1/cmtt/m/n/12 st.session_state
  []
 
-
-Overfull \hbox (51.90335pt too wide) in paragraph at lines 287--288
+<streamlit_scene_creation.png.jpeg, id=688, 418.56375pt x 1284.8pt>
+File: streamlit_scene_creation.png.jpeg Graphic file (type jpg)
+<use streamlit_scene_creation.png.jpeg>
+Package pdftex.def Info: streamlit_scene_creation.png.jpeg  used on input line 319.
+(pdftex.def)             Requested size: 198.45662pt x 609.1689pt.
+[56] [57 <./streamlit_device_control.png.jpeg>]
+Overfull \hbox (51.90335pt too wide) in paragraph at lines 325--326
 \T1/cmr/m/n/12 ni-bi-li-dade do có-digo prin-ci-pal da apli-ca-ção Stre-am-lit (\T1/cmtt/m/n/12 app/streamlit/streamlit_app.py\T1/cmr/m/n/12 ),
  []
 
-[55]
-Overfull \hbox (68.7495pt too wide) in paragraph at lines 294--295
+
+Overfull \hbox (68.7495pt too wide) in paragraph at lines 332--333
 []\T1/cmr/bx/n/12 Estilização Cus-to-mi-zada com CSS\T1/cmr/m/n/12 : Um ar-quivo CSS ex-terno (\T1/cmtt/m/n/12 app/streamlit/style.css\T1/cmr/m/n/12 )
  []
 
-[56]
+[58]
 Overfull \hbox (5.72456pt too wide) has occurred while \output is active
-\T1/cmr/m/sl/12 3.3.  IMPLEMENTAÇÃO DE ALGORITMOS DE PROCESSAMENTO E ANÁLISE \T1/cmr/m/n/12 57
+\T1/cmr/m/sl/12 3.3.  IMPLEMENTAÇÃO DE ALGORITMOS DE PROCESSAMENTO E ANÁLISE \T1/cmr/m/n/12 59
  []
 
-[57] [58]) [59] [60]
+[59 <./streamlit_scene_creation.png.jpeg>] [60]
+Overfull \hbox (5.72456pt too wide) has occurred while \output is active
+\T1/cmr/m/sl/12 3.3.  IMPLEMENTAÇÃO DE ALGORITMOS DE PROCESSAMENTO E ANÁLISE \T1/cmr/m/n/12 61
+ []
+
+[61] [62]
+Overfull \hbox (5.72456pt too wide) has occurred while \output is active
+\T1/cmr/m/sl/12 3.3.  IMPLEMENTAÇÃO DE ALGORITMOS DE PROCESSAMENTO E ANÁLISE \T1/cmr/m/n/12 63
+ []
+
+[63] [64] [65]) [66]
 \openout2 = `Resultados/Resultados.aux'.
 
  (./Resultados/Resultados.tex
 Cap\'{\i }tulo 4.
-[61
+[67
 
 
 
 
-] [62]
+] [68]
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line 60.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 
-LaTeX Warning: Reference `sec:revisÃ£o' on page 63 undefined on input line 62.
+LaTeX Warning: Reference `sec:revisÃ£o' on page 69 undefined on input line 62.
 
-[63]
+[69]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [64] [65])
+ [70] [71])
 \openout2 = `Conclusao/Conclusao.aux'.
 
- (./Conclusao/Conclusao.tex [66
+ (./Conclusao/Conclusao.tex [72
 
 
 
@@ -652,10 +686,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Cap\'{\i }tulo 5.
-[67])
+[73])
 \openout2 = `Apendices/ApendiceA.aux'.
 
- (./Apendices/ApendiceA.tex [68
+ (./Apendices/ApendiceA.tex [74
 
 
 
@@ -663,21 +697,21 @@ Cap\'{\i }tulo 5.
 
 ]
 Ap\^endice A.
-) [69]
+) [75]
 \openout2 = `Apendices/ApendiceB.aux'.
 
- (./Apendices/ApendiceB.tex [70
+ (./Apendices/ApendiceB.tex [76
 
 
 
 
 ]
 Ap\^endice B.
-) [71] (./Monografia.bbl [72
+) [77] (./Monografia.bbl [78
 
 
 
-]) [73] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
+]) [79] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./ListaTabelas/ListaTabelas.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -690,18 +724,18 @@ Package rerunfilecheck Info: File `Monografia.out' has not changed.
 (rerunfilecheck)             Checksum: FEB6269B48D3990E66CFFC0E5F65CBBB;14091.
  ) 
 Here is how much of TeX's memory you used:
- 12595 strings out of 474116
- 201118 string characters out of 5743682
+ 12710 strings out of 474116
+ 204813 string characters out of 5743682
  1941187 words of memory out of 5000000
- 34463 multiletter control sequences out of 15000+600000
+ 34563 multiletter control sequences out of 15000+600000
  579787 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,16n,79p,3322b,616s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,16n,79p,3322b,632s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbi1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Monografia.pdf (89 pages, 557253 bytes).
+Output written on Monografia.pdf (95 pages, 776363 bytes).
 PDF statistics:
- 926 PDF objects out of 1000 (max. 8388607)
- 778 compressed objects within 8 object streams
- 191 named destinations out of 1000 (max. 500000)
- 513 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 978 PDF objects out of 1000 (max. 8388607)
+ 818 compressed objects within 9 object streams
+ 206 named destinations out of 1000 (max. 500000)
+ 538 words of extra memory for PDF output out of 10000 (max. 10000000)
 

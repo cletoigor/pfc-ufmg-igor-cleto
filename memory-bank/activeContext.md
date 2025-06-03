@@ -82,20 +82,28 @@
     -   **TCC Monografia - Chapter 3 (Metodologia) Clarifications:**
         -   Added brief explanations of HMAC-SHA256, REST APIs, and HTTP calls at the beginning of subsection 3.2.2 (`Implementação do Agendamento de Cenas com Dagster`) in `latex/Metodologia/Metodologia.tex` to provide context for API communication mechanisms.
         -   Added a new subsubsection 3.2.1.1 (`Biblioteca Pandas e Estrutura DataFrame`) in `latex/Metodologia/Metodologia.tex` to detail the Pandas library and DataFrame structure, including their usage within the project.
+    -   **Monograph Flowcharts:** Generated Mermaid code for flowcharts to be included in the monograph, covering:
+        -   Dagster data processing pipeline (re-iterated existing diagram).
+        -   Dagster scene scheduling pipeline.
+        -   Streamlit app overall navigation.
+        -   Streamlit scene creation process (3-step).
+        -   Streamlit device control logic (toggle with optimistic update).
+    -   **Monograph Flowcharts (Update):** Re-inserted `\includegraphics` commands for flowcharts into `latex/Metodologia/Metodologia.tex`, with paths adjusted to `latex/` directory where user has placed the PNG images. Adjusted width of `streamlit_scene_creation.png` to `0.9\textwidth` to prevent it from being cut off.
+    -   **TCC Monografia - Chapter 3 (Metodologia) CEP Section Enhancement:** Expanded subsection 3.3.2 ("Análise Estatística e Controle Estatístico de Processos (CEP)") in `latex/Metodologia/Metodologia.tex` with more detailed statistical and mathematical explanations of CUSUM charts, including formulas for $S_{Hi}$, $S_{Li}$, discussions on parameters $K$ and $H$, and added a paragraph detailing the practical implementation and visualization of CUSUM/CEP within the Streamlit application.
 
 ## 3. Next Steps
 
+-   **User Task:** Compile LaTeX document to verify flowchart images are included correctly and review the further enhanced CEP section.
 -   Refine content and visualizations on the "Resumo da Casa" and "Detalhes por Dispositivo" pages.
 -   Populate the "Análise Avançada" page with relevant technical charts if needed.
 -   Thoroughly test the redesigned Streamlit application, including scene creation with schedules.
--   Discuss and decide on the implementation strategy for automatic scene triggering based on saved schedules (e.g., in-app limited polling, Dagster integration, or other backend service). **Current: Dagster setup for scene scheduling is complete.**
 -   User to test Dagster scene scheduling:
     - Ensure Tuya API env vars are available to Dagster.
     - Reload Dagster definitions in Dagit.
     - Enable `scene_execution_schedule`.
     - Create a scheduled scene in Streamlit and observe Dagster logs.
 -   Address timezone handling and robustness of non-recurring scene logic in Dagster op as future enhancements.
--   Update `memory-bank/systemPatterns.md` and `memory-bank/progress.md` to reflect the Streamlit app redesign and new Dagster-based scheduling capabilities.
+-   Update `memory-bank/systemPatterns.md` and `memory-bank/progress.md` to reflect the Streamlit app redesign, new Dagster-based scheduling capabilities, and the addition of flowcharts.
 -   Start the Dagster UI (`dagster dev`) to visualize all assets, jobs, and schedules.
 -   Verify both the hourly Dagster data pipeline schedule and the per-minute scene execution schedule are active and run as expected.
 -   Continue work on the TCC Monografia LaTeX content as needed.

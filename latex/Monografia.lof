@@ -2,6 +2,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Fluxograma da pipeline de processamento de dados de consumo energético com Dagster.}}{50}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}}{54}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Fluxograma da navegação geral da aplicação Streamlit.}}{55}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Fluxograma da lógica de controle individual de dispositivo na aplicação Streamlit.}}{57}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Fluxograma do processo de criação de cenas na aplicação Streamlit.}}{59}{figure.3.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
