@@ -1,13 +1,37 @@
 \chapter{Conclusões}
+\label{sec:conclusoes}
 
-Novamente, este será um dos trechos que o leitor experiente lerá antes de decidir se vale a pena ler o texto integral. Seja convincente.
+Este trabalho apresentou o desenvolvimento de um sistema integrado para monitoramento e controle de dispositivos inteligentes, com foco na análise de consumo de energia. A solução proposta demonstrou a viabilidade de combinar um pipeline de dados robusto, orquestrado por Dagster, com uma interface de usuário intuitiva, desenvolvida em Streamlit, para fornecer insights valiosos e funcionalidades de automação para usuários domésticos.
 
-\section{Considerações Finais}
+\section{Principais Contribuições}
+\label{sec:contribuicoes}
+As principais contribuições deste projeto incluem:
+\begin{itemize}
+    \item A implementação de um pipeline de dados automatizado e escalável utilizando Dagster, capaz de ingerir dados brutos da API da Tuya, processá-los com DuckDB e armazená-los em formato Parquet particionado.
+    \item O desenvolvimento de uma aplicação Streamlit com uma experiência de usuário aprimorada, oferecendo visualizações claras do consumo de energia em diferentes níveis (geral da casa e por dispositivo), controle individual de dispositivos e um sistema de gerenciamento de cenas agendadas.
+    \item A integração de técnicas de Controle Estatístico de Processos (CEP), como gráficos CUSUM, para detecção proativa de anomalias no consumo de energia, agregando valor à análise e permitindo ações corretivas.
+    \item A orquestração do agendamento de cenas via Dagster, garantindo a execução confiável e pontual de automações configuradas pelo usuário.
+\end{itemize}
 
-Reitere o que de mais importante foi feito, qual era o objetivo inicial e qual o resultado obtido. Se houve requisitos ou especificações de projeto, discuta se foram atingidos. Se os resultados não foram conclusivos ou contrariam o que se esperava, seja honesto e diga-o explicitamente. Busque explicar os insucessos com argumentos sólidos e plausíveis. 
+\section{Limitações e Desafios}
+\label{sec:limitacoes}
+Durante o desenvolvimento, algumas limitações e desafios foram identificados:
+\begin{itemize}
+    \item A dependência da API da Tuya para a coleta de dados, que pode estar sujeita a restrições de taxa ou mudanças na política da plataforma.
+    \item A necessidade de configuração manual de variáveis de ambiente para as credenciais da API, o que pode ser um ponto de atrito na implantação.
+    \item A complexidade inerente à depuração de pipelines orquestrados e aplicações web em tempo real, exigindo ferramentas de monitoramento eficazes.
+\end{itemize}
 
-\section{Propostas de Continuidade}
+\section{Trabalhos Futuros}
+\label{sec:trabalhos_futuros}
+Para expandir e aprimorar o sistema, sugere-se as seguintes direções para trabalhos futuros:
+\begin{itemize}
+    \item \textbf{Integração com Modelos de Linguagem Grandes (LLMs)}: Explorar a incorporação de LLMs para permitir uma interação mais natural e conversacional com a aplicação, possibilitando que os usuários consultem dados e configurem automações por meio de linguagem natural.
+    \item \textbf{Comparativo com Contas de Energia da CEMIG}: Desenvolver uma funcionalidade para comparar o consumo de energia registrado pelo sistema com as contas de energia reais da CEMIG, oferecendo uma validação externa e insights sobre a precisão das medições.
+    \item \textbf{Modelagem Preditiva de Consumo}: Implementar modelos de aprendizado de máquina para prever o consumo de energia futuro, auxiliando os usuários no planejamento e na otimização do uso de energia.
+    \item \textbf{Gamificação e Incentivos}: Introduzir elementos de gamificação ou sistemas de incentivo para engajar os usuários na redução do consumo de energia.
+    \item \textbf{Aprimoramentos de UX/UI}: Continuar refinando a experiência do usuário e a interface gráfica, incorporando feedback dos usuários e as melhores práticas de design.
+    \item \textbf{Robustez do Agendamento de Cenas}: Aprimorar a lógica de tratamento de fusos horários e a robustez de cenas não recorrentes no Dagster, garantindo que as automações sejam executadas de forma ainda mais precisa e confiável em diferentes contextos.
+\end{itemize}
 
-Se houve questões ainda não respondidas ou resultados insatisfatórios, aponte direções de continuação.
-
-\clearpage
+Este projeto serve como uma base sólida para futuras pesquisas e desenvolvimentos na área de automação residencial e gestão de energia, contribuindo para a criação de ambientes mais inteligentes e eficientes.

@@ -17,5 +17,20 @@
       ],
       "recurring": false
     }
+  },
+  "Cena teste 02": {
+    "actions": {
+      "ebb50554f386a6d20fvbwv": {
+        "code": "switch_1",
+        "value": true
+      }
+    },
+    "schedule": {
+      "time": "20:40",
+      "days": [
+        "Quarta"
+      ],
+      "recurring": false
+    }
   }
 }

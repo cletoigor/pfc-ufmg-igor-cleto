@@ -2,50 +2,252 @@
 
 Para a execução do projeto, algumas etapas de desenvolvimento tiveram de ser seguidas: familiarização com o sistema, estudo dos módulos envolvidos, leitura dos requisitos, elaboração de documento descrevendo todo o processo de implementação e relacionamento com os diversos módulos, implementação e testes.
 
-
 \section{Atividades do Projeto}
-\label{metodo3}
+\label{sec:atividades_projeto}
+O desenvolvimento do projeto envolveu uma série de atividades interligadas, desde a concepção inicial até a implementação e validação. As principais fases incluíram a pesquisa e análise de tecnologias existentes, o projeto da arquitetura do sistema, a implementação do pipeline de dados e da interface de usuário, e a validação em ambiente real.
 
 \section {Requisitos do Sistema}
-\label{req}
+\label{sec:requisitos_sistema}
+Os requisitos do sistema foram definidos para garantir que a solução proposta atendesse às necessidades de monitoramento e controle de dispositivos inteligentes, bem como à análise de consumo de energia. Estes requisitos abrangeram desde a capacidade de integração com a API da Tuya até a apresentação intuitiva dos dados e a funcionalidade de agendamento de cenas.
 
+\section{Desenvolvimento e Implementação}
+\label{sec:desenvolvimento_implementacao}
 
-\section{Desenvolvimeto e Implementação}
+A implementação do sistema compreendeu duas frentes principais: o pipeline de dados orquestrado pelo Dagster e a aplicação de interface do usuário desenvolvida com Streamlit.
 
-A Tabela \ref{tab:tabela} apresenta as atividades executadas.
+\subsection{Pipeline de Dados com Dagster}
+\label{sec:dagster_pipeline}
+O pipeline de dados foi projetado para coletar, processar e armazenar informações de consumo de energia dos dispositivos Tuya de forma automatizada e robusta. A orquestração desse processo foi realizada utilizando o framework Dagster, que permitiu a definição de ativos (assets), trabalhos (jobs) e agendamentos (schedules) para gerenciar o fluxo de dados.
 
-\begin{table}
-\centering
-%Note os alinhamentos diferentes em cada coluna
-\begin{tabular}{|c|r|l|}\hline
-		Atividade 1 & aa  & ab  \\ 
-					 & a & b \\ \hline
-		Ativ. 2  & aa & ab \\			
-					 &  a & b \\ \hline
-		\end{tabular}
-	\caption{Exemplo de tabela - Coloque toda informação sobre a tabela aqui}
-	\label{tab:tabela}
-\end{table}
+O pipeline é composto por dois ativos principais:
+\begin{itemize}
+    \item \texttt{raw\_tuya\_logs}: Este ativo é responsável pela ingestão dos dados brutos diretamente da API da Tuya. Ele utiliza a biblioteca \texttt{tuya-connector-python} para interagir com a nuvem da Tuya, coletando logs de eventos e informações de consumo. Os dados brutos são então enriquecidos com metadados como \texttt{device\_id} e informações de ingestão, e salvos como arquivos JSON particionados por ID do dispositivo e data no diretório \texttt{app/data/raw/}.
+    \item \texttt{staging\_tuya\_logs}: Dependente do ativo \texttt{raw\_tuya\_logs}, este ativo realiza o processamento dos dados brutos para uma camada de \textit{staging}. Ele utiliza o DuckDB, um sistema de gerenciamento de banco de dados analítico em processo, para carregar e transformar os arquivos JSON. O mapeamento de dispositivos (\texttt{app/data/device\_mapping.json}) é carregado com Pandas e registrado como uma visão no DuckDB para enriquecimento dos dados. As transformações incluem a conversão de \texttt{event\_time} para um formato de timestamp legível, adição de \texttt{filename} e junção com \texttt{device\_name}. Os dados processados são então salvos como arquivos Parquet particionados por \texttt{event\_date} no diretório \texttt{app/data/staging/}.
+\end{itemize}
+
+O fluxo de execução desses ativos é encapsulado no trabalho (\texttt{job}) denominado \texttt{tuya\_processing\_job}. Para garantir a atualização contínua dos dados, um agendamento (\texttt{schedule}) chamado \texttt{hourly\_schedule} foi configurado para executar o \texttt{tuya\_processing\_job} a cada hora.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Resultados/Figuras/dagster_data_pipeline_02.png.jpeg}
+    \caption{Visão Geral do Pipeline de Dados com Dagster, ilustrando os ativos \texttt{raw\_tuya\_logs} e \texttt{staging\_tuya\_logs} e suas dependências.}
+    \label{fig:dagster_pipeline}
+\end{figure}
+
+Além do pipeline de dados, o Dagster também foi utilizado para orquestrar o agendamento de cenas. Um recurso (\texttt{resource}) \texttt{tuya\_api\_resource} foi criado para gerenciar as credenciais da API da Tuya. A operação (\texttt{op}) \texttt{check\_and\_trigger\_scenes\_op} lê as cenas agendadas do arquivo \texttt{scheduled\_scenes.json}, verifica quais cenas estão prontas para serem executadas com base em seus horários e dias de recorrência, e aciona os comandos correspondentes via API da Tuya. Esta operação é encapsulada no trabalho \texttt{scene\_scheduler\_job}, que é executado a cada minuto por meio do agendamento \texttt{scene\_execution\_schedule}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg}
+    \caption{Interface do Dagster exibindo o job de agendamento de cenas (\texttt{scene\_scheduler\_job}) e seu schedule.}
+    \label{fig:dagster_scene_scheduler}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Resultados/Figuras/dagster_data_pipeline_fluxograma.png}
+    \caption{Outra perspectiva do Pipeline de Dados com Dagster.}
+    \label{fig:dagster_data_pipeline_new}
+\end{figure}
+
+\subsection{Aplicação de Interface do Usuário com Streamlit}
+\label{sec:streamlit_app}
+A aplicação web desenvolvida com Streamlit serve como a interface principal para o usuário interagir com o sistema, visualizar dados de consumo de energia e controlar dispositivos. A aplicação foi redesenhada com foco na experiência do usuário doméstico, adotando uma navegação multi-página via barra lateral.
+
+As principais páginas e funcionalidades da aplicação incluem:
+
+\begin{itemize}
+    \item Resumo da Casa: Esta página oferece uma visão consolidada do consumo de energia da residência. Apresenta métricas totais de consumo (kWh) para períodos como "Hoje", "Últimos 7 Dias" e "Este Mês". Inclui também uma seção de "Principais Consumidores", que lista os 5 dispositivos com maior consumo de energia, acompanhada de um gráfico de barras, e uma análise consolidada de potência.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_resumo_casa.png.jpeg}
+        \caption{Página "Resumo da Casa" na Aplicação Streamlit, exibindo métricas de consumo e principais consumidores.}
+        \label{fig:streamlit_resumo_casa}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg}
+        \caption{Detalhe adicional da página "Resumo da Casa" (Visualização 1).}
+        \label{fig:streamlit_resumo_casa_02}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg}
+        \caption{Detalhe adicional da página "Resumo da Casa" (Visualização 2).}
+        \label{fig:streamlit_resumo_casa_03}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_resumo_casa_04.png.jpeg}
+        \caption{Detalhe adicional da página "Resumo da Casa" (Visualização 3).}
+        \label{fig:streamlit_resumo_casa_04}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_resumo_casa_06.png.jpeg}
+        \caption{Detalhe adicional da página "Resumo da Casa" (Visualização 4).}
+        \label{fig:streamlit_resumo_casa_06}
+    \end{figure}
+
+    \item Detalhes por Dispositivo: Dedicada à análise individual de cada dispositivo. Permite ao usuário selecionar um dispositivo e visualizar métricas de consumo (kWh) para diferentes períodos, além de métricas de potência (média, máxima, mínima e energia estimada). Gráficos de série temporal de potência, consumo diário de energia e perfil de potência médio por hora do dia são apresentados. Seções detalhadas de análise de Tensão (V) e Corrente (mA) são organizadas em expansores (\texttt{st.expander}) para melhor organização visual.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg}
+        \caption{Página "Detalhes por Dispositivo" na Aplicação Streamlit, mostrando análises de potência, tensão e corrente para um dispositivo selecionado.}
+        \label{fig:streamlit_detalhes_dispositivo}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg}
+        \caption{Detalhe da página "Detalhes por Dispositivo" (Visualização 1).}
+        \label{fig:streamlit_detalhes_dispositivo_03}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg}
+        \caption{Detalhe da página "Detalhes por Dispositivo" (Visualização 2).}
+        \label{fig:streamlit_detalhes_dispositivo_04}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg}
+        \caption{Visão da página "Detalhes por Dispositivo" (Visualização 3 - plural).}
+        \label{fig:streamlit_detalhes_dispositivos_02}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg}
+        \caption{Visão da página "Detalhes por Dispositivo" (Visualização 4 - plural).}
+        \label{fig:streamlit_detalhes_dispositivos_06}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg}
+        \caption{Visão da página "Detalhes por Dispositivo" (Visualização 5 - plural).}
+        \label{fig:streamlit_detalhes_dispositivos_07}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg}
+        \caption{Visão da página "Detalhes por Dispositivo" (Visualização 6 - plural).}
+        \label{fig:streamlit_detalhes_dispositivos_08}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg}
+        \caption{Visão da página "Detalhes por Dispositivo" (Visualização 7 - plural).}
+        \label{fig:streamlit_detalhes_dispositivos_10}
+    \end{figure}
+
+    \item Análise Avançada: Esta página integra a análise de Controle Estatístico de Processos (CEP), exibindo gráficos CUSUM (Cumulative Sum) para monitoramento de desvios no consumo de energia e logs de falhas, permitindo a identificação proativa de anomalias.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg}
+        \caption{Página "Análise Avançada" com Gráficos CUSUM para detecção de anomalias no consumo de energia.}
+        \label{fig:streamlit_analise_avancada}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_semanais_sobrepostos_2d.png.jpeg}
+        \caption{Detalhe da página "Análise Avançada" (Visualização 1).}
+        \label{fig:streamlit_analise_avancada_02}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cusum_canal_semanal.png.jpeg}
+        \caption{Detalhe da página "Análise Avançada" (Visualização 2).}
+        \label{fig:streamlit_analise_avancada_03}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_semanais_3d.png.jpeg}
+        \caption{Detalhe da página "Análise Avançada" (Visualização 3).}
+        \label{fig:streamlit_analise_avancada_04}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg}
+        \caption{Detalhe da página "Análise Avançada" (Visualização 4).}
+        \label{fig:streamlit_analise_avancada_05}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_estatistico_semanal_2d.png.jpeg}
+        \caption{Detalhe da página "Análise Avançada" (Visualização 5).}
+        \label{fig:streamlit_analise_avancada_07}
+    \end{figure}
+
+    \item Controle Individual de Dispositivos: Localizada na barra lateral, esta seção permite o controle direto de dispositivos inteligentes. A funcionalidade foi otimizada utilizando \texttt{st.fragment} e \texttt{st.toggle} para um feedback visual instantâneo (atualização otimista), onde o estado do botão muda imediatamente, enquanto o comando real é enviado à API da Tuya em segundo plano. Em caso de falha na comunicação, o estado do botão é revertido.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_controle_individual_dispositivos.png.jpeg}
+        \caption{Interface de Controle Individual de Dispositivos na barra lateral da Aplicação Streamlit.}
+        \label{fig:streamlit_device_control}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo1_nome_dispositivos_dropdown.png.jpeg}
+        \caption{Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 1).}
+        \label{fig:streamlit_device_control_02}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg}
+        \caption{Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 2).}
+        \label{fig:streamlit_device_control_03}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg}
+        \caption{Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 3).}
+        \label{fig:streamlit_device_control_04}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg}
+        \caption{Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 4).}
+        \label{fig:streamlit_device_control_06_new}
+    \end{figure}
+
+    \item Gerenciamento de Cenas: A criação e o gerenciamento de cenas (sequências de ações agendadas para dispositivos) foram refatorados em um processo de três etapas intuitivo. O usuário define o nome da cena e os dispositivos envolvidos, em seguida, configura o horário e as ações (ligar/desligar), e por fim, revisa e salva a cena. As cenas salvas são persistidas em \texttt{app/data/scheduled\_scenes.json} e podem ser facilmente executadas ou excluídas através da interface.
+    \begin{figure}[htbp]
+        \centering
+    \includegraphics[width=0.8\textwidth]{Resultados/Figuras/streamlit_scene_creation.png.jpeg}
+    \caption{Processo de Criação e Gerenciamento de Cenas na Aplicação Streamlit.}
+    \label{fig:streamlit_scene_creation}
+    \end{figure}
+\end{itemize}
+
+A aplicação também incorpora um arquivo CSS customizado (\texttt{app/streamlit/style.css}) para aprimorar a estética visual, e utiliza caminhos absolutos para garantir a robustez no carregamento de arquivos como \texttt{scheduled\_scenes.json} e \texttt{style.css}.
 
 \section{Testes}
+\label{sec:testes}
+Os testes e a validação do sistema foram realizados em um ambiente real, focando na verificação da funcionalidade e do desempenho dos componentes implementados. A validação abrangeu:
+\begin{itemize}
+    \item \textbf{Latência do Pipeline de Dados}: Verificação do tempo de processamento desde a ingestão dos dados brutos da Tuya até a disponibilização na camada de \textit{staging} em formato Parquet.
+    \item \textbf{Responsividade da Interface do Usuário}: Avaliação da fluidez e do tempo de resposta da aplicação Streamlit, especialmente na visualização de gráficos e no controle de dispositivos.
+    \item \textbf{Timeliness dos Alertas CEP}: Confirmação de que os gráficos CUSUM e os logs de falhas na seção de Análise Avançada refletem as anomalias de consumo em tempo hábil.
+    \item \textbf{Confiabilidade do Agendamento de Cenas}: Observação da execução das cenas agendadas pelo Dagster, garantindo que os comandos aos dispositivos Tuya sejam enviados nos horários e dias configurados.
+\end{itemize}
+Esses testes permitiram identificar e corrigir eventuais desvios, assegurando que o sistema operasse conforme o esperado em um cenário prático.
 
 \section{Análise dos Resultados}
+\label{sec:analise_resultados}
+A implementação do sistema resultou em uma plataforma funcional para monitoramento e controle de consumo de energia, cujos principais resultados são evidenciados pelas funcionalidades e visualizações apresentadas.
 
-Apresente os resultados sem adulterações e faça análises objetivas. Pense na melhor maneira de apresentar os resultados graficamente. Se os gráficos são difíceis de interpretar, talvez tabelas sejam uma forma melhor de apresentar resultados. Não apresente dados (gráficos e tabelas) se não há uma conclusão interessante a ser tirada. Lembre-se de ser conciso.
+O pipeline de dados orquestrado pelo Dagster, conforme ilustrado na Figura \ref{fig:dagster_pipeline}, demonstrou ser eficaz na coleta e processamento automatizado dos dados de consumo. A interface do Dagit permitiu o monitoramento das execuções dos ativos \texttt{raw\_tuya\_logs} e \texttt{staging\_tuya\_logs}, confirmando a correta ingestão horária e transformação dos dados para a camada de \textit{staging}. Similarmente, o agendamento de cenas, gerenciado pelo \texttt{scene\_scheduler\_job} (Figura \ref{fig:dagster_scene_scheduler}), operou conforme o esperado, executando las automações definidas pelo usuário nos horários programados.
 
-\emph{Não se esqueça das unidades!} Pense que \emph{a priori} todo número deve ter uma unidade. Não escreva as unidades em itálico (no ambiente matemático) e tome cuidado para diferenciar maiúsculas e minúsculas. Um exemplo é escrever $22$ [kN] e não $22 KN$ (Kelvin vezes Newton!).
+A aplicação Streamlit proporcionou uma interface rica e interativa para o usuário. A página "Resumo da Casa" (Figura \ref{fig:streamlit_resumo_casa}) ofereceu uma visão geral do consumo energético, destacando os principais dispositivos consumidores e permitindo uma rápida compreensão dos padrões de uso. A capacidade de detalhar o consumo por dispositivo na página "Detalhes por Dispositivo" (Figura \ref{fig:streamlit_detalhes_dispositivo}) forneceu aos usuários ferramentas para análises mais aprofundadas, incluindo séries temporais de potência e perfis de consumo diário e horário.
 
-Ao apresentar resultados experimentais, tome o cuidado para também apresentar o cálculo das incertezas sempre que forem significativas. Ao fazer conclusões, sempre considere se o tamanho da sua amostra é grande o suficiente do ponto de vista estatístico. Lembre que a média empírica $\hat{\mu}_X$ de $N$ observações independentes da variável $X_i$ possui variância
-\[
-\hat{\sigma}_{\mu}^2 = \frac{1}{N(N-1)} \sum_{i=1}^N (X_i-\hat{\mu}_X)^2
-\enspace,
-\]
-onde se assume que as variáveis $X_i$ possuem uma mesma ditribuição e que essa distribuição possui segundo momento finito.
+A funcionalidade de "Análise Avançada" (Figura \ref{fig:streamlit_analise_avancada}), com a implementação dos gráficos CUSUM, representou um avanço significativo na detecção de anomalias. Desvios no padrão de consumo puderam ser visualmente identificados, auxiliando na identificação de possíveis falhas em dispositivos ou comportamentos de uso atípicos.
 
+O controle individual de dispositivos (Figura \ref{fig:streamlit_device_control}) e o gerenciamento de cenas (Figura \ref{fig:streamlit_scene_creation}) foram implementados com foco na usabilidade. A resposta otimista dos controles tornou a interação mais fluida, e o processo de criação de cenas em três etapas simplificou a configuração de automações complexas.
+
+Os testes realizados em ambiente real confirmaram a operacionalidade do sistema. A latência do pipeline de dados manteve-se dentro de limites aceitáveis para a atualização das informações na interface. A aplicação Streamlit demonstrou boa responsividade, e os alertas CEP, juntamente com a execução de cenas, ocorreram de forma confiável e pontual. Em suma, os resultados indicam que os objetivos propostos para o sistema foram alcançados, entregando uma solução funcional e com potencial para auxiliar os usuários na gestão eficiente do consumo de energia residencial.
 
 \section{Resumo do Capítulo}
 \label{sec:resumoo4}
-Tente não terminar de forma abrupta. Se for escrever algo aqui, não seja genérico!
+Este capítulo detalhou os resultados obtidos com a implementação do sistema inteligente para monitoramento e controle de consumo de energia. Foram apresentadas as principais atividades do projeto, os requisitos do sistema e o processo de desenvolvimento e implementação. A arquitetura do backend foi explorada, destacando o uso do Dagster para orquestração do pipeline de dados (ingestão e preparação de logs da Tuya) e para o agendamento automatizado de cenas. A interface de usuário, desenvolvida com Streamlit, foi detalhada, abrangendo funcionalidades como resumo de consumo, detalhes por dispositivo, análise avançada com gráficos CUSUM para detecção de anomalias, e controle individual de dispositivos, além do gerenciamento de cenas. Os testes em ambiente real validaram a funcionalidade, desempenho e confiabilidade do sistema. A análise dos resultados demonstrou que a solução proposta atingiu os objetivos de fornecer uma plataforma robusta para coleta de dados, visualização interativa e controle inteligente de dispositivos, com potencial para auxiliar na gestão eficiente do consumo de energia residencial.
 
 \section{Formato, expressões matemáticas e o \LaTeX}
 
@@ -76,7 +278,7 @@ onde os escalares $\zeta,\omega_n>0$ são constantes.
 
 Note que não foi necessário atribuir valores às variáveis neste momento. Repare também como devemos \textbf{usar pontuação} (vírgula) nas equações, tratando-as como parte da frase. Usamos o símbolo $\triangleq$ ou $:=$ para deixar explícito que se trata de uma definição. Ser claro nesse aspecto facilita o entendimento do leitor.
 
-A equação acima não foi numerada porque não será citada no texto. Vejamos um exemplo com numeração.
+A equação acima não numerada porque não será citada no texto. Vejamos um exemplo com numeração.
 
 A função $f(\cdot)$ possui um zero em $-a_2/a_1$ (ou $-\frac{a_2}{a_1}$) e, para $\zeta<1$, possui polos complexos $p_{1,2}$ dados por
 \begin{equation}
