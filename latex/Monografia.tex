@@ -65,18 +65,13 @@
 
 %\bibliographystyle{abntex2-alf} %para norma ABNT no sistema autor-data
 \bibliographystyle{abntex2-num}
-\begin{small}
-
-%\input{Monografia.bbl}
-\end{small}
+\nocite{*} % Includes all entries from the .bib file
+\bibliography{Monografia}%,library}
 
 %\begin{appendices}
 \appendix
 \include{Apendices/ApendiceA}
 \include{Apendices/ApendiceB}
 %\end{appendices}
-
-\nocite{*} % Includes all entries from the .bib file
-\bibliography{Monografia}%,library}
 \end{document}
 %---------------Fim do documento----------------------------

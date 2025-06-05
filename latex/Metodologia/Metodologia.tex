@@ -260,7 +260,7 @@ A integração desta funcionalidade de agendamento de cenas no Dagster permite q
     \centering
     \includegraphics[width=0.9\textwidth]{Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg}
     \caption{Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}
-    \label{fig:dagster_scene_scheduler_metodologia}
+    \label{fig:dagster_scene_scheduler}
 \end{figure}
 
 \subsection{Desenvolvimento da Interface de Usuário com Streamlit}
@@ -296,7 +296,7 @@ A metodologia de desenvolvimento da interface com Streamlit abrangeu os seguinte
             \centering
             \includegraphics[width=0.7\textwidth]{Resultados/Figuras/streamlit_device_control.png.jpeg}
             \caption{Fluxograma da lógica de controle individual de dispositivo na aplicação Streamlit.}
-            \label{fig:streamlit_device_control_metodologia}
+            \label{fig:streamlit_device_control}
         \end{figure}
 
         \item \textbf{Gerenciamento de Cenas}: Uma interface mais elaborada, utilizando formulários (\texttt{st.form}), foi desenvolvida para permitir que os usuários criem, visualizem, modifiquem ou excluam cenas de automação. A criação de cena foi dividida em múltiplas etapas (wizard-style) gerenciadas com \texttt{st.session\_state} para coletar nome da cena, dispositivos envolvidos, ações desejadas (ligar/desligar) e parâmetros de agendamento (horário, dias da semana, recorrência). As definições das cenas são persistidas em um arquivo JSON (\texttt{app/data/scheduled\_scenes.json}), que é lido e atualizado pela aplicação Streamlit e também utilizado pelo job Dagster de execução de cenas.
@@ -305,7 +305,7 @@ A metodologia de desenvolvimento da interface com Streamlit abrangeu os seguinte
             \centering
             \includegraphics[width=0.45\textwidth]{Resultados/Figuras/streamlit_scene_creation.png.jpeg}
             \caption{Fluxograma do processo de criação de cenas na aplicação Streamlit.}
-            \label{fig:streamlit_scene_creation_metodologia}
+            \label{fig:streamlit_scene_creation}
         \end{figure}
 
     \end{itemize}
@@ -465,7 +465,7 @@ Ainda que o escopo deste trabalho seja primordialmente acadêmico, centrado no d
 Em resumo, o protótipo desenvolvido, dentro de seu propósito acadêmico, não apenas valida a arquitetura técnica e os algoritmos propostos, mas também ilustra o potencial significativo de tais sistemas para beneficiar usuários finais e fomentar discussões importantes sobre o uso sustentável da energia.
 
 \section{Trabalhos Futuros e Próximos Passos}
-\label{sec:trabalhos_futuros_metodologia}
+\label{sec:trabalhos_futuros}
 
 O sistema desenvolvido, embora funcional e demonstrando a viabilidade da abordagem proposta, abre diversas avenidas para trabalhos futuros e aperfeiçoamentos. Algumas direções promissoras incluem:
 
@@ -482,3 +482,5 @@ O sistema desenvolvido, embora funcional e demonstrando a viabilidade da abordag
 Estes são apenas alguns exemplos das muitas direções que podem ser exploradas a partir do trabalho desenvolvido, visando tanto o aprimoramento técnico da solução quanto a ampliação de seu impacto e relevância acadêmica e social.
 
 \section{Resumo do Capítulo}
+
+Este capítulo detalhou as etapas metodológicas seguidas no desenvolvimento do sistema inteligente para monitoramento e controle estatístico de processo (CEP) para o monitoramento de energia residencial. As etapas compreenderam a análise de tecnologias, desenvolvimento do protótipo utilizando as tomadas \textit{Tuya Smart Wi-Fi}, implementação de algoritmos avançados, validação experimental e estudo de viabilidade em larga escala. A abordagem proposta combina rigor técnico e aplicabilidade prática, destacando-se como uma solução promissora para o setor de automação residencial.

@@ -8,34 +8,10 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Fluxograma da lógica de controle individual de dispositivo na aplicação Streamlit.}}{56}{figure.3.4}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Fluxograma do processo de criação de cenas na aplicação Streamlit.}}{57}{figure.3.5}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Visão Geral do Pipeline de Dados com Dagster, ilustrando os ativos \texttt {raw\_tuya\_logs} e \texttt {staging\_tuya\_logs} e suas dependências.}}{73}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Interface do Dagster exibindo o job de agendamento de cenas (\texttt {scene\_scheduler\_job}) e seu schedule.}}{74}{figure.4.2}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Outra perspectiva do Pipeline de Dados com Dagster.}}{74}{figure.4.3}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Página "Resumo da Casa" na Aplicação Streamlit, exibindo métricas de consumo e principais consumidores.}}{75}{figure.4.4}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Detalhe adicional da página "Resumo da Casa" (Visualização 1).}}{75}{figure.4.5}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Detalhe adicional da página "Resumo da Casa" (Visualização 2).}}{76}{figure.4.6}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Detalhe adicional da página "Resumo da Casa" (Visualização 3).}}{76}{figure.4.7}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Detalhe adicional da página "Resumo da Casa" (Visualização 4).}}{77}{figure.4.8}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Página "Detalhes por Dispositivo" na Aplicação Streamlit, mostrando análises de potência, tensão e corrente para um dispositivo selecionado.}}{77}{figure.4.9}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Detalhe da página "Detalhes por Dispositivo" (Visualização 1).}}{78}{figure.4.10}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Detalhe da página "Detalhes por Dispositivo" (Visualização 2).}}{78}{figure.4.11}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Visão da página "Detalhes por Dispositivo" (Visualização 3 - plural).}}{79}{figure.4.12}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Visão da página "Detalhes por Dispositivo" (Visualização 4 - plural).}}{79}{figure.4.13}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Visão da página "Detalhes por Dispositivo" (Visualização 5 - plural).}}{80}{figure.4.14}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Visão da página "Detalhes por Dispositivo" (Visualização 6 - plural).}}{80}{figure.4.15}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Visão da página "Detalhes por Dispositivo" (Visualização 7 - plural).}}{81}{figure.4.16}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Página "Análise Avançada" com Gráficos CUSUM para detecção de anomalias no consumo de energia.}}{81}{figure.4.17}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Detalhe da página "Análise Avançada" (Visualização 1).}}{82}{figure.4.18}%
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Detalhe da página "Análise Avançada" (Visualização 2).}}{82}{figure.4.19}%
-\contentsline {figure}{\numberline {4.20}{\ignorespaces Detalhe da página "Análise Avançada" (Visualização 3).}}{83}{figure.4.20}%
-\contentsline {figure}{\numberline {4.21}{\ignorespaces Detalhe da página "Análise Avançada" (Visualização 4).}}{83}{figure.4.21}%
-\contentsline {figure}{\numberline {4.22}{\ignorespaces Detalhe da página "Análise Avançada" (Visualização 5).}}{84}{figure.4.22}%
-\contentsline {figure}{\numberline {4.23}{\ignorespaces Interface de Controle Individual de Dispositivos na barra lateral da Aplicação Streamlit.}}{84}{figure.4.23}%
-\contentsline {figure}{\numberline {4.24}{\ignorespaces Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 1).}}{85}{figure.4.24}%
-\contentsline {figure}{\numberline {4.25}{\ignorespaces Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 2).}}{85}{figure.4.25}%
-\contentsline {figure}{\numberline {4.26}{\ignorespaces Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 3).}}{86}{figure.4.26}%
-\contentsline {figure}{\numberline {4.27}{\ignorespaces Detalhe da interface de "Controle Individual de Dispositivos" (Visualização 4).}}{86}{figure.4.27}%
-\contentsline {figure}{\numberline {4.28}{\ignorespaces Processo de Criação e Gerenciamento de Cenas na Aplicação Streamlit.}}{88}{figure.4.28}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Pipeline de Dados com Dagster: ativos \texttt {raw\_tuya\_logs} e \texttt {staging\_tuya\_logs}.}}{73}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Trigger de execução de cenas do Pipeline de Dados com Dagster.}}{73}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Interface do Dagster exibindo o job de agendamento de cenas (\texttt {scene\_scheduler\_job}) e seu schedule.}}{74}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Página "Resumo da Casa" na Aplicação Streamlit, exibindo métricas de consumo e principais consumidores.}}{74}{figure.4.4}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

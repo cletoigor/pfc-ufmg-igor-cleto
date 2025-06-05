@@ -2,7 +2,7 @@
 \contentsline {chapter}{Resumo}{i}{Doc-Start}%
 \contentsline {chapter}{Abstract}{iii}{Doc-Start}%
 \contentsline {chapter}{Agradecimentos}{v}{Doc-Start}%
-\contentsline {chapter}{Lista de Figuras}{xii}{chapter*.2}%
+\contentsline {chapter}{Lista de Figuras}{xi}{chapter*.2}%
 \contentsline {chapter}{Lista de Tabelas}{xiii}{chapter*.3}%
 \contentsline {chapter}{\numberline {1}Introdução}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivação e Justificativa}{1}{section.1.1}%
@@ -58,19 +58,13 @@
 \contentsline {chapter}{\numberline {4}Resultados}{71}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Atividades do Projeto}{71}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Requisitos do Sistema}{71}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimento e Implementação}{71}{section.4.3}%
+\contentsline {section}{\numberline {4.3}Desenvolvimento e Implementação}{72}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Pipeline de Dados com Dagster}{72}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Aplicação de Interface do Usuário com Streamlit}{73}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Testes}{87}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Análise dos Resultados}{87}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Resumo do Capítulo}{89}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Formato, expressões matemáticas e o \LaTeX }{90}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}O \LaTeX }{90}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Expressões Matemáticas}{91}{subsection.4.7.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{93}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Principais Contribuições}{93}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Limitações e Desafios}{94}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Trabalhos Futuros}{94}{section.5.3}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{97}{appendix.A}%
-\contentsline {chapter}{Referências Bibliográficas}{96}{section.5.3}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{99}{appendix.B}%
+\contentsline {subsection}{\numberline {4.3.2}Aplicação de Interface do Usuário com Streamlit}{74}{subsection.4.3.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{75}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Principais Contribuições}{75}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Limitações e Desafios}{76}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Trabalhos Futuros}{76}{section.5.3}%
+\contentsline {chapter}{Referências Bibliográficas}{78}{section.5.3}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{81}{appendix.A}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{83}{appendix.B}%
