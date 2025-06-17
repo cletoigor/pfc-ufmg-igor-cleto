@@ -803,43 +803,84 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
                             for _, row in current_week_df_cusum.iterrows():
                                 V_vmv_current_week[int(row['channel'])] = row['power_W']
                             
-                            epsilon_j_i = V_vmv_current_week - X_hat_i 
-                            s_j_i_current_week = epsilon_j_i**2 
+                            # --- Implementação CUSUM conforme a Metodologia.tex ---
                             
-                            st.markdown("**Parâmetros do CUSUM Multicanal (para $s_{j,i} = (\epsilon_{j,i})^2$):**")
-                            param_col1_mc, param_col2_mc = st.columns(2)
-                            nu_cusum_channel = param_col1_mc.number_input("Parâmetro ν (allowance/drift) para $s_{j,i}$:", 
-                                                                       min_value=0.0, value=0.001, step=0.0001, format="%.4f", key="nu_cusum_channel")
-                            h_cusum_channel = param_col2_mc.number_input("Limite h (threshold) para $g_{j,i}$:", 
-                                                                      min_value=0.0, value=0.005, step=0.001, format="%.4f", key="h_cusum_channel")
+                            # Fase I: Calcular média (mu0) e desvio padrão (sigma0) históricos
+                            mu0 = X_hat_i # Usando a média EWMA como nossa melhor estimativa da média histórica
+                            sigma0 = historical_weeks_df_cusum.groupby('channel')['power_W'].std().reindex(range(168), fill_value=0.0)
+                            # Se o desvio padrão for zero (sem variação), use um valor pequeno para evitar divisão por zero
+                            sigma0[sigma0 == 0] = np.finfo(float).eps
 
-                            g_j_i_current_week = (s_j_i_current_week - nu_cusum_channel).clip(lower=0)
-                            alarms_current_week = g_j_i_current_week > h_cusum_channel
+                            st.markdown("**Parâmetros do CUSUM (conforme Metodologia):**")
+                            param_col1_mc, param_col2_mc = st.columns(2)
+                            k_factor = param_col1_mc.number_input("Fator k para Folga (K = k * σ₀):", 
+                                                                  min_value=0.0, value=0.5, step=0.1, format="%.2f", key="k_factor_cusum")
+                            h_factor = param_col2_mc.number_input("Fator h para Limite de Decisão (H = h * σ₀):", 
+                                                                  min_value=0.0, value=5.0, step=0.5, format="%.2f", key="h_factor_cusum")
+
+                            K = k_factor * sigma0  # Folga
+                            H = h_factor * sigma0  # Limite de Decisão
+
+                            # Fase II: Calcular CUSUM para a semana atual
+                            # Para esta análise "one-shot" da semana, não acumulamos S_H(i-1) e S_L(i-1)
+                            # Calculamos o valor da estatística para cada canal da semana atual
                             
+                            # CUSUM Superior (para detectar aumentos)
+                            SHi = (V_vmv_current_week - (mu0 + K)).clip(lower=0)
+                            
+                            # CUSUM Inferior (para detectar reduções)
+                            SLi = ((mu0 - K) - V_vmv_current_week).clip(lower=0)
+
+                            alarms_upper = SHi > H
+                            alarms_lower = SLi > H
+                            any_alarm = alarms_upper | alarms_lower
+
                             cusum_results_df = pd.DataFrame({
                                 'Canal': range(168),
-                                'Média Hist. EWMA (X_hat_i)': X_hat_i,
-                                'Valor Semana Atual (V_vmv)': V_vmv_current_week,
-                                'Residual (epsilon_j,i)': epsilon_j_i,
-                                'Residual Quadrático (s_j,i)': s_j_i_current_week,
-                                'g_j,i (CUSUM Stat)': g_j_i_current_week,
-                                'Alarme (g_j,i > h)': alarms_current_week
+                                'Média Hist. (μ₀)': mu0,
+                                'Desvio Padrão Hist. (σ₀)': sigma0,
+                                'Valor Semana Atual (Xᵢ)': V_vmv_current_week,
+                                'CUSUM Superior (SHi)': SHi,
+                                'CUSUM Inferior (SLi)': SLi,
+                                'Limite (H)': H,
+                                'Alarme': any_alarm
                             })
 
-                            st.write(f"Análise CUSUM Multicanal para a semana: {current_week_id_cusum}")
+                            st.write(f"Análise CUSUM para a semana: {current_week_id_cusum}")
                             
-                            fig_cusum_bars = px.bar(cusum_results_df, x='Canal', y='g_j,i (CUSUM Stat)', 
-                                                    title=f"Estatística CUSUM (g_j,i) por Canal para Semana {current_week_id_cusum}",
-                                                    color='Alarme (g_j,i > h)',
-                                                    color_discrete_map={True: 'red', False: 'blue'},
-                                                    labels={'g_j,i (CUSUM Stat)': 'Valor g_j,i'})
-                            fig_cusum_bars.add_hline(y=h_cusum_channel, line_dash="dash", line_color="red", annotation_text=f"Limite h={h_cusum_channel:.4f}")
-                            st.plotly_chart(fig_cusum_bars, use_container_width=True)
+                            # Gráfico para CUSUM Superior e Inferior
+                            fig_cusum = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+                                                      vertical_spacing=0.1,
+                                                      subplot_titles=("CUSUM Superior (Detecção de Aumentos)", 
+                                                                      "CUSUM Inferior (Detecção de Reduções)"))
 
-                            alarming_channels = cusum_results_df[cusum_results_df['Alarme (g_j,i > h)']]
+                            # Gráfico Superior
+                            fig_cusum.add_trace(go.Bar(x=cusum_results_df['Canal'], y=cusum_results_df['SHi'],
+                                                     marker_color=cusum_results_df['Alarme'].map({True: 'red', False: 'blue'}),
+                                                     name='SHi'), row=1, col=1)
+                            fig_cusum.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['H'],
+                                                         mode='lines', line=dict(color='red', dash='dash'),
+                                                         name='Limite H'), row=1, col=1)
+
+                            # Gráfico Inferior
+                            fig_cusum.add_trace(go.Bar(x=cusum_results_df['Canal'], y=cusum_results_df['SLi'],
+                                                     marker_color=cusum_results_df['Alarme'].map({True: 'red', False: 'green'}),
+                                                     name='SLi'), row=2, col=1)
+                            fig_cusum.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['H'],
+                                                         mode='lines', line=dict(color='red', dash='dash'),
+                                                         name='Limite H'), row=2, col=1)
+
+                            fig_cusum.update_layout(height=600, title_text=f"Gráficos CUSUM por Canal para Semana {current_week_id_cusum}", showlegend=False)
+                            fig_cusum.update_yaxes(title_text="Valor Estatística", row=1, col=1)
+                            fig_cusum.update_yaxes(title_text="Valor Estatística", row=2, col=1)
+                            fig_cusum.update_xaxes(title_text="Canal (Hora da Semana)", row=2, col=1)
+                            
+                            st.plotly_chart(fig_cusum, use_container_width=True)
+
+                            alarming_channels = cusum_results_df[cusum_results_df['Alarme']]
                             if not alarming_channels.empty:
                                 st.write("Canais em Alarme:")
-                                st.dataframe(alarming_channels[['Canal', 'Média Hist. EWMA (X_hat_i)', 'Valor Semana Atual (V_vmv)', 'g_j,i (CUSUM Stat)']])
+                                st.dataframe(alarming_channels[['Canal', 'Média Hist. (μ₀)', 'Valor Semana Atual (Xᵢ)', 'SHi', 'SLi', 'Limite (H)']])
                             else:
                                 st.write("Nenhum canal em alarme para a semana atual com os parâmetros definidos.")
         else: 

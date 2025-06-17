@@ -151,7 +151,7 @@ def check_and_trigger_scenes_op(context):
     else:
         context.log.info("Finished scene check. No scenes were due at this minute.")
 
-@job(resource_defs={"tuya_api": tuya_api_resource})
+@job
 def scene_scheduler_job():
     check_and_trigger_scenes_op()
 
