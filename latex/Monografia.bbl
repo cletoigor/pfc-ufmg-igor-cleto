@@ -5,40 +5,63 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{v-1.9.7 }
 
-\bibitem{box_jen/76}
-\abntrefinfo{Box e Jenkins}{BOX; JENKINS}{1976}
-{BOX, G. E.~P.; JENKINS, G.~M. \emph{Time Series Analysis - Forecasting and
-  Control}. San Francisco: Holden Day, 1976.}
+\bibitem{Braga2013SPCBuildingEnergy}
+\abntrefinfo{Braga, Braga e Braga}{BRAGA; BRAGA; BRAGA}{2013}
+{BRAGA, L.; BRAGA, A.; BRAGA, C. On the characterization and monitoring of building energy demand using statistical process control methodologies.
+\emph{Energy and Buildings}, v.~65, p. 205--219, 2013.
+Source PDF: app/docs/articles/Artigo\_SPC\_Energy\_And\_Buildings.pdf.}
 
-\bibitem{bri/74}
-\abntrefinfo{Brigham}{BRIGHAM}{1974}
-{BRIGHAM, E.~O. \emph{The Fast Fourier Transform}. Englewood Cliffs:
-  Prentice-Hall, 1974.}
+\bibitem{CEMIGEntendaFatura}
+\abntrefinfo{{CEMIG Distribuição S.A.}}{{CEMIG Distribuição S.A.}}{/* PREENCHER ANO DE PUBLICAÇÃO */}
+{{CEMIG Distribuição S.A.} \emph{Entenda sua Fatura de Energia}. /* PREENCHER ANO DE PUBLICAÇÃO */. Documento PDF. Disponível online através do site da CEMIG (www.cemig.com.br) ou canais de relacionamento corporativo.
+Guia para compreensão de faturas de energia elétrica da CEMIG. O ano de publicação exato deve ser verificado no documento ou no site da CEMIG. Source PDF: app/docs/articles/entenda-sua-conta-mt.pdf.}
 
-\bibitem{eggert2002response}
-\abntrefinfo{Eggert}{EGGERT}{2002}
-{EGGERT, R.~J. Response tables from industry members of {ASME}’s design
-  engineering division and the manufacturing engineering division -
-  {E}ngineering design education: Surveys of demand and supply.
-\emph{Boise State University}, 2002.}
+\bibitem{Braga2010TeseValidacao}
+\abntrefinfo{Braga}{BRAGA}{2010}
+{BRAGA, L.~C.
+\emph{Validaç{\~a}o Ampla da Operaç{\~a}o de uma Edificaç{\~a}o Educacional Pública Visando Aspectos de Uso Racional da Energia}.
+Tese (Doutorado) --- Universidade Federal de Minas Gerais (UFMG) (a ser confirmado), Belo Horizonte, 2010. O ano na capa do documento é 2010, enquanto o nome do arquivo sugere 2013. Por favor, verifique o ano correto. A instituição também deve ser confirmada. Source PDF: app/docs/articles/tese\_laura\_2013.pdf.}
 
-\bibitem{spretnak1982survey}
-\abntrefinfo{Spretnak}{SPRETNAK}{1982}
-{SPRETNAK, C.~M. A survey of the frequency and importance of technical
-  communication in an engineering career.
-\emph{Technical Writing Teacher}, ERIC, v.~9, n.~3, p. 133--36, 1982.}
+\bibitem{PythonDoc}
+\abntrefinfo{{Python Software Foundation}}{{Python Software Foundation}}{2024}
+{{Python Software Foundation}. \emph{Python Documentation}. 2024.
+Documentação oficial da linguagem Python.
+Dispon{\'\i}vel em: $<$https://www.python.org/doc/$>$.}
 
-\bibitem{kreth2000survey}
-\abntrefinfo{Kreth}{KRETH}{2000}
-{KRETH, M.~L. A survey of the co-op writing experiences of recent engineering
-  graduates.
-\emph{Professional Communication, IEEE Transactions on}, IEEE, v.~43, n.~2, p.
-  137--152, 2000.}
+\bibitem{PandasDoc}
+\abntrefinfo{{The Pandas Development Team}}{{The Pandas Development Team}}{2024}
+{{The Pandas Development Team}. \emph{pandas documentation}. 2024.
+Documentação oficial da biblioteca Pandas.
+Dispon{\'\i}vel em: $<$https://pandas.pydata.org/pandas-docs/stable/$>$.}
 
-\bibitem{cunningham2012perceptions}
-\abntrefinfo{Cunningham e Stewart}{CUNNINGHAM; STEWART}{2012}
-{CUNNINGHAM, D.; STEWART, J. Perceptions and practices: A survey of
-  professional engineers and architects.
-\emph{ISRN Education}, Hindawi Publishing Corporation, v.~2012, 2012.}
+\bibitem{DuckDBDoc}
+\abntrefinfo{{DuckDB Labs}}{{DuckDB Labs}}{2024}
+{{DuckDB Labs}. \emph{DuckDB Documentation}. 2024.
+Documentação oficial do DuckDB.
+Dispon{\'\i}vel em: $<$https://duckdb.org/docs/stable/$>$.}
+
+\bibitem{DagsterDoc}
+\abntrefinfo{{Elementl, Inc.}}{{Elementl, Inc.}}{2024}
+{{Elementl, Inc.} \emph{Dagster Documentation}. 2024.
+Documentação oficial da plataforma Dagster.
+Dispon{\'\i}vel em: $<$https://docs.dagster.io/$>$.}
+
+\bibitem{StreamlitDoc}
+\abntrefinfo{{Streamlit Inc.}}{{Streamlit Inc.}}{2024}
+{{Streamlit Inc.} \emph{Streamlit Documentation}. 2024.
+Documentação oficial da biblioteca Streamlit.
+Dispon{\'\i}vel em: $<$https://docs.streamlit.io/$>$.}
+
+\bibitem{ParquetDoc}
+\abntrefinfo{{Apache Software Foundation}}{{Apache Software Foundation}}{2024}
+{{Apache Software Foundation}. \emph{Apache Parquet Documentation}. 2024.
+Documentação oficial do formato Apache Parquet.
+Dispon{\'\i}vel em: $<$https://parquet.apache.org/documentation/latest/$>$.}
+
+\bibitem{TuyaDevDoc}
+\abntrefinfo{{Tuya Inc.}}{{Tuya Inc.}}{2024}
+{{Tuya Inc.} \emph{Tuya Developer Platform Documentation}. 2024.
+Documentação oficial da Plataforma de Desenvolvedor Tuya.
+Dispon{\'\i}vel em: $<$https://developer.tuya.com/en/docs$>$.}
 
 \end{thebibliography}

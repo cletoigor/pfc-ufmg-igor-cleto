@@ -2,69 +2,67 @@
 \contentsline {chapter}{Resumo}{i}{Doc-Start}%
 \contentsline {chapter}{Abstract}{iii}{Doc-Start}%
 \contentsline {chapter}{Agradecimentos}{v}{Doc-Start}%
-\contentsline {chapter}{Lista de Figuras}{xi}{chapter*.2}%
-\contentsline {chapter}{Lista de Tabelas}{xiii}{chapter*.3}%
+\contentsline {chapter}{Lista de Figuras}{xii}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}Introdução}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivação e Justificativa}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Objetivos do Projeto}{2}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Local de Realização}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Estrutura da Monografia}{3}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Fundamentos da Automação Residencial}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Arquitetura de um Sistema de Automação Residencial}{6}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Sensores}{6}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Atuadores}{7}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Controladores}{8}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Tecnologias de Comunicação}{8}{subsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.1.5}Interface de Usuário}{10}{subsection.2.1.5}%
-\contentsline {subsection}{\numberline {2.1.6}Serviços em Nuvem e Análise de Dados}{11}{subsection.2.1.6}%
-\contentsline {subsection}{\numberline {2.1.7}Segurança e Privacidade}{13}{subsection.2.1.7}%
-\contentsline {subsection}{\numberline {2.1.8}Integração com Outros Sistemas}{15}{subsection.2.1.8}%
-\contentsline {subsection}{\numberline {2.1.9}Escalabilidade e Flexibilidade}{16}{subsection.2.1.9}%
-\contentsline {subsection}{\numberline {2.1.10}Instrumentação do Processo}{18}{subsection.2.1.10}%
-\contentsline {section}{\numberline {2.2}Monitoramento Energético}{20}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Coleta e Organização dos Dados}{21}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Pré-Processamento, Qualidade dos Dados e Controle Estatístico de Processo}{21}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Análise Estatística e Inteligência Artificial}{22}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Privacidade, LGPD e Proteção dos Dados Energéticos}{23}{subsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.2.5}Integração com Outros Sistemas e Evolução Contínua}{24}{subsection.2.2.5}%
-\contentsline {subsection}{\numberline {2.2.6}Benefícios Práticos e Responsabilidade Social}{24}{subsection.2.2.6}%
-\contentsline {section}{\numberline {2.3}Modelos Arquiteturais para Sistemas de Automação Residencial e Monitoramento Energético}{25}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Visão Geral de um Sistema Típico}{25}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Camada de Aquisição de Dados}{25}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Camada de Processamento e Gerenciamento de Dados}{26}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Camada de Apresentação e Interação com o Usuário}{27}{subsection.2.3.4}%
-\contentsline {subsection}{\numberline {2.3.5}Lógica de Automação e Agendamento de Rotinas}{28}{subsection.2.3.5}%
-\contentsline {chapter}{\numberline {3}Metodologia}{29}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{29}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Seleção de Ferramentas de Software e Plataformas de Desenvolvimento}{34}{subsection.3.1.1}%
-\contentsline {subsubsection}{Linguagem de Programação: Python}{34}{section*.4}%
-\contentsline {subsubsection}{Biblioteca Pandas e Estrutura DataFrame}{35}{section*.5}%
-\contentsline {subsubsection}{Plataforma de Interface de Usuário: Streamlit}{36}{section*.6}%
-\contentsline {subsubsection}{Plataforma de Orquestração de Dados: Dagster}{39}{section*.7}%
-\contentsline {subsubsection}{Banco de Dados Analítico Embutido: DuckDB}{42}{section*.8}%
-\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{44}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{44}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Arquitetura e Desenvolvimento do Software de Coleta, Processamento e Controle}{46}{subsection.3.2.2}%
-\contentsline {subsubsection}{Implementação da Pipeline de Dados com Dagster}{46}{section*.9}%
-\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{48}{section*.10}%
-\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{52}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Implementação de Algoritmos de Processamento e Análise}{58}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{58}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{59}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{63}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Considerações sobre Viabilidade e Impacto Acadêmico}{65}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Trabalhos Futuros e Próximos Passos}{68}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Resumo do Capítulo}{69}{section.3.7}%
-\contentsline {chapter}{\numberline {4}Resultados}{71}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{71}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{71}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimento e Implementação}{72}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Pipeline de Dados com Dagster}{72}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Aplicação de Interface do Usuário com Streamlit}{74}{subsection.4.3.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{75}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Principais Contribuições}{75}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Limitações e Desafios}{76}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Trabalhos Futuros}{76}{section.5.3}%
-\contentsline {chapter}{Referências Bibliográficas}{78}{section.5.3}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{81}{appendix.A}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{83}{appendix.B}%
+\contentsline {section}{\numberline {2.1}Arquitetura de um Sistema de Automação Residencial}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Sensores}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Atuadores}{6}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Controladores}{6}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Tecnologias de Comunicação}{6}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Interface de Usuário}{6}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Serviços em Nuvem e Análise de Dados}{6}{subsection.2.1.6}%
+\contentsline {subsection}{\numberline {2.1.7}Segurança e Privacidade}{7}{subsection.2.1.7}%
+\contentsline {subsection}{\numberline {2.1.8}Integração com Outros Sistemas}{7}{subsection.2.1.8}%
+\contentsline {subsection}{\numberline {2.1.9}Escalabilidade e Flexibilidade}{7}{subsection.2.1.9}%
+\contentsline {subsection}{\numberline {2.1.10}Instrumentação do Processo}{8}{subsection.2.1.10}%
+\contentsline {section}{\numberline {2.2}Monitoramento Energético}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Coleta e Organização dos Dados}{9}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Pré-Processamento, Qualidade dos Dados e CEP}{9}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Análise Estatística e Inteligência Artificial}{9}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Privacidade, LGPD e Proteção dos Dados Energéticos}{9}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Integração com Outros Sistemas e Evolução Contínua}{10}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Benefícios Práticos e Responsabilidade Social}{10}{subsection.2.2.6}%
+\contentsline {section}{\numberline {2.3}Modelos de Arquitetura para Automação}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Visão Geral de um Sistema Típico}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Camada de Aquisição de Dados}{11}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Camada de Processamento e Gerenciamento de Dados}{11}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Camada de Apresentação e Interação com o Usuário}{11}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Lógica de Automação e Agendamento de Rotinas}{11}{subsection.2.3.5}%
+\contentsline {chapter}{\numberline {3}Metodologia}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{13}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Seleção de Ferramentas de Software e Plataformas de Desenvolvimento}{15}{subsection.3.1.1}%
+\contentsline {subsubsection}{Linguagem de Programação: Python}{15}{section*.3}%
+\contentsline {subsubsection}{Biblioteca Pandas e Estrutura DataFrame}{15}{section*.4}%
+\contentsline {subsubsection}{Plataforma de Interface de Usuário: Streamlit}{15}{section*.5}%
+\contentsline {subsubsection}{Plataforma de Orquestração de Dados: Dagster}{16}{section*.6}%
+\contentsline {subsubsection}{Banco de Dados Analítico Embutido: DuckDB}{16}{section*.7}%
+\contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{17}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{17}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Arquitetura e Desenvolvimento do Software de Coleta, Processamento e Controle}{17}{subsection.3.2.2}%
+\contentsline {subsubsection}{Implementação da Pipeline de Dados com Dagster}{18}{section*.8}%
+\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{18}{section*.9}%
+\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{21}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Algoritmos de Processamento e Análise}{21}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{22}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{22}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Considerações sobre Viabilidade e Impacto Acadêmico}{24}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Trabalhos Futuros e Próximos Passos}{25}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Resumo do Capítulo}{25}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{27}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{27}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimento e Implementação}{27}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Pipeline de Dados com Dagster}{28}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Aplicação de Interface do Usuário com Streamlit}{30}{subsection.4.3.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{45}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Atendimento aos Objetivos do Projeto}{45}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Principais Contribuições}{47}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Limitações e Desafios}{47}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Trabalhos Futuros}{48}{section.5.4}%
+\contentsline {chapter}{Referências Bibliográficas}{50}{section.5.4}%

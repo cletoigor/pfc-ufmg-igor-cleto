@@ -94,6 +94,11 @@
     -   **TCC Monografia - Chapter 3 (Metodologia) Viability and Future Work Sections Update:**
         -   Revised section 3.5 of `latex/Metodologia/Metodologia.tex`, renaming it to "Considerações sobre Viabilidade e Impacto Acadêmico". The content was refocused on academic relevance, with an improved description of user benefits, and removed discussion on large-scale adoption strategies and technical scalability.
         -   Added a new section 3.6 ("Trabalhos Futuros e Próximos Passos") to `latex/Metodologia/Metodologia.tex`, outlining potential future research directions including LLM integration, CEMIG bill comparison, predictive modeling, gamification, and further UX enhancements.
+    -   **TCC Monografia - Chapter 4 (Resultados) Figure Relocation:**
+        -   Moved Figure 4.2 (originally `fig:dagster_scene_scheduler` depicting Dagster scene scheduling UI) from section 4.3.1 (`Pipeline de Dados com Dagster`) to a new subsection 4.2.1 (`Fluxograma de Execução dos Ativos raw_tuya_logs e staging_tuya_logs`) created under section 4.2 (`Requisitos do Sistema`) in `latex/Resultados/Resultados.tex`.
+        -   The caption of the moved figure was changed to "Fluxograma de execução dos ativos raw\_tuya\_logs e staging\_tuya\_logs."
+        -   The image for this figure was updated to `Figuras/dagster_data_pipeline_fluxograma.png` to match the new caption.
+        -   The label for this figure was updated to `fig:fluxograma_raw_staging_assets`.
 
 ## 3. Next Steps
 

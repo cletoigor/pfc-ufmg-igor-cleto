@@ -1,7 +1,30 @@
 \chapter{Conclusões}
 \label{sec:conclusoes}
 
-Este trabalho apresentou o desenvolvimento de um sistema integrado para monitoramento e controle de dispositivos inteligentes, com foco na análise de consumo de energia. A solução proposta demonstrou a viabilidade de combinar um pipeline de dados robusto, orquestrado por Dagster, com uma interface de usuário intuitiva, desenvolvida em Streamlit, para fornecer insights valiosos e funcionalidades de automação para usuários domésticos.
+Este Trabalho de Conclusão de Curso dedicou-se ao desenvolvimento e à avaliação de um sistema integrado para monitoramento inteligente e controle do consumo de energia em ambientes residenciais. Buscou-se enfrentar o desafio da gestão energética em lares convencionais, muitas vezes carentes de infraestrutura de automação e de ferramentas acessíveis que proporcionem visibilidade e controle efetivo sobre o uso da energia. A solução desenvolvida demonstrou a viabilidade de conjugar um pipeline de dados robusto, orquestrado pela plataforma Dagster, com uma interface de usuário interativa e intuitiva, criada com Streamlit, visando capacitar o usuário doméstico com insights valiosos e funcionalidades de automação personalizadas. Ao longo do projeto, foram exploradas tecnologias acessíveis e métodos de análise, como o Controle Estatístico de Processo (CEP), para oferecer uma ferramenta prática e academicamente relevante.
+
+\section{Atendimento aos Objetivos do Projeto}
+\label{sec:atendimento_objetivos}
+
+O desenvolvimento deste trabalho foi norteado por um conjunto de objetivos específicos, delineados na introdução. A seguir, detalha-se o atendimento a cada um deles:
+
+\begin{enumerate}[a)]
+    \item \textbf{Realizar uma pesquisa e análise de tecnologias existentes que permitam o monitoramento energético sem a necessidade de infraestrutura prévia:} Conforme detalhado na Seção \ref{sec:pesquisa_tecnologias}, foi conduzida uma extensa pesquisa sobre hardware de monitoramento, culminando na seleção de tomadas inteligentes Tuya Smart Wi-Fi, que operam sobre a infraestrutura Wi-Fi residencial existente, não exigindo modificações elétricas ou estruturais complexas.
+
+    \item \textbf{Explorar soluções adequadas para residências convencionais, que não foram originalmente projetadas para automação residencial:} A escolha das tomadas Tuya e o design geral do sistema, focado em componentes \textit{plug and play} e software de código aberto, atenderam diretamente a este objetivo, validando a aplicabilidade da solução em um ambiente residencial típico sem automação prévia, conforme descrito na Seção \ref{sec:empresa} e validado na Seção \ref{sec:viabilidade_impacto}.
+
+    \item \textbf{Desenvolver um protótipo de sistema de monitoramento e controle de fácil instalação e uso, focado na aplicação de princípios de controle estatístico de processo:} O protótipo, composto pela pipeline de dados Dagster e pela aplicação Streamlit (Seções \ref{sec:dagster_pipeline} e \ref{sec:streamlit_app}), foi desenvolvido com ênfase na facilidade de uso. A interface Streamlit, em particular, foi projetada para ser intuitiva, e a aplicação de CEP foi uma funcionalidade central da análise avançada.
+
+    \item \textbf{Implementar algoritmos para processamento de dados, previsão de consumo e aplicação de técnicas de controle estatístico de processo:} Algoritmos para pré-processamento de dados foram implementados na pipeline Dagster (Seção \ref{subsubsec:pipeline_dagster}). Técnicas de Controle Estatístico de Processo, especificamente gráficos CUSUM, foram implementadas e detalhadas na Seção \ref{subsec:analise_cep} e disponibilizadas na interface Streamlit. A previsão de consumo, embora mencionada como objetivo inicial, foi direcionada para a seção de trabalhos futuros (Seção \ref{sec:trabalhos_futuros}), com o foco principal do desenvolvimento prático nos algoritmos de CEP.
+
+    \item \textbf{Desenvolver uma plataforma de software intuitiva para visualização, análise dos dados e suporte ao controle estatístico de processo pelo usuário:} A aplicação Streamlit (Seção \ref{sec:streamlit_app}) cumpriu integralmente este objetivo, oferecendo múltiplas visualizações de dados, ferramentas de análise, incluindo a interface para CEP, e funcionalidades de controle de dispositivos e cenas.
+
+    \item \textbf{Testar e validar o sistema em ambiente real, garantindo sua eficiência e usabilidade:} A validação em ambiente real, descrita na Seção \ref{sec:viabilidade_impacto} (anteriormente Seção 3.4 na Metodologia), confirmou a funcionalidade do sistema, a precisão relativa dos sensores para os propósitos do projeto, a eficácia do CEP na detecção de anomalias simuladas e a usabilidade da interface.
+
+    \item \textbf{Promover a viabilidade de implementação em larga escala por meio da análise de custos e estratégias de adoção:} Este objetivo foi recontextualizado durante o desenvolvimento. Conforme discutido na Seção \ref{sec:viabilidade_impacto} (anteriormente Seção 3.5 na Metodologia), o foco foi direcionado para a análise de viabilidade em contexto residencial individual e para o impacto acadêmico e benefícios ao usuário, em vez de estratégias de adoção em larga escala, que extrapolavam o escopo de um TCC. Os custos de implementação para um usuário foram considerados acessíveis.
+
+    \item \textbf{Documentar e divulgar os resultados obtidos, destacando as contribuições para a Engenharia de Controle e Automação e os benefícios sociais e ambientais proporcionados pelo sistema desenvolvido:} Esta monografia representa o principal veículo de documentação e divulgação dos resultados. As contribuições para a engenharia e os benefícios socioambientais foram discutidos ao longo do texto, especialmente nas seções de metodologia, resultados e nas considerações sobre impacto (Seção \ref{sec:viabilidade_impacto}).
+\end{enumerate}
 
 \section{Principais Contribuições}
 \label{sec:contribuicoes}
@@ -11,6 +34,8 @@ As principais contribuições deste projeto incluem:
     \item O desenvolvimento de uma aplicação Streamlit com uma experiência de usuário aprimorada, oferecendo visualizações claras do consumo de energia em diferentes níveis (geral da casa e por dispositivo), controle individual de dispositivos e um sistema de gerenciamento de cenas agendadas.
     \item A integração de técnicas de Controle Estatístico de Processos (CEP), como gráficos CUSUM, para detecção proativa de anomalias no consumo de energia, agregando valor à análise e permitindo ações corretivas.
     \item A orquestração do agendamento de cenas via Dagster, garantindo a execução confiável e pontual de automações configuradas pelo usuário.
+    \item A demonstração da aplicação prática de Controle Estatístico de Processos (CEP) para o monitoramento de consumo energético residencial, oferecendo um método robusto para a detecção de anomalias.
+    \item A validação da arquitetura proposta em um ambiente residencial convencional, confirmando sua aplicabilidade e usabilidade para usuários finais sem conhecimento técnico especializado.
 \end{itemize}
 
 \section{Limitações e Desafios}
@@ -33,4 +58,4 @@ Para expandir e aprimorar o sistema, sugere-se as seguintes direções para trab
     \item \textbf{Robustez do Agendamento de Cenas}: Aprimorar a lógica de tratamento de fusos horários e a robustez de cenas não recorrentes no Dagster, garantindo que as automações sejam executadas de forma ainda mais precisa e confiável em diferentes contextos.
 \end{itemize}
 
-Este projeto serve como uma base sólida para futuras pesquisas e desenvolvimentos na área de automação residencial e gestão de energia, contribuindo para a criação de ambientes mais inteligentes e eficientes.
+Em suma, este trabalho logrou êxito em desenvolver e validar um sistema integrado para monitoramento e controle de energia residencial, atendendo à maioria dos objetivos propostos e superando os desafios inerentes à integração de diferentes tecnologias e à aplicação de conceitos analíticos em um contexto prático. A solução apresentada não apenas cumpre os requisitos de um Trabalho de Conclusão de Curso em Engenharia de Controle e Automação, mas também oferece uma contribuição tangível ao campo da gestão energética inteligente, fornecendo uma plataforma funcional e insights valiosos. O projeto estabelece uma base sólida para futuras pesquisas e desenvolvimentos, com potencial para evoluir para uma ferramenta ainda mais poderosa e impactante na promoção da eficiência energética e da sustentabilidade em ambientes domésticos.

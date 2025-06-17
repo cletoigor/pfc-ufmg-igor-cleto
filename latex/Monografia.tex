@@ -31,6 +31,8 @@
 \usepackage[a4paper,top=30mm,bottom=30mm,inner=30mm,outer=25mm,headheight=7mm,headsep=6mm,footskip=7mm]{geometry}
 \usepackage{enumerate}
 
+\raggedbottom % Allow flexible bottom margin to help with underfull vbox issues
+
 \makeindex
 
 %\singlespacing   %%espaçamento simples
@@ -50,7 +52,7 @@
 \include{Agradecimentos/Agradecimentos}
 \include{TabelaConteudo/TabelaConteudo}
 \include{ListaFiguras/ListaFiguras}
-\include{ListaTabelas/ListaTabelas}
+% \include{ListaTabelas/ListaTabelas}
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
@@ -69,9 +71,9 @@
 \bibliography{Monografia}%,library}
 
 %\begin{appendices}
-\appendix
-\include{Apendices/ApendiceA}
-\include{Apendices/ApendiceB}
+%\appendix
+%\include{Apendices/ApendiceA}
+%\include{Apendices/ApendiceB}
 %\end{appendices}
 \end{document}
 %---------------Fim do documento----------------------------

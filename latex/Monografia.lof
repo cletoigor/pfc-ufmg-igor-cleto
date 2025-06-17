@@ -2,16 +2,33 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Fluxograma da pipeline de processamento de dados de consumo energético com Dagster.}}{49}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}}{53}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Fluxograma da navegação geral da aplicação Streamlit.}}{54}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Fluxograma da lógica de controle individual de dispositivo na aplicação Streamlit.}}{56}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Fluxograma do processo de criação de cenas na aplicação Streamlit.}}{57}{figure.3.5}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Fluxograma da pipeline de processamento de dados de consumo energético com Dagster.}}{19}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}}{20}{figure.3.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Pipeline de Dados com Dagster: ativos \texttt {raw\_tuya\_logs} e \texttt {staging\_tuya\_logs}.}}{73}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Trigger de execução de cenas do Pipeline de Dados com Dagster.}}{73}{figure.4.2}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Interface do Dagster exibindo o job de agendamento de cenas (\texttt {scene\_scheduler\_job}) e seu schedule.}}{74}{figure.4.3}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Página "Resumo da Casa" na Aplicação Streamlit, exibindo métricas de consumo e principais consumidores.}}{74}{figure.4.4}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Pipeline de Dados Dagster: ativos raw\_tuya\_logs e staging\_tuya\_logs}}{29}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Trigger de execução de cenas do Pipeline de Dados com Dagster.}}{29}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Interface Dagster: job de agendamento de cenas}}{29}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Barra lateral de navegação da aplicação Streamlit, exibindo as opções de página e os filtros gerais de período e dispositivos.}}{30}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Visão geral da página "Resumo da Casa" na Aplicação Streamlit.}}{31}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Distribuição do consumo por dispositivo, exibido na página "Resumo da Casa".}}{31}{figure.4.6}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Perfil médio de consumo horário consolidado de todos os dispositivos, página "Resumo da Casa".}}{32}{figure.4.7}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Série Temporal da Potência (W) para um dispositivo selecionado.}}{32}{figure.4.8}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Consumo de Energia Diário (kWh) para um dispositivo selecionado.}}{33}{figure.4.9}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Perfil de Potência Médio Horário para um dispositivo selecionado.}}{33}{figure.4.10}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Métricas e Série Temporal da Tensão (V) para um dispositivo selecionado.}}{34}{figure.4.11}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Distribuição da Tensão (V) em Boxplot para um dispositivo selecionado.}}{34}{figure.4.12}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Métricas e Série Temporal da Corrente (mA) para um dispositivo selecionado.}}{35}{figure.4.13}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Distribuição da Corrente (mA) em Boxplot para um dispositivo selecionado.}}{35}{figure.4.14}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Página "Detalhes por Dispositivo" exibindo análises de potência, tensão e corrente para um dispositivo selecionado.}}{36}{figure.4.15}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Gráfico CUSUM por Canal Semanal da Análise Avançada.}}{37}{figure.4.16}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Perfis Semanais 2D exibidos na Análise Avançada.}}{37}{figure.4.17}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Perfis Médios Diários 2D exibidos na Análise Avançada.}}{38}{figure.4.18}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Perfil Estatístico Semanal 3D exibido na Análise Avançada para os multicanais horários (1 a 24) e com a média acumulada a cada semana.}}{38}{figure.4.19}%
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Perfis Semanais Sobrepostos 2D exibidos na Análise Avançada.}}{39}{figure.4.20}%
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Página "Análise Avançada" destacando a análise de picos de potência e a configuração do Controle Estatístico de Processo (CEP) com CUSUM.}}{39}{figure.4.21}%
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Interface de Controle Individual de Dispositivos.}}{40}{figure.4.22}%
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Passo 1 da Criação de Cena: Nome e Seleção de Dispositivos.}}{41}{figure.4.23}%
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Passo 2 da Criação de Cena: Definição de Horário e Ações.}}{41}{figure.4.24}%
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Detalhes de uma Cena Salva e Opção de Exclusão.}}{42}{figure.4.25}%
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Interface de Gerenciamento de Cenas, mostrando o início da criação de uma nova cena e a lista de cenas salvas para execução.}}{42}{figure.4.26}%
 \addvspace {10\p@ }
