@@ -50,19 +50,19 @@
 \contentsline {section}{\numberline {3.3}Algoritmos de Processamento e Análise}{21}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{22}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{22}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{23}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Considerações sobre Viabilidade e Impacto Acadêmico}{24}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Trabalhos Futuros e Próximos Passos}{25}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Resumo do Capítulo}{25}{section.3.7}%
-\contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{27}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimento e Implementação}{27}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Pipeline de Dados com Dagster}{28}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Aplicação de Interface do Usuário com Streamlit}{30}{subsection.4.3.2}%
-\contentsline {chapter}{\numberline {5}Conclusões}{45}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Atendimento aos Objetivos do Projeto}{45}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Principais Contribuições}{47}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Limitações e Desafios}{47}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Trabalhos Futuros}{48}{section.5.4}%
-\contentsline {chapter}{Referências Bibliográficas}{50}{section.5.4}%
+\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{28}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Considerações sobre Viabilidade e Impacto Acadêmico}{28}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Trabalhos Futuros e Próximos Passos}{29}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Resumo do Capítulo}{30}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Resultados}{31}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{31}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{31}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimento e Implementação}{31}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Pipeline de Dados com Dagster}{32}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Aplicação de Interface do Usuário com Streamlit}{34}{subsection.4.3.2}%
+\contentsline {chapter}{\numberline {5}Conclusões}{49}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Atendimento aos Objetivos do Projeto}{49}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Principais Contribuições}{51}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Limitações e Desafios}{51}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Trabalhos Futuros}{52}{section.5.4}%
+\contentsline {chapter}{Referências Bibliográficas}{54}{section.5.4}%

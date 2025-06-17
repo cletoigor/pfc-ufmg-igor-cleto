@@ -12,6 +12,7 @@
         "**/.git": true,
         "**/.DS_Store": true,
         "**/__pycache__": true,
+        "app/tmp*/": true,
         "tmp*/": true,
         "*.egg-info/": true,
         ".venv/": true,

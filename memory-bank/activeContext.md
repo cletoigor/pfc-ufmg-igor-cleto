@@ -99,10 +99,14 @@
         -   The caption of the moved figure was changed to "Fluxograma de execução dos ativos raw\_tuya\_logs e staging\_tuya\_logs."
         -   The image for this figure was updated to `Figuras/dagster_data_pipeline_fluxograma.png` to match the new caption.
         -   The label for this figure was updated to `fig:fluxograma_raw_staging_assets`.
+    -   **TCC Monografia - Chapter 3 (Metodologia) Multichannel CEP Enhancement (Iterative):** The explanation of the multichannel structure in subsection 3.2 was significantly expanded and then further refined for clarity. The revision now includes a detailed description of the structure's composition (channels, resolution, periodicity) and the intra-channel statistical analysis, adapted from Braga et al. (2013).
+    -   **TCC Monografia - Chapter 3 (Metodologia) CEP Paragraph Clarification:** Revised the introductory paragraph of the CEP section to better define and contextualize the concepts of "common causes" and "special causes" of process variation, improving the clarity and flow of the explanation.
+    -   **TCC Monografia - Chapter 3 (Metodologia) CUSUM Definition:** Added the English definition for CUSUM (\textit{Cumulative Sum}) in the CEP section for better clarity.
+    -   **TCC Monografia - Chapter 3 (Metodologia) CUSUM Implementation Explanation:** The description of the CUSUM implementation (Phases I and II, parameter selection, and practical application) was rewritten to be more objective, clear, and easier to understand, with verification of the mathematical formulas.
 
 ## 3. Next Steps
 
--   **User Task:** Compile LaTeX document to verify flowchart images are included correctly and review the further enhanced CEP section.
+-   **User Task:** Compile LaTeX document to verify the revised CEP section and ensure the document structure is correct.
 -   Refine content and visualizations on the "Resumo da Casa" and "Detalhes por Dispositivo" pages.
 -   Populate the "Análise Avançada" page with relevant technical charts if needed.
 -   Thoroughly test the redesigned Streamlit application, including scene creation with schedules.
