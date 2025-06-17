@@ -341,7 +341,11 @@ def staging_tuya_logs(context: AssetExecutionContext, raw_tuya_logs_path: str) -
             )
             SELECT
                 rl.code,
-                rl.value,
+                CASE
+                    WHEN rl.code IN ('cur_power', 'cur_current', 'cur_voltage', 'add_ele') THEN TRY_CAST(rl.value AS DOUBLE PRECISION)
+                    ELSE NULL
+                END AS metric_value, -- Numeric value for specific codes
+                rl.value AS original_value, -- Keep original string value (renamed from 'value' to avoid conflict if 'value' is used by duckdb for other purposes)
                 rl.device_id,
                 rl.ingestion_timestamp_utc,
                 rl.ingested_by,

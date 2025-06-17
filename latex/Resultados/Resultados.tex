@@ -144,43 +144,22 @@ As principais seções (páginas) da aplicação são detalhadas a seguir:
 
     \item Análise Avançada: Destinada a usuários com maior interesse técnico, esta página oferece ferramentas de análise mais sofisticadas:
     \begin{itemize}
-        \item Análise de Picos de Potência: Identifica e lista os momentos de maior consumo de potência para os dispositivos selecionados. A Figura \ref{fig:streamlit_analise_avancada_geral} mostra esta funcionalidade.
-        % O placeholder [INCLUIR IMAGEM streamlit_analise_avancada_picos_cep.png.jpeg AQUI - Seção de Análise de Picos de Potência e CUSUM da Análise Avançada] refere-se à imagem já utilizada em fig:streamlit_analise_avancada_geral
-        \item Controle Estatístico de Processo (CEP/SPC): Aplica a técnica CUSUM (Cumulative Sum) multicanal para detecção de mudanças no padrão de consumo de energia. O usuário pode selecionar um dispositivo e ajustar os parâmetros do CUSUM (allowance/drift $k$ e limite $h$) para identificar anomalias. Um gráfico exibe os valores de CUSUM e os alarmes gerados (Figura \ref{fig:streamlit_cusum_canal_semanal}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cusum_canal_semanal.png.jpeg}
-            \caption{Gráfico CUSUM por Canal Semanal da Análise Avançada.}
-            \label{fig:streamlit_cusum_canal_semanal}
-        \end{figure}
-        \item Perfis Semanais 3D: Visualização tridimensional dos perfis de consumo semanais, comparando a média histórica com as últimas semanas individuais (Figura \ref{fig:streamlit_perfis_semanais_3d}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_semanais_3d.png.jpeg}
-            \caption{Perfis Semanais 2D exibidos na Análise Avançada.}
-            \label{fig:streamlit_perfis_semanais_3d}
-        \end{figure}
-        \item Perfis Médios Diários 2D: Gráficos comparativos dos perfis médios de consumo (kW) para cada dia da semana (Figura \ref{fig:streamlit_perfis_medios_diarios_2d}).
+        \item Controle Estatístico de Processo (CEP/SPC): Aplica a técnica CUSUM (Cumulative Sum) multicanal para detecção de mudanças no padrão de consumo de energia. O usuário pode selecionar um dispositivo e ajustar os parâmetros do CUSUM (allowance/drift $k$ e limite $h$) para identificar anomalias. Um gráfico exibe os valores de CUSUM e os alarmes gerados.
+        \item Perfis Médios Diários 2D: Gráficos comparativos dos perfis médios de consumo (kW) para cada dia da semana (Figura \ref{fig:streamlit_perfis_medios_diarios_3d}).
         \begin{figure}[htbp]
             \centering
             \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg}
             \caption{Perfis Médios Diários 2D exibidos na Análise Avançada.}
-            \label{fig:streamlit_perfis_medios_diarios_2d}
+            \label{fig:streamlit_perfis_medios_diarios_3d}
         \end{figure}
-        \item Perfil Estatístico Semanal 2D: Compara o consumo da semana atual com a média histórica, destacando desvios (Figura \ref{fig:streamlit_perfil_estatistico_semanal_2d}).
+        \item Perfis Semanais 3D: Visualização tridimensional dos perfis de consumo semanais, comparando a média histórica com as últimas semanas individuais (Figura \ref{fig:foto_3d}).
         \begin{figure}[htbp]
             \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_estatistico_semanal_2d.png.jpeg}
-            \caption{Perfil Estatístico Semanal 3D exibido na Análise Avançada para os multicanais horários (1 a 24) e com a média acumulada a cada semana.}
-            \label{fig:streamlit_perfil_estatistico_semanal_2d}
+            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/foto_3d.png}
+            \caption{Perfis Semanais 3D exibidos na Análise Avançada.}
+            \label{fig:foto_3d}
         \end{figure}
-        \item Perfis Semanais Sobrepostos 2D: Sobrepõe os perfis de consumo de várias semanas para facilitar a identificação de padrões e variações (Figura \ref{fig:streamlit_perfis_semanais_sobrepostos_2d}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_semanais_sobrepostos_2d.png.jpeg}
-            \caption{Perfis Semanais Sobrepostos 2D exibidos na Análise Avançada.}
-            \label{fig:streamlit_perfis_semanais_sobrepostos_2d}
-        \end{figure}
+        \item Análise de Picos de Potência: Identifica e lista os momentos de maior consumo de potência para os dispositivos selecionados. A Figura \ref{fig:streamlit_analise_avancada_geral} mostra esta funcionalidade.
     \end{itemize}
     A Figura \ref{fig:streamlit_analise_avancada_geral} ilustra a interface da página "Análise Avançada", com destaque para as funcionalidades de análise de picos e os parâmetros de configuração do CEP.
 
@@ -193,24 +172,12 @@ As principais seções (páginas) da aplicação são detalhadas a seguir:
 
     \item Acionamentos: Esta página é central para a interação direta com os dispositivos e para a automação de rotinas através do gerenciamento de cenas.
     \begin{itemize}
-        \item Controle Individual de Dispositivos: Permite ao usuário ligar ou desligar cada dispositivo conectado individualmente através de botões de alternância (toggles). O estado do dispositivo é atualizado em tempo real na interface (Figura \ref{fig:streamlit_controle_individual_dispositivos}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_controle_individual_dispositivos.png.jpeg}
-            \caption{Interface de Controle Individual de Dispositivos.}
-            \label{fig:streamlit_controle_individual_dispositivos}
-        \end{figure}
+        \item Controle Individual de Dispositivos: Permite ao usuário ligar ou desligar cada dispositivo conectado individualmente através de botões de alternância (toggles). O estado do dispositivo é atualizado em tempo real na interface.
         \item Gerenciamento de Cenas: Funcionalidade que permite criar, visualizar e executar cenas. Uma cena é um conjunto de ações pré-definidas para um ou mais dispositivos, que pode ser acionada manualmente ou agendada.
         \begin{itemize}
             \item Criação de Cenas: Implementada em um processo de três etapas:
             \begin{enumerate}
-                \item Nome da Cena e Dispositivos: O usuário define um nome para a cena e seleciona os dispositivos que farão parte dela (Figura \ref{fig:streamlit_cena_passo1_nome_dispositivos_dropdown}).
-                \begin{figure}[htbp]
-                    \centering
-                    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo1_nome_dispositivos_dropdown.png.jpeg}
-                    \caption{Passo 1 da Criação de Cena: Nome e Seleção de Dispositivos.}
-                    \label{fig:streamlit_cena_passo1_nome_dispositivos_dropdown}
-                \end{figure}
+                \item Nome da Cena e Dispositivos: O usuário define um nome para a cena e seleciona os dispositivos que farão parte dela.
                 \item Horário e Ações: O usuário define um horário opcional para a cena (HH:mm), os dias da semana para execução e se a cena deve se repetir semanalmente. Em seguida, define as ações (Ligar/Desligar) para cada dispositivo incluído na cena (Figura \ref{fig:streamlit_cena_passo2_horario_acoes}).
                 \begin{figure}[htbp]
                     \centering
@@ -238,6 +205,5 @@ As principais seções (páginas) da aplicação são detalhadas a seguir:
             \label{fig:streamlit_gerenciamento_cenas}
         \end{figure}
     \end{itemize}
-\end{itemize}
 
 Adicionalmente, o desenvolvimento da aplicação Streamlit incluiu uma refatoração de código significativa para aprimorar a organização e manutenibilidade. Módulos auxiliares foram criados no diretório \texttt{app/streamlit/utils/} para encapsular funcionalidades específicas: \texttt{data\_helpers.py} para funções de carregamento e manipulação de dados, \texttt{page\_functions.py} para a lógica de renderização de cada página, e \texttt{ui\_helpers.py} para componentes de interface reutilizáveis e a carga do CSS customizado. No que tange ao controle de dispositivos, a funcionalidade \texttt{st.fragment} do Streamlit foi empregada para otimizar a performance e a responsividade da interface, especialmente em interações que exigem feedback visual imediato, como o acionamento de dispositivos, que utiliza um padrão de "atualização otimista".

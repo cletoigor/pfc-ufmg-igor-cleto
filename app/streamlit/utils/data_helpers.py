@@ -40,7 +40,8 @@ def load_data(start_date, end_date, selected_devices=None):
     full_query = f"""
     SELECT
         code,
-        value,
+        original_value, -- Select original_value directly
+        metric_value,   -- Also select metric_value
         device_id,
         event_time,
         device_name,
@@ -57,18 +58,32 @@ def load_data(start_date, end_date, selected_devices=None):
         if df.empty:
             return pd.DataFrame()
 
+        # Create the 'value_for_pivot' column based on 'code'
+        # Use 'metric_value' for numeric codes, 'original_value' for others (e.g., 'fault')
+        numeric_codes = ['cur_power', 'cur_current', 'cur_voltage', 'add_ele']
+        
+        # Initialize 'value_for_pivot' with original_value by default
+        df['value_for_pivot'] = df['original_value']
+        # Where code indicates a numeric metric, use metric_value instead
+        # Ensure metric_value is preferred only where it's not NaN (successfully cast)
+        df.loc[df['code'].isin(numeric_codes) & df['metric_value'].notna(), 'value_for_pivot'] = df['metric_value']
+
         df['event_time'] = pd.to_datetime(df['event_time'])
         df_pivot = df.pivot_table(index=['event_time', 'device_id', 'device_name', 'event_date', 'filename'],
                                   columns='code',
-                                  values='value',
+                                  values='value_for_pivot',  # Use the new combined column
                                   aggfunc='first').reset_index()
 
+        # Post-pivot processing: Values from metric_value are already numeric.
         if 'cur_power' in df_pivot.columns:
-            df_pivot['power_W'] = pd.to_numeric(df_pivot['cur_power'], errors='coerce') / 10.0
+            # cur_power is from metric_value (Watts * 10, based on common Tuya scaling), needs division by 10.0.
+            df_pivot['power_W'] = df_pivot['cur_power'] / 10.0
         if 'cur_current' in df_pivot.columns:
-            df_pivot['current_mA'] = pd.to_numeric(df_pivot['cur_current'], errors='coerce')
+            # cur_current is from metric_value (mA), no further scaling needed.
+            df_pivot['current_mA'] = df_pivot['cur_current']
         if 'cur_voltage' in df_pivot.columns:
-            df_pivot['voltage_V'] = pd.to_numeric(df_pivot['cur_voltage'], errors='coerce') / 10.0
+            # cur_voltage is from metric_value (V*10), needs division by 10.0.
+            df_pivot['voltage_V'] = df_pivot['cur_voltage'] / 10.0
         
         return df_pivot
 

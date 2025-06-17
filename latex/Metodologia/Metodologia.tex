@@ -233,14 +233,49 @@ Dessa forma, os parâmetros de controle da Fase I para os gráficos CUSUM, como 
 
 \textbf{Implementação Prática e Visualização}: A análise CUSUM foi integrada à página "Análise Avançada" da aplicação Streamlit. Nesta interface, o usuário pode selecionar um dispositivo e um período de tempo para análise. A aplicação então exibe os gráficos CUSUM para as somas superior ($S_{Hi}$) e inferior ($S_{Li}$), juntamente com seus respectivos limites de decisão ($H$). Quando uma das somas acumuladas cruza o limite $H$, o ponto é destacado como um sinal de "fora de controle". Adicionalmente, um registro de falhas ("fault log") lista esses desvios, permitindo um diagnóstico rápido. Para fornecer um contexto mais amplo, a análise é complementada com estatísticas descritivas, como histogramas e boxplots, que auxiliam na compreensão dos padrões de consumo do dispositivo.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../media_historica.png}
+    \caption{Perfil de consumo com ênfase na média histórica do processo.}
+    \label{fig:media_historica_cep}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../media_historica_limite_superior.png}
+    \caption{Perfil de consumo com com destaque para o limite superior de controle (LSC).}
+    \label{fig:media_historica_lsc_cep}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../media_historica_limite_inferior.png}
+    \caption{Perfil de consumo com com destaque para o limite inferior de controle (LIC).}
+    \label{fig:media_historica_lic_cep}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../media_historica_semana_atual.png}
+    \caption{Perfil de consumo com ênfase no Comparativo da média histórica do processo com os dados da semana atual.}
+    \label{fig:media_historica_semana_cep}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../media_historica_semana_atual_alarmes.png}
+    \caption{Comparativo da média histórica com os dados da semana atual, indicando os pontos de alarme identificados pelo CEP.}
+    \label{fig:media_historica_semana_alarmes_cep}
+\end{figure}
+
+\FloatBarrier
 \section{Validação em Ambiente Real}
 O protótipo foi validado em ambiente residencial real para aferir aplicabilidade, eficácia e resposta em tempo real (ou quase real). A validação abrangeu:
 \begin{itemize}
-    \item \textbf{Desempenho de Sensores e Algoritmos}: Avaliou-se a precisão das medições das tomadas Tuya comparando-as com um medidor calibrado sob diversas cargas. A eficiência dos algoritmos CEP (CUSUM) na detecção de anomalias foi testada com eventos simulados, observando rapidez, precisão da sinalização e latência da pipeline Dagster e UI Streamlit.
+    \item \textbf{Desempenho de Sensores e Algoritmos}: A eficiência dos algoritmos CEP (CUSUM) na detecção de anomalias foi testada com eventos simulados, observando rapidez, precisão da sinalização e latência da pipeline Dagster e UI Streamlit.
     \item \textbf{Usabilidade e Responsividade da Interface Streamlit}: Usuários-teste avaliaram clareza, navegação e intuitividade das funcionalidades de visualização e controle, com feedback coletado por observação e questionários.
     \item \textbf{Robustez e Confiabilidade em Operação Contínua}: O sistema operou por semanas para monitorar estabilidade, resiliência a falhas (Wi-Fi, API Tuya) e capacidade de recuperação da pipeline Dagster e agendador de cenas, além da pontualidade na execução de cenas.
 \end{itemize}
-Resultados detalhados foram documentados, fundamentando melhorias para otimizar eficiência, confiabilidade e experiência do usuário.
 
 \section{Considerações sobre Viabilidade e Impacto Acadêmico}
 \label{sec:viabilidade_impacto}

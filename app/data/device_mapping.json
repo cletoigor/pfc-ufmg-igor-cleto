@@ -22,5 +22,9 @@
   "eb7d274c03a716cc8cyrrk": {
     "name": "Luminária escritório",
     "on_off_code": "switch_led"
+  },
+  "ebcf1234567890abcdef12": {
+    "name": "controle de tomadas",
+    "on_off_code": "switch_1"
   }
 }

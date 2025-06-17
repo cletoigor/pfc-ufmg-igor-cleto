@@ -762,16 +762,31 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
         period_duration = (end_date_obj - start_date_obj).days
 
         if period_duration >= 30:
-            st.subheader("CUSUM Multicanal para Detecção de Mudanças", help="Este CUSUM analisa cada hora da semana (canal) independentemente. Compara o consumo da semana mais recente com a média histórica (EWMA) desse canal específico.")
-            cusum_device = st.selectbox("Selecione um dispositivo para o CUSUM Multicanal:", selected_devices_list, key="cusum_multichannel_device")
+            st.subheader("Análise de Desvio por Canal Horário", help="Este método estatístico compara o consumo de cada hora da semana (canal) da semana mais recente com sua própria média histórica (EWMA), sinalizando desvios significativos.")
+            
+            st.markdown("""
+            **Metodologia:**
+
+            Esta não é uma carta CUSUM tradicional que acumula desvios ao longo do tempo. Em vez disso, é uma **análise de desvio por canal**, onde cada um dos 168 canais horários da semana é avaliado de forma independente.
+
+            1.  **Linha de Base (μ₀):** Para cada canal, calculamos uma média histórica de consumo usando uma Média Móvel Exponencialmente Ponderada (EWMA). Esta é a nossa expectativa de consumo para aquele horário.
+            2.  **Valor Atual (Xᵢ):** O consumo real do canal na semana mais recente.
+            3.  **Cálculo do Desvio:** Medimos o quão longe o valor atual está da linha de base, considerando uma "folga" (K) para variações normais.
+                *   **Desvio para Cima (Aumento):** `D⁺ = max(0, Xᵢ - (μ₀ + K))`
+                *   **Desvio para Baixo (Redução):** `D⁻ = max(0, (μ₀ - K) - Xᵢ)`
+            4.  **Alarme:** Um alarme é disparado se o desvio (D⁺ ou D⁻) ultrapassar um Limite de Decisão (H).
+                *   `K = k * σ₀` (onde `k` é um fator ajustável e `σ₀` é o desvio padrão histórico do canal)
+                *   `H = h * σ₀` (onde `h` é um fator ajustável)
+            """)
+
+            cusum_device = st.selectbox("Selecione um dispositivo para a Análise de Desvio:", selected_devices_list, key="cusum_multichannel_device")
 
             if cusum_device:
                 device_data_for_cusum = data_df[data_df['device_name'] == cusum_device].copy()
-            
                 device_data_for_cusum.sort_values(by='event_time', inplace=True)
 
-                if len(device_data_for_cusum) < 2: 
-                    st.warning("Dados insuficientes para o dispositivo selecionado para gerar o CUSUM Multicanal (necessário pelo menos 2 semanas).")
+                if len(device_data_for_cusum) < 2:
+                    st.warning("Dados insuficientes para o dispositivo selecionado para gerar a análise (necessário pelo menos 2 semanas).")
                 else:
                     hourly_energy_cusum = device_data_for_cusum.set_index('event_time')['power_W'].resample('h').mean() / 1000.0
                     hourly_energy_cusum = hourly_energy_cusum.dropna().reset_index()
@@ -781,55 +796,43 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
                     unique_weeks_cusum = sorted(hourly_energy_cusum['year_week_id'].unique())
 
                     if len(unique_weeks_cusum) < 2:
-                        st.warning("CUSUM Multicanal requer pelo menos 2 semanas de dados (1 para referência EWMA, 1 para análise).")
+                        st.warning("A análise requer pelo menos 2 semanas de dados (1 para referência EWMA, 1 para análise).")
                     else:
                         current_week_id_cusum = unique_weeks_cusum[-1]
                         historical_weeks_df_cusum = hourly_energy_cusum[hourly_energy_cusum['year_week_id'] < current_week_id_cusum]
                         current_week_df_cusum = hourly_energy_cusum[hourly_energy_cusum['year_week_id'] == current_week_id_cusum]
 
                         if historical_weeks_df_cusum.empty:
-                            st.warning("Não há semanas históricas suficientes para calcular a média EWMA para o CUSUM Multicanal.")
+                            st.warning("Não há semanas históricas suficientes para calcular a média EWMA.")
                         else:
-                            alpha_ewma_cusum = 0.18 
+                            alpha_ewma_cusum = 0.18
                             historical_pivot_cusum = historical_weeks_df_cusum.pivot_table(index='year_week_id', columns='channel', values='power_W')
                             historical_pivot_cusum = historical_pivot_cusum.reindex(columns=range(168))
                             ewma_per_channel_cusum = historical_pivot_cusum.ewm(alpha=alpha_ewma_cusum, adjust=False, min_periods=1).mean()
                             
-                            X_hat_i = pd.Series([0.0] * 168, index=range(168)) 
+                            mu0 = pd.Series([0.0] * 168, index=range(168))
                             if not ewma_per_channel_cusum.empty:
-                                X_hat_i = ewma_per_channel_cusum.iloc[-1].fillna(0.0)
+                                mu0 = ewma_per_channel_cusum.iloc[-1].fillna(0.0)
                             
-                            V_vmv_current_week = pd.Series([0.0] * 168, index=range(168)) 
+                            V_vmv_current_week = pd.Series([np.nan] * 168, index=range(168))
                             for _, row in current_week_df_cusum.iterrows():
                                 V_vmv_current_week[int(row['channel'])] = row['power_W']
                             
-                            # --- Implementação CUSUM conforme a Metodologia.tex ---
-                            
-                            # Fase I: Calcular média (mu0) e desvio padrão (sigma0) históricos
-                            mu0 = X_hat_i # Usando a média EWMA como nossa melhor estimativa da média histórica
                             sigma0 = historical_weeks_df_cusum.groupby('channel')['power_W'].std().reindex(range(168), fill_value=0.0)
-                            # Se o desvio padrão for zero (sem variação), use um valor pequeno para evitar divisão por zero
                             sigma0[sigma0 == 0] = np.finfo(float).eps
 
-                            st.markdown("**Parâmetros do CUSUM (conforme Metodologia):**")
+                            st.markdown("**Parâmetros de Controle:**")
                             param_col1_mc, param_col2_mc = st.columns(2)
-                            k_factor = param_col1_mc.number_input("Fator k para Folga (K = k * σ₀):", 
-                                                                  min_value=0.0, value=0.5, step=0.1, format="%.2f", key="k_factor_cusum")
-                            h_factor = param_col2_mc.number_input("Fator h para Limite de Decisão (H = h * σ₀):", 
-                                                                  min_value=0.0, value=5.0, step=0.5, format="%.2f", key="h_factor_cusum")
+                            k_factor = param_col1_mc.number_input("Fator de Folga (k)", min_value=0.0, value=0.5, step=0.1, format="%.2f", key="k_factor_cusum", help="Multiplica o desvio padrão para criar uma 'zona neutra' em torno da média. Aumentar `k` torna o sistema menos sensível a pequenas variações.")
+                            h_factor = param_col2_mc.number_input("Fator de Decisão (h)", min_value=0.0, value=5.0, step=0.5, format="%.2f", key="h_factor_cusum", help="Multiplica o desvio padrão para definir o limite de alarme. Aumentar `h` torna o sistema menos propenso a alarmes.")
 
-                            K = k_factor * sigma0  # Folga
-                            H = h_factor * sigma0  # Limite de Decisão
+                            K = k_factor * sigma0
+                            H = h_factor * sigma0
 
-                            # Fase II: Calcular CUSUM para a semana atual
-                            # Para esta análise "one-shot" da semana, não acumulamos S_H(i-1) e S_L(i-1)
-                            # Calculamos o valor da estatística para cada canal da semana atual
-                            
-                            # CUSUM Superior (para detectar aumentos)
                             SHi = (V_vmv_current_week - (mu0 + K)).clip(lower=0)
-                            
-                            # CUSUM Inferior (para detectar reduções)
                             SLi = ((mu0 - K) - V_vmv_current_week).clip(lower=0)
+                            
+                            deviation_score = SHi - SLi
 
                             alarms_upper = SHi > H
                             alarms_lower = SLi > H
@@ -838,53 +841,75 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
                             cusum_results_df = pd.DataFrame({
                                 'Canal': range(168),
                                 'Média Hist. (μ₀)': mu0,
-                                'Desvio Padrão Hist. (σ₀)': sigma0,
                                 'Valor Semana Atual (Xᵢ)': V_vmv_current_week,
-                                'CUSUM Superior (SHi)': SHi,
-                                'CUSUM Inferior (SLi)': SLi,
-                                'Limite (H)': H,
+                                'Desvio (D)': deviation_score,
+                                'Limite Superior (H)': H,
+                                'Limite Inferior (H)': -H,
                                 'Alarme': any_alarm
                             })
 
-                            st.write(f"Análise CUSUM para a semana: {current_week_id_cusum}")
+                            st.write(f"Análise de Desvio para a semana: {current_week_id_cusum}")
+
+                            # --- Gráfico 1: Perfil de Consumo vs. Média Histórica ---
+                            st.subheader("Perfil de Consumo da Semana Atual vs. Histórico")
+                            fig_profile = go.Figure()
                             
-                            # Gráfico para CUSUM Superior e Inferior
-                            fig_cusum = make_subplots(rows=2, cols=1, shared_xaxes=True, 
-                                                      vertical_spacing=0.1,
-                                                      subplot_titles=("CUSUM Superior (Detecção de Aumentos)", 
-                                                                      "CUSUM Inferior (Detecção de Reduções)"))
-
-                            # Gráfico Superior
-                            fig_cusum.add_trace(go.Bar(x=cusum_results_df['Canal'], y=cusum_results_df['SHi'],
-                                                     marker_color=cusum_results_df['Alarme'].map({True: 'red', False: 'blue'}),
-                                                     name='SHi'), row=1, col=1)
-                            fig_cusum.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['H'],
-                                                         mode='lines', line=dict(color='red', dash='dash'),
-                                                         name='Limite H'), row=1, col=1)
-
-                            # Gráfico Inferior
-                            fig_cusum.add_trace(go.Bar(x=cusum_results_df['Canal'], y=cusum_results_df['SLi'],
-                                                     marker_color=cusum_results_df['Alarme'].map({True: 'red', False: 'green'}),
-                                                     name='SLi'), row=2, col=1)
-                            fig_cusum.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['H'],
-                                                         mode='lines', line=dict(color='red', dash='dash'),
-                                                         name='Limite H'), row=2, col=1)
-
-                            fig_cusum.update_layout(height=600, title_text=f"Gráficos CUSUM por Canal para Semana {current_week_id_cusum}", showlegend=False)
-                            fig_cusum.update_yaxes(title_text="Valor Estatística", row=1, col=1)
-                            fig_cusum.update_yaxes(title_text="Valor Estatística", row=2, col=1)
-                            fig_cusum.update_xaxes(title_text="Canal (Hora da Semana)", row=2, col=1)
+                            # Média Histórica
+                            fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'], mode='lines', name='Média Histórica (μ₀)', line=dict(color='blue', dash='dot')))
                             
-                            st.plotly_chart(fig_cusum, use_container_width=True)
+
+                            # Consumo da Semana Atual
+                            fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Valor Semana Atual (Xᵢ)'], mode='lines', name='Semana Atual (Xᵢ)', line=dict(color='green')))
+
+                            # Adicionar K e H ao Gráfico 1
+                            # K (folga) é aplicado em torno da média (mu0)
+                            # H (limite de decisão) é o limite para o desvio acumulado, mas aqui é o limite para o desvio instantâneo
+                            # Para plotar K e H no gráfico de perfil, eles precisam ser relativos à média (mu0)
+                            fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'] + K, mode='lines', name='Limite Superior (μ₀ + K)', line=dict(color='orange', dash='dot')))
+                            fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'] - K, mode='lines', name='Limite Inferior (μ₀ - K)', line=dict(color='orange', dash='dot')))
+                            
+                            # H é o limite para o desvio, não para o valor absoluto.
+                            # Se quisermos mostrar o limite de alarme no gráfico de perfil,
+                            # precisaríamos de um limite superior e inferior para o próprio perfil,
+                            # que seria mu0 +/- H. No entanto, H é o limite para o CUSUM (desvio acumulado),
+                            # não para o valor da série temporal.
+                            # Para o gráfico de perfil, o mais relevante é a banda de controle (mu0 +/- K).
+                            # Se o usuário realmente quiser ver H no gráfico de perfil,
+                            # podemos plotar mu0 +/- H, mas isso pode ser enganoso, pois H é para o CUSUM.
+                            # Por enquanto, vou adicionar apenas K. Se o usuário insistir em H,
+                            # precisaremos esclarecer o que ele espera ver.
+
+                            # Pontos de Alarme
+                            alarm_points = cusum_results_df[cusum_results_df['Alarme']]
+                            fig_profile.add_trace(go.Scatter(x=alarm_points['Canal'], y=alarm_points['Valor Semana Atual (Xᵢ)'], mode='markers', name='Alarme', marker=dict(color='red', size=8, symbol='x')))
+
+                            day_names_short = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]
+                            tick_positions = [i * 24 for i in range(7)]
+                            fig_profile.update_layout(height=400, title_text=f"<b>Perfil de Consumo (kWh)</b><br>Dispositivo: {cusum_device}", xaxis_title="Canal (Hora da Semana)", yaxis_title="Consumo (kWh)", xaxis=dict(tickmode='array', tickvals=tick_positions, ticktext=day_names_short))
+                            st.plotly_chart(fig_profile, use_container_width=True)
+
+
+                            # --- Gráfico 2: Gráfico de Desvio ---
+                            st.subheader("Carta de Controle de Desvios")
+                            fig_deviation = go.Figure()
+
+                            colors = np.where(cusum_results_df['Alarme'], 'red', np.where(cusum_results_df['Desvio (D)'] > 0, 'blue', 'green'))
+                            fig_deviation.add_trace(go.Bar(x=cusum_results_df['Canal'], y=cusum_results_df['Desvio (D)'], marker_color=colors, name='Desvio (D)'))
+                            
+                            fig_deviation.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Limite Superior (H)'], mode='lines', name='Limite de Decisão (H)', line=dict(color='red', dash='dash')))
+                            fig_deviation.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Limite Inferior (H)'], mode='lines', name='Limite de Decisão (-H)', line=dict(color='red', dash='dash')))
+
+                            fig_deviation.update_layout(height=400, title_text=f"<b>Carta de Controle de Desvios</b><br>Dispositivo: {cusum_device}", xaxis_title="Canal (Hora da Semana)", yaxis_title="Valor do Desvio", showlegend=False, xaxis=dict(tickmode='array', tickvals=tick_positions, ticktext=day_names_short))
+                            st.plotly_chart(fig_deviation, use_container_width=True)
 
                             alarming_channels = cusum_results_df[cusum_results_df['Alarme']]
                             if not alarming_channels.empty:
                                 st.write("Canais em Alarme:")
-                                st.dataframe(alarming_channels[['Canal', 'Média Hist. (μ₀)', 'Valor Semana Atual (Xᵢ)', 'SHi', 'SLi', 'Limite (H)']])
+                                st.dataframe(alarming_channels[['Canal', 'Média Hist. (μ₀)', 'Valor Semana Atual (Xᵢ)', 'Desvio (D)', 'Limite Superior (H)']])
                             else:
                                 st.write("Nenhum canal em alarme para a semana atual com os parâmetros definidos.")
-        else: 
-            st.info("A análise CUSUM Multicanal requer um período de dados de pelo menos 30 dias. Por favor, ajuste os filtros.")
+        else:
+            st.info("A análise de desvio por canal requer um período de dados de pelo menos 30 dias. Por favor, ajuste os filtros.")
             
         st.markdown("---")
         if 'fault' in data_df.columns and not data_df[data_df['fault'].notna()].empty:

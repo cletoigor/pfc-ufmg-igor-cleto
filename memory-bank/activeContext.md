@@ -103,6 +103,7 @@
     -   **TCC Monografia - Chapter 3 (Metodologia) CEP Paragraph Clarification:** Revised the introductory paragraph of the CEP section to better define and contextualize the concepts of "common causes" and "special causes" of process variation, improving the clarity and flow of the explanation.
     -   **TCC Monografia - Chapter 3 (Metodologia) CUSUM Definition:** Added the English definition for CUSUM (\textit{Cumulative Sum}) in the CEP section for better clarity.
     -   **TCC Monografia - Chapter 3 (Metodologia) CUSUM Implementation Explanation:** The description of the CUSUM implementation (Phases I and II, parameter selection, and practical application) was rewritten to be more objective, clear, and easier to understand, with verification of the mathematical formulas.
+    -   **TCC Monografia - Chapter 3 (Metodologia) CEP Section Image Inclusion & Placement Correction:** Added five figures (`media_historica.png`, etc.) with captions to subsection 3.3.2 of `latex/Metodologia/Metodologia.tex`. Corrected figure placement by adding `\usepackage{placeins}` to `latex/Monografia.tex` and inserting `\FloatBarrier` in `latex/Metodologia/Metodologia.tex` immediately before `\section{Validação em Ambiente Real}` to ensure figures render before section 3.4 begins.
 
 ## 3. Next Steps
 
