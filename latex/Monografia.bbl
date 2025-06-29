@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{AlSarawi2017IoTProtocols}
+Said Al-Sarawi, Mohammed Anbar, Kamal Alieyan, and Muneer Alzubaidi.
+\newblock Internet of things (iot) communication protocols: Review.
+\newblock {\em 2017 8th International Conference on Information Technology (ICIT)}, pages 685--690, 2017.
+\newblock Artigo de revisão que compara os principais protocolos de comunicação para IoT, incluindo Zigbee, Z-Wave e BLE.
+
 \bibitem{ParquetDoc}
 {Apache Software Foundation}.
 \newblock Apache parquet documentation, 2024.
@@ -33,10 +39,22 @@ L.C. Braga, A.R. Braga, and C.M.P. Braga.
 \newblock Dagster documentation, 2024.
 \newblock Documentação oficial da plataforma Dagster.
 
+\bibitem{Gao2015SPCPredictive}
+Zhen Gao, Carlo Cecati, and Steven~X. Ding.
+\newblock A survey of fault diagnosis and fault-tolerant techniques—part i: Fault diagnosis with model-based and signal-based approaches.
+\newblock {\em IEEE Transactions on Industrial Electronics}, 62(6):3757--3767, 2015.
+\newblock Survey que aborda técnicas de diagnóstico de falhas, relevante para a aplicação de CEP em manutenção preditiva.
+
 \bibitem{Lee2013BMS}
 H.~S. Lee and S.~K. Lee.
 \newblock A review on building management system.
 \newblock {\em International Journal of Control and Automation}, 6(5):343--350, 2013.
+
+\bibitem{Montgomery2020SQC}
+Douglas~C. Montgomery.
+\newblock {\em Introduction to Statistical Quality Control}.
+\newblock John Wiley \& Sons, 8th edition, 2020.
+\newblock Referência fundamental para os conceitos de Controle Estatístico de Processo (CEP), incluindo gráficos de Shewhart, CUSUM, e a distinção entre causas comuns e especiais de variação.
 
 \bibitem{PythonDoc}
 {Python Software Foundation}.
