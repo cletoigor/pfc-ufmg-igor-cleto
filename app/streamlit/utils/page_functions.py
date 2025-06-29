@@ -868,16 +868,10 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
                             fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'] + K, mode='lines', name='Limite Superior (μ₀ + K)', line=dict(color='orange', dash='dot')))
                             fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'] - K, mode='lines', name='Limite Inferior (μ₀ - K)', line=dict(color='orange', dash='dot')))
                             
-                            # H é o limite para o desvio, não para o valor absoluto.
-                            # Se quisermos mostrar o limite de alarme no gráfico de perfil,
-                            # precisaríamos de um limite superior e inferior para o próprio perfil,
-                            # que seria mu0 +/- H. No entanto, H é o limite para o CUSUM (desvio acumulado),
-                            # não para o valor da série temporal.
-                            # Para o gráfico de perfil, o mais relevante é a banda de controle (mu0 +/- K).
-                            # Se o usuário realmente quiser ver H no gráfico de perfil,
-                            # podemos plotar mu0 +/- H, mas isso pode ser enganoso, pois H é para o CUSUM.
-                            # Por enquanto, vou adicionar apenas K. Se o usuário insistir em H,
-                            # precisaremos esclarecer o que ele espera ver.
+                            # Adicionando os limites de alarme H diretamente no gráfico de perfil
+                            fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'] + H, mode='lines', name='Limite de Alarme Superior (μ₀ + H)', line=dict(color='red', dash='dash')))
+                            fig_profile.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Média Hist. (μ₀)'] - H, mode='lines', name='Limite de Alarme Inferior (μ₀ - H)', line=dict(color='red', dash='dash')))
+
 
                             # Pontos de Alarme
                             alarm_points = cusum_results_df[cusum_results_df['Alarme']]
@@ -899,8 +893,10 @@ def show_analise_avancada(data_df, selected_devices_list, start_date_filter, end
                             fig_deviation.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Limite Superior (H)'], mode='lines', name='Limite de Decisão (H)', line=dict(color='red', dash='dash')))
                             fig_deviation.add_trace(go.Scatter(x=cusum_results_df['Canal'], y=cusum_results_df['Limite Inferior (H)'], mode='lines', name='Limite de Decisão (-H)', line=dict(color='red', dash='dash')))
 
-                            fig_deviation.update_layout(height=400, title_text=f"<b>Carta de Controle de Desvios</b><br>Dispositivo: {cusum_device}", xaxis_title="Canal (Hora da Semana)", yaxis_title="Valor do Desvio", showlegend=False, xaxis=dict(tickmode='array', tickvals=tick_positions, ticktext=day_names_short))
+                            fig_deviation.update_layout(height=400, title_text=f"<b>Carta de Controle de Desvios</b><br>Dispositivo: {cusum_device}", xaxis_title="Canal (Hora da Semana)", yaxis_title="Valor do Desvio", showlegend=True, xaxis=dict(tickmode='array', tickvals=tick_positions, ticktext=day_names_short))
                             st.plotly_chart(fig_deviation, use_container_width=True)
+
+                            st.info("O **Limite de Decisão (H)** no gráfico acima define o limiar para um alarme. Se a barra de desvio cruzar esta linha, o canal é marcado como um alarme, indicando uma variação de consumo estatisticamente significativa.")
 
                             alarming_channels = cusum_results_df[cusum_results_df['Alarme']]
                             if not alarming_channels.empty:
