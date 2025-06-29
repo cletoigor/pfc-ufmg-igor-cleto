@@ -12,79 +12,49 @@ A level-1 auxiliary file: DescricaoProcesso/DescricaoProcesso.aux
 A level-1 auxiliary file: Metodologia/Metodologia.aux
 A level-1 auxiliary file: Resultados/Resultados.aux
 A level-1 auxiliary file: Conclusao/Conclusao.aux
-The style file: abntex2-num.bst
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+The style file: plain.bst
+A level-1 auxiliary file: Apendices/ApendiceA.aux
+A level-1 auxiliary file: Apendices/ApendiceB.aux
+A level-1 auxiliary file: Apendices/ApendiceC.aux
 Database file #1: Monografia.bib
-Warning--entry type for "PythonDoc" isn't style-file defined
---line 29 of file Monografia.bib
-Warning--entry type for "PandasDoc" isn't style-file defined
---line 38 of file Monografia.bib
-Warning--entry type for "DuckDBDoc" isn't style-file defined
---line 47 of file Monografia.bib
-Warning--entry type for "DagsterDoc" isn't style-file defined
---line 56 of file Monografia.bib
-Warning--entry type for "StreamlitDoc" isn't style-file defined
---line 65 of file Monografia.bib
-Warning--entry type for "ParquetDoc" isn't style-file defined
---line 74 of file Monografia.bib
-Warning--entry type for "TuyaDevDoc" isn't style-file defined
---line 83 of file Monografia.bib
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
-Reallocated global_strs (elt_size=200001) to 20 items from 10.
-Reallocated glb_str_end (elt_size=4) to 20 items from 10.
-+---------------------------------------------------------+
-| Estilo bibliográfico abntex2-num.bst versão v-1.9.7           |
-| Em caso de dúvidas ou problemas com este estilo procure |
-| http://www.abntex.net.br/                               |
-+---------------------------------------------------------+
-You've used 10 entries,
-            6714 wiz_defined-function locations,
-            1270 strings with 11801 characters,
-and the built_in function-call counts, 7211 in all, are:
-= -- 737
-> -- 150
-< -- 3
-+ -- 98
-- -- 48
-* -- 444
-:= -- 1025
-add.period$ -- 48
-call.type$ -- 10
-change.case$ -- 80
-chr.to.int$ -- 13
-cite$ -- 10
-duplicate$ -- 322
-empty$ -- 583
-format.name$ -- 241
-if$ -- 1728
+You've used 12 entries,
+            2118 wiz_defined-function locations,
+            585 strings with 6665 characters,
+and the built_in function-call counts, 3000 in all, are:
+= -- 288
+> -- 122
+< -- 0
++ -- 51
+- -- 38
+* -- 151
+:= -- 518
+add.period$ -- 39
+call.type$ -- 12
+change.case$ -- 54
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 98
+empty$ -- 271
+format.name$ -- 38
+if$ -- 630
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 174
-newline$ -- 67
-num.names$ -- 40
-pop$ -- 251
+int.to.str$ -- 12
+missing$ -- 3
+newline$ -- 66
+num.names$ -- 24
+pop$ -- 84
 preamble$ -- 1
-purify$ -- 32
+purify$ -- 43
 quote$ -- 0
-skip$ -- 389
-stack$ -- 1
-substring$ -- 376
-swap$ -- 140
-text.length$ -- 2
+skip$ -- 82
+stack$ -- 0
+substring$ -- 128
+swap$ -- 12
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 2
+type$ -- 48
 warning$ -- 0
-while$ -- 55
-width$ -- 0
-write$ -- 141
-(There were 7 warnings)
+while$ -- 28
+width$ -- 14
+write$ -- 133

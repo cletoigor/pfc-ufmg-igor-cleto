@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  17 JUN 2025 13:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  29 JUN 2025 12:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -301,27 +301,27 @@ Writing index file Monografia.idx
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
 \l__pdf_internal_box=\box53
-) (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux))
+) (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux) (./Apendices/ApendiceC.aux))
 \openout1 = `Monografia.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
  (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count296
@@ -341,7 +341,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 46.
+Package hyperref Info: Link coloring ON on input line 47.
  (./Monografia.out) (./Monografia.out)
 \@outlinefile=\write4
 \openout4 = `Monografia.out'.
@@ -383,7 +383,15 @@ Package hyperref Info: Link coloring ON on input line 46.
 
 \openout2 = `Capa/capa.aux'.
 
-(./Capa/capa.tex [1
+(./Capa/capa.tex
+LaTeX Font Info:    Trying to load font information for U+msa on input line 9.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 9.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
 
 
 
@@ -391,18 +399,10 @@ Package hyperref Info: Link coloring ON on input line 46.
 
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.56 \end{titlepage}
+l.55 \end{titlepage}
                      [1])
 \openout2 = `Resumo/Resumo.aux'.
 
@@ -534,7 +534,7 @@ Overfull \hbox (41.12964pt too wide) in paragraph at lines 91--92
 \T1/cmr/m/n/12 ti-ci-o-nado por \T1/cmtt/m/n/12 event_date \T1/cmr/m/n/12 na ca-mada \T1/cmtt/m/n/12 app/data/staging/\T1/cmr/m/n/12 . Uti-liza \T1/cmtt/m/n/12 DuckDBResource
  []
 
-<Resultados/Figuras/dagster_data_pipeline_fluxograma.png, id=539, 1284.8pt x 635.37375pt>
+<Resultados/Figuras/dagster_data_pipeline_fluxograma.png, id=566, 1284.8pt x 635.37375pt>
 File: Resultados/Figuras/dagster_data_pipeline_fluxograma.png Graphic file (type png)
 <use Resultados/Figuras/dagster_data_pipeline_fluxograma.png>
 Package pdftex.def Info: Resultados/Figuras/dagster_data_pipeline_fluxograma.png  used on input line 100.
@@ -551,7 +551,7 @@ Overfull \hbox (110.2989pt too wide) in paragraph at lines 119--120
 []\T1/cmr/bx/n/12 Job e Agen-da-mento\T1/cmr/m/n/12 : Um job (\T1/cmtt/m/n/12 scene_scheduler_job\T1/cmr/m/n/12 ) en-cap-sula a \T1/cmtt/m/n/12 check_and_trigger_scenes_op\T1/cmr/m/n/12 .
  []
 
-<Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg, id=545, 1244.65pt x 1284.8pt>
+<Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg, id=572, 1244.65pt x 1284.8pt>
 File: Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg Graphic file (type jpg)
 <use Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg>
 Package pdftex.def Info: Resultados/Figuras/dagster_scene_scheduler_fluxograma.png.jpeg  used on input line 125.
@@ -582,43 +582,43 @@ Overfull \hbox (19.69179pt too wide) in paragraph at lines 209--210
  []
 
 [26] [27]
-<../media_historica.png, id=600, 1418.29875pt x 656.4525pt>
+<../media_historica.png, id=630, 1418.29875pt x 656.4525pt>
 File: ../media_historica.png Graphic file (type png)
 <use ../media_historica.png>
 Package pdftex.def Info: ../media_historica.png  used on input line 238.
 (pdftex.def)             Requested size: 352.81552pt x 163.29135pt.
-<../media_historica_limite_superior.png, id=602, 1414.28375pt x 634.37pt>
+<../media_historica_limite_superior.png, id=632, 1414.28375pt x 634.37pt>
 File: ../media_historica_limite_superior.png Graphic file (type png)
 <use ../media_historica_limite_superior.png>
 Package pdftex.def Info: ../media_historica_limite_superior.png  used on input line 245.
 (pdftex.def)             Requested size: 352.81552pt x 158.25331pt.
-<../media_historica_limite_inferior.png, id=603, 1395.2125pt x 661.47125pt>
+<../media_historica_limite_inferior.png, id=633, 1395.2125pt x 661.47125pt>
 File: ../media_historica_limite_inferior.png Graphic file (type png)
 <use ../media_historica_limite_inferior.png>
 Package pdftex.def Info: ../media_historica_limite_inferior.png  used on input line 252.
 (pdftex.def)             Requested size: 352.81552pt x 167.26492pt.
-<../media_historica_semana_atual.png, id=604, 1407.2575pt x 653.44125pt>
+<../media_historica_semana_atual.png, id=634, 1407.2575pt x 653.44125pt>
 File: ../media_historica_semana_atual.png Graphic file (type png)
 <use ../media_historica_semana_atual.png>
 Package pdftex.def Info: ../media_historica_semana_atual.png  used on input line 259.
 (pdftex.def)             Requested size: 352.81552pt x 163.81856pt.
-<../media_historica_semana_atual_alarmes.png, id=605, 1392.20125pt x 661.47125pt>
+<../media_historica_semana_atual_alarmes.png, id=635, 1392.20125pt x 661.47125pt>
 File: ../media_historica_semana_atual_alarmes.png Graphic file (type png)
 <use ../media_historica_semana_atual_alarmes.png>
 Package pdftex.def Info: ../media_historica_semana_atual_alarmes.png  used on input line 266.
 (pdftex.def)             Requested size: 352.81552pt x 167.62828pt.
- [28 <../media_historica.png> <../media_historica_limite_superior.png>] [29 <../media_historica_limite_inferior.png> <../media_historica_semana_atual.png> <../media_historica_semana_atual_alarmes.png>] [30]) [31] [32]
+ [28 <../media_historica.png> <../media_historica_limite_superior.png>] [29 <../media_historica_limite_inferior.png> <../media_historica_semana_atual.png> <../media_historica_semana_atual_alarmes.png>] [30]) [31]
 \openout2 = `Resultados/Resultados.aux'.
 
- (./Resultados/Resultados.tex
-Cap\'{\i }tulo 4.
-[33
+ (./Resultados/Resultados.tex [32
 
 
 
 
 ]
-<Resultados/Figuras/dagster_data_pipeline.png.jpeg, id=636, 1284.8pt x 700.6175pt>
+Cap\'{\i }tulo 4.
+[33]
+<Resultados/Figuras/dagster_data_pipeline.png.jpeg, id=666, 1284.8pt x 700.6175pt>
 File: Resultados/Figuras/dagster_data_pipeline.png.jpeg Graphic file (type jpg)
 <use Resultados/Figuras/dagster_data_pipeline.png.jpeg>
 Package pdftex.def Info: Resultados/Figuras/dagster_data_pipeline.png.jpeg  used on input line 31.
@@ -628,12 +628,12 @@ Underfull \hbox (badness 6461) in paragraph at lines 32--32
 []\T1/cmr/m/n/12 Figura 4.1: []Pipeline de Da-dos com Dags-ter: ati-vos \T1/cmtt/m/n/12 raw_tuya_logs \T1/cmr/m/n/12 e
  []
 
-<Resultados/Figuras/dagster_data_pipeline_02.png.jpeg, id=637, 1284.8pt x 700.6175pt>
+<Resultados/Figuras/dagster_data_pipeline_02.png.jpeg, id=667, 1284.8pt x 700.6175pt>
 File: Resultados/Figuras/dagster_data_pipeline_02.png.jpeg Graphic file (type jpg)
 <use Resultados/Figuras/dagster_data_pipeline_02.png.jpeg>
 Package pdftex.def Info: Resultados/Figuras/dagster_data_pipeline_02.png.jpeg  used on input line 40.
 (pdftex.def)             Requested size: 352.81552pt x 192.3871pt.
-<Resultados/Figuras/dagster_scene_scheduler.png.jpeg, id=638, 1606.0pt x 472.76625pt>
+<Resultados/Figuras/dagster_scene_scheduler.png.jpeg, id=668, 1606.0pt x 472.76625pt>
 File: Resultados/Figuras/dagster_scene_scheduler.png.jpeg Graphic file (type jpg)
 <use Resultados/Figuras/dagster_scene_scheduler.png.jpeg>
 Package pdftex.def Info: Resultados/Figuras/dagster_scene_scheduler.png.jpeg  used on input line 47.
@@ -643,177 +643,177 @@ Underfull \hbox (badness 2020) in paragraph at lines 48--48
 []\T1/cmr/m/n/12 Figura 4.3: []Interface do Dags-ter exi-bindo o job de agen-da-mento de ce-nas
  []
 
-[34] [35 <./Resultados/Figuras/dagster_data_pipeline.png.jpeg> <./Resultados/Figuras/dagster_data_pipeline_02.png.jpeg> <./Resultados/Figuras/dagster_scene_scheduler.png.jpeg>]
-<Resultados/Figuras/streamlit_app_navigation.png.jpeg, id=650, 1284.8pt x 418.56375pt>
-File: Resultados/Figuras/streamlit_app_navigation.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_app_navigation.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_app_navigation.png.jpeg  used on input line 62.
-(pdftex.def)             Requested size: 176.40439pt x 57.46806pt.
-<Resultados/Figuras/streamlit_resumo_casa.png.jpeg, id=654, 1606.0pt x 862.22125pt>
-File: Resultados/Figuras/streamlit_resumo_casa.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_resumo_casa.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_resumo_casa.png.jpeg  used on input line 69.
-(pdftex.def)             Requested size: 396.91325pt x 213.09453pt.
-<Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg, id=655, 1606.0pt x 878.28125pt>
-File: Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg  used on input line 75.
-(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
-<Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg, id=656, 1606.0pt x 878.28125pt>
-File: Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg  used on input line 81.
-(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
- [36 <./Resultados/Figuras/streamlit_app_navigation.png.jpeg>] [37 <./Resultados/Figuras/streamlit_resumo_casa.png.jpeg> <./Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg>]
-<Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg, id=666, 1606.0pt x 874.26625pt>
-File: Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg  used on input line 92.
-(pdftex.def)             Requested size: 396.91325pt x 216.0714pt.
-<Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg, id=668, 1606.0pt x 873.2625pt>
-File: Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg  used on input line 99.
-(pdftex.def)             Requested size: 396.91325pt x 215.82333pt.
-<Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg, id=670, 1606.0pt x 879.285pt>
-File: Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg  used on input line 106.
-(pdftex.def)             Requested size: 396.91325pt x 217.31177pt.
- [38 <./Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg> <./Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg>]
-<Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg, id=679, 1606.0pt x 876.27374pt>
-File: Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg  used on input line 113.
-(pdftex.def)             Requested size: 396.91325pt x 216.56754pt.
-<Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg, id=680, 1606.0pt x 878.28125pt>
-File: Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg  used on input line 119.
-(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
-<Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg, id=681, 1606.0pt x 810.02625pt>
-File: Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg  used on input line 125.
-(pdftex.def)             Requested size: 396.91325pt x 200.19473pt.
-<Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg, id=682, 1606.0pt x 874.26625pt>
-File: Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg  used on input line 131.
-(pdftex.def)             Requested size: 396.91325pt x 216.0714pt.
-<Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg, id=684, 1606.0pt x 874.26625pt>
-File: Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg  used on input line 140.
-(pdftex.def)             Requested size: 396.91325pt x 216.0714pt.
- [39 <./Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg> <./Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg>] [40 <./Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg> <./Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg>] [41 <./Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg> <./Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg>]
-<Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg, id=700, 1606.0pt x 878.28125pt>
-File: Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg  used on input line 151.
-(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
-<Resultados/Figuras/foto_3d.png, id=702, 1400.23125pt x 594.22pt>
-File: Resultados/Figuras/foto_3d.png Graphic file (type png)
-<use Resultados/Figuras/foto_3d.png>
-Package pdftex.def Info: Resultados/Figuras/foto_3d.png  used on input line 158.
-(pdftex.def)             Requested size: 396.91325pt x 168.43869pt.
-<Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg, id=705, 1606.0pt x 875.27pt>
-File: Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg  used on input line 168.
-(pdftex.def)             Requested size: 396.91325pt x 216.31947pt.
- [42 <./Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg>] [43 <./Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg> <./Resultados/Figuras/foto_3d.png>]
-<Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg, id=716, 1606.0pt x 826.08624pt>
-File: Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg Graphic file (type jpg)
-<use Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg  used on input line 184.
-(pdftex.def)             Requested size: 396.91325pt x 204.16391pt.
-
-Overfull \hbox (46.59799pt too wide) in paragraph at lines 190--191
-\T1/cmr/m/n/12 As ce-nas sal-vas são ar-ma-ze-na-das no ar-quivo \T1/cmtt/m/n/12 app/data/scheduled_scenes.json\T1/cmr/m/n/12 . 
+[34] [35 <./Resultados/Figuras/dagster_data_pipeline.png.jpeg> <./Resultados/Figuras/dagster_data_pipeline_02.png.jpeg> <./Resultados/Figuras/dagster_scene_scheduler.png.jpeg>] [36] [37]
+Overfull \hbox (0.99562pt too wide) in paragraph at lines 89--90
+[]\T1/cmr/m/n/12 Horário e Ações: O usuá-rio de-fine um ho-rá-rio op-ci-o-nal para a cena (HH:mm),
  []
 
-<Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg, id=718, 1606.0pt x 712.6625pt>
+<Resultados/Figuras/streamlit_app_navigation.png.jpeg, id=704, 1284.8pt x 418.56375pt>
+File: Resultados/Figuras/streamlit_app_navigation.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_app_navigation.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_app_navigation.png.jpeg  used on input line 97.
+(pdftex.def)             Requested size: 176.40439pt x 57.46806pt.
+<Resultados/Figuras/streamlit_resumo_casa.png.jpeg, id=705, 1606.0pt x 862.22125pt>
+File: Resultados/Figuras/streamlit_resumo_casa.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_resumo_casa.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_resumo_casa.png.jpeg  used on input line 104.
+(pdftex.def)             Requested size: 396.91325pt x 213.09453pt.
+<Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg, id=706, 1606.0pt x 878.28125pt>
+File: Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg  used on input line 110.
+(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
+<Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg, id=707, 1606.0pt x 878.28125pt>
+File: Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg  used on input line 116.
+(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
+<Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg, id=708, 1606.0pt x 874.26625pt>
+File: Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg  used on input line 123.
+(pdftex.def)             Requested size: 396.91325pt x 216.0714pt.
+<Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg, id=709, 1606.0pt x 873.2625pt>
+File: Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg  used on input line 129.
+(pdftex.def)             Requested size: 396.91325pt x 215.82333pt.
+<Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg, id=710, 1606.0pt x 879.285pt>
+File: Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg  used on input line 135.
+(pdftex.def)             Requested size: 396.91325pt x 217.31177pt.
+<Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg, id=711, 1606.0pt x 876.27374pt>
+File: Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg  used on input line 141.
+(pdftex.def)             Requested size: 396.91325pt x 216.56754pt.
+<Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg, id=712, 1606.0pt x 878.28125pt>
+File: Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg  used on input line 147.
+(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
+<Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg, id=713, 1606.0pt x 810.02625pt>
+File: Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg  used on input line 153.
+(pdftex.def)             Requested size: 396.91325pt x 200.19473pt.
+<Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg, id=714, 1606.0pt x 874.26625pt>
+File: Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg  used on input line 159.
+(pdftex.def)             Requested size: 396.91325pt x 216.0714pt.
+<Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg, id=715, 1606.0pt x 874.26625pt>
+File: Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg  used on input line 165.
+(pdftex.def)             Requested size: 396.91325pt x 216.0714pt.
+<Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg, id=716, 1606.0pt x 875.27pt>
+File: Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg  used on input line 172.
+(pdftex.def)             Requested size: 396.91325pt x 216.31947pt.
+<Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg, id=717, 1606.0pt x 878.28125pt>
+File: Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg  used on input line 179.
+(pdftex.def)             Requested size: 396.91325pt x 217.06369pt.
+<Resultados/Figuras/foto_3d.png, id=718, 1400.23125pt x 594.22pt>
+File: Resultados/Figuras/foto_3d.png Graphic file (type png)
+<use Resultados/Figuras/foto_3d.png>
+Package pdftex.def Info: Resultados/Figuras/foto_3d.png  used on input line 186.
+(pdftex.def)             Requested size: 396.91325pt x 168.43869pt.
+<Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg, id=719, 1606.0pt x 826.08624pt>
+File: Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg Graphic file (type jpg)
+<use Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg>
+Package pdftex.def Info: Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg  used on input line 193.
+(pdftex.def)             Requested size: 396.91325pt x 204.16391pt.
+<Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg, id=720, 1606.0pt x 712.6625pt>
 File: Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg Graphic file (type jpg)
 <use Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg  used on input line 194.
+Package pdftex.def Info: Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg  used on input line 199.
 (pdftex.def)             Requested size: 396.91325pt x 176.13168pt.
-[44 <./Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg>]
-<Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg, id=727, 1606.0pt x 817.0525pt>
+<Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg, id=721, 1606.0pt x 817.0525pt>
 File: Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg Graphic file (type jpg)
 <use Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg>
-Package pdftex.def Info: Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg  used on input line 203.
+Package pdftex.def Info: Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg  used on input line 205.
 (pdftex.def)             Requested size: 396.91325pt x 201.93126pt.
-) [45 <./Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg> <./Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg>] [46 <./Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg>]
+) [38 <./Resultados/Figuras/streamlit_app_navigation.png.jpeg>] [39 <./Resultados/Figuras/streamlit_resumo_casa.png.jpeg> <./Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg>] [40 <./Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg> <./Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg>] [41 <./Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg> <./Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg>] [42 <./Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg> <./Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg>] [43 <./Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg> <./Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg>] [44 <./Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg> <./Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg>] [45 <./Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg> <./Resultados/Figuras/foto_3d.png>] [46 <./Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg> <./Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg>] [47 <./Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg>]
 \openout2 = `Conclusao/Conclusao.aux'.
 
- (./Conclusao/Conclusao.tex
-Cap\'{\i }tulo 5.
-[47
+ (./Conclusao/Conclusao.tex [48
 
-
-
-
-] [48] [49] [50]) [51] (./Monografia.bbl [52
 
 
 
 ]
-Underfull \hbox (badness 1253) in paragraph at lines 10--13
-[]\T1/cmr/m/n/12 BRAGA, L.; BRAGA, A.; BRAGA, C. On the cha-rac-te-ri-za-tion and mo-
+Cap\'{\i }tulo 5.
+[49] [50] [51]) [52] (./Monografia.bbl
+Underfull \hbox (badness 2285) in paragraph at lines 19--25
+[]\T1/cmr/m/n/12 L.C. Braga, A.R. Braga, and C.M.P. Braga.  On the cha-rac-te-ri-za-tion
  []
 
 
-Underfull \hbox (badness 1406) in paragraph at lines 10--13
-\T1/cmr/m/n/12 ni-to-ring of buil-ding energy de-mand using sta-tis-ti-cal pro-cess con-trol metho-
+Underfull \hbox (badness 1796) in paragraph at lines 19--25
+\T1/cmr/m/n/12 and mo-ni-to-ring of buil-ding energy de-mand using sta-tis-ti-cal pro-cess con-
  []
 
-
-Underfull \hbox (badness 4366) in paragraph at lines 10--13
-\T1/cmr/m/n/12 do-lo-gies. \T1/cmr/m/it/12 Energy and Buil-dings\T1/cmr/m/n/12 , v. 65, p. 205--219, 2013. Source PDF:
- []
-
-[53]
-Underfull \hbox (badness 10000) in paragraph at lines 57--60
-[]\T1/cmr/m/n/12 Apache Soft-ware Foun-da-tion. \T1/cmr/m/it/12 Apa-che Par-quet Do-cu-men-ta-tion\T1/cmr/m/n/12 . 2024.
- []
+[53
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 57--60
-\T1/cmr/m/n/12 Do-cu-men-ta-ção ofi-cial do for-mato Apa-che Par-quet. Dis-po-ní-vel em:
- []
+
+]) [54] [55
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--66
-[]\T1/cmr/m/n/12 Tuya Inc. \T1/cmr/m/it/12 Tuya De-ve-lo-per Plat-form Do-cu-men-ta-tion\T1/cmr/m/n/12 . 2024. Do-cu-men-
- []
+] [56]
+\openout2 = `Apendices/ApendiceA.aux'.
+
+ (./Apendices/ApendiceA.tex
+Ap\^endice A.
+) [57
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--66
-\T1/cmr/m/n/12 ta-ção ofi-cial da Pla-ta-forma de De-sen-vol-ve-dor Tuya. Dis-po-ní-vel em:
- []
+]
+\openout2 = `Apendices/ApendiceB.aux'.
 
-) [54] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux))
+ (./Apendices/ApendiceB.tex [58
+
+
+
+
+]
+Ap\^endice B.
+) [59]
+\openout2 = `Apendices/ApendiceC.aux'.
+
+ (./Apendices/ApendiceC.tex [60
+
+
+
+
+]
+Ap\^endice C.
+) [61] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./Resumo/Abstract.aux) (./Agradecimentos/Agradecimentos.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./Metodologia/Metodologia.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Apendices/ApendiceA.aux) (./Apendices/ApendiceB.aux) (./Apendices/ApendiceC.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Monografia.out' has not changed.
-(rerunfilecheck)             Checksum: AFADEBD21D56AD04650DDD42EDEC7C22;13379.
+(rerunfilecheck)             Checksum: 642FD89060AF13A240DADEADBF561D96;13986.
  ) 
 Here is how much of TeX's memory you used:
- 12709 strings out of 474116
- 211674 string characters out of 5743682
+ 12807 strings out of 474116
+ 214525 string characters out of 5743682
  1940187 words of memory out of 5000000
- 34602 multiletter control sequences out of 15000+600000
+ 34665 multiletter control sequences out of 15000+600000
  571043 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,7n,79p,1562b,762s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,6n,79p,1562b,688s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Monografia.pdf (69 pages, 3181431 bytes).
+Output written on Monografia.pdf (76 pages, 3186666 bytes).
 PDF statistics:
- 918 PDF objects out of 1000 (max. 8388607)
- 772 compressed objects within 8 object streams
- 198 named destinations out of 1000 (max. 500000)
- 621 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 981 PDF objects out of 1000 (max. 8388607)
+ 827 compressed objects within 9 object streams
+ 211 named destinations out of 1000 (max. 500000)
+ 653 words of extra memory for PDF output out of 10000 (max. 10000000)
 

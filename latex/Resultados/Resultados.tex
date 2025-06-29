@@ -24,7 +24,7 @@ O pipeline é composto por dois ativos principais:
     \item \texttt{staging\_tuya\_logs}: Dependente do ativo \texttt{raw\_tuya\_logs}, este ativo realiza o processamento dos dados brutos para uma camada de \textit{staging}. Ele utiliza o DuckDB, um sistema de gerenciamento de banco de dados analítico em processo, para carregar e transformar os arquivos JSON. O mapeamento de dispositivos (\texttt{app/data/device\_mapping.json}) é carregado com Pandas e registrado como uma visão no DuckDB para enriquecimento dos dados. As transformações incluem a conversão de \texttt{event\_time} para um formato de timestamp legível, adição de \texttt{filename} e junção com \texttt{device\_name}. Os dados processados são então salvos como arquivos Parquet particionados por \texttt{event\_date} no diretório \texttt{app/data/staging/}.
 \end{itemize}
 
-O fluxo é encapsulado no trabalho \text{tuya\_processing\_job}, executado de hora em hora pelo agendamento \texttt{hourly\_schedule}.
+O fluxo é encapsulado no trabalho \texttt{tuya\_processing\_job}, executado de hora em hora pelo agendamento \texttt{hourly\_schedule}.
 
 \begin{figure}[htbp]
     \centering
@@ -57,153 +57,154 @@ As principais seções (páginas) da aplicação são detalhadas a seguir:
 
 \begin{itemize}
     \item \textbf{Navegação Principal e Filtros Gerais:} A interação primária com as funcionalidades da aplicação se dá pela barra lateral. Conforme demonstrado na Figura \ref{fig:streamlit_navegacao_filtros}, o usuário pode selecionar a página desejada e aplicar filtros de período e dispositivos que afetam a visualização de dados em toda a aplicação.
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.4\textwidth]{Resultados/Figuras/streamlit_app_navigation.png.jpeg}
-        \caption{Barra lateral de navegação da aplicação Streamlit, exibindo as opções de página e os filtros gerais de período e dispositivos.}
-        \label{fig:streamlit_navegacao_filtros}
-    \end{figure}
+    
     \item Resumo da Casa: Esta página oferece uma visão consolidada do consumo de energia da residência. Apresenta métricas totais de consumo (kWh) para períodos como "Hoje", "Últimos 7 Dias" e "Este Mês". Inclui também uma seção de "Principais Consumidores", que lista os 5 dispositivos com maior consumo de energia, acompanhada de um gráfico de barras (Figura \ref{fig:streamlit_distribuicao_consumo_dispositivo_resumo_casa}), e uma análise consolidada de potência (Figura \ref{fig:streamlit_perfil_medio_consumo_horario_todos_dispositivos}). A Figura \ref{fig:streamlit_resumo_casa} oferece uma visão geral da página.
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_resumo_casa.png.jpeg}
-        \caption{Visão geral da página "Resumo da Casa" na Aplicação Streamlit.}
-        \label{fig:streamlit_resumo_casa}
-    \end{figure}
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg}
-        \caption{Distribuição do consumo por dispositivo, exibido na página "Resumo da Casa".}
-        \label{fig:streamlit_distribuicao_consumo_dispositivo_resumo_casa}
-    \end{figure}
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg}
-        \caption{Perfil médio de consumo horário consolidado de todos os dispositivos, página "Resumo da Casa".}
-        \label{fig:streamlit_perfil_medio_consumo_horario_todos_dispositivos}
-    \end{figure}
+
     \item Detalhes por Dispositivo: Esta página permite uma análise aprofundada do consumo e comportamento de cada dispositivo individualmente. O usuário pode selecionar um dispositivo específico para visualizar:
     \begin{itemize}
         \item Métricas de consumo de energia (kWh) para "Hoje", "Últimos 7 Dias" e "Este Mês".
         \item Métricas de potência (W) para o período selecionado, incluindo média, máxima, mínima e energia estimada em kWh.
         \item Gráfico de série temporal da potência (W), ilustrando o consumo ao longo do tempo (Figura \ref{fig:streamlit_serie_temporal_potencia_dispositivo}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg}
-            \caption{Série Temporal da Potência (W) para um dispositivo selecionado.}
-            \label{fig:streamlit_serie_temporal_potencia_dispositivo}
-        \end{figure}
         \item Gráfico de consumo de energia diário (kWh) (Figura \ref{fig:streamlit_consumo_energia_diario_dispositivo}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg}
-            \caption{Consumo de Energia Diário (kWh) para um dispositivo selecionado.}
-            \label{fig:streamlit_consumo_energia_diario_dispositivo}
-        \end{figure}
         \item Perfil médio de potência horária, mostrando o padrão de consumo típico do dispositivo ao longo de um dia (Figura \ref{fig:streamlit_perfil_potencia_medio_horario_dispositivo}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg}
-            \caption{Perfil de Potência Médio Horário para um dispositivo selecionado.}
-            \label{fig:streamlit_perfil_potencia_medio_horario_dispositivo}
-        \end{figure}
         \item Análises detalhadas de Tensão (V) e Corrente (mA), organizadas em seções expansíveis. Cada uma dessas seções apresenta métricas chave (média, máxima, mínima), um gráfico de série temporal (Figuras \ref{fig:streamlit_metricas_serie_temporal_tensao} e \ref{fig:streamlit_metricas_serie_temporal_corrente}) e um boxplot da distribuição dos valores no período selecionado (Figuras \ref{fig:streamlit_distribuicao_tensao_boxplot} e \ref{fig:streamlit_distribuicao_corrente_boxplot}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg}
-            \caption{Métricas e Série Temporal da Tensão (V) para um dispositivo selecionado.}
-            \label{fig:streamlit_metricas_serie_temporal_tensao}
-        \end{figure}
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg}
-            \caption{Distribuição da Tensão (V) em Boxplot para um dispositivo selecionado.}
-            \label{fig:streamlit_distribuicao_tensao_boxplot}
-        \end{figure}
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg}
-            \caption{Métricas e Série Temporal da Corrente (mA) para um dispositivo selecionado.}
-            \label{fig:streamlit_metricas_serie_temporal_corrente}
-        \end{figure}
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg}
-            \caption{Distribuição da Corrente (mA) em Boxplot para um dispositivo selecionado.}
-            \label{fig:streamlit_distribuicao_corrente_boxplot}
-        \end{figure}
     \end{itemize}
     A Figura \ref{fig:streamlit_detalhes_dispositivo_overview} apresenta uma visão geral da página "Detalhes por Dispositivo".
 
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg} % Placeholder, user should verify this image or select a better overview
-        \caption{Página "Detalhes por Dispositivo" exibindo análises de potência, tensão e corrente para um dispositivo selecionado.}
-        \label{fig:streamlit_detalhes_dispositivo_overview}
-    \end{figure}
-
-    \item Análise Avançada: Destinada a usuários com maior interesse técnico, esta página oferece ferramentas de análise mais sofisticadas:
+    \item Análise Avançada: Destinada a usuários com maior interesse técnico, esta página oferece ferramentas de análise mais sofisticadas, incluindo:
     \begin{itemize}
-        \item Controle Estatístico de Processo (CEP/SPC): Aplica a técnica CUSUM (Cumulative Sum) multicanal para detecção de mudanças no padrão de consumo de energia. O usuário pode selecionar um dispositivo e ajustar os parâmetros do CUSUM (allowance/drift $k$ e limite $h$) para identificar anomalias. Um gráfico exibe os valores de CUSUM e os alarmes gerados.
-        \item Perfis Médios Diários 2D: Gráficos comparativos dos perfis médios de consumo (kW) para cada dia da semana (Figura \ref{fig:streamlit_perfis_medios_diarios_3d}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg}
-            \caption{Perfis Médios Diários 2D exibidos na Análise Avançada.}
-            \label{fig:streamlit_perfis_medios_diarios_3d}
-        \end{figure}
-        \item Perfis Semanais 3D: Visualização tridimensional dos perfis de consumo semanais, comparando a média histórica com as últimas semanas individuais (Figura \ref{fig:foto_3d}).
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/foto_3d.png}
-            \caption{Perfis Semanais 3D exibidos na Análise Avançada.}
-            \label{fig:foto_3d}
-        \end{figure}
-        \item Análise de Picos de Potência: Identifica e lista os momentos de maior consumo de potência para os dispositivos selecionados. A Figura \ref{fig:streamlit_analise_avancada_geral} mostra esta funcionalidade.
+        \item \textbf{Controle Estatístico de Processo (CEP/SPC)}: Aplica a técnica CUSUM (Cumulative Sum) multicanal~\cite{Braga2010TeseValidacao} para detecção de mudanças no padrão de consumo de energia. O usuário pode selecionar um dispositivo e ajustar os parâmetros do CUSUM (allowance/drift $k$ e limite $h$) para identificar anomalias. Um gráfico exibe os valores de CUSUM e os alarmes gerados.
+        \item \textbf{Perfis Médios Diários 2D}: Gráficos comparativos dos perfis médios de consumo (kW) para cada dia da semana.
+        \item \textbf{Perfis Semanais 3D}: Visualização tridimensional dos perfis de consumo semanais, comparando a média histórica com as últimas semanas individuais.
+        \item \textbf{Análise de Picos de Potência}: Identifica e lista os momentos de maior consumo de potência para os dispositivos selecionados.
     \end{itemize}
-    A Figura \ref{fig:streamlit_analise_avancada_geral} ilustra a interface da página "Análise Avançada", com destaque para as funcionalidades de análise de picos e os parâmetros de configuração do CEP.
-
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg}
-        \caption{Página "Análise Avançada" destacando a análise de picos de potência e a configuração do Controle Estatístico de Processo (CEP) com CUSUM.}
-        \label{fig:streamlit_analise_avancada_geral}
-    \end{figure}
+    A Figura \ref{fig:streamlit_analise_avancada_geral} ilustra a interface da página "Análise Avançada", com destaque para as funcionalidades de análise de picos e os parâmetros de configuração do CEP. As Figuras \ref{fig:streamlit_perfis_medios_diarios_3d} e \ref{fig:foto_3d} mostram, respectivamente, os perfis diários e semanais.
 
     \item Acionamentos: Esta página é central para a interação direta com os dispositivos e para a automação de rotinas através do gerenciamento de cenas.
-    \begin{itemize}
-        \item Controle Individual de Dispositivos: Permite ao usuário ligar ou desligar cada dispositivo conectado individualmente através de botões de alternância (toggles). O estado do dispositivo é atualizado em tempo real na interface.
-        \item Gerenciamento de Cenas: Funcionalidade que permite criar, visualizar e executar cenas. Uma cena é um conjunto de ações pré-definidas para um ou mais dispositivos, que pode ser acionada manualmente ou agendada.
-        \begin{itemize}
-            \item Criação de Cenas: Implementada em um processo de três etapas:
-            \begin{enumerate}
-                \item Nome da Cena e Dispositivos: O usuário define um nome para a cena e seleciona os dispositivos que farão parte dela.
-                \item Horário e Ações: O usuário define um horário opcional para a cena (HH:mm), os dias da semana para execução e se a cena deve se repetir semanalmente. Em seguida, define as ações (Ligar/Desligar) para cada dispositivo incluído na cena (Figura \ref{fig:streamlit_cena_passo2_horario_acoes}).
-                \begin{figure}[htbp]
-                    \centering
-                    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg}
-                    \caption{Passo 2 da Criação de Cena: Definição de Horário e Ações.}
-                    \label{fig:streamlit_cena_passo2_horario_acoes}
-                \end{figure}
-                \item Revisar Cena: Uma tela de resumo exibe todas as configurações da cena para revisão antes de salvar. O usuário pode optar por modificar os detalhes (retornando ao passo 1 com os dados preenchidos) ou salvar a cena definitivamente.
-            \end{enumerate}
-            As cenas salvas são armazenadas no arquivo \texttt{app/data/scheduled\_scenes.json}.
-            \item Executar Cenas Salvas: As cenas criadas são listadas e podem ser executadas manualmente. Ao expandir uma cena, o usuário visualiza suas ações, horário agendado (se houver) e tem a opção de excluir a cena (com confirmação) (Figura \ref{fig:streamlit_executar_cena_salva_detalhes}).
-            \begin{figure}[htbp]
-                \centering
-                \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg}
-                \caption{Detalhes de uma Cena Salva e Opção de Exclusão.}
-                \label{fig:streamlit_executar_cena_salva_detalhes}
-            \end{figure}
-        \end{itemize}
-        A Figura \ref{fig:streamlit_gerenciamento_cenas} oferece uma visão geral da interface de Gerenciamento de Cenas, ilustrando tanto o início do processo de criação de uma nova cena quanto a listagem de cenas já salvas e prontas para execução.
+    Permite ao usuário ligar ou desligar cada dispositivo conectado individualmente através de botões de alternância (toggles). O estado do dispositivo é atualizado em tempo real na interface.
 
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg}
-            \caption{Interface de Gerenciamento de Cenas, mostrando o início da criação de uma nova cena e a lista de cenas salvas para execução.}
-            \label{fig:streamlit_gerenciamento_cenas}
-        \end{figure}
-    \end{itemize}
+    A funcionalidade de Gerenciamento de Cenas permite criar, visualizar e executar cenas. Uma cena é um conjunto de ações pré-definidas para um ou mais dispositivos, que pode ser acionada manualmente ou agendada.
+    \begin{enumerate}
+        \item Nome da Cena e Dispositivos: O usuário define um nome para a cena e seleciona os dispositivos que farão parte dela.
+        \item Horário e Ações: O usuário define um horário opcional para a cena (HH:mm), os dias da semana para execução e se a cena deve se repetir semanalmente. Em seguida, define as ações (Ligar/Desligar) para cada dispositivo incluído na cena.
+        \item Revisar Cena: Uma tela de resumo exibe todas as configurações da cena para revisão antes de salvar. O usuário pode optar por modificar os detalhes (retornando ao passo 1 com os dados preenchidos) ou salvar a cena definitivamente.
+    \end{enumerate}
+    As cenas salvas são armazenadas no arquivo \texttt{app/data/scheduled\_scenes.json}. As cenas criadas são listadas e podem ser executadas manualmente. Ao expandir uma cena, o usuário visualiza suas ações, horário agendado (se houver) e tem a opção de excluir a cena (com confirmação).
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Resultados/Figuras/streamlit_app_navigation.png.jpeg}
+    \caption{Barra lateral de navegação da aplicação Streamlit, exibindo as opções de página e os filtros gerais de período e dispositivos.}
+    \label{fig:streamlit_navegacao_filtros}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_resumo_casa.png.jpeg}
+    \caption{Visão geral da página "Resumo da Casa" na Aplicação Streamlit.}
+    \label{fig:streamlit_resumo_casa}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_consumo_dispositivo_resumo_casa.png.jpeg}
+    \caption{Distribuição do consumo por dispositivo, exibido na página "Resumo da Casa".}
+    \label{fig:streamlit_distribuicao_consumo_dispositivo_resumo_casa}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_medio_consumo_horario_todos_dispositivos.png.jpeg}
+    \caption{Perfil médio de consumo horário consolidado de todos os dispositivos, página "Resumo da Casa".}
+    \label{fig:streamlit_perfil_medio_consumo_horario_todos_dispositivos}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_serie_temporal_potencia_dispositivo.png.jpeg}
+    \caption{Série Temporal da Potência (W) para um dispositivo selecionado.}
+    \label{fig:streamlit_serie_temporal_potencia_dispositivo}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_consumo_energia_diario_dispositivo.png.jpeg}
+    \caption{Consumo de Energia Diário (kWh) para um dispositivo selecionado.}
+    \label{fig:streamlit_consumo_energia_diario_dispositivo}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfil_potencia_medio_horario_dispositivo.png.jpeg}
+    \caption{Perfil de Potência Médio Horário para um dispositivo selecionado.}
+    \label{fig:streamlit_perfil_potencia_medio_horario_dispositivo}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_metricas_serie_temporal_tensao.png.jpeg}
+    \caption{Métricas e Série Temporal da Tensão (V) para um dispositivo selecionado.}
+    \label{fig:streamlit_metricas_serie_temporal_tensao}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_tensao_boxplot.png.jpeg}
+    \caption{Distribuição da Tensão (V) em Boxplot para um dispositivo selecionado.}
+    \label{fig:streamlit_distribuicao_tensao_boxplot}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_metricas_serie_temporal_corrente.png.jpeg}
+    \caption{Métricas e Série Temporal da Corrente (mA) para um dispositivo selecionado.}
+    \label{fig:streamlit_metricas_serie_temporal_corrente}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_distribuicao_corrente_boxplot.png.jpeg}
+    \caption{Distribuição da Corrente (mA) em Boxplot para um dispositivo selecionado.}
+    \label{fig:streamlit_distribuicao_corrente_boxplot}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_detalhes_dispositivos_02.png.jpeg} % Placeholder, user should verify this image or select a better overview
+    \caption{Página "Detalhes por Dispositivo" exibindo análises de potência, tensão e corrente para um dispositivo selecionado.}
+    \label{fig:streamlit_detalhes_dispositivo_overview}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_analise_avancada_picos_cep.png.jpeg}
+    \caption{Página "Análise Avançada" destacando a análise de picos de potência e a configuração do Controle Estatístico de Processo (CEP) com CUSUM.}
+    \label{fig:streamlit_analise_avancada_geral}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_perfis_medios_diarios_2d.png.jpeg}
+    \caption{Perfis Médios Diários 2D exibidos na Análise Avançada.}
+    \label{fig:streamlit_perfis_medios_diarios_3d}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/foto_3d.png}
+    \caption{Perfis Semanais 3D exibidos na Análise Avançada.}
+    \label{fig:foto_3d}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo2_horario_acoes.png.jpeg}
+    \caption{Passo 2 da Criação de Cena: Definição de Horário e Ações.}
+    \label{fig:streamlit_cena_passo2_horario_acoes}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_executar_cena_salva_detalhes.png.jpeg}
+    \caption{Detalhes de uma Cena Salva e Opção de Exclusão.}
+    \label{fig:streamlit_executar_cena_salva_detalhes}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Resultados/Figuras/streamlit_cena_passo1_e_executar_cenas.png.jpeg}
+    \caption{Interface de Gerenciamento de Cenas, mostrando o início da criação de uma nova cena e a lista de cenas salvas para execução.}
+    \label{fig:streamlit_gerenciamento_cenas}
+\end{figure}
 
 Adicionalmente, o desenvolvimento da aplicação Streamlit incluiu uma refatoração de código significativa para aprimorar a organização e manutenibilidade. Módulos auxiliares foram criados no diretório \texttt{app/streamlit/utils/} para encapsular funcionalidades específicas: \texttt{data\_helpers.py} para funções de carregamento e manipulação de dados, \texttt{page\_functions.py} para a lógica de renderização de cada página, e \texttt{ui\_helpers.py} para componentes de interface reutilizáveis e a carga do CSS customizado. No que tange ao controle de dispositivos, a funcionalidade \texttt{st.fragment} do Streamlit foi empregada para otimizar a performance e a responsividade da interface, especialmente em interações que exigem feedback visual imediato, como o acionamento de dispositivos, que utiliza um padrão de "atualização otimista".

@@ -17,6 +17,7 @@
 \usepackage{amsthm,amsfonts}
 \usepackage{color}
 \usepackage[colorlinks]{hyperref}
+\newcommand{\htmladdnormallink}[2]{\href{#1}{#2}} % Fix for abntex2cite url issue
 \usepackage{abntex2abrev}
 %\usepackage[alf]{abntex2cite} %se você quiser seguir as normas ABNT no sistema autor-data
 %\usepackage[num]{abntex2cite} %se você quiser seguir as normas ABNT no sistema numérico
@@ -66,15 +67,17 @@
 \addcontentsline{toc}{chapter}{Referências Bibliográficas}
 \renewcommand{\bibname}{Referências Bibliográficas}
 
+\bibliographystyle{plain}
 %\bibliographystyle{abntex2-alf} %para norma ABNT no sistema autor-data
-\bibliographystyle{abntex2-num}
+%\bibliographystyle{abntex2-num} % Use abntex2-num style for numeric citations
 \nocite{*} % Includes all entries from the .bib file
 \bibliography{Monografia}%,library}
 
-%\begin{appendices}
-%\appendix
-%\include{Apendices/ApendiceA}
-%\include{Apendices/ApendiceB}
-%\end{appendices}
+\begin{appendices}
+\appendix
+\include{Apendices/ApendiceA}
+\include{Apendices/ApendiceB}
+\include{Apendices/ApendiceC}
+\end{appendices}
 \end{document}
 %---------------Fim do documento----------------------------
