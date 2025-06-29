@@ -7,31 +7,21 @@
 
 \bibitem{Braga2010TeseValidacao}
 Laura~Caixeta Braga.
-\newblock {\em Validaç{\~a}o Ampla da Operaç{\~a}o de uma Edificaç{\~a}o
-  Educacional Pública Visando Aspectos de Uso Racional da Energia}.
-\newblock PhD thesis, Universidade Federal de Minas Gerais (UFMG) (a ser
-  confirmado), Belo Horizonte, 2010.
-\newblock O ano na capa do documento é 2010, enquanto o nome do arquivo sugere
-  2013. Por favor, verifique o ano correto. A instituição também deve ser
-  confirmada. Source PDF: app/docs/articles/tese\_laura\_2013.pdf.
+\newblock {\em Validaç{\~a}o Ampla da Operaç{\~a}o de uma Edificaç{\~a}o Educacional Pública Visando Aspectos de Uso Racional da Energia}.
+\newblock PhD thesis, Universidade Federal de Minas Gerais (UFMG) (a ser confirmado), Belo Horizonte, 2010.
+\newblock O ano na capa do documento é 2010, enquanto o nome do arquivo sugere 2013. Por favor, verifique o ano correto. A instituição também deve ser confirmada. Source PDF: app/docs/articles/tese\_laura\_2013.pdf.
 
 \bibitem{Braga2013SPCBuildingEnergy}
 L.C. Braga, A.R. Braga, and C.M.P. Braga.
-\newblock On the characterization and monitoring of building energy demand
-  using statistical process control methodologies.
+\newblock On the characterization and monitoring of building energy demand using statistical process control methodologies.
 \newblock {\em Energy and Buildings}, 65:205--219, 2013.
-\newblock Source PDF:
-  app/docs/articles/Artigo\_SPC\_Energy\_And\_Buildings.pdf.
+\newblock Source PDF: app/docs/articles/Artigo\_SPC\_Energy\_And\_Buildings.pdf.
 
 \bibitem{CEMIGEntendaFatura}
 {CEMIG Distribuição S.A.}
 \newblock Entenda sua fatura de energia.
-\newblock Documento PDF. Disponível online através do site da CEMIG
-  (www.cemig.com.br) ou canais de relacionamento corporativo., /* PREENCHER ANO
-  DE PUBLICAÇÃO */.
-\newblock Guia para compreensão de faturas de energia elétrica da CEMIG. O
-  ano de publicação exato deve ser verificado no documento ou no site da
-  CEMIG. Source PDF: app/docs/articles/entenda-sua-conta-mt.pdf.
+\newblock Documento PDF. Disponível online através do site da CEMIG (www.cemig.com.br) ou canais de relacionamento corporativo., /* PREENCHER ANO DE PUBLICAÇÃO */.
+\newblock Guia para compreensão de faturas de energia elétrica da CEMIG. O ano de publicação exato deve ser verificado no documento ou no site da CEMIG. Source PDF: app/docs/articles/entenda-sua-conta-mt.pdf.
 
 \bibitem{DuckDBDoc}
 {DuckDB Labs}.
@@ -46,8 +36,7 @@ L.C. Braga, A.R. Braga, and C.M.P. Braga.
 \bibitem{Lee2013BMS}
 H.~S. Lee and S.~K. Lee.
 \newblock A review on building management system.
-\newblock {\em International Journal of Control and Automation}, 6(5):343--350,
-  2013.
+\newblock {\em International Journal of Control and Automation}, 6(5):343--350, 2013.
 
 \bibitem{PythonDoc}
 {Python Software Foundation}.

@@ -36,8 +36,15 @@ A avaliação baseou-se nos seguintes critérios:
 
 Após ponderar esses critérios, a linha de tomadas inteligentes \textit{Tuya Smart Wi-Fi} foi selecionada. A decisão fundamentou-se no baixo custo, facilidade de instalação e configuração (\textit{plug and play} via Wi-Fi), acesso a uma API de nuvem (\textit{Tuya Cloud API}) para extração de dados e controle, e modularidade. Dado o foco do projeto em integrações de software e análise de dados, uma solução comercial com API robusta como a da Tuya mostrou-se estratégica, representando o melhor compromisso para a prototipagem rápida de um sistema funcional alinhado aos objetivos deste PFC.
 
-\subsection{Seleção de Ferramentas de Software e Plataformas de Desenvolvimento}
+\subsection{Ferramentas e Plataformas de Desenvolvimento}
 \label{sec:selecao_software}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{../arquitetura.png}
+    \caption{Diagrama da arquitetura da solução.}
+    \label{fig:arquitetura_solucao}
+\end{figure}
 
 Além da escolha do hardware de monitoramento, a seleção das ferramentas de software e plataformas de desenvolvimento foi crucial para a arquitetura do sistema de coleta, processamento, análise e visualização de dados, bem como para a orquestração das tarefas automatizadas. As decisões foram pautadas pela adequação aos requisitos do projeto, facilidade de integração, robustez e o ecossistema de suporte disponível.
 
@@ -68,10 +75,15 @@ Com as tecnologias e ferramentas selecionadas, iniciou-se o desenvolvimento do p
 \label{subsec:configuracao_sensores}
 Adquiriu-se um conjunto inicial de cinco tomadas inteligentes \textit{Tuya Smart Wi-Fi}, selecionadas pelo suporte à medição de energia, capacidade de corrente compatível (10A/16A), formato físico adequado e compatibilidade com a API Tuya. Utilizaram-se modelos genéricos "Smart Plug Wi-Fi" (e.g., com chipset BL0937), capazes de reportar potência, corrente e tensão. A interpretação correta dos \textit{data points} (DPs) e seus fatores de escala é crucial.
 
+Embora a plataforma Tuya ofereça um ecossistema próprio com funcionalidades de monitoramento e automação, ela não dispõe das ferramentas analíticas específicas de Controle Estatístico de Processo (CEP) que constituem o núcleo deste trabalho. Essa lacuna justifica o desenvolvimento de uma solução customizada que se integra à API da Tuya para extrair os dados brutos e aplicar as análises de CEP.
+
 Os dados de consumo são enviados à nuvem Tuya em intervalos de uma hora e ficam disponíveis via API por 7 dias, necessitando da pipeline Dagster (Seção \ref{subsubsec:pipeline_dagster}) para armazenamento persistente e histórico para análises de longo prazo e CEP. A granularidade horária foi considerada suficiente para os objetivos do projeto. O mapeamento entre Device ID e nomes descritivos foi registrado em \texttt{app/data/device\_mapping.json}, essencial para o enriquecimento semântico dos dados, conforme exemplo:
 \begin{verbatim}
 {
-  "bfxxxxxxxxxxxxxxSMARTPLUGID1": { "name": "Geladeira", "default_code": "switch_1" }
+  "bfxxxxxxxxxxxxxxSMARTPLUGID1": {
+    "name": "Geladeira",
+    "default_code": "switch_1"
+  }
 }
 \end{verbatim}
 O campo \texttt{default\_code} indica o DP para controle de ligar/desligar.
@@ -116,7 +128,7 @@ A automação da execução de cenas foi implementada com Dagster para centraliz
         \item Envia comandos à API Tuya para os dispositivos da cena, se as condições forem satisfeitas, tratando erros de comunicação e logando os resultados.
         \item Registra logs detalhados de todas as ações via \texttt{context.log} do Dagster.
     \end{enumerate}
-    \item \textbf{Job e Agendamento}: Um job (\texttt{scene\_scheduler\_job}) encapsula a \texttt{check\_and\_trigger\_scenes\_op}. Um agendamento (\texttt{scene\_execution\_schedule}) executa este job a cada minuto (\texttt{"* * * * *"}), garantindo a verificação frequente e execução pontual das cenas.
+    \item \textbf{Job e Agendamento}: Um job (\url{scene_scheduler_job}) encapsula a op \url{check_and_trigger_scenes_op}. Um agendamento (\url{scene_execution_schedule}) executa este job a cada minuto (\texttt{"* * * * *"}), garantindo a verificação frequente e execução pontual das cenas.
 \end{itemize}
 Esta integração ao Dagster assegura robustez, monitoramento e configurabilidade para o agendamento de cenas.
 
@@ -132,15 +144,15 @@ Esta integração ao Dagster assegura robustez, monitoramento e configurabilidad
 A interface de usuário (frontend) foi desenvolvida com Streamlit, permitindo foco na lógica da aplicação e apresentação dos dados. A metodologia incluiu:
 \begin{itemize}
     \item \textbf{Estruturação Multi-Página}: Navegação via barra lateral entre seções como "Resumo da Casa", "Detalhes por Dispositivo", "Análise Avançada", "Controle Individual" e "Gerenciamento de Cenas", com cada página modularizada.
-    \item \textbf{Carregamento e Filtragem de Dados}: Funções em \texttt{app/streamlit/utils/data\_helpers.py} carregam dados Parquet da camada de staging, aplicando filtros de usuário e utilizando cache (\texttt{@st.cache\_data}) para otimizar o desempenho.
+    \item \textbf{Carregamento e Filtragem de Dados}: Funções em \url{app/streamlit/utils/data_helpers.py} carregam dados Parquet da camada de staging, aplicando filtros de usuário e utilizando cache (\texttt{@st.cache\_data}) para otimizar o desempenho.
     \item \textbf{Visualização Interativa}: Gráficos (séries temporais, barras, histogramas) e métricas (\texttt{st.metric}) foram implementados usando as capacidades nativas do Streamlit, com interatividade via widgets (seletores de data, dispositivo, botões).
     \item \textbf{Funcionalidades de Controle}:
     \begin{itemize}
-        \item \textit{Controle Individual}: Widgets \texttt{st.toggle} com "atualização otimista" via \texttt{st.session\_state} e \texttt{st.fragment} para acionar comandos à API Tuya (via \texttt{app/streamlit/utils/tuya\_api\_helpers.py}).
-        \item \textit{Gerenciamento de Cenas}: Interface com \texttt{st.form} para criar/gerenciar cenas, persistidas em \texttt{app/data/scheduled\_scenes.json} e usadas pelo Dagster.
+        \item \textit{Controle Individual}: Widgets \texttt{st.toggle} com "atualização otimista" via \texttt{st.session\_state} e \texttt{st.fragment} para acionar comandos à API Tuya (via \url{app/streamlit/utils/tuya_api_helpers.py}).
+        \item \textit{Gerenciamento de Cenas}: Interface com \texttt{st.form} para criar/gerenciar cenas, persistidas em \url{app/data/scheduled_scenes.json} e usadas pelo Dagster.
     \end{itemize}
-    \item \textbf{Modularização do Código}: Lógica refatorada em módulos auxiliares em \texttt{app/streamlit/utils/} (\texttt{data\_helpers.py}, \texttt{ui\_helpers.py}, \texttt{page\_functions.py}, \texttt{tuya\_api\_helpers.py}).
-    \item \textbf{Estilização Customizada}: Uso de CSS externo (\texttt{app/streamlit/style.css}) para melhorar a aparência visual.
+    \item \textbf{Modularização do Código}: Lógica refatorada em módulos auxiliares em \url{app/streamlit/utils/} (\url{data_helpers.py}, \url{ui_helpers.py}, \url{page_functions.py}, \url{tuya_api_helpers.py}).
+    \item \textbf{Estilização Customizada}: Uso de CSS externo (\url{app/streamlit/style.css}) para melhorar a aparência visual.
 \end{itemize}
 Esta abordagem resultou em uma aplicação web funcional e interativa.
 
@@ -148,13 +160,13 @@ Esta abordagem resultou em uma aplicação web funcional e interativa.
 Para o tratamento dos dados, algoritmos específicos foram desenvolvidos.
 
 \subsection{Pré-processamento dos Dados}
-Os dados brutos das tomadas passaram por limpeza, transformação e normalização para garantir qualidade e consistência. O pré-processamento incluiu tratamento de leituras espúrias (valores anômalos removidos/ajustados), normalização (uniformidade de unidades, tratamento de dados faltantes com interpolação ou remoção) e enriquecimento (identificação do dispositivo, timestamp padronizado). O ativo \texttt{staging\_tuya\_logs} da pipeline Dagster realiza grande parte deste pré-processamento automaticamente, convertendo tipos de dados, enriquecendo com mapeamento de dispositivos de \texttt{app/data/device\_mapping.json}, e estruturando os dados em Parquet particionado.
+Os dados brutos das tomadas passaram por limpeza, transformação e normalização para garantir qualidade e consistência. O pré-processamento incluiu tratamento de leituras espúrias (valores anômalos removidos/ajustados), normalização (uniformidade de unidades, tratamento de dados faltantes com interpolação ou remoção) e enriquecimento (identificação do dispositivo, timestamp padronizado). O ativo \texttt{staging\_tuya\_logs} da pipeline Dagster realiza grande parte deste pré-processamento automaticamente, convertendo tipos de dados, enriquecendo com mapeamento de dispositivos de \url{app/data/device_mapping.json}, e estruturando os dados em Parquet particionado.
 
 \subsection{Análise Estatística e Controle Estatístico de Processos (CEP)}
 \label{subsec:analise_cep}
 O Controle Estatístico de Processo (CEP)~\cite{Braga2013SPCBuildingEnergy} é uma metodologia estatística utilizada para monitorar e otimizar processos por meio da análise de sua variabilidade. Um princípio fundamental do CEP é a distinção entre dois tipos de variação: as \textit{causas comuns}, que são fontes de variabilidade inerentes e aleatórias de um processo estável (sob controle), e as \textit{causas especiais}, que representam eventos esporádicos e não aleatórios que desestabilizam o processo. A principal ferramenta para essa distinção são os gráficos de controle, que, ao utilizarem uma linha central (representando a média do processo) e limites de controle superior (UCL) e inferior (LCL), permitem visualizar quando a variação deixa de ser comum e passa a indicar a presença de uma causa especial que merece investigação.
 
-Para detectar anomalias no consumo energético, utilizou-se o gráfico de Soma Acumulada (CUSUM, do inglês \textit{Cumulative Sum}). Diferente de gráficos de controle mais simples, como os de Shewhart, que avaliam cada ponto de dados de forma isolada, o CUSUM é especialmente poderoso por sua capacidade de detectar pequenas, mas persistentes, mudanças na média de um processo. Ele alcança essa sensibilidade ao incorporar informações de observações passadas em sua estatística de controle. Em vez de apenas plotar o valor atual, o CUSUM plota a soma acumulada dos desvios de cada ponto de dados em relação a um valor de referência. Se o processo está sob controle, esses desvios tendem a se anular, e a soma acumulada permanece próxima de zero. No entanto, se uma pequena mudança na média ocorre, os desvios começarão a se acumular consistentemente em uma direção (positiva ou negativa), fazendo com que a inclinação do gráfico CUSUM mude visivelmente. É essa "memória" das observações passadas que o torna uma ferramenta ideal para identificar desvios sutis que poderiam passar despercebidos em outros tipos de gráficos de controle. A implementação seguiu uma abordagem estruturada:
+Para detectar anomalias no consumo energético, utilizou-se o gráfico de Soma Acumulada (CUSUM, do inglês \textit{Cumulative Sum}). Diferente de gráficos de controle mais simples, como os de Shewhart, que avaliam cada ponto de dados de forma isolada, o CUSUM é especialmente poderoso por sua capacidade de detectar pequenas, mas persistentes, mudanças na média de um processo. Sua alta sensibilidade é alcançada por meio da incorporação de informações de observações passadas. Em vez de analisar cada ponto de dados de forma isolada, o CUSUM opera sobre os resíduos do processo — a diferença entre o valor observado e o valor esperado (a média de referência, $\mu_0$). Ele então calcula a soma acumulada desses resíduos ao longo do tempo. Se o processo está sob controle, os resíduos positivos e negativos tendem a se cancelar mutuamente, mantendo a soma acumulada próxima de zero. Contudo, se ocorre uma mudança pequena, mas persistente, na média do processo, os resíduos começarão a ter um viés consistente (predominantemente positivos ou negativos). Isso faz com que a soma acumulada cresça progressivamente em uma direção, alterando visivelmente a inclinação do gráfico CUSUM. É essa "memória" dos resíduos passados que o torna uma ferramenta ideal para identificar desvios sutis que poderiam passar despercebidos em outros tipos de gráficos de controle. A implementação seguiu uma abordagem estruturada:
 
 Para lidar com a natureza inerentemente cíclica do consumo de energia, foi adotada uma abordagem de modelagem baseada em uma \textbf{estrutura multicanal}~\cite{Braga2010TeseValidacao}. Uma estrutura multicanal é composta por um número de canais, onde o tamanho da estrutura depende de duas variáveis principais: a resolução do canal e a periodicidade da estrutura. A resolução é definida pela quantidade de tempo contida em cada canal e é limitada pelo intervalo de amostragem da medição. A periodicidade, por sua vez, representa o comportamento cíclico subjacente do sistema, que pode ser diário, semanal, mensal ou anual.
 
@@ -166,6 +178,8 @@ Dessa forma, os parâmetros de controle da Fase I para os gráficos CUSUM, como 
 
 \begin{itemize}
     \item \textbf{Fase I: Definição da Linha de Base (Baseline)}: O primeiro passo consiste em estabelecer os parâmetros de controle que representam o processo em seu estado normal. Para isso, coleta-se um conjunto de $m$ observações históricas ($X_1, \ldots, X_m$) do consumo de um dispositivo, garantindo que esses dados correspondam a um período de operação estável e previsível. A partir dessa amostra, a média do processo ($\hat{\mu}_0$) e seu desvio padrão ($\hat{\sigma}_0$) são calculados, servindo como a linha de base para o monitoramento futuro.
+
+    É crucial reconhecer que os padrões de consumo de energia não são estáticos e podem sofrer mudanças lentas e graduais ao longo do tempo, como variações sazonais ou alterações nos hábitos dos moradores. Para garantir que o sistema de CEP permaneça relevante e preciso, a linha de base não pode ser fixa indefinidamente. Portanto, o modelo deve incorporar um mecanismo de atualização periódica. A linha de base é recalculada em intervalos definidos (e.g., mensalmente ou trimestralmente), utilizando um conjunto de dados históricos mais recente. Essa abordagem adaptativa permite que o sistema se ajuste a novas normalidades, garantindo que apenas desvios genuinamente anômalos sejam sinalizados, em vez de gerar falsos alarmes devido a uma linha de base desatualizada.
     \begin{equation}
         \hat{\mu}_0 = \bar{X} = \frac{1}{m}\sum_{i=1}^{m} X_i
         \label{eq:media_controle}
@@ -294,20 +308,6 @@ Embora de escopo acadêmico, o protótipo funcional permite considerações sobr
 \end{itemize}
 Em resumo, o protótipo valida a arquitetura e algoritmos, ilustrando o potencial de tais sistemas para beneficiar usuários e promover o uso sustentável da energia.
 
-\section{Trabalhos Futuros e Próximos Passos}
-\label{sec:trabalhos_futuros}
-O sistema desenvolvido abre diversas avenidas para aperfeiçoamentos futuros:
-\begin{itemize}
-    \item \textbf{Integração com LLMs}: Interface conversacional para consultas e comandos em linguagem natural.
-    \item \textbf{Comparativo com Faturas (CEMIG)}: Módulo para reconciliar consumo medido com faturas da concessionária.
-    \item \textbf{Modelagem Preditiva de Consumo}: Uso de aprendizado de máquina para prever consumo futuro.
-    \item \textbf{Gamificação e Recomendações}: Elementos para incentivar economia e sugestões personalizadas.
-    \item \textbf{Expansão do Monitoramento}: Integração com outros sensores (água, gás) ou medidores centrais.
-    \item \textbf{Aprimoramento da UX}: Refinamento da UI Streamlit com base em feedback e novas visualizações.
-    \item \textbf{Estudo Longitudinal}: Acompanhamento prolongado do uso para análise de impacto real.
-    \item \textbf{Alertas Proativos}: Sistema de notificações para anomalias, consumo excessivo ou falhas.
-\end{itemize}
-Estas direções visam aprimoramento técnico e ampliação do impacto da solução.
 
 \section{Resumo do Capítulo}
 Este capítulo detalhou a metodologia para desenvolver o sistema inteligente de monitoramento e CEP de energia residencial. Abordou-se a análise de tecnologias, desenvolvimento do protótipo com tomadas \textit{Tuya Smart Wi-Fi}, implementação de algoritmos, validação e estudo de viabilidade, combinando rigor técnico e aplicabilidade prática.

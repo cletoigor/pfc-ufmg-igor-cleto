@@ -3,7 +3,7 @@
 
 Este capítulo aborda os princípios de sistemas inteligentes de automação residencial focados no monitoramento e previsão do consumo energético, especialmente em residências sem infraestrutura prévia. O enfoque abrange coleta e análise de dados para gestão eficiente de recursos, redução de custos, conforto e sustentabilidade. Detalha-se a arquitetura típica (sensores, atuadores, controladores, comunicação, interfaces), o processo de instrumentação, segurança, privacidade (LGPD), e o monitoramento energético com pré-processamento, análise estatística, aprendizado de máquina e CEP para otimizar o uso de energia.
 
-\section{Arquitetura de um Sistema de Automação Residencial}
+\section{Arquitetura de Automação Residencial}
 Um sistema de automação residencial integra elementos para controle, monitoramento e otimização de eficiência energética, segurança e conforto, adaptando-se aos moradores.
 
 \subsection{Sensores}
@@ -13,7 +13,7 @@ Sensores coletam dados do ambiente (temperatura, umidade, luminosidade, presenç
 Atuadores executam as decisões do sistema (relés, motores, dimmers). Exemplos: interruptores e dimmers inteligentes, termostatos inteligentes, motores para cortinas e tomadas inteligentes. Sua qualidade e responsividade são essenciais.
 
 \subsection{Controladores}
-Controladores processam dados dos sensores e comandam atuadores. Podem ser centralizados (facilitando manutenção, mas com ponto único de falha) ou distribuídos (mais robustos e escaláveis). IA e aprendizado de máquina permitem ajustes dinâmicos e otimização, podendo ser implementados tanto localmente (*edge computing*)~\cite{Shi2016Edge}, para respostas rápidas e maior privacidade, quanto em nuvem, para análises mais complexas e que demandem maior poder computacional.
+Controladores processam dados dos sensores e comandam atuadores. Podem ser centralizados (facilitando manutenção, mas com ponto único de falha) ou distribuídos (mais robustos e escaláveis). IA e aprendizado de máquina permitem ajustes dinâmicos e otimização, podendo ser implementados tanto localmente (edge computing)~\cite{Shi2016Edge}, para respostas rápidas e maior privacidade, quanto em nuvem, para análises mais complexas e que demandem maior poder computacional.
 
 \subsection{Tecnologias de Comunicação}
 A comunicação eficaz é vital, impactando desempenho, confiabilidade, consumo energético e escalabilidade. Fatores chave incluem: meio físico (cabeado vs. sem fio), alcance, largura de banda, consumo energético (crítico para dispositivos a bateria), topologia de rede (estrela, malha, ponto a ponto), interferência, confiabilidade e custo. A interoperabilidade entre fabricantes é um desafio histórico, com esforços de padronização (e.g., sobre IP) buscando simplificar a integração. Segurança na comunicação (criptografia, autenticação, integridade) é crucial. A escolha envolve balancear esses fatores conforme as necessidades da aplicação.
@@ -52,7 +52,8 @@ Uma instrumentação meticulosa é fundamental para um sistema eficiente, confi�
 O monitoramento energético é central para entender o uso de recursos, revelar padrões, prever demandas, identificar ineficiências e propor intervenções. Integra dados de diversos sensores para uma visão holística do comportamento energético, focando em análise, privacidade (LGPD), aplicações práticas e CEP.
 
 \subsection{Coleta e Organização dos Dados}
-A coleta sistemática de dados de consumo elétrico ocorre via sensores em tempo real, tomadas/disjuntores inteligentes e medição global. O grande volume de dados exige infraestrutura de armazenamento robusta (NAS, nuvem, servidores locais), com segurança (criptografia, autenticação), compressão e normalização para otimizar o armazenamento e processamento.
+A coleta sistemática de dados de consumo elétrico ocorre via sensores em tempo real, tomadas/disjuntores inteligentes e medição global. O grande volume de dados exige infraestrutura de armazenamento robusta (NAS, do inglês \textit{Network-Attached Storage} -- um dispositivo de armazenamento de dados conectado a uma rede de computadores que permite o acesso a dados a partir de um local centralizado por clientes de rede heterogêneos% TODO: Adicionar citação para a definição de NAS
+, nuvem, servidores locais), com segurança (criptografia, autenticação), compressão e normalização para otimizar o armazenamento e processamento.
 
 \subsection{Pré-Processamento, Qualidade dos Dados e CEP}
 Dados coletados passam por pré-processamento (limpeza, agregação, normalização) para garantir qualidade para análises. O Controle Estatístico de Processo (CEP)~\cite{Braga2013SPCBuildingEnergy} é aplicado para monitorar a variabilidade do consumo, estabelecer faixas normais de operação, detectar anomalias precocemente e monitorar a eficiência de mudanças, complementando análises mais complexas.
@@ -60,7 +61,7 @@ Dados coletados passam por pré-processamento (limpeza, agregação, normalizaç
 Com dados pré-processados e CEP, aplicam-se técnicas analíticas para extrair valor:
 \begin{itemize}
     \item \textbf{Estatística Descritiva}: Médias, medianas, desvios-padrão para caracterizar perfis de consumo.
-    \item \textbf{Detecção de Anomalias Avançada}: Aprendizado de máquina para identificar anomalias sutis.
+    \item \textbf{Detecção de Anomalias Avançada}: Técnicas estatísticas robustas, como testes de hipóteses e análise de resíduos, para identificar desvios e anomalias sutis que não são capturados por limites de controle simples.
     \item \textbf{Análise de Correlação/Causalidade}: Relações entre consumo e variáveis contextuais.
     \item \textbf{Modelagem Preditiva}: Algoritmos para prever demandas e otimizar controle.
     \item \textbf{Clusterização de Perfis}: Agrupamento de padrões de uso para otimização personalizada.

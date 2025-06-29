@@ -296,6 +296,11 @@ OUTPUT Metodologia/Metodologia.aux
 INPUT ./Metodologia/Metodologia.tex
 INPUT ./Metodologia/Metodologia.tex
 INPUT Metodologia/Metodologia.tex
+INPUT ../arquitetura.png
+INPUT ../arquitetura.png
+INPUT ../arquitetura.png
+INPUT ../arquitetura.png
+INPUT ../arquitetura.png
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd

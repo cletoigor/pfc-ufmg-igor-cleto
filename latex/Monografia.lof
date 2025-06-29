@@ -2,13 +2,14 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Fluxograma da pipeline de processamento de dados de consumo energético com Dagster.}}{19}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}}{20}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Perfil de consumo com ênfase na média histórica do processo.}}{28}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Perfil de consumo com com destaque para o limite superior de controle (LSC).}}{28}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Perfil de consumo com com destaque para o limite inferior de controle (LIC).}}{29}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Perfil de consumo com ênfase no Comparativo da média histórica do processo com os dados da semana atual.}}{29}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Comparativo da média histórica com os dados da semana atual, indicando os pontos de alarme identificados pelo CEP.}}{29}{figure.3.7}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama da arquitetura da solução.}}{15}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Fluxograma da pipeline de processamento de dados de consumo energético com Dagster.}}{19}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Fluxograma da pipeline de agendamento e execução de cenas com Dagster.}}{21}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Perfil de consumo com ênfase na média histórica do processo.}}{29}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Perfil de consumo com com destaque para o limite superior de controle (LSC).}}{29}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Perfil de consumo com com destaque para o limite inferior de controle (LIC).}}{30}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Perfil de consumo com ênfase no Comparativo da média histórica do processo com os dados da semana atual.}}{30}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Comparativo da média histórica com os dados da semana atual, indicando os pontos de alarme identificados pelo CEP.}}{30}{figure.3.8}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Pipeline de Dados Dagster: ativos raw\_tuya\_logs e staging\_tuya\_logs}}{35}{figure.4.1}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Trigger de execução de cenas do Pipeline de Dados com Dagster.}}{35}{figure.4.2}%

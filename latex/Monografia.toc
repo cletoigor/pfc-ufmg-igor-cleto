@@ -9,7 +9,7 @@
 \contentsline {section}{\numberline {1.3}Local de Realização}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Estrutura da Monografia}{3}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Fundamentos da Automação Residencial}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Arquitetura de um Sistema de Automação Residencial}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.1}Arquitetura de Automação Residencial}{5}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Sensores}{5}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Atuadores}{6}{subsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.1.3}Controladores}{6}{subsection.2.1.3}%
@@ -28,32 +28,31 @@
 \contentsline {subsection}{\numberline {2.2.5}Integração com Outros Sistemas e Evolução Contínua}{10}{subsection.2.2.5}%
 \contentsline {subsection}{\numberline {2.2.6}Benefícios Práticos e Responsabilidade Social}{10}{subsection.2.2.6}%
 \contentsline {section}{\numberline {2.3}Modelos de Arquitetura para Automação}{10}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Visão Geral de um Sistema Típico}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.1}Visão Geral de um Sistema Típico}{11}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Camada de Aquisição de Dados}{11}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Camada de Processamento e Gerenciamento de Dados}{11}{subsection.2.3.3}%
 \contentsline {subsection}{\numberline {2.3.4}Camada de Apresentação e Interação com o Usuário}{11}{subsection.2.3.4}%
 \contentsline {subsection}{\numberline {2.3.5}Lógica de Automação e Agendamento de Rotinas}{11}{subsection.2.3.5}%
 \contentsline {chapter}{\numberline {3}Metodologia}{13}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Pesquisa e Análise de Tecnologias Existentes}{13}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Seleção de Ferramentas de Software e Plataformas de Desenvolvimento}{15}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.1}Ferramentas e Plataformas de Desenvolvimento}{15}{subsection.3.1.1}%
 \contentsline {subsubsection}{Linguagem de Programação: Python}{15}{section*.3}%
 \contentsline {subsubsection}{Biblioteca Pandas e Estrutura DataFrame}{15}{section*.4}%
-\contentsline {subsubsection}{Plataforma de Interface de Usuário: Streamlit}{15}{section*.5}%
+\contentsline {subsubsection}{Plataforma de Interface de Usuário: Streamlit}{16}{section*.5}%
 \contentsline {subsubsection}{Plataforma de Orquestração de Dados: Dagster}{16}{section*.6}%
-\contentsline {subsubsection}{Banco de Dados Analítico Embutido: DuckDB}{16}{section*.7}%
+\contentsline {subsubsection}{Banco de Dados Analítico Embutido: DuckDB}{17}{section*.7}%
 \contentsline {section}{\numberline {3.2}Desenvolvimento do Protótipo}{17}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Seleção e Configuração de Sensores}{17}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Arquitetura e Desenvolvimento do Software de Coleta, Processamento e Controle}{17}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.2}Arquitetura e Desenvolvimento do Software de Coleta, Processamento e Controle}{18}{subsection.3.2.2}%
 \contentsline {subsubsection}{Implementação da Pipeline de Dados com Dagster}{18}{section*.8}%
-\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{18}{section*.9}%
-\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{21}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Algoritmos de Processamento e Análise}{21}{section.3.3}%
+\contentsline {subsubsection}{Implementação do Agendamento de Cenas com Dagster}{19}{section*.9}%
+\contentsline {subsection}{\numberline {3.2.3}Desenvolvimento da Interface de Usuário com Streamlit}{20}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Algoritmos de Processamento e Análise}{22}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Pré-processamento dos Dados}{22}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{22}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{28}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Considerações sobre Viabilidade e Impacto Acadêmico}{30}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Trabalhos Futuros e Próximos Passos}{31}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Resumo do Capítulo}{31}{section.3.7}%
+\contentsline {subsection}{\numberline {3.3.2}Análise Estatística e Controle Estatístico de Processos (CEP)}{23}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Validação em Ambiente Real}{29}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Considerações sobre Viabilidade e Impacto Acadêmico}{31}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Resumo do Capítulo}{32}{section.3.6}%
 \contentsline {chapter}{\numberline {4}Resultados}{33}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Atividades do Projeto}{33}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Requisitos do Sistema}{33}{section.4.2}%
@@ -65,8 +64,8 @@
 \contentsline {section}{\numberline {5.2}Principais Contribuições}{51}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Limitações e Desafios}{51}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Trabalhos Futuros}{52}{section.5.4}%
-\contentsline {chapter}{Referências Bibliográficas}{53}{section.5.4}%
-\contentsline {chapter}{Appendices}{55}{section*.11}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{57}{appendix.A}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{59}{appendix.B}%
-\contentsline {chapter}{\numberline {C}Glossário de Termos Técnicos}{61}{appendix.C}%
+\contentsline {chapter}{Referências Bibliográficas}{54}{section.5.4}%
+\contentsline {chapter}{Appendices}{57}{section*.11}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{59}{appendix.A}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{61}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Glossário de Termos Técnicos}{63}{appendix.C}%
