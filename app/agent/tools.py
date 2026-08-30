@@ -1,18 +1,21 @@
 """
-Tool functions exposed to the AI agent via the Anthropic Tool Runner
-(`@beta_tool` decorated — see app/agent/agent.py).
+Provider-neutral tool functions exposed to the AI agent (see
+app/agent/llm_provider.py and app/agent/agent.py).
 
-Three tools:
+Three tools, registered in `TOOLS` as plain callables + JSON-schema
+parameter definitions (OpenAI/Ollama tool-calling format):
     query_iot_data(sql)                          — read-only DuckDB SQL over the marts.
     get_device_state(device_name)                — latest known reading for a device.
     control_device(device_name, action, dry_run) — actuate a device (dry-run by default).
+
+`openai_tool_specs()` renders `TOOLS` as the `tools=[...]` list expected by
+both the `ollama` client and the OpenAI-style chat-completions API.
 """
 import json
 import os
 import re
 
 import duckdb
-from anthropic import beta_tool
 
 from app.agent.tuya_control import (
     load_device_registry,
@@ -117,7 +120,6 @@ def _open_connection():
     )
 
 
-@beta_tool
 def query_iot_data(sql: str) -> str:
     """Run a read-only DuckDB SQL query over the IoT metrics warehouse.
 
@@ -162,7 +164,6 @@ def query_iot_data(sql: str) -> str:
     return json.dumps(payload, default=str)
 
 
-@beta_tool
 def get_device_state(device_name: str) -> str:
     """Get the latest known reading / last-seen info for a named device.
 
@@ -231,7 +232,6 @@ def _action_to_commands(action: str) -> list[dict] | None:
     return None
 
 
-@beta_tool
 def control_device(device_name: str, action: str, dry_run: bool = True) -> str:
     """Actuate a named device (turn it on/off/toggle).
 
@@ -254,3 +254,113 @@ def control_device(device_name: str, action: str, dry_run: bool = True) -> str:
 
     result = send_device_command(device_id, commands, dry_run=dry_run)
     return json.dumps(result, default=str)
+
+
+# ---------------------------------------------------------------------------
+# Provider-neutral tool registry.
+#
+# Source of truth for every surface (Ollama, Anthropic, tests): a plain
+# callable + a JSON-schema `parameters` block + a description. Anything that
+# needs an Anthropic `@beta_tool`-decorated function or an OpenAI/Ollama
+# `tools=[...]` spec should derive it from this dict rather than hand-rolling
+# another copy.
+# ---------------------------------------------------------------------------
+TOOLS: dict[str, dict] = {
+    "query_iot_data": {
+        "callable": query_iot_data,
+        "description": (
+            "Run a read-only DuckDB SQL query over the IoT metrics warehouse. "
+            "Query the device_metrics_hourly and device_metrics_daily tables "
+            "(columns: device_id, device_name, event_hour/event_day, event_count, "
+            "last_seen_at, on_event_count). Only SELECT/WITH/EXPLAIN/DESCRIBE/SHOW "
+            "statements are accepted — no writes, DDL, ATTACH, or COPY."
+        ),
+        "schema": {
+            "type": "object",
+            "properties": {
+                "sql": {
+                    "type": "string",
+                    "description": (
+                        "The read-only SQL query to run, e.g. "
+                        "\"SELECT device_name, sum(event_count) FROM "
+                        "device_metrics_daily GROUP BY 1\"."
+                    ),
+                },
+            },
+            "required": ["sql"],
+        },
+    },
+    "get_device_state": {
+        "callable": get_device_state,
+        "description": (
+            "Get the latest known reading / last-seen info for a named device."
+        ),
+        "schema": {
+            "type": "object",
+            "properties": {
+                "device_name": {
+                    "type": "string",
+                    "description": (
+                        "The device's friendly name (e.g. \"Ventilador do "
+                        "quarto\"), matched case-insensitively against the "
+                        "device registry."
+                    ),
+                },
+            },
+            "required": ["device_name"],
+        },
+    },
+    "control_device": {
+        "callable": control_device,
+        "description": "Actuate a named device (turn it on/off/toggle).",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "device_name": {
+                    "type": "string",
+                    "description": (
+                        "The device's friendly name (e.g. \"Fita de LED\"), "
+                        "matched case-insensitively against the device registry."
+                    ),
+                },
+                "action": {
+                    "type": "string",
+                    "description": "One of \"on\", \"off\", or \"toggle\".",
+                },
+                "dry_run": {
+                    "type": "boolean",
+                    "description": (
+                        "When True (the default), no real Tuya API call is "
+                        "made — the payload that WOULD be sent is returned "
+                        "instead."
+                    ),
+                },
+            },
+            "required": ["device_name", "action"],
+        },
+    },
+}
+
+
+def openai_tool_specs(names: list[str] | None = None) -> list[dict]:
+    """Renders `TOOLS` as OpenAI/Ollama-format `tools=[...]` tool specs.
+
+    Args:
+        names: Optional subset of tool names to include (in `TOOLS` order
+            filtered to this set); defaults to every registered tool.
+    """
+    selected = names if names is not None else list(TOOLS.keys())
+    specs = []
+    for name in selected:
+        tool = TOOLS[name]
+        specs.append(
+            {
+                "type": "function",
+                "function": {
+                    "name": name,
+                    "description": tool["description"],
+                    "parameters": tool["schema"],
+                },
+            }
+        )
+    return specs

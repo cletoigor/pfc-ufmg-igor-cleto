@@ -256,7 +256,10 @@ with chat_col:
     else:
         st.caption("⚠️ Dry run OFF — a control command will hit the real Tuya device.")
 
-    api_key_set = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    from app.agent.llm_provider import AnthropicProvider, GeminiProvider, OllamaProvider, get_provider
+
+    provider = get_provider()
+    provider_available = provider.is_available()
 
     if "agent_history" not in st.session_state:
         st.session_state.agent_history = []  # Anthropic-format messages, fed back to run_agent
@@ -286,15 +289,35 @@ with chat_col:
                             st.json(output)
                         st.divider()
 
-    if not api_key_set:
-        st.info(
-            "Set the `ANTHROPIC_API_KEY` environment variable to enable the AI agent. "
-            "The charts on the left still work without it."
-        )
+    if not provider_available:
+        if isinstance(provider, GeminiProvider):
+            guidance = (
+                "Set GEMINI_API_KEY (free key from Google AI Studio: "
+                "aistudio.google.com) to enable the agent. The charts on the "
+                "left still work without it."
+            )
+        elif isinstance(provider, OllamaProvider):
+            guidance = (
+                "Local model not reachable. Install Ollama, run `ollama serve`, and "
+                "`ollama pull qwen3:8b` (or set OLLAMA_MODEL). The charts on the "
+                "left still work without it."
+            )
+        elif isinstance(provider, AnthropicProvider):
+            guidance = (
+                "Set ANTHROPIC_API_KEY to enable the agent. The charts on the "
+                "left still work without it."
+            )
+        else:
+            guidance = (
+                "No LLM provider is available. Set LLM_PROVIDER plus the "
+                "matching credentials (GEMINI_API_KEY by default). The charts "
+                "on the left still work without it."
+            )
+        st.info(guidance)
 
     user_message = st.chat_input(
         "Ask about the devices, or tell the agent to control one…",
-        disabled=not api_key_set,
+        disabled=not provider_available,
     )
 
     if user_message:

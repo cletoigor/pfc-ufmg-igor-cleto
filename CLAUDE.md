@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-UFMG undergraduate thesis (TCC) for Control and Automation Engineering, combining a LaTeX monograph with a Dagster data pipeline that ingests IoT device data from the Tuya Cloud API, a gold-layer DuckDB warehouse, an Anthropic AI agent that can query the data and (dry-run gated) control the devices, and a Streamlit dashboard. See `README.md` at the repo root for the full architecture overview and setup steps.
+UFMG undergraduate thesis (TCC) for Control and Automation Engineering, combining a LaTeX monograph with a Dagster data pipeline that ingests IoT device data from the Tuya Cloud API, a gold-layer DuckDB warehouse, an AI agent (Gemini free tier by default; local Ollama or Anthropic optionally) that can query the data and (dry-run gated) control the devices, and a Streamlit dashboard. See `README.md` at the repo root for the full architecture overview and setup steps.
 
 ## Repository Layout
 
@@ -15,9 +15,10 @@ app/                         — Dagster pipeline + AI agent (entry point: app.d
     ingestion.py                — raw_tuya_logs, staging_tuya_logs
     marts.py                     — gold_device_metrics (hourly/daily rollups)
   agent/
-    tools.py                     — @beta_tool: query_iot_data, get_device_state, control_device
+    tools.py                     — provider-neutral tool registry: query_iot_data, get_device_state, control_device
     tuya_control.py               — dry-run-safe Tuya command sending + device registry
-    agent.py                      — Anthropic Tool Runner agent (run_agent)
+    llm_provider.py                — LLM provider abstraction (Gemini default, Ollama/Anthropic optional)
+    agent.py                      — bounded tool-calling loop (run_agent)
   dashboard/
     app.py                        — Streamlit: live charts + AI chat panel
   data_ingestion/
@@ -58,17 +59,19 @@ The DuckDB warehouse at `app/data/warehouse.duckdb` is **persistent** (not in-me
 
 ## AI Agent (`app/agent/`)
 
-Built on the Anthropic Python SDK's Tool Runner (`@beta_tool`), exposing three tools to the model:
+Runs by default against **Google's Gemini API** (free tier via an AI Studio key — no local RAM/GPU needed), through a provider abstraction (`agent/llm_provider.py`) that drives a bounded manual tool-calling loop in `agent/agent.py`. Selection is via `LLM_PROVIDER` env (default `"gemini"`); `GeminiProvider` uses `GEMINI_MODEL` (default `"gemini-2.5-flash"`) and requires `GEMINI_API_KEY`/`GOOGLE_API_KEY`. Note: with the Gemini provider, prompts (and tool schemas/results) are sent to Google's API. `OllamaProvider` (local, keyless, needs RAM + `ollama pull`) and `AnthropicProvider` (paid key) remain selectable via `LLM_PROVIDER=ollama` / `LLM_PROVIDER=anthropic`; `OllamaProvider` uses `OLLAMA_MODEL` (default `"qwen3:8b"`) and optional `OLLAMA_HOST`. `provider.is_available()` never raises — it returns `False` cleanly when a key/package/server is missing, which the dashboard uses to gate the chat panel.
+
+Three provider-neutral tools registered in `agent/tools.py`'s `TOOLS` dict (plain callables + JSON-schema specs, rendered via `openai_tool_specs()`):
 
 - **`query_iot_data(sql)`** — read-only DuckDB SQL over the gold marts (rejects any non-SELECT/WITH/EXPLAIN/DESCRIBE/SHOW statement); falls back warehouse → marts parquet → staging parquet → a "no data yet" message.
 - **`get_device_state(device_name)`** — latest known reading for a device, resolved via `device_mapping.json`.
-- **`control_device(device_name, action, dry_run=True)`** — actuates a device (on/off/toggle) via `agent/tuya_control.py`'s `send_device_command`. **Dry-run is the default and the safety gate**: with `dry_run=True` the exact Tuya `commands` payload is returned but never sent; a real command requires explicitly passing `dry_run=False`.
+- **`control_device(device_name, action, dry_run=True)`** — actuates a device (on/off/toggle) via `agent/tuya_control.py`'s `send_device_command`. **Dry-run is the default and the safety gate**: with `dry_run=True` the exact Tuya `commands` payload is returned but never sent; a real command requires explicitly passing `dry_run=False`. The caller's `dry_run` always overrides whatever the model puts in its tool-call arguments — the model can never disable the gate itself.
 
-`agent/agent.py` exposes `run_agent(user_message, *, dry_run=True, history=None)`, used by the Streamlit dashboard's chat panel.
+`agent/agent.py` exposes `run_agent(user_message, *, dry_run=True, history=None)` (unchanged signature), used by the Streamlit dashboard's chat panel.
 
 ## Dashboard (`app/dashboard/`)
 
-Streamlit app (`streamlit run app/dashboard/app.py`): live per-device charts read from the gold marts (read-only DuckDB connection) plus a chat panel wired to `agent/agent.py`, showing the agent's tool-call trace (SQL it ran / commands it sent) inline.
+Streamlit app (`streamlit run app/dashboard/app.py`): live per-device charts read from the gold marts (read-only DuckDB connection; always works, independent of the agent) plus a chat panel wired to `agent/agent.py`, showing the agent's tool-call trace (SQL it ran / commands it sent) inline. The chat input is gated on `get_provider().is_available()`; the guidance shown is provider-aware — for the default Gemini provider with no key: "Set GEMINI_API_KEY (free key from Google AI Studio: aistudio.google.com) to enable the agent."; for Ollama: "Local model not reachable. Install Ollama, run `ollama serve`, and `ollama pull qwen3:8b` (or set OLLAMA_MODEL)."; for Anthropic: "Set ANTHROPIC_API_KEY to enable the agent."
 
 ## Key Tech Stack
 
@@ -79,7 +82,7 @@ Streamlit app (`streamlit run app/dashboard/app.py`): live per-device charts rea
 | Transformation | DuckDB (via dagster-duckdb) |
 | Storage | Parquet (staging/marts), JSON (raw), DuckDB (warehouse) |
 | IoT API | tuya-connector-python |
-| AI agent | Anthropic Python SDK (Tool Runner, `@beta_tool`) |
+| AI agent | Google Gemini (free tier, default); optional local Ollama or Anthropic providers |
 | Dashboard | Streamlit + Plotly |
 | Tests | pytest (`app/tests/`) |
 | Python deps | `app/requirements.txt`, venv at `app/.venv/` |

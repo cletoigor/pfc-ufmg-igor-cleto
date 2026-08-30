@@ -1,19 +1,20 @@
 """
 Unit tests for app/agent/tools.py.
 
-Tests call the `.func` attribute of each `@beta_tool`-decorated function to
-invoke the plain underlying Python callable. No real Tuya or Anthropic calls
-are ever made; `control_device` is only exercised with `dry_run=True`.
+Tests call the plain callables via the provider-neutral `TOOLS` registry. No
+real Tuya, Ollama, or Anthropic calls are ever made; `control_device` is only
+exercised with `dry_run=True`.
 """
 import json
 
 import pytest
 
 from app.agent import tools as tools_module
+from app.agent.tools import TOOLS
 
-query_iot_data = tools_module.query_iot_data.func
-get_device_state = tools_module.get_device_state.func
-control_device = tools_module.control_device.func
+query_iot_data = TOOLS["query_iot_data"]["callable"]
+get_device_state = TOOLS["get_device_state"]["callable"]
+control_device = TOOLS["control_device"]["callable"]
 
 
 @pytest.fixture(autouse=True)

@@ -31,10 +31,11 @@ Tuya Cloud API
                                                        │             │
                                      ┌─────────────────▼──┐   ┌──────▼───────────────┐
                                      │  Streamlit          │   │  AI agent            │
-                                     │  dashboard          │◀─▶│  (Anthropic Tool     │
-                                     │  (live device charts│   │  Runner): query_iot   │
-                                     │  + chat panel)      │   │  _data, get_device_   │
-                                     └─────────────────────┘   │  state, control_device│
+                                     │  dashboard          │◀─▶│  (Gemini free tier,  │
+                                     │  (live device charts│   │  default):           │
+                                     │  + chat panel)      │   │  query_iot_data, get_ │
+                                     └─────────────────────┘   │  device_state,        │
+                                                                │  control_device       │
                                                                 │  (dry-run gated)      │
                                                                 └───────┬───────────────┘
                                                                         ▼
@@ -52,10 +53,14 @@ Tuya Cloud API
   Parquet (`app/data/marts/{hourly,daily}/`) and tables
   (`device_metrics_hourly`, `device_metrics_daily`) in the persistent
   `app/data/warehouse.duckdb`.
-- **AI agent** (`app/agent/`) — an Anthropic Tool Runner agent with three
-  tools: `query_iot_data` (read-only SQL over the marts), `get_device_state`
-  (latest reading for a named device), and `control_device` (turn a device
-  on/off, guarded by a **dry-run flag**).
+- **AI agent** (`app/agent/`) — runs by default against **Google's Gemini
+  API** (free tier via an AI Studio key), through a provider abstraction that
+  can also be pointed at a local, keyless open-weight model via Ollama, or at
+  Anthropic. Three tools: `query_iot_data` (read-only SQL over the marts),
+  `get_device_state` (latest reading for a named device), and
+  `control_device` (turn a device on/off, guarded by a **dry-run flag**). Note:
+  with the Gemini provider, prompts (and tool schemas/results) are sent to
+  Google's API.
 - **Dashboard** (`app/dashboard/`) — Streamlit app with live charts from the
   gold marts and a chat panel wired to the agent, showing its SQL/tool-call
   trace inline.
@@ -71,9 +76,10 @@ app/
     ingestion.py                — raw_tuya_logs, staging_tuya_logs
     marts.py                     — gold_device_metrics (hourly/daily rollups)
   agent/
-    tools.py                     — @beta_tool: query_iot_data, get_device_state, control_device
+    tools.py                     — provider-neutral tool registry: query_iot_data, get_device_state, control_device
     tuya_control.py               — dry-run-safe Tuya command sending + device registry
-    agent.py                      — Anthropic Tool Runner agent (run_agent)
+    llm_provider.py                — LLM provider abstraction (Gemini default, Ollama/Anthropic optional)
+    agent.py                      — bounded tool-calling loop (run_agent)
   dashboard/
     app.py                        — Streamlit: live charts + AI chat panel
   data_ingestion/
@@ -104,8 +110,54 @@ Create a `.env` file in `app/` (gitignored) with:
 ACCESS_ID=<tuya cloud project access id>
 ACCESS_SECRET=<tuya cloud project access secret>
 API_ENDPOINT=<tuya regional API endpoint, e.g. https://openapi.tuyaus.com>
-ANTHROPIC_API_KEY=<anthropic api key>
 ```
+
+### AI agent — three interchangeable providers
+
+The agent is provider-neutral (`app/agent/llm_provider.py`); pick one via
+`LLM_PROVIDER`:
+
+| Provider | `LLM_PROVIDER` | Notes |
+|---|---|---|
+| **Gemini (default, recommended)** | `gemini` | Free tier via a Google AI Studio key. No local RAM/GPU needed. Prompts are sent to Google's API. |
+| Ollama | `ollama` | Fully local and keyless, but needs enough RAM to run the model and a one-time `ollama pull`. |
+| Anthropic | `anthropic` | Needs a paid Anthropic API key. |
+
+**Gemini (default) setup:**
+
+```bash
+# Get a free key at https://aistudio.google.com/apikey
+```
+
+Add to `app/.env`:
+
+```
+GEMINI_API_KEY=<your free ai studio key>
+```
+
+Relevant env vars (all optional):
+
+| Env var | Default | Purpose |
+|---|---|---|
+| `LLM_PROVIDER` | `gemini` | Selects the backend: `gemini` (default), `ollama`, or `anthropic`. |
+| `GEMINI_API_KEY` / `GOOGLE_API_KEY` | (none) | Free key from Google AI Studio; required for the default provider. |
+| `GEMINI_MODEL` | `gemini-2.5-flash` | Gemini model to use (must support tool/function calling). |
+| `OLLAMA_MODEL` | `qwen3:8b` | Ollama model to use (must support tool calling). |
+| `OLLAMA_HOST` | (Ollama's default) | Override if Ollama isn't on `localhost:11434`. |
+| `ANTHROPIC_API_KEY` | (none) | Required when `LLM_PROVIDER=anthropic`. |
+
+**Ollama (local, keyless) setup — set `LLM_PROVIDER=ollama` to use it:**
+
+```bash
+# 1. Install Ollama: https://ollama.com/download
+# 2. Start the Ollama server
+ollama serve
+# 3. Pull the default tool-calling model
+ollama pull qwen3:8b
+```
+
+**Anthropic setup — set `LLM_PROVIDER=anthropic` and add
+`ANTHROPIC_API_KEY=<anthropic api key>` to `.env`.**
 
 ## Running each surface
 
@@ -130,7 +182,10 @@ the agent — ask data questions in plain English, or issue a device control
 command. Device control is **dry-run by default**: the agent shows the exact
 command payload it would send, and only actuates a real device when
 explicitly run with `dry_run=False`, so a demo (or a hallucinated tool call)
-can never fire a command unintentionally.
+can never fire a command unintentionally. The charts always work; the chat
+panel shows friendly guidance if the selected provider isn't available (e.g.
+no `GEMINI_API_KEY` set, or Ollama isn't reachable / the model hasn't been
+pulled yet).
 
 **Tests:**
 
@@ -138,9 +193,9 @@ can never fire a command unintentionally.
 pytest app/tests/
 ```
 
-Runs the unit test suite (ingestion helpers, agent tools, mart aggregation
-SQL) entirely offline — no real Tuya or Anthropic calls are made, and no
-device commands are ever sent.
+Runs the unit test suite (ingestion helpers, agent tools, agent tool-calling
+loop, mart aggregation SQL) entirely offline — no real Tuya, Gemini, Ollama,
+or Anthropic calls are made, and no device commands are ever sent.
 
 ## Tech stack
 
@@ -151,6 +206,6 @@ device commands are ever sent.
 | Transformation | DuckDB (via dagster-duckdb) |
 | Storage | Parquet (staging/marts), JSON (raw), DuckDB (warehouse) |
 | IoT API | tuya-connector-python |
-| AI agent | Anthropic Python SDK (Tool Runner, `@beta_tool`) |
+| AI agent | Google Gemini (free tier, default); optional local Ollama or Anthropic providers |
 | Dashboard | Streamlit + Plotly |
 | Tests | pytest |
