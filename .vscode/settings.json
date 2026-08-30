@@ -1,12 +1,9 @@
 {
     "python.testing.pytestArgs": [
-        "tests_morpheus",
+        "app/tests",
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "pylint.args": [
-        "--rcfile=.pylintrc"
-    ],
     "pylint.importStrategy": "fromEnvironment",
     "files.exclude": {
         "**/.git": true,

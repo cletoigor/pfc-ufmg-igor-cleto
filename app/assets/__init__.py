@@ -1,0 +1,11 @@
+"""
+Dagster asset definitions for the Tuya IoT pipeline.
+"""
+from app.assets.ingestion import raw_tuya_logs, staging_tuya_logs
+from app.assets.marts import gold_device_metrics
+
+__all__ = [
+    "raw_tuya_logs",
+    "staging_tuya_logs",
+    "gold_device_metrics",
+]

@@ -2,7 +2,7 @@
 
 load_from:
   - python_module:
-      module_name: app.assets
+      module_name: app.definitions
       # Optional: Specify the attribute name if it's not 'defs'
       # attribute: defs
       # Optional: Give the code location a specific name
