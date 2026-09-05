@@ -10,15 +10,27 @@ Two areas:
      tool trace (the SQL it wrote, any device command it sent) inline, and
      gates real device actuation behind a "Dry run (safe)" toggle.
 
-Run with:  app/.venv/bin/streamlit run app/dashboard/app.py
+Run with:  app/.venv/bin/streamlit run app/dashboard/dashboard.py
 """
 import glob
 import json
 import os
+import sys
+
+# Streamlit only adds this script's own directory to sys.path, but the code
+# below imports the sibling `app` package (repo_root/app) — add repo root
+# (two levels up: dashboard/ -> app/ -> repo root) so that import resolves
+# regardless of the cwd the app is launched from.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import duckdb
 import plotly.express as px
 import streamlit as st
+
+from app.agent.agent import run_agent
+from app.agent.llm_provider import AnthropicProvider, GeminiProvider, OllamaProvider, get_provider
 
 # ---------------------------------------------------------------------------
 # Paths (mirrors the layout/fallback logic in app/agent/tools.py, kept
@@ -256,8 +268,6 @@ with chat_col:
     else:
         st.caption("⚠️ Dry run OFF — a control command will hit the real Tuya device.")
 
-    from app.agent.llm_provider import AnthropicProvider, GeminiProvider, OllamaProvider, get_provider
-
     provider = get_provider()
     provider_available = provider.is_available()
 
@@ -330,8 +340,6 @@ with chat_col:
         with st.chat_message("assistant"):
             with st.spinner("Thinking…"):
                 try:
-                    from app.agent.agent import run_agent
-
                     result = run_agent(
                         user_message,
                         dry_run=dry_run,

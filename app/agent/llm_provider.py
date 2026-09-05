@@ -52,6 +52,12 @@ Gemini shapes confirmed against the installed `google-genai==2.20.0` package
 """
 import os
 
+from dotenv import load_dotenv
+
+# Load app/.env explicitly so provider selection works regardless of the
+# process's cwd (e.g. the Streamlit dashboard, run from the repo root).
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
+
 
 class LLMResponse:
     """Normalized result of one `LLMProvider.chat()` call.

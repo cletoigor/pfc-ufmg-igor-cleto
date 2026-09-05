@@ -174,7 +174,7 @@ From the repo root. Materialize `raw_tuya_logs` → `staging_tuya_logs` →
 **Dashboard + AI chat:**
 
 ```bash
-streamlit run app/dashboard/app.py
+streamlit run app/dashboard/dashboard.py
 ```
 
 Shows live per-device charts from the gold marts and a chat panel backed by

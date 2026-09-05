@@ -71,7 +71,7 @@ Three provider-neutral tools registered in `agent/tools.py`'s `TOOLS` dict (plai
 
 ## Dashboard (`app/dashboard/`)
 
-Streamlit app (`streamlit run app/dashboard/app.py`): live per-device charts read from the gold marts (read-only DuckDB connection; always works, independent of the agent) plus a chat panel wired to `agent/agent.py`, showing the agent's tool-call trace (SQL it ran / commands it sent) inline. The chat input is gated on `get_provider().is_available()`; the guidance shown is provider-aware — for the default Gemini provider with no key: "Set GEMINI_API_KEY (free key from Google AI Studio: aistudio.google.com) to enable the agent."; for Ollama: "Local model not reachable. Install Ollama, run `ollama serve`, and `ollama pull qwen3:8b` (or set OLLAMA_MODEL)."; for Anthropic: "Set ANTHROPIC_API_KEY to enable the agent."
+Streamlit app (`streamlit run app/dashboard/dashboard.py`): live per-device charts read from the gold marts (read-only DuckDB connection; always works, independent of the agent) plus a chat panel wired to `agent/agent.py`, showing the agent's tool-call trace (SQL it ran / commands it sent) inline. The chat input is gated on `get_provider().is_available()`; the guidance shown is provider-aware — for the default Gemini provider with no key: "Set GEMINI_API_KEY (free key from Google AI Studio: aistudio.google.com) to enable the agent."; for Ollama: "Local model not reachable. Install Ollama, run `ollama serve`, and `ollama pull qwen3:8b` (or set OLLAMA_MODEL)."; for Anthropic: "Set ANTHROPIC_API_KEY to enable the agent."
 
 ## Key Tech Stack
 
