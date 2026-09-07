@@ -58,6 +58,11 @@ Tuya Cloud API
   overnight 00:00-06:00 on-time). Staging stores UTC; **the whole gold layer
   is local wall-clock time**, since every question asked of it ("during work
   hours", "overnight") means local time.
+- **Medallion schemas in the warehouse** — `warehouse.duckdb` organizes its
+  tables into `bronze` (raw Tuya logs, one-to-one with the JSON files),
+  `silver` (the cleaned/enriched staging rows), and `gold` (the marts above,
+  plus the energy marts below) schemas, so the raw → staging → mart lineage
+  is queryable directly in DuckDB, not just inferable from the pipeline code.
 - **AI agent** (`app/agent/`) — runs by default against **Google's Gemini
   API** (free tier via an AI Studio key), through a provider abstraction that
   can also be pointed at a local, keyless open-weight model via Ollama, or at
@@ -133,7 +138,7 @@ app/
     dashboard.py                  — Streamlit UI (retained as a fallback)
   data_ingestion/
     ingestion_utils.py            — Tuya API helper functions
-  device_mapping.json           — device_id → friendly name registry
+  device_mapping.json           — device_id → friendly name registry (anonymized for the public repo)
   tests/                        — pytest suite
   data/
     raw/  staging/  marts/        — pipeline data layers
