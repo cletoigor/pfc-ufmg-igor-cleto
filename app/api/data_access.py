@@ -50,12 +50,19 @@ MART_GLOBS = {
     "daily": os.path.join(_MARTS_DIR, "daily", "**", "*.parquet"),
     "intervals": os.path.join(_MARTS_DIR, "state_intervals", "**", "*.parquet"),
     "on_time": os.path.join(_MARTS_DIR, "on_time_daily", "**", "*.parquet"),
+    "power_hourly": os.path.join(_MARTS_DIR, "power_hourly", "**", "*.parquet"),
+    "power_daily": os.path.join(_MARTS_DIR, "power_daily", "**", "*.parquet"),
+    # The baseline has no time axis to partition on, so it is a single file.
+    "baseline": os.path.join(_MARTS_DIR, "cusum_baseline", "*.parquet"),
 }
 _MART_TABLES = {
     "hourly": "device_metrics_hourly",
     "daily": "device_metrics_daily",
     "intervals": "device_state_intervals",
     "on_time": "device_on_time_daily",
+    "power_hourly": "device_power_hourly",
+    "power_daily": "device_power_daily",
+    "baseline": "device_cusum_baseline",
 }
 
 
@@ -164,11 +171,21 @@ def load_metrics() -> dict:
 # Small formatting helpers
 # ---------------------------------------------------------------------------
 def humanize_minutes(minutes) -> str:
-    """3 h 20 m / 45 m / — for a duration in minutes."""
+    """45 m / 3 h 20 m / 3 d 13 h / — for a duration in minutes.
+
+    The unit follows the magnitude, because the same field is read over
+    windows from one day to the whole history: "85 h 10 m" for a month of
+    on-time makes the reader divide by 24 in their head, and the trailing
+    minutes are noise at that scale. Once a duration reaches a day it is
+    reported in days and hours, and the minutes are dropped.
+    """
     if minutes is None or pd.isna(minutes):
         return "—"
     minutes = int(round(float(minutes)))
-    hours, mins = divmod(minutes, 60)
+    days, rem = divmod(minutes, 1440)
+    hours, mins = divmod(rem, 60)
+    if days:
+        return f"{days} d {hours} h" if hours else f"{days} d"
     if hours and mins:
         return f"{hours} h {mins} m"
     if hours:
@@ -264,11 +281,15 @@ def _empty_overview(days, device_mapping: dict, reason: str) -> dict:
     }
 
 
-def build_overview(days=7, devices=None) -> dict:
+def build_overview(days=7, devices=None, start=None, end=None) -> dict:
     """Builds the `/api/overview` payload (see docs/api_contract.md).
 
     Args:
         days: window size in days, or None for all history.
+        start, end: an explicit inclusive date range, which overrides `days`
+            when given. "Yesterday" and a custom range cannot be expressed as a
+            trailing window, and the sidebar's period control drives every page,
+            so this endpoint accepts the same bounds the energy routes do.
         devices: optional iterable of friendly device names to filter
             `timeline`, `on_time` and the KPI sparklines by. `all_devices`
             and the `devices` status list are never filtered by this — the
@@ -307,11 +328,26 @@ def build_overview(days=7, devices=None) -> dict:
         )
 
     # --- window ---
-    window_start = latest_event - pd.Timedelta(days=days) if days else None
+    # An explicit range wins over the trailing one. `window_end` is exclusive
+    # and sits at the end of `end`'s day, so a single-date range covers that
+    # whole day rather than only midnight.
+    if start is not None or end is not None:
+        window_start = pd.Timestamp(start).normalize() if start is not None else None
+        window_end = (
+            pd.Timestamp(end).normalize() + pd.Timedelta(days=1) if end is not None else None
+        )
+    else:
+        window_start = latest_event - pd.Timedelta(days=days) if days else None
+        window_end = None
+
     window = {
-        "days": days,
+        "days": None if (start is not None or end is not None) else days,
         "start": _iso(window_start) if window_start is not None else None,
-        "end": _iso(latest_event),
+        "end": _iso(
+            min(latest_event, window_end - pd.Timedelta(seconds=1))
+            if window_end is not None
+            else latest_event
+        ),
     }
 
     # --- all_devices (never filtered by `devices` or `days`) ---
@@ -330,6 +366,9 @@ def build_overview(days=7, devices=None) -> dict:
         if window_start is not None:
             on_intervals = on_intervals[on_intervals["interval_end"] >= window_start]
             on_intervals["interval_start"] = on_intervals["interval_start"].clip(lower=window_start)
+        if window_end is not None:
+            on_intervals = on_intervals[on_intervals["interval_start"] < window_end]
+            on_intervals["interval_end"] = on_intervals["interval_end"].clip(upper=window_end)
         for _, row in on_intervals.sort_values("interval_start").iterrows():
             timeline_intervals.append({
                 "device": row["device_name"],
@@ -347,6 +386,8 @@ def build_overview(days=7, devices=None) -> dict:
             windowed = windowed[windowed["device_name"].isin(devices_filter)]
         if window_start is not None:
             windowed = windowed[windowed["event_day"] >= window_start.normalize()]
+        if window_end is not None:
+            windowed = windowed[windowed["event_day"] < window_end]
         if not windowed.empty:
             totals = (
                 windowed.groupby("device_name", as_index=False)["on_minutes"]

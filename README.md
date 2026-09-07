@@ -66,13 +66,45 @@ Tuya Cloud API
   `control_device` (turn a device on/off, guarded by a **dry-run flag**). Note:
   with the Gemini provider, prompts (and tool schemas/results) are sent to
   Google's API.
+- **Energy marts** (`gold_energy_metrics`) — the electrical side of the
+  warehouse, built from the `cur_power` / `cur_voltage` / `cur_current`
+  datapoints the plugs report: `device_power_hourly` and `device_power_daily`
+  (power, voltage and current statistics plus `energy_kwh`), and
+  `device_cusum_baseline`, the per-hour-of-day mean and sample standard
+  deviation that the control charts monitor against.
+- **Statistical process control** (`app/analysis/cusum.py`) — the multichannel
+  CUSUM scheme from chapter 3 of the monograph, as pure functions: 24 hourly
+  channels, `K = k·σ₀`, `H = h·σ₀`, and one pair of accumulators per channel so
+  a reading is judged against the same hour on other days.
+- **Scenes** (`app/scenes/`) — named sets of device actions, run by hand or
+  fired every minute by a Dagster job. Dry-run by default on both paths, with
+  the interactive gate and the unattended one kept deliberately separate.
 - **Web app** (`app/api/` + `app/web/`) — a Starlette API and a dependency-free
-  single-page UI: KPI tiles, a device on/off timeline, per-device on-time, and
-  an agent panel that **streams the agent's tool calls live over SSE** (the SQL
-  it writes, the payload it would send, how long each step took). Charts are
-  hand-drawn inline SVG — no charting library, no CDN, so nothing external can
-  fail while it is running. A Streamlit version is retained at
-  `app/dashboard/dashboard.py` as a fallback.
+  four-page UI: **House summary** (energy totals, top consumers, the house's
+  average day, the on/off timeline), **Device details** (power, daily energy,
+  the device's average day, and collapsible voltage and current sections with
+  time series and boxplots), **Advanced analysis** (the CUSUM chart with
+  adjustable k and h plus its fault log, average profiles per day of the week,
+  recent weeks against the historical mean, and power peaks) and
+  **Actuations** (per-device toggles with optimistic updates, and a three-step
+  scene wizard). A persistent agent panel **streams the agent's tool calls live
+  over SSE** (the SQL it writes, the payload it would send, how long each step
+  took). Charts are hand-drawn inline SVG — no charting library, no CDN, so
+  nothing external can fail while it is running. A Streamlit version is
+  retained at `app/dashboard/dashboard.py` as a fallback; it covers the on/off
+  view only.
+
+### Safety
+
+Three surfaces can actuate a physical device: the agent's `control_device`
+tool, the Actuations page's toggles and scene runs, and the unattended scene
+scheduler. All three are **dry-run by default**, and only an explicit
+non-default flag opens the gate — for the first two, a literal `dry_run: false`
+from the caller (the model can never set its own); for the scheduler, the
+separate environment variable `SCENE_EXECUTION_DRY_RUN=0`. Arming the dashboard
+does not arm the job that fires at 03:00 with nobody watching. Underneath all
+of them, `send_device_command` refuses to reach Tuya without credentials, so a
+misconfiguration fails closed rather than open.
 
 ## Repository layout
 

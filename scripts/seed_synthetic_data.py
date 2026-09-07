@@ -17,6 +17,12 @@ weekday work hours, the mosquito repellent dusk-to-dawn, the LED strip in the
 evening with a brightness ramp. A few "left on overnight" incidents are planted
 deliberately so anomaly questions have a real answer to find.
 
+Each device also reports the electrical datapoints a BL0937 smart plug does —
+`cur_power`, `cur_voltage`, `cur_current` — every 15 minutes while it is drawing
+current, which is what the energy marts and the CUSUM page are built on. One
+device carries a small persistent power drift (see POWER_DRIFT_DEVICE) so the
+statistical process control page has a genuine anomaly to detect.
+
 Usage:
     python scripts/seed_synthetic_data.py [--days 30] [--seed 20260910]
 
@@ -33,6 +39,7 @@ import json
 import os
 import random
 import shutil
+import zlib
 from collections import defaultdict
 from datetime import datetime, date, time, timedelta, timezone
 
@@ -49,6 +56,65 @@ STAGING_DIR = os.path.join(_APP_DIR, "data", "staging")
 MARTS_DIR = os.path.join(_APP_DIR, "data", "marts")
 
 INGESTED_BY = "synthetic_seed_script"
+
+# --- Electrical measurement model -------------------------------------------
+#
+# The plugs are BL0937-based Tuya smart plugs, which report three datapoints
+# alongside the switch state. Tuya's scaling for this chipset:
+#
+#   cur_power    0.1 W units  ("1740" -> 174.0 W)
+#   cur_voltage  0.1 V units  ("1272" -> 127.2 V)
+#   cur_current  mA           ("1450" -> 1450 mA)
+#
+# The house is served by CEMIG in Belo Horizonte, whose residential
+# distribution in Minas Gerais is 127 V (not the 220 V used in much of Brazil).
+NOMINAL_VOLTAGE_V = 127.0
+
+# Readings are emitted on this cadence for as long as a device is drawing
+# current. Tuya pushes consumption to the cloud roughly hourly, but the plugs
+# themselves report the DPs far more often; 15 minutes gives four samples per
+# hourly CUSUM channel, which is enough to average without bloating the raw
+# JSON.
+POWER_SAMPLE_INTERVAL = timedelta(minutes=15)
+
+# Per-device electrical signature while the device is on.
+#
+#   watts         nominal draw at full output
+#   power_factor  cos(phi) — resistive loads sit near 1, the fan motor lower
+#   scales_with   a datapoint code (0..100) that modulates the draw, so the
+#                 electrical story agrees with the mechanical one instead of
+#                 being an independent random walk
+#   floor         fraction of nominal drawn at the bottom of that 0..100 range
+#                 (an LED driver at 15% brightness still draws more than 15%)
+POWER_PROFILES = {
+    "Office Lamp": {"watts": 11.0, "power_factor": 0.95, "scales_with": None, "floor": 1.0},
+    "Office Outlet": {"watts": 140.0, "power_factor": 0.92, "scales_with": None, "floor": 1.0},
+    "Bedroom Fan": {
+        "watts": 55.0, "power_factor": 0.82, "scales_with": "fan_speed_percent", "floor": 0.35,
+    },
+    "Mosquito Repellent": {"watts": 5.0, "power_factor": 0.99, "scales_with": None, "floor": 1.0},
+    "LED Strip": {
+        "watts": 24.0, "power_factor": 0.90, "scales_with": "bright_value", "floor": 0.15,
+    },
+    "Living Room Switch": {"watts": 60.0, "power_factor": 0.95, "scales_with": None, "floor": 1.0},
+}
+
+# Day-to-day variation in a device's draw. This is the spread the CUSUM Phase I
+# baseline measures as sigma0, so the planted drift below is expressed as a
+# multiple of it rather than as a bare percentage.
+DAY_LEVEL_SPREAD = 0.06     # 6% of nominal, 1 sigma
+SAMPLE_NOISE_SPREAD = 0.02  # within-session ripple, deliberately smaller
+
+# Planted power anomaly: the office outlet starts drawing ~10% more than usual
+# — a failing power supply, a second monitor left plugged in — for the last
+# stretch of the window. At 6% day-to-day spread that is a shift of roughly
+# 1.7 sigma: comfortably inside a Shewhart 3-sigma chart's limits, and so
+# invisible to one, but a persistent bias that CUSUM accumulates past h=5
+# within about a day of readings. That contrast is the argument section 3.3.2
+# of the monograph makes for CUSUM, so the demo dataset has to contain it.
+POWER_DRIFT_DEVICE = "Office Outlet"
+POWER_DRIFT_DAYS_AGO = 8
+POWER_DRIFT_FACTOR = 1.10
 
 # Device profiles, keyed by the friendly name in device_mapping.json.
 #
@@ -183,6 +249,81 @@ def _heat_index(day: date) -> float:
     return max(0.0, min(1.0, 0.7 * seasonal + 0.3 * wobble))
 
 
+def _day_level_watts(device_name: str, day: date, base_seed: int, drift_days: set) -> float:
+    """The device's average draw for one local day, before within-session noise.
+
+    Drawn from a seed derived from (base_seed, device, day) rather than from the
+    shared session RNG, so power generation cannot shift the random sequence the
+    on/off sessions are drawn from — the switch-event stream stays byte-for-byte
+    identical to the dataset that existed before power was modelled — and a
+    day's level is the same however many times it is asked for.
+    """
+    profile = POWER_PROFILES[device_name]
+    seed = (base_seed * 1000003) ^ (day.toordinal() * 131) ^ zlib.crc32(device_name.encode())
+    level = profile["watts"] * (1 + random.Random(seed).gauss(0, DAY_LEVEL_SPREAD))
+    if device_name == POWER_DRIFT_DEVICE and day in drift_days:
+        level *= POWER_DRIFT_FACTOR
+    return max(0.1, level)
+
+
+def _modulation_at(extras: list, code: str, at: datetime, floor: float) -> float:
+    """Scales the draw by the most recent 0..100 reading of `code` before `at`.
+
+    A fan on 40% or a strip dimmed to 20% genuinely draws less, but not
+    proportionally less — both have a fixed overhead — hence the floor.
+    """
+    level = None
+    for dt, reading_code, value in extras:
+        if reading_code == code and dt <= at:
+            level = float(value)
+    if level is None:
+        return 1.0
+    return floor + (1.0 - floor) * max(0.0, min(100.0, level)) / 100.0
+
+
+def _power_readings(
+    device_name: str,
+    start: datetime,
+    end: datetime,
+    extras: list,
+    base_seed: int,
+    drift_days: set,
+):
+    """Emits (datetime, code, value) triples of cur_power/cur_voltage/cur_current.
+
+    The three are not sampled independently: voltage wanders around the grid
+    nominal, power follows the device's own profile, and current is *derived*
+    from the two via P = V * I * cos(phi). A reviewer who checks that the three
+    columns are physically consistent should find that they are.
+    """
+    profile = POWER_PROFILES[device_name]
+    scales_with = profile["scales_with"]
+    device_salt = zlib.crc32(device_name.encode())
+    readings = []
+
+    at = start
+    while at < end:
+        day_level = _day_level_watts(device_name, at.date(), base_seed, drift_days)
+        # Per-sample RNG, seeded by the timestamp, so a sample's value does not
+        # depend on how many samples happened to be drawn before it.
+        srng = random.Random((base_seed * 31 + int(at.timestamp())) ^ device_salt)
+
+        modulation = 1.0
+        if scales_with:
+            modulation = _modulation_at(extras, scales_with, at, profile["floor"])
+
+        power_w = max(0.1, day_level * modulation * (1 + srng.gauss(0, SAMPLE_NOISE_SPREAD)))
+        voltage_v = NOMINAL_VOLTAGE_V * (1 + srng.gauss(0, 0.012))
+        current_ma = power_w / (voltage_v * profile["power_factor"]) * 1000
+
+        readings.append((at, "cur_power", str(round(power_w * 10))))
+        readings.append((at, "cur_voltage", str(round(voltage_v * 10))))
+        readings.append((at, "cur_current", str(round(current_ma))))
+        at += POWER_SAMPLE_INTERVAL
+
+    return readings
+
+
 PROFILES = {
     "Office Lamp": {
         "switch_code": "switch_led",
@@ -234,6 +375,8 @@ def build_events(
     rng: random.Random,
     anomaly_days: set[date],
     now_local: datetime,
+    base_seed: int,
+    drift_days: set[date],
 ):
     """Returns a list of (datetime_utc, code, value) for one device.
 
@@ -259,8 +402,13 @@ def build_events(
                 continue
             events.append((start, switch_code, "true"))
             events.append((end, switch_code, "false"))
-            if profile["extras"]:
-                events.extend(profile["extras"](start, end, rng))
+            extras = profile["extras"](start, end, rng) if profile["extras"] else []
+            events.extend(extras)
+            # Electrical readings come last and off a separate RNG, so adding
+            # them leaves the session/extras draws above untouched.
+            events.extend(
+                _power_readings(device_name, start, end, extras, base_seed, drift_days)
+            )
 
     events = [e for e in events if e[0] <= now_local]
     events.sort(key=lambda e: e[0])
@@ -318,6 +466,7 @@ def main() -> None:
     today_local = now_local.date()
     days = [today_local - timedelta(days=n) for n in range(args.days - 1, -1, -1)]
     anomaly_days = {today_local - timedelta(days=n) for n in OVERNIGHT_ANOMALY_DAYS_AGO}
+    drift_days = {today_local - timedelta(days=n) for n in range(POWER_DRIFT_DAYS_AGO + 1)}
 
     # Wipe previous output so a re-seed is a clean replacement, not a merge.
     if os.path.isdir(RAW_DIR):
@@ -333,7 +482,9 @@ def main() -> None:
     total_files = 0
     for device_name in PROFILES:
         device_id = name_to_id[device_name]
-        events = build_events(device_name, days, rng, anomaly_days, now_local)
+        events = build_events(
+            device_name, days, rng, anomaly_days, now_local, args.seed, drift_days
+        )
         files = write_raw_files(device_id, events, ingestion_time_utc)
         total_events += len(events)
         total_files += files
@@ -343,7 +494,11 @@ def main() -> None:
         f"\nWrote {total_events} events across {total_files} files to {RAW_DIR}\n"
         f"Window: {days[0]} .. {days[-1]} (local {LOCAL_TZ})\n"
         f"Planted overnight anomalies on {ANOMALY_DEVICE}: "
-        f"{', '.join(str(d) for d in sorted(anomaly_days))}\n\n"
+        f"{', '.join(str(d) for d in sorted(anomaly_days))}\n"
+        f"Planted power drift on {POWER_DRIFT_DEVICE}: "
+        f"x{POWER_DRIFT_FACTOR} from {min(drift_days)} onwards "
+        f"(~{(POWER_DRIFT_FACTOR - 1) / DAY_LEVEL_SPREAD:.1f} sigma — invisible to a "
+        f"3-sigma Shewhart chart, detected by CUSUM)\n\n"
         "Next: dagster asset materialize -m app.definitions "
         "--select 'staging_tuya_logs,gold_device_metrics'"
     )

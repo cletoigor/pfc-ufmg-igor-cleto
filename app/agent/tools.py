@@ -36,6 +36,9 @@ MART_GLOBS = {
     "device_metrics_daily": os.path.join(_MARTS_DIR, "daily", "**", "*.parquet"),
     "device_state_intervals": os.path.join(_MARTS_DIR, "state_intervals", "**", "*.parquet"),
     "device_on_time_daily": os.path.join(_MARTS_DIR, "on_time_daily", "**", "*.parquet"),
+    "device_power_hourly": os.path.join(_MARTS_DIR, "power_hourly", "**", "*.parquet"),
+    "device_power_daily": os.path.join(_MARTS_DIR, "power_daily", "**", "*.parquet"),
+    "device_cusum_baseline": os.path.join(_MARTS_DIR, "cusum_baseline", "*.parquet"),
 }
 
 KNOWN_TABLES = tuple(MART_GLOBS)
@@ -143,6 +146,13 @@ def query_iot_data(sql: str) -> str:
       - device_on_time_daily (device_id, device_name, event_day, on_minutes,
         on_sessions, longest_session_minutes, overnight_on_minutes) — use this
         for questions about how long a device was on.
+      - device_power_hourly / device_power_daily (device_id, device_name,
+        event_hour/event_day, energy_kwh, power_w_mean/max/min,
+        voltage_v_mean/max/min, current_ma_mean/max/min) — use these for
+        questions about energy, consumption, cost or electrical readings.
+      - device_cusum_baseline (device_id, device_name, hour_of_day, mu0,
+        sigma0, n_obs) — the per-hour statistical baseline the control charts
+        monitor hourly energy against.
 
     Only SELECT/WITH/EXPLAIN/DESCRIBE/SHOW statements are accepted — no
     writes, DDL, ATTACH, or COPY.
@@ -326,9 +336,12 @@ TOOLS: dict[str, dict] = {
         "callable": query_iot_data,
         "description": (
             "Run a read-only DuckDB SQL query over the IoT metrics warehouse. "
-            "Query the device_metrics_hourly and device_metrics_daily tables "
-            "(columns: device_id, device_name, event_hour/event_day, event_count, "
-            "last_seen_at, on_event_count). Only SELECT/WITH/EXPLAIN/DESCRIBE/SHOW "
+            "For how LONG a device ran, query device_on_time_daily or "
+            "device_state_intervals. For how MUCH ENERGY it used, query "
+            "device_power_daily or device_power_hourly (energy_kwh, "
+            "power_w_mean/max/min, voltage_v_mean, current_ma_mean). For how "
+            "OFTEN it reported, query device_metrics_hourly / "
+            "device_metrics_daily. Only SELECT/WITH/EXPLAIN/DESCRIBE/SHOW "
             "statements are accepted — no writes, DDL, ATTACH, or COPY."
         ),
         "schema": {

@@ -32,9 +32,9 @@ Cloud platform. You know about exactly these {len(registry)} devices:
 
 {device_list}
 
-You have access to a DuckDB-backed metrics warehouse with four tables. All \
-timestamps in them are already in the devices' LOCAL time, so you can compare \
-hours of the day directly and never need a timezone conversion.
+You have access to a DuckDB-backed metrics warehouse. All timestamps in it are \
+already in the devices' LOCAL time, so you can compare hours of the day \
+directly and never need a timezone conversion.
 
 Event-count rollups (how often a device reported anything):
   - device_metrics_hourly(device_id, device_name, event_hour, event_count, last_seen_at, on_event_count)
@@ -50,6 +50,19 @@ for the periods a device was running.
 session is split across the two days it touches); `on_sessions` counts the \
 sessions that started that day; `longest_session_minutes` is the longest single \
 stretch; `overnight_on_minutes` is time on between 00:00 and 06:00.
+
+Energy tables (how much a device actually consumed) — prefer these for any \
+question about energy, consumption, kWh, watts, cost, or electrical readings:
+  - device_power_hourly(device_id, device_name, event_hour, energy_kwh, power_w_mean, power_w_max, power_w_min, voltage_v_mean, voltage_v_max, voltage_v_min, current_ma_mean, current_ma_max, current_ma_min, sample_count)
+  - device_power_daily(...) — the same rolled up per `event_day`, plus `peak_hour`.
+  - device_cusum_baseline(device_id, device_name, hour_of_day, mu0, sigma0, n_obs)
+      The Phase I statistical baseline: the mean and sample standard deviation \
+of hourly energy for each hour of the day, which the CUSUM control charts \
+monitor new readings against.
+
+Do not answer an energy question with on-time. "Which device used the most \
+energy" is `sum(energy_kwh)` from device_power_daily, not `sum(on_minutes)`: a \
+low-power device left on all night uses less than a heater running for an hour.
 
 `event_count` is the number of raw events recorded in that bucket; \
 `on_event_count` is a proxy for how many of those events turned the device on \

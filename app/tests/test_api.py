@@ -177,3 +177,218 @@ def test_agent_stream_emits_error_event_with_http_200_on_exception(monkeypatch, 
     kinds = [e[0] for e in events]
     assert kinds[-1] == "error"
     assert "overloaded" in events[-1][1]["message"].lower()
+
+
+# --- energy + analysis routes ---
+#
+# The autouse fixture above points every data path at an empty tmp dir, so
+# these assert the contract that matters most for a fresh clone: a page with no
+# warehouse behind it still gets a 200 and an empty-state payload to render,
+# never a 500.
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "/api/house/summary",
+        "/api/house/summary?days=30&devices=Lamp",
+        "/api/device/Lamp/summary",
+        "/api/analysis/cusum?device=Lamp",
+        "/api/analysis/profiles",
+        "/api/analysis/peaks",
+    ],
+)
+def test_energy_routes_return_200_and_an_empty_shape_with_no_data(client, url):
+    resp = client.get(url)
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["empty"] is True
+    assert body["empty_reason"]
+    assert body["source"] is None
+
+
+def test_device_summary_404s_for_a_device_that_is_not_in_the_mapping(client):
+    resp = client.get("/api/device/Toaster/summary")
+
+    assert resp.status_code == 404
+    assert "Unknown device" in resp.json()["empty_reason"]
+
+
+def test_cusum_requires_a_device(client):
+    resp = client.get("/api/analysis/cusum")
+
+    assert resp.status_code == 400
+    assert "device" in resp.json()["error"]
+
+
+@pytest.mark.parametrize("query", ["k=-1", "h=0", "h=-2"])
+def test_cusum_rejects_out_of_range_parameters(client, query):
+    resp = client.get(f"/api/analysis/cusum?device=Lamp&{query}")
+
+    assert resp.status_code == 400
+
+
+def test_cusum_echoes_the_parameters_it_ran_with(client, monkeypatch):
+    captured = {}
+
+    def _fake_build(device, k, h, days, start=None, end=None):
+        captured.update({"device": device, "k": k, "h": h, "days": days, "start": start, "end": end})
+        return {"empty": False, "device": device, "k": k, "h": h}
+
+    monkeypatch.setattr(server, "build_cusum", _fake_build)
+
+    body = client.get("/api/analysis/cusum?device=Lamp&k=0.25&h=3.5&days=14").json()
+
+    assert captured == {"device": "Lamp", "k": 0.25, "h": 3.5, "days": 14, "start": None, "end": None}
+    assert body["k"] == 0.25 and body["h"] == 3.5
+
+
+def test_unparseable_days_falls_back_to_the_default_rather_than_erroring(client):
+    assert client.get("/api/house/summary?days=banana").status_code == 200
+    assert client.get("/api/house/summary?days=all").status_code == 200
+
+
+def test_an_absolute_range_overrides_the_trailing_window(client, monkeypatch):
+    """"Yesterday" and a custom range cannot be expressed as a trailing window."""
+    captured = {}
+
+    def _fake(days=7, devices=None, start=None, end=None):
+        captured.update({"days": days, "start": start, "end": end})
+        return {"empty": True, "empty_reason": "x", "source": None}
+
+    monkeypatch.setattr(server, "build_house_summary", _fake)
+    client.get("/api/house/summary?days=7&start=2026-09-06&end=2026-09-06")
+
+    assert str(captured["start"]) == "2026-09-06"
+    assert str(captured["end"]) == "2026-09-06"
+
+
+def test_a_malformed_date_is_ignored_rather_than_erroring(client, monkeypatch):
+    captured = {}
+
+    def _fake(days=7, devices=None, start=None, end=None):
+        captured.update({"days": days, "start": start, "end": end})
+        return {"empty": True, "empty_reason": "x", "source": None}
+
+    monkeypatch.setattr(server, "build_house_summary", _fake)
+    resp = client.get("/api/house/summary?start=not-a-date")
+
+    assert resp.status_code == 200
+    assert captured == {"days": 7, "start": None, "end": None}
+
+
+# --- actuation: toggles and scenes ---
+
+
+@pytest.fixture
+def scenes_path(tmp_path, monkeypatch):
+    from app.scenes import store
+
+    path = str(tmp_path / "scheduled_scenes.json")
+    monkeypatch.setattr(store, "SCENES_PATH", path)
+    return path
+
+
+@pytest.fixture(autouse=True)
+def never_touch_tuya(monkeypatch):
+    """Belt and braces: no test in this file may reach the Tuya API."""
+    from app.agent import tuya_control
+
+    def _refuse(device_id, commands, *, dry_run=True):
+        assert dry_run is True, "a test tried to send a live Tuya command"
+        return {"dry_run": True, "device_id": device_id, "payload": {"commands": commands}}
+
+    monkeypatch.setattr(tuya_control, "send_device_command", _refuse)
+    # tuya_control reads the registry from its own module-level path, which the
+    # data_access isolation above does not cover, so point it at the same fake
+    # two-device mapping the rest of this file uses.
+    monkeypatch.setattr(tuya_control, "load_device_registry", lambda *a, **k: {"d1": "Lamp", "d2": "Fan"})
+
+
+def test_scenes_start_empty(client, scenes_path):
+    assert client.get("/api/scenes").json() == {"scenes": []}
+
+
+def test_creating_a_scene_returns_201_and_lists_it(client, scenes_path):
+    resp = client.post(
+        "/api/scenes",
+        json={
+            "name": "Evening wind-down",
+            "actions": {"Lamp": "off"},
+            "schedule": {"time": "22:30", "days_of_week": [0, 1, 2], "recurring": True},
+        },
+    )
+
+    assert resp.status_code == 201
+    scene = resp.json()
+    assert scene["id"] and scene["name"] == "Evening wind-down"
+
+    listed = client.get("/api/scenes").json()["scenes"]
+    assert [s["name"] for s in listed] == ["Evening wind-down"]
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        {"name": "", "actions": {"Lamp": "off"}},
+        {"name": "X", "actions": {}},
+        {"name": "X", "actions": {"Toaster": "off"}},           # not in the mapping
+        {"name": "X", "actions": {"Lamp": "explode"}},
+        {"name": "X", "actions": {"Lamp": "off"}, "schedule": {"time": "25:00", "days_of_week": [0]}},
+    ],
+)
+def test_invalid_scenes_are_rejected_with_400(client, scenes_path, body):
+    resp = client.post("/api/scenes", json=body)
+
+    assert resp.status_code == 400
+    assert resp.json()["error"]
+
+
+def test_deleting_a_scene(client, scenes_path):
+    scene_id = client.post(
+        "/api/scenes", json={"name": "X", "actions": {"Lamp": "off"}}
+    ).json()["id"]
+
+    assert client.delete(f"/api/scenes/{scene_id}").status_code == 200
+    assert client.delete(f"/api/scenes/{scene_id}").status_code == 404
+    assert client.get("/api/scenes").json()["scenes"] == []
+
+
+def test_running_an_unknown_scene_is_a_404(client, scenes_path):
+    assert client.post("/api/scenes/nope/run", json={}).status_code == 404
+
+
+def test_running_a_scene_is_dry_run_unless_the_caller_arms_it(client, scenes_path):
+    """The safety gate: only an explicit `dry_run: false` sends anything."""
+    scene_id = client.post(
+        "/api/scenes", json={"name": "X", "actions": {"Lamp": "off"}}
+    ).json()["id"]
+
+    assert client.post(f"/api/scenes/{scene_id}/run", json={}).json()["dry_run"] is True
+    assert (
+        client.post(f"/api/scenes/{scene_id}/run", json={"dry_run": True}).json()["dry_run"]
+        is True
+    )
+    # Anything that is not literally false leaves the gate closed.
+    for value in ("false", 0, None, "no"):
+        assert (
+            client.post(f"/api/scenes/{scene_id}/run", json={"dry_run": value}).json()["dry_run"]
+            is True
+        ), f"{value!r} must not arm the command"
+
+
+def test_toggling_a_device_is_dry_run_by_default(client):
+    body = client.post("/api/devices/Lamp/toggle", json={"action": "off"}).json()
+
+    assert body["dry_run"] is True
+    assert body["action"] == "off"
+    assert body["payload"]["commands"][0]["value"] is False
+
+
+def test_toggle_rejects_an_unknown_action(client):
+    assert client.post("/api/devices/Lamp/toggle", json={"action": "spin"}).status_code == 400
+
+
+def test_toggle_404s_for_an_unknown_device(client):
+    assert client.post("/api/devices/Toaster/toggle", json={"action": "on"}).status_code == 404
