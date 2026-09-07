@@ -25,10 +25,20 @@ from app.agent.tuya_control import (
 
 _APP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WAREHOUSE_DB_PATH = os.path.join(_APP_DIR, "data", "warehouse.duckdb")
-MARTS_GLOB = os.path.join(_APP_DIR, "data", "marts", "**", "*.parquet")
 STAGING_GLOB = os.path.join(_APP_DIR, "data", "staging", "**", "*.parquet")
 
-KNOWN_TABLES = ("device_metrics_hourly", "device_metrics_daily")
+# One glob per mart. These must stay separate: the four marts have different
+# schemas, so a single `data/marts/**/*.parquet` glob would try to union
+# incompatible column sets.
+_MARTS_DIR = os.path.join(_APP_DIR, "data", "marts")
+MART_GLOBS = {
+    "device_metrics_hourly": os.path.join(_MARTS_DIR, "hourly", "**", "*.parquet"),
+    "device_metrics_daily": os.path.join(_MARTS_DIR, "daily", "**", "*.parquet"),
+    "device_state_intervals": os.path.join(_MARTS_DIR, "state_intervals", "**", "*.parquet"),
+    "device_on_time_daily": os.path.join(_MARTS_DIR, "on_time_daily", "**", "*.parquet"),
+}
+
+KNOWN_TABLES = tuple(MART_GLOBS)
 
 # Only allow read-only, single-statement SELECT/WITH/EXPLAIN/DESCRIBE queries.
 # Reject any statement that could mutate the database or the filesystem.
@@ -89,21 +99,22 @@ def _open_connection():
     if _warehouse_ready():
         return duckdb.connect(WAREHOUSE_DB_PATH, read_only=True), "warehouse", None
 
-    # Fall back to reading marts Parquet directly.
+    # Fall back to reading marts Parquet directly — one view per mart, since
+    # each has its own schema.
     import glob
 
-    if glob.glob(MARTS_GLOB, recursive=True):
+    available = {
+        table: pattern
+        for table, pattern in MART_GLOBS.items()
+        if glob.glob(pattern, recursive=True)
+    }
+    if available:
         conn = duckdb.connect(database=":memory:")
-        conn.execute(
-            f"CREATE VIEW device_metrics_hourly AS "
-            f"SELECT * FROM read_parquet('{MARTS_GLOB}', hive_partitioning=1) "
-            f"WHERE event_hour_date IS NOT NULL"
-        )
-        conn.execute(
-            f"CREATE VIEW device_metrics_daily AS "
-            f"SELECT * FROM read_parquet('{MARTS_GLOB}', hive_partitioning=1) "
-            f"WHERE event_day_date IS NOT NULL"
-        )
+        for table, pattern in available.items():
+            conn.execute(
+                f"CREATE VIEW {table} AS "
+                f"SELECT * FROM read_parquet('{pattern}', hive_partitioning=1)"
+            )
         return conn, "marts", None
 
     if glob.glob(STAGING_GLOB, recursive=True):
@@ -123,14 +134,22 @@ def _open_connection():
 def query_iot_data(sql: str) -> str:
     """Run a read-only DuckDB SQL query over the IoT metrics warehouse.
 
-    Query the `device_metrics_hourly` and `device_metrics_daily` tables
-    (columns: device_id, device_name, event_hour/event_day, event_count,
-    last_seen_at, on_event_count). Only SELECT/WITH/EXPLAIN/DESCRIBE/SHOW
-    statements are accepted — no writes, DDL, ATTACH, or COPY.
+    All timestamps are in the devices' local time. Available tables:
+      - device_metrics_hourly / device_metrics_daily (device_id, device_name,
+        event_hour/event_day, event_count, last_seen_at, on_event_count)
+      - device_state_intervals (device_id, device_name, interval_start,
+        interval_end, duration_minutes, is_on) — one row per contiguous
+        on/off stretch.
+      - device_on_time_daily (device_id, device_name, event_day, on_minutes,
+        on_sessions, longest_session_minutes, overnight_on_minutes) — use this
+        for questions about how long a device was on.
+
+    Only SELECT/WITH/EXPLAIN/DESCRIBE/SHOW statements are accepted — no
+    writes, DDL, ATTACH, or COPY.
 
     Args:
         sql: The read-only SQL query to run, e.g.
-            "SELECT device_name, sum(event_count) FROM device_metrics_daily GROUP BY 1".
+            "SELECT device_name, sum(on_minutes) FROM device_on_time_daily GROUP BY 1".
     """
     error = _reject_unsafe_sql(sql)
     if error:
@@ -214,21 +233,58 @@ def get_device_state(device_name: str) -> str:
     )
 
 
-def _action_to_commands(action: str) -> list[dict] | None:
+DEFAULT_SWITCH_CODE = "switch_1"
+
+
+def resolve_switch_code(device_id: str) -> str:
+    """The Tuya datapoint a device reports (and accepts) on/off through.
+
+    It is not the same for every device — the mapped devices use `switch_1`,
+    `switch_led` and `switch` — so a command addressed to a hardcoded
+    `switch_1` would silently do nothing on half of them. The gold layer
+    records the code each device actually uses (`device_state_intervals`), so
+    read it from there, falling back to the staging events and finally to the
+    most common code.
+    """
+    conn, mode, _ = _open_connection()
+    if conn is None:
+        return DEFAULT_SWITCH_CODE
+    try:
+        if mode == "staging":
+            query = (
+                "SELECT code FROM staging_events "
+                "WHERE device_id = ? AND code ILIKE 'switch%' "
+                "ORDER BY event_time DESC LIMIT 1"
+            )
+        else:
+            query = (
+                "SELECT switch_code FROM device_state_intervals "
+                "WHERE device_id = ? ORDER BY interval_start DESC LIMIT 1"
+            )
+        row = conn.execute(query, [device_id]).fetchone()
+        if row and row[0]:
+            return str(row[0])
+    except duckdb.Error:
+        pass  # older warehouse without the column, or no data — use the default
+    finally:
+        conn.close()
+    return DEFAULT_SWITCH_CODE
+
+
+def _action_to_commands(action: str, switch_code: str = DEFAULT_SWITCH_CODE) -> list[dict] | None:
     """Translates a simple action into a Tuya commands payload.
 
-    Uses the generic "switch_1" boolean code (the on/off switch code seen on
-    the mapped devices in the control notebook). "toggle" is treated as "on"
-    since the agent has no reliable live on/off state to flip from the
-    metrics layer (which records discrete events, not continuous state).
+    "toggle" is treated as "on" since the agent has no reliable live on/off
+    state to flip from the metrics layer (which records discrete events, not
+    continuous state).
     """
     normalized = action.strip().lower()
     if normalized in ("on", "ligar", "turn on", "turn_on"):
-        return [{"code": "switch_1", "value": True}]
+        return [{"code": switch_code, "value": True}]
     if normalized in ("off", "desligar", "turn off", "turn_off"):
-        return [{"code": "switch_1", "value": False}]
+        return [{"code": switch_code, "value": False}]
     if normalized in ("toggle", "alternar"):
-        return [{"code": "switch_1", "value": True}]
+        return [{"code": switch_code, "value": True}]
     return None
 
 
@@ -248,7 +304,7 @@ def control_device(device_name: str, action: str, dry_run: bool = True) -> str:
         known = ", ".join(sorted(registry.values()))
         return f"Unknown device '{device_name}'. Refusing to send a command. Known devices: {known}."
 
-    commands = _action_to_commands(action)
+    commands = _action_to_commands(action, resolve_switch_code(device_id))
     if commands is None:
         return f"Unknown action '{action}'. Supported actions: on, off, toggle."
 

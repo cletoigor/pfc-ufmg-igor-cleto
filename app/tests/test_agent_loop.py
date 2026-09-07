@@ -99,3 +99,90 @@ def test_run_agent_no_tool_calls_returns_plain_reply(monkeypatch):
     result = agent_module.run_agent("hello", dry_run=True)
     assert result["reply"] == "Hi there."
     assert result["tool_trace"] == []
+
+
+# --- progress callback (on_event) ---
+
+
+def test_run_agent_emits_progress_events(monkeypatch):
+    """The dashboard drives its live step display off these events."""
+    fake = FakeProvider()
+    monkeypatch.setattr(agent_module, "get_provider", lambda: fake)
+
+    events = []
+    result = agent_module.run_agent(
+        "turn on the led strip", dry_run=True, on_event=events.append
+    )
+
+    kinds = [e["type"] for e in events]
+    # Two model round-trips (tool call, then final answer) wrapping one tool call.
+    assert kinds == [
+        "model_call",
+        "tool_call_start",
+        "tool_call_end",
+        "model_call",
+        "done",
+    ]
+
+    start = events[1]
+    assert start["tool"] == "control_device"
+    assert start["input"]["device_name"] == "LED Strip"
+
+    end = events[2]
+    assert end["tool"] == "control_device"
+    assert end["is_error"] is False
+    assert isinstance(end["duration_ms"], int)
+
+    assert events[-1]["reply"] == result["reply"]
+
+
+def test_run_agent_trace_entries_carry_timing_and_error_flag(monkeypatch):
+    fake = FakeProvider()
+    monkeypatch.setattr(agent_module, "get_provider", lambda: fake)
+
+    result = agent_module.run_agent("turn on the led strip", dry_run=True)
+
+    entry = result["tool_trace"][0]
+    assert entry["is_error"] is False
+    assert isinstance(entry["duration_ms"], int)
+
+
+def test_run_agent_survives_a_raising_progress_callback(monkeypatch):
+    """Progress reporting must never be able to fail a turn."""
+    fake = FakeProvider()
+    monkeypatch.setattr(agent_module, "get_provider", lambda: fake)
+
+    def boom(_event):
+        raise RuntimeError("UI blew up")
+
+    result = agent_module.run_agent("turn on the led strip", dry_run=True, on_event=boom)
+
+    assert result["reply"] == "Done, turned it on (simulated)."
+    assert len(result["tool_trace"]) == 1
+
+
+def test_run_agent_flags_tool_errors_in_trace(monkeypatch):
+    """An unknown tool comes back as an error string, not an exception."""
+
+    class UnknownToolProvider(FakeProvider):
+        def chat(self, messages, tools):
+            self.calls += 1
+            if self.calls == 1:
+                return LLMResponse(
+                    assistant_message={"role": "assistant", "content": ""},
+                    tool_calls=[{"name": "no_such_tool", "arguments": {}}],
+                    reply_text="",
+                )
+            return LLMResponse(
+                assistant_message={"role": "assistant", "content": "Sorry."},
+                tool_calls=[],
+                reply_text="Sorry.",
+            )
+
+    monkeypatch.setattr(agent_module, "get_provider", lambda: UnknownToolProvider())
+
+    events = []
+    result = agent_module.run_agent("do something odd", on_event=events.append)
+
+    assert result["tool_trace"][0]["is_error"] is True
+    assert [e for e in events if e["type"] == "tool_call_end"][0]["is_error"] is True

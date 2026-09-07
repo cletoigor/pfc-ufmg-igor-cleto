@@ -73,6 +73,7 @@ def send_device_command(
                 "payload": {"commands": [...]},
                 "success": bool | None,   # None when dry_run
                 "response": dict | None,  # Tuya API response, when not dry_run
+                "error": str,             # only when the command could not be sent
             }
     """
     endpoint = TUYA_COMMANDS_ENDPOINT_TEMPLATE.format(device_id=device_id)
@@ -88,9 +89,47 @@ def send_device_command(
             "response": None,
         }
 
+    # A live send needs credentials. Report their absence as a normal
+    # unsuccessful outcome rather than a KeyError: this path is reachable from
+    # the dashboard by flipping one toggle, and a raw traceback rendered into
+    # the chat panel is a worse answer than a clear explanation.
+    missing = [
+        name
+        for name in ("ACCESS_ID", "ACCESS_SECRET", "API_ENDPOINT")
+        if not os.environ.get(name)
+    ]
+    if missing:
+        return {
+            "dry_run": False,
+            "device_id": device_id,
+            "endpoint": endpoint,
+            "payload": payload,
+            "success": False,
+            "response": None,
+            "error": (
+                "Tuya Cloud credentials are not configured "
+                f"(missing: {', '.join(missing)}), so the command was not sent. "
+                "The payload above is exactly what would have been delivered."
+            ),
+        }
+
     # Imported lazily so importing this module never requires the
     # tuya-connector-python package or Tuya credentials to be present.
-    from tuya_connector import TuyaOpenAPI
+    try:
+        from tuya_connector import TuyaOpenAPI
+    except ImportError:
+        return {
+            "dry_run": False,
+            "device_id": device_id,
+            "endpoint": endpoint,
+            "payload": payload,
+            "success": False,
+            "response": None,
+            "error": (
+                "The tuya-connector-python package is not installed, so the "
+                "command was not sent."
+            ),
+        }
 
     access_id = os.environ["ACCESS_ID"]
     access_secret = os.environ["ACCESS_SECRET"]

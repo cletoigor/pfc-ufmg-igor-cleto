@@ -13,6 +13,9 @@ Importing this module does NOT require a running Ollama server, an
 installed `anthropic` package, or any API key: the provider is constructed
 lazily inside `run_agent`, not at import time.
 """
+import time
+from typing import Callable
+
 from app.agent.llm_provider import get_provider
 from app.agent.tools import TOOLS, openai_tool_specs
 from app.agent.tuya_control import load_device_registry
@@ -29,18 +32,38 @@ Cloud platform. You know about exactly these {len(registry)} devices:
 
 {device_list}
 
-You have access to a DuckDB-backed metrics warehouse with two tables:
+You have access to a DuckDB-backed metrics warehouse with four tables. All \
+timestamps in them are already in the devices' LOCAL time, so you can compare \
+hours of the day directly and never need a timezone conversion.
+
+Event-count rollups (how often a device reported anything):
   - device_metrics_hourly(device_id, device_name, event_hour, event_count, last_seen_at, on_event_count)
   - device_metrics_daily(device_id, device_name, event_day, event_count, last_seen_at, on_event_count)
+
+Duration tables (how long a device was actually on) — prefer these for any \
+question about time spent on, usage, or "how long":
+  - device_state_intervals(device_id, device_name, interval_start, interval_end, duration_minutes, is_on)
+      One row per contiguous stretch in a single state. Filter `WHERE is_on` \
+for the periods a device was running.
+  - device_on_time_daily(device_id, device_name, event_day, on_minutes, on_sessions, longest_session_minutes, overnight_on_minutes)
+      Per device per day. `on_minutes` is total time on that day (an overnight \
+session is split across the two days it touches); `on_sessions` counts the \
+sessions that started that day; `longest_session_minutes` is the longest single \
+stretch; `overnight_on_minutes` is time on between 00:00 and 06:00.
 
 `event_count` is the number of raw events recorded in that bucket; \
 `on_event_count` is a proxy for how many of those events turned the device on \
 (a count of switch-like state changes reporting true); `last_seen_at` is the \
 timestamp of the most recent event in that bucket.
 
-For any question about historical usage, trends, counts, or "when was X last \
-seen", write a DuckDB SQL query and call the `query_iot_data` tool — prefer \
-aggregating in SQL over pulling raw rows. For "what's the current/last state \
+Note that some devices are *supposed* to run overnight (a mosquito repellent, a \
+fan), so a high `overnight_on_minutes` is only interesting when it is unusual \
+for that particular device — compare a day against that device's own typical \
+value rather than flagging every device that was on at night.
+
+For any question about historical usage, trends, counts, durations, or "when \
+was X last seen", write a DuckDB SQL query and call the `query_iot_data` tool — \
+prefer aggregating in SQL over pulling raw rows. For "what's the current/last state \
 of device X" questions, prefer `get_device_state`. For instructions to \
 actuate a device ("turn on the fan", "desligue a fita de led"), map the \
 device's friendly name and the requested action ("on"/"off"/"toggle") and \
@@ -48,7 +71,16 @@ call `control_device`. Only ever refer to devices from the list above — if \
 the user names something not on the list, say so instead of guessing an ID.
 
 Be concise. When you report the result of a SQL query or a device command, \
-summarize it in plain language for the user rather than dumping raw JSON."""
+summarize it in plain language for the user rather than dumping raw JSON.
+
+IMPORTANT — never overstate what a device command did. `control_device` \
+returns a result containing a `dry_run` flag. When `dry_run` is true the \
+command was NOT sent and the device did NOT change: say so explicitly (e.g. \
+"Dry run is on, so I prepared the command but didn't send it — the LED Strip \
+is unchanged"), and never phrase it as though the device was actually \
+switched. If the result contains an `error` field, report that the command \
+failed and why. Only state that a device was actually turned on or off when \
+`dry_run` is false and `success` is true."""
 
 
 def _dispatch_tool_call(name: str, arguments: dict, *, dry_run: bool) -> str:
@@ -73,7 +105,13 @@ def _dispatch_tool_call(name: str, arguments: dict, *, dry_run: bool) -> str:
         return f"Error: invalid arguments for tool '{name}': {e}"
 
 
-def run_agent(user_message: str, *, dry_run: bool = True, history: list | None = None) -> dict:
+def run_agent(
+    user_message: str,
+    *,
+    dry_run: bool = True,
+    history: list | None = None,
+    on_event: Callable[[dict], None] | None = None,
+) -> dict:
     """Runs one turn of the home-automation copilot to completion.
 
     Args:
@@ -87,10 +125,29 @@ def run_agent(user_message: str, *, dry_run: bool = True, history: list | None =
         history: Optional prior conversation as a list of message dicts
             (provider-native shape), to continue a multi-turn conversation.
             A copy is used and extended; the caller's list is not mutated.
+        on_event: Optional progress callback, invoked as the turn unfolds so a
+            UI can show what the agent is doing instead of a single opaque
+            spinner across up to MAX_ITERATIONS round-trips. Receives dicts:
+              {"type": "model_call", "iteration": int}
+              {"type": "tool_call_start", "tool": str, "input": dict}
+              {"type": "tool_call_end", "tool": str, "output": str,
+               "duration_ms": int, "is_error": bool}
+              {"type": "done", "reply": str}
+            A raising callback must not break the run, so exceptions from it are
+            swallowed — progress reporting is never worth failing a turn over.
 
     Returns:
-        {"reply": <final assistant text>, "tool_trace": [{"tool": name, "input": ..., "output": ...}, ...]}
+        {"reply": <final assistant text>,
+         "tool_trace": [{"tool", "input", "output", "duration_ms", "is_error"}, ...]}
     """
+    def emit(event: dict) -> None:
+        if on_event is None:
+            return
+        try:
+            on_event(event)
+        except Exception:  # pylint: disable=broad-except
+            pass
+
     # Constructed lazily so a missing/unset API key or unreachable Ollama
     # never breaks import — only calling run_agent() touches the network.
     provider = get_provider()
@@ -104,7 +161,8 @@ def run_agent(user_message: str, *, dry_run: bool = True, history: list | None =
     tool_trace = []
     reply_text = ""
 
-    for _ in range(MAX_ITERATIONS):
+    for iteration in range(MAX_ITERATIONS):
+        emit({"type": "model_call", "iteration": iteration + 1})
         response = provider.chat(messages, tools)
         messages.append(response.assistant_message)
         reply_text = response.reply_text
@@ -114,11 +172,37 @@ def run_agent(user_message: str, *, dry_run: bool = True, history: list | None =
 
         results = []
         for call in response.tool_calls:
-            output = _dispatch_tool_call(call["name"], call.get("arguments", {}), dry_run=dry_run)
+            name = call["name"]
+            arguments = call.get("arguments", {})
+            emit({"type": "tool_call_start", "tool": name, "input": arguments})
+
+            started = time.monotonic()
+            output = _dispatch_tool_call(name, arguments, dry_run=dry_run)
+            duration_ms = int((time.monotonic() - started) * 1000)
+
+            # `_dispatch_tool_call` reports failures as a string rather than
+            # raising (the model needs to see them as tool results), so the
+            # prefix is the only signal a UI has to style them differently.
+            is_error = isinstance(output, str) and output.startswith("Error:")
+
+            emit({
+                "type": "tool_call_end",
+                "tool": name,
+                "output": output,
+                "duration_ms": duration_ms,
+                "is_error": is_error,
+            })
+
             entry = dict(call)
             entry["output"] = output
             results.append(entry)
-            tool_trace.append({"tool": call["name"], "input": call.get("arguments", {}), "output": output})
+            tool_trace.append({
+                "tool": name,
+                "input": arguments,
+                "output": output,
+                "duration_ms": duration_ms,
+                "is_error": is_error,
+            })
 
         messages.extend(provider.format_tool_results(results))
     else:
@@ -129,4 +213,5 @@ def run_agent(user_message: str, *, dry_run: bool = True, history: list | None =
                 "calls. Please try rephrasing your request."
             )
 
+    emit({"type": "done", "reply": reply_text})
     return {"reply": reply_text, "tool_trace": tool_trace}

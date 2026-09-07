@@ -210,3 +210,67 @@ def test_run_agent_through_gemini_populates_tool_trace_and_enforces_dry_run(monk
     # The fake model asked for dry_run=False; the caller passed dry_run=True —
     # the loop must force True regardless (provider-agnostic safety gate).
     assert output["dry_run"] is True
+
+
+# --- model failover on transient errors ---
+
+
+class _FakeTransientError(Exception):
+    """Mimics google.genai's ServerError, which carries a `code` attribute."""
+
+    def __init__(self, code):
+        super().__init__(f"{code} UNAVAILABLE")
+        self.code = code
+
+
+class _FakeClient:
+    """Fails the named models with `code`, succeeds for anything else."""
+
+    def __init__(self, failing: set, code=503):
+        self.failing = failing
+        self.code = code
+        self.attempts = []
+        self.models = self
+
+    def generate_content(self, *, model, contents, config):
+        self.attempts.append(model)
+        if model in self.failing:
+            raise _FakeTransientError(self.code)
+        return f"response-from-{model}"
+
+
+def test_gemini_falls_over_to_the_next_model_when_one_is_overloaded():
+    provider = GeminiProvider(model="gemini-3.8-flash")
+    client = _FakeClient(failing={"gemini-3.8-flash", "gemini-3.7-flash"})
+
+    result = provider._generate_with_failover(client, contents=[], config=None)
+
+    assert result == "response-from-gemini-3.5-flash"
+    assert client.attempts == [
+        "gemini-3.8-flash",
+        "gemini-3.7-flash",
+        "gemini-3.5-flash",
+    ]
+    # The working model sticks for the rest of the conversation.
+    assert provider.active_model == "gemini-3.5-flash"
+
+
+def test_gemini_failover_does_not_retry_a_non_transient_error():
+    """A 400/404 is a real bug — surface it instead of masking it as capacity."""
+    provider = GeminiProvider(model="gemini-3.8-flash")
+    client = _FakeClient(failing={"gemini-3.8-flash"}, code=404)
+
+    with pytest.raises(_FakeTransientError):
+        provider._generate_with_failover(client, contents=[], config=None)
+
+    assert client.attempts == ["gemini-3.8-flash"]
+
+
+def test_gemini_failover_raises_when_every_model_is_unavailable():
+    provider = GeminiProvider(model="gemini-3.8-flash")
+    client = _FakeClient(failing=set(GeminiProvider.FALLBACK_MODELS))
+
+    with pytest.raises(RuntimeError, match="currently unavailable"):
+        provider._generate_with_failover(client, contents=[], config=None)
+
+    assert len(client.attempts) == len(GeminiProvider.FALLBACK_MODELS)

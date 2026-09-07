@@ -1,21 +1,24 @@
 """
 Streamlit dashboard: the filmable surface for the home-IoT AI copilot.
 
-Two areas:
-  1. Data view — per-device activity charts + "last seen" tiles, read from
+Three areas:
+  1. A KPI strip — the headline numbers, so the page opens on facts rather
+     than on a chart that has to be read.
+  2. Data view — a device on/off timeline and per-device on-time, read from
      the persistent DuckDB warehouse (falling back to the marts/staging
      Parquet layers, and to a friendly empty-state card if nothing has been
      ingested yet).
-  2. AI chat panel — wired to `app.agent.agent.run_agent`. Shows the agent's
-     tool trace (the SQL it wrote, any device command it sent) inline, and
-     gates real device actuation behind a "Dry run (safe)" toggle.
+  3. AI chat panel — wired to `app.agent.agent.run_agent`. Streams the agent's
+     progress live (which tool it is calling, and how long each took), shows
+     the SQL it wrote and any device command it produced, and gates real
+     device actuation behind a "Dry run" switch.
 
 Run with:  app/.venv/bin/streamlit run app/dashboard/dashboard.py
 """
-import glob
 import json
 import os
 import sys
+from datetime import timedelta
 
 # Streamlit only adds this script's own directory to sys.path, but the code
 # below imports the sibling `app` package (repo_root/app) — add repo root
@@ -25,26 +28,76 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__f
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-import duckdb
+import pandas as pd
 import plotly.express as px
 import streamlit as st
 
 from app.agent.agent import run_agent
 from app.agent.llm_provider import AnthropicProvider, GeminiProvider, OllamaProvider, get_provider
+from app.api.data_access import (
+    friendly_agent_error,
+    humanize_minutes,
+    load_device_mapping as _load_device_mapping,
+    load_metrics as _load_metrics,
+    relative_time,
+)
 
 # ---------------------------------------------------------------------------
-# Paths (mirrors the layout/fallback logic in app/agent/tools.py, kept
-# independent here so this module has no import-time dependency beyond
-# app.agent.agent.run_agent for the chat panel).
+# Palette. Single accent for data marks: every chart here plots one measure,
+# and identity is carried by the axis label, so a per-device rainbow would
+# double-encode what the axis already says. Status hues are reserved for state
+# (a device being on, the safety gate being armed) and never used as a series.
 # ---------------------------------------------------------------------------
-_DASHBOARD_DIR = os.path.dirname(os.path.abspath(__file__))
-_APP_DIR = os.path.dirname(_DASHBOARD_DIR)
+PALETTE = {
+    "series": "#3987e5",
+    "surface": "#1a1a19",
+    "plane": "#0d0d0d",
+    "ink": "#ffffff",
+    "ink_secondary": "#c3c2b7",
+    "muted": "#898781",
+    "grid": "#2c2c2a",
+    "axis": "#383835",
+    "good": "#0ca30c",
+    "warning": "#fab219",
+    "critical": "#d03b3b",
+}
 
-WAREHOUSE_DB_PATH = os.path.join(_APP_DIR, "data", "warehouse.duckdb")
-MARTS_HOURLY_GLOB = os.path.join(_APP_DIR, "data", "marts", "hourly", "**", "*.parquet")
-MARTS_DAILY_GLOB = os.path.join(_APP_DIR, "data", "marts", "daily", "**", "*.parquet")
-STAGING_GLOB = os.path.join(_APP_DIR, "data", "staging", "**", "*.parquet")
-DEVICE_MAPPING_PATH = os.path.join(_APP_DIR, "device_mapping.json")
+FONT_STACK = 'system-ui, -apple-system, "Segoe UI", sans-serif'
+
+
+def style_figure(fig, *, height: int):
+    """Applies the shared chart chrome: transparent surface, hairline grid,
+    recessive axes, no legend (every chart here is single-series)."""
+    fig.update_layout(
+        height=height,
+        margin=dict(l=8, r=8, t=8, b=8),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family=FONT_STACK, color=PALETTE["ink_secondary"], size=13),
+        showlegend=False,
+        hoverlabel=dict(
+            bgcolor=PALETTE["surface"],
+            bordercolor=PALETTE["axis"],
+            font=dict(family=FONT_STACK, color=PALETTE["ink"]),
+        ),
+    )
+    fig.update_xaxes(
+        showgrid=True,
+        gridcolor=PALETTE["grid"],
+        gridwidth=1,
+        linecolor=PALETTE["axis"],
+        zeroline=False,
+        tickfont=dict(color=PALETTE["muted"]),
+        title=None,
+    )
+    fig.update_yaxes(
+        showgrid=False,
+        linecolor=PALETTE["axis"],
+        zeroline=False,
+        tickfont=dict(color=PALETTE["muted"]),
+        title=None,
+    )
+    return fig
 
 
 # ---------------------------------------------------------------------------
@@ -53,139 +106,166 @@ DEVICE_MAPPING_PATH = os.path.join(_APP_DIR, "device_mapping.json")
 @st.cache_data(show_spinner=False)
 def load_device_mapping() -> dict:
     """device_id -> friendly name, loaded from app/device_mapping.json."""
-    try:
-        with open(DEVICE_MAPPING_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {}
+    return _load_device_mapping()
+
+
+@st.cache_resource(show_spinner=False)
+def cached_provider():
+    """The provider is constructed once per session rather than per rerun.
+
+    `is_available()` can make a network call (Ollama's `client.list()`), and
+    every widget interaction reruns this script top-to-bottom — checking on
+    each rerun made the whole page wait on that probe.
+    """
+    return get_provider()
 
 
 @st.cache_data(ttl=30, show_spinner=False)
 def load_metrics() -> dict:
-    """Loads per-device hourly/daily rollups, trying each layer in order.
+    """Loads the gold tables, trying each storage layer in order.
 
-    Returns {"source": "warehouse"|"marts"|"staging"|None,
-             "hourly": DataFrame|None, "daily": DataFrame|None,
+    Returns {"source": "warehouse"|"marts"|"staging (computed on the fly)"|None,
+             "hourly"/"daily"/"intervals"/"on_time": DataFrame|None,
              "error": str|None}.
     Never raises — a missing/partial data layer degrades gracefully to the
     next fallback, and if nothing is available at all, source is None so the
     caller can render the empty-state card.
+
+    Delegates to app.api.data_access.load_metrics (shared with the web API
+    backend); this wrapper only adds Streamlit's per-session cache.
     """
-    # 1) Persistent warehouse (read-only — never contends with Dagster's writer).
-    if os.path.exists(WAREHOUSE_DB_PATH):
-        try:
-            conn = duckdb.connect(WAREHOUSE_DB_PATH, read_only=True)
-            try:
-                tables = {
-                    row[0]
-                    for row in conn.execute(
-                        "SELECT table_name FROM information_schema.tables"
-                    ).fetchall()
-                }
-                if "device_metrics_hourly" in tables or "device_metrics_daily" in tables:
-                    hourly = (
-                        conn.execute(
-                            "SELECT * FROM device_metrics_hourly ORDER BY event_hour"
-                        ).df()
-                        if "device_metrics_hourly" in tables
-                        else None
-                    )
-                    daily = (
-                        conn.execute(
-                            "SELECT * FROM device_metrics_daily ORDER BY event_day"
-                        ).df()
-                        if "device_metrics_daily" in tables
-                        else None
-                    )
-                    return {"source": "warehouse", "hourly": hourly, "daily": daily, "error": None}
-            finally:
-                conn.close()
-        except duckdb.Error:
-            pass  # fall through to the Parquet fallbacks below
-
-    # 2) Gold marts Parquet (hourly/daily written directly by the mart asset).
-    has_hourly_marts = bool(glob.glob(MARTS_HOURLY_GLOB, recursive=True))
-    has_daily_marts = bool(glob.glob(MARTS_DAILY_GLOB, recursive=True))
-    if has_hourly_marts or has_daily_marts:
-        try:
-            conn = duckdb.connect(database=":memory:")
-            try:
-                hourly = (
-                    conn.execute(
-                        f"SELECT * FROM read_parquet('{MARTS_HOURLY_GLOB}', hive_partitioning=1) "
-                        "ORDER BY event_hour"
-                    ).df()
-                    if has_hourly_marts
-                    else None
-                )
-                daily = (
-                    conn.execute(
-                        f"SELECT * FROM read_parquet('{MARTS_DAILY_GLOB}', hive_partitioning=1) "
-                        "ORDER BY event_day"
-                    ).df()
-                    if has_daily_marts
-                    else None
-                )
-                return {"source": "marts", "hourly": hourly, "daily": daily, "error": None}
-            finally:
-                conn.close()
-        except duckdb.Error:
-            pass
-
-    # 3) Raw staging Parquet — no rollups exist yet, so compute a quick hourly
-    #    rollup on the fly (same shape as gold_device_metrics) just for the charts.
-    if glob.glob(STAGING_GLOB, recursive=True):
-        try:
-            conn = duckdb.connect(database=":memory:")
-            try:
-                hourly = conn.execute(
-                    f"""
-                    SELECT
-                        device_id,
-                        device_name,
-                        date_trunc('hour', event_time) AS event_hour,
-                        count(*) AS event_count,
-                        max(event_time) AS last_seen_at,
-                        count(*) FILTER (
-                            WHERE code ILIKE 'switch%' AND CAST(value AS VARCHAR) ILIKE 'true'
-                        ) AS on_event_count
-                    FROM read_parquet('{STAGING_GLOB}', hive_partitioning=1)
-                    GROUP BY device_id, device_name, event_hour
-                    ORDER BY event_hour
-                    """
-                ).df()
-                return {
-                    "source": "staging (computed on the fly)",
-                    "hourly": hourly,
-                    "daily": None,
-                    "error": None,
-                }
-            finally:
-                conn.close()
-        except duckdb.Error as e:
-            return {"source": None, "hourly": None, "daily": None, "error": str(e)}
-
-    return {"source": None, "hourly": None, "daily": None, "error": None}
+    return _load_metrics()
 
 
 # ---------------------------------------------------------------------------
 # Page setup
 # ---------------------------------------------------------------------------
-st.set_page_config(
-    page_title="Home IoT Copilot",
-    page_icon="🏠",
-    layout="wide",
+st.set_page_config(page_title="Home IoT Copilot", page_icon="🏠", layout="wide")
+
+st.markdown(
+    f"""
+    <style>
+      .block-container {{ padding-top: 2.2rem; max-width: 1500px; }}
+      /* Stat tiles and the device status cards share one card treatment. */
+      div[data-testid="stMetric"] {{
+        background: {PALETTE["surface"]};
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }}
+      div[data-testid="stMetricLabel"] p {{
+        color: {PALETTE["muted"]};
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }}
+      .device-card {{
+        background: {PALETTE["surface"]};
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+      }}
+      .device-card .name {{
+        color: {PALETTE["ink"]};
+        font-weight: 600;
+        font-size: 0.95rem;
+      }}
+      .device-card .meta {{
+        color: {PALETTE["muted"]};
+        font-size: 0.8rem;
+        margin-top: 2px;
+      }}
+      .state-dot {{
+        display: inline-block; width: 8px; height: 8px;
+        border-radius: 50%; margin-right: 7px; vertical-align: middle;
+      }}
+      .gate {{
+        border-radius: 10px; padding: 10px 14px; margin-bottom: 12px;
+        font-size: 0.87rem; font-weight: 600; letter-spacing: 0.01em;
+      }}
+      .gate-safe {{
+        background: rgba(12,163,12,0.10);
+        border: 1px solid rgba(12,163,12,0.45);
+        color: {PALETTE["good"]};
+      }}
+      .gate-armed {{
+        background: rgba(208,59,59,0.12);
+        border: 1px solid rgba(208,59,59,0.55);
+        color: {PALETTE["critical"]};
+      }}
+      .gate .sub {{
+        display: block; font-weight: 400; margin-top: 3px;
+        color: {PALETTE["ink_secondary"]};
+      }}
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
 st.title("🏠 Home IoT Copilot")
 st.caption(
-    "Live telemetry from six Tuya devices at home, ingested by a Dagster pipeline "
-    "and fronted by an AI agent that can answer questions in plain English — "
-    "and, with a real command, act on the devices themselves."
+    "Six Tuya smart-home devices, ingested by a Dagster pipeline into a DuckDB "
+    "warehouse, and fronted by an AI agent that answers questions in plain "
+    "English and can act on the devices — behind a dry-run safety gate."
 )
 
 device_mapping = load_device_mapping()
 metrics = load_metrics()
+
+intervals_df = metrics.get("intervals")
+on_time_df = metrics.get("on_time")
+daily_df = metrics.get("daily")
+hourly_df = metrics.get("hourly")
+
+has_durations = intervals_df is not None and not intervals_df.empty
+
+# The dataset is a fixed historical window, so "now" for the purposes of
+# freshness and current state is the newest event we have.
+latest_event = None
+for frame, column in ((intervals_df, "interval_end"), (hourly_df, "last_seen_at"),
+                      (daily_df, "last_seen_at")):
+    if frame is not None and not frame.empty and column in frame.columns:
+        latest_event = pd.Timestamp(frame[column].max())
+        break
+
+# ---------------------------------------------------------------------------
+# KPI strip
+# ---------------------------------------------------------------------------
+if metrics["source"] is not None:
+    kpi_cols = st.columns(4)
+
+    devices_reporting = 0
+    if latest_event is not None and intervals_df is not None and not intervals_df.empty:
+        recent = intervals_df[intervals_df["interval_end"] >= latest_event - timedelta(days=1)]
+        devices_reporting = recent["device_id"].nunique()
+    elif hourly_df is not None and not hourly_df.empty:
+        devices_reporting = hourly_df["device_id"].nunique()
+
+    kpi_cols[0].metric(
+        "Devices reporting", f"{devices_reporting} / {len(device_mapping) or '—'}"
+    )
+
+    total_events = None
+    for frame in (daily_df, hourly_df):
+        if frame is not None and not frame.empty and "event_count" in frame.columns:
+            total_events = int(frame["event_count"].sum())
+            break
+    kpi_cols[1].metric(
+        "Events ingested", f"{total_events:,}" if total_events is not None else "—"
+    )
+
+    on_time_latest_day = None
+    if on_time_df is not None and not on_time_df.empty:
+        last_day = on_time_df["event_day"].max()
+        on_time_latest_day = on_time_df[on_time_df["event_day"] == last_day]["on_minutes"].sum()
+    kpi_cols[2].metric("Total on-time, last day", humanize_minutes(on_time_latest_day))
+
+    kpi_cols[3].metric(
+        "Latest event",
+        latest_event.strftime("%d %b, %H:%M") if latest_event is not None else "—",
+        help="Newest event in the warehouse. All timestamps are local time.",
+    )
 
 data_col, chat_col = st.columns([3, 2], gap="large")
 
@@ -193,124 +273,300 @@ data_col, chat_col = st.columns([3, 2], gap="large")
 # Left: data view
 # ---------------------------------------------------------------------------
 with data_col:
-    st.subheader("Device activity")
-
     if metrics["source"] is None:
         with st.container(border=True):
             st.markdown("### No data yet")
             st.write(
                 "The warehouse and the marts/staging Parquet layers are all empty. "
-                "Run the Dagster pipeline first:"
+                "Seed the demo dataset and build the marts:"
             )
-            st.code("dagster dev   # then materialize tuya_processing_job", language="bash")
-            st.write("Once it has ingested at least one batch of events, refresh this page.")
+            st.code(
+                "python scripts/seed_synthetic_data.py\n"
+                "dagster asset materialize -m app.definitions \\\n"
+                "    --select 'staging_tuya_logs,gold_device_metrics'",
+                language="bash",
+            )
+            st.write("Then refresh this page.")
             if metrics["error"]:
                 st.caption(f"(diagnostic: {metrics['error']})")
     else:
-        st.caption(f"Data source: **{metrics['source']}**")
-
-        hourly_df = metrics.get("hourly")
-        daily_df = metrics.get("daily")
-
-        # Hourly is the finer-grained view, but past a few days of history it
-        # turns into an unreadable wall of spikes — fall back to daily once
-        # the hourly range spans more than 3 days (or if daily is all we have).
-        hourly_span_days = None
-        if hourly_df is not None and not hourly_df.empty:
-            hourly_span_days = (
-                hourly_df["event_hour"].max() - hourly_df["event_hour"].min()
-            ).total_seconds() / 86400
-
-        use_hourly = hourly_span_days is not None and hourly_span_days <= 3
-        chart_df, bucket_col, granularity_label = (
-            (hourly_df, "event_hour", "hourly")
-            if use_hourly
-            else (daily_df, "event_day", "daily")
+        # --- Filters, in one row above the charts ---
+        known_devices = sorted(
+            set(device_mapping.values())
+            | (set(intervals_df["device_name"].dropna()) if has_durations else set())
         )
-        if chart_df is None or chart_df.empty:
-            chart_df, bucket_col, granularity_label = (hourly_df, "event_hour", "hourly")
+        filter_cols = st.columns([3, 2])
+        selected_devices = filter_cols[0].multiselect(
+            "Devices", known_devices, default=known_devices, placeholder="All devices"
+        )
+        if not selected_devices:
+            selected_devices = known_devices
 
-        if chart_df is None or chart_df.empty:
-            st.info("Data source is available but has no rows yet.")
-        else:
-            fig = px.line(
-                chart_df,
-                x=bucket_col,
-                y="event_count",
-                color="device_name",
-                markers=True,
-                title=f"Events per device ({granularity_label})",
-                labels={
-                    bucket_col: "Time",
-                    "event_count": "Event count",
-                    "device_name": "Device",
-                },
+        window_label = filter_cols[1].selectbox(
+            "Time range", ("Last 7 days", "Last 14 days", "Last 30 days", "All history"),
+            index=0,
+        )
+        window_days = {"Last 7 days": 7, "Last 14 days": 14, "Last 30 days": 30}.get(window_label)
+        window_start = (
+            latest_event - timedelta(days=window_days)
+            if (window_days and latest_event is not None)
+            else None
+        )
+
+        # --- Primary chart: on/off timeline ---
+        st.subheader("When each device was on")
+        if not has_durations:
+            st.info(
+                "The duration tables aren't built yet — rematerialize "
+                "`gold_device_metrics` to enable the timeline."
             )
-            fig.update_layout(legend_title_text="Device", height=420)
-            st.plotly_chart(fig, use_container_width=True)
+        else:
+            on_intervals = intervals_df[
+                intervals_df["is_on"] & intervals_df["device_name"].isin(selected_devices)
+            ].copy()
+            if window_start is not None:
+                on_intervals = on_intervals[on_intervals["interval_end"] >= window_start]
+                on_intervals["interval_start"] = on_intervals["interval_start"].clip(
+                    lower=window_start
+                )
 
-        # "Last seen" tiles, one per known device (friendly names from device_mapping.json).
-        st.subheader("Last seen")
-        last_seen_by_id = {}
-        source_df = hourly_df if hourly_df is not None and not hourly_df.empty else daily_df
-        last_seen_col = "last_seen_at"
-        if source_df is not None and not source_df.empty and last_seen_col in source_df.columns:
-            grouped = source_df.groupby("device_id")[last_seen_col].max()
-            last_seen_by_id = grouped.to_dict()
+            if on_intervals.empty:
+                st.info("No device activity in the selected range.")
+            else:
+                on_intervals["Duration"] = on_intervals["duration_minutes"].map(
+                    humanize_minutes
+                )
+                fig = px.timeline(
+                    on_intervals.sort_values("device_name", ascending=False),
+                    x_start="interval_start",
+                    x_end="interval_end",
+                    y="device_name",
+                    custom_data=["Duration"],
+                )
+                fig.update_traces(
+                    marker_color=PALETTE["series"],
+                    marker_line_width=0,
+                    hovertemplate=(
+                        "<b>%{y}</b><br>%{base|%a %d %b, %H:%M} → %{x|%H:%M}"
+                        "<br>on for %{customdata[0]}<extra></extra>"
+                    ),
+                )
+                style_figure(fig, height=300)
+                st.plotly_chart(fig, width="stretch")
+                st.caption(
+                    "Each bar is one continuous stretch with the device switched on."
+                )
 
-        tile_cols = st.columns(len(device_mapping) or 1)
-        for (device_id, friendly_name), col in zip(device_mapping.items(), tile_cols):
-            with col:
-                with st.container(border=True):
-                    st.markdown(f"**{friendly_name}**")
-                    last_seen = last_seen_by_id.get(device_id)
-                    if last_seen is None:
-                        st.caption("No events yet")
-                    else:
-                        st.write(str(last_seen))
+        # --- Secondary chart: total on-time per device ---
+        if on_time_df is not None and not on_time_df.empty:
+            st.subheader("Total time on")
+            windowed = on_time_df[on_time_df["device_name"].isin(selected_devices)]
+            if window_start is not None:
+                windowed = windowed[windowed["event_day"] >= window_start.normalize()]
+
+            if windowed.empty:
+                st.info("No on-time recorded in the selected range.")
+            else:
+                totals = (
+                    windowed.groupby("device_name", as_index=False)["on_minutes"]
+                    .sum()
+                    .sort_values("on_minutes")
+                )
+                totals["hours"] = totals["on_minutes"] / 60
+                totals["label"] = totals["on_minutes"].map(humanize_minutes)
+                bar = px.bar(
+                    totals, x="hours", y="device_name", orientation="h",
+                    text="label", custom_data=["label"],
+                )
+                bar.update_traces(
+                    marker_color=PALETTE["series"],
+                    marker_line_width=0,
+                    textposition="outside",
+                    textfont=dict(color=PALETTE["ink_secondary"], size=12),
+                    cliponaxis=False,
+                    hovertemplate="<b>%{y}</b><br>on for %{customdata[0]}<extra></extra>",
+                )
+                style_figure(bar, height=40 * len(totals) + 60)
+                bar.update_xaxes(
+                    title="hours",
+                    title_font=dict(color=PALETTE["muted"]),
+                    # Bug fix: the outside text label ("90 h 25 m") is drawn
+                    # past the end of its bar, so without headroom the
+                    # longest label gets clipped by the plot edge (this used
+                    # to render as "90 h 3"). 15% headroom over the longest
+                    # bar is enough for the widest label this dataset produces.
+                    range=[0, totals["hours"].max() * 1.15],
+                )
+                st.plotly_chart(bar, width="stretch")
+
+        # --- Device status tiles: 2 rows x 3 columns ---
+        st.subheader("Device status")
+        # Bug fix: on/off state still comes from the last state interval, but
+        # `last_seen` must come from device_metrics_daily.last_seen_at per
+        # device — device_state_intervals.interval_end is clipped to the same
+        # global max(event_time) for every device's final interval, so using
+        # it makes every device report an identical "just now".
+        current_state = {}
+        if has_durations:
+            newest = intervals_df.sort_values("interval_end").groupby("device_id").tail(1)
+            current_state = {
+                row["device_id"]: bool(row["is_on"]) for _, row in newest.iterrows()
+            }
+        last_seen_by_device = {}
+        if daily_df is not None and not daily_df.empty and "last_seen_at" in daily_df.columns:
+            last_seen_by_device = daily_df.groupby("device_id")["last_seen_at"].max().to_dict()
+        elif hourly_df is not None and not hourly_df.empty and "last_seen_at" in hourly_df.columns:
+            last_seen_by_device = hourly_df.groupby("device_id")["last_seen_at"].max().to_dict()
+
+        tile_items = list(device_mapping.items())
+        for row_start in range(0, len(tile_items), 3):
+            for col, (device_id, friendly_name) in zip(
+                st.columns(3), tile_items[row_start:row_start + 3]
+            ):
+                is_on = current_state.get(device_id)
+                last_seen = last_seen_by_device.get(device_id)
+                if is_on is None:
+                    dot, state_text = PALETTE["muted"], "no data"
+                elif is_on:
+                    dot, state_text = PALETTE["good"], "ON"
+                else:
+                    dot, state_text = PALETTE["muted"], "OFF"
+                col.markdown(
+                    f"""
+                    <div class="device-card">
+                      <div class="name">
+                        <span class="state-dot" style="background:{dot}"></span>{friendly_name}
+                      </div>
+                      <div class="meta">{state_text} · {relative_time(last_seen, now=latest_event)}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+        st.caption(
+            f"Data source: **{metrics['source']}** · timestamps in local time · "
+            "demo dataset generated by `scripts/seed_synthetic_data.py`"
+        )
 
 # ---------------------------------------------------------------------------
 # Right: AI chat panel
 # ---------------------------------------------------------------------------
+TOOL_LABELS = {
+    "query_iot_data": "Querying the warehouse",
+    "get_device_state": "Reading device state",
+    "control_device": "Preparing a device command",
+}
+
+SUGGESTED_PROMPTS = [
+    "Which device was on the longest this week?",
+    "Did anything unusual stay on overnight?",
+    "Turn off the LED strip",
+]
+
+
+def render_tool_trace(trace: list) -> None:
+    """Renders the agent's tool calls as numbered steps.
+
+    This is the part of the UI that shows the agent actually reasoning over the
+    warehouse — the SQL it wrote and the exact device payload it produced — so
+    it renders expanded, and query results become a table rather than raw JSON.
+    """
+    if not trace:
+        return
+    with st.expander(f"Agent steps ({len(trace)})", expanded=True):
+        for index, call in enumerate(trace, start=1):
+            label = TOOL_LABELS.get(call["tool"], call["tool"])
+            timing = f" · {call['duration_ms']} ms" if call.get("duration_ms") is not None else ""
+            marker = "⚠️" if call.get("is_error") else f"{index}."
+            st.markdown(f"**{marker} {label}** `{call['tool']}`{timing}")
+
+            tool_input = call.get("input") or {}
+            if "sql" in tool_input:
+                st.code(tool_input["sql"], language="sql")
+            elif tool_input:
+                st.json(tool_input, expanded=False)
+
+            output = call.get("output")
+            parsed = output
+            if isinstance(output, str):
+                try:
+                    parsed = json.loads(output)
+                except (json.JSONDecodeError, TypeError):
+                    parsed = None
+
+            if isinstance(parsed, dict) and "rows" in parsed and "columns" in parsed:
+                rows, columns = parsed.get("rows") or [], parsed.get("columns") or []
+                if rows:
+                    st.dataframe(
+                        pd.DataFrame(rows, columns=columns),
+                        width="stretch",
+                        hide_index=True,
+                    )
+                else:
+                    st.caption("Query returned no rows.")
+                if parsed.get("truncated"):
+                    st.caption("Results truncated to the first 200 rows.")
+            elif isinstance(parsed, dict) and "payload" in parsed:
+                # A device command. The payload is the point: it is exactly what
+                # would go to Tuya, and whether it was actually sent.
+                st.code(json.dumps(parsed["payload"], indent=2), language="json")
+                if parsed.get("dry_run"):
+                    st.caption("🔒 Dry run — this payload was **not** sent.")
+                elif parsed.get("error"):
+                    st.warning(parsed["error"])
+                elif parsed.get("success"):
+                    st.caption("✅ Sent to the Tuya API.")
+            elif parsed is not None:
+                st.json(parsed, expanded=False)
+            elif output:
+                st.text(output)
+
+            if index < len(trace):
+                st.divider()
+
+
 with chat_col:
     st.subheader("AI copilot")
 
-    dry_run = st.toggle("Dry run (safe)", value=True, key="dry_run_toggle")
+    dry_run = st.toggle("Dry run", value=True, key="dry_run_toggle")
     if dry_run:
-        st.caption("Dry run ON — device commands are simulated, nothing real is sent.")
+        st.markdown(
+            '<div class="gate gate-safe">🔒 SAFE — commands are simulated'
+            "<span class='sub'>The agent can compute a device command, but it is "
+            "never sent. The exact payload is shown instead.</span></div>",
+            unsafe_allow_html=True,
+        )
     else:
-        st.caption("⚠️ Dry run OFF — a control command will hit the real Tuya device.")
+        st.markdown(
+            '<div class="gate gate-armed">⚠️ ARMED — commands will be sent'
+            "<span class='sub'>A control request now reaches the real Tuya API. "
+            "The gate is enforced server-side: the model cannot turn it off "
+            "itself.</span></div>",
+            unsafe_allow_html=True,
+        )
 
-    provider = get_provider()
+    provider = cached_provider()
     provider_available = provider.is_available()
 
     if "agent_history" not in st.session_state:
-        st.session_state.agent_history = []  # Anthropic-format messages, fed back to run_agent
+        st.session_state.agent_history = []  # provider-format messages, fed back to run_agent
     if "display_turns" not in st.session_state:
         st.session_state.display_turns = []  # what we render: [{"role","text","tool_trace"}]
+
+    # Suggested prompts — one click beats typing, and they advertise the range
+    # of what the agent can do (query, anomaly reasoning, actuation).
+    if provider_available and not st.session_state.display_turns:
+        st.caption("Try asking:")
+        for i, prompt in enumerate(SUGGESTED_PROMPTS):
+            if st.button(prompt, key=f"suggest_{i}", width="stretch"):
+                st.session_state.pending_prompt = prompt
+                st.rerun()
 
     # Render prior turns.
     for turn in st.session_state.display_turns:
         with st.chat_message(turn["role"]):
             st.write(turn["text"])
-            if turn.get("tool_trace"):
-                with st.expander(f"🔧 Agent tool trace ({len(turn['tool_trace'])} call(s))"):
-                    for call in turn["tool_trace"]:
-                        st.markdown(f"**Tool:** `{call['tool']}`")
-                        tool_input = call.get("input") or {}
-                        if "sql" in tool_input:
-                            st.code(tool_input["sql"], language="sql")
-                        else:
-                            st.json(tool_input)
-                        output = call.get("output")
-                        if isinstance(output, str):
-                            try:
-                                st.json(json.loads(output))
-                            except (json.JSONDecodeError, TypeError):
-                                st.text(output)
-                        elif output is not None:
-                            st.json(output)
-                        st.divider()
+            render_tool_trace(turn.get("tool_trace") or [])
 
     if not provider_available:
         if isinstance(provider, GeminiProvider):
@@ -338,10 +594,11 @@ with chat_col:
             )
         st.info(guidance)
 
-    user_message = st.chat_input(
+    typed_message = st.chat_input(
         "Ask about the devices, or tell the agent to control one…",
         disabled=not provider_available,
     )
+    user_message = typed_message or st.session_state.pop("pending_prompt", None)
 
     if user_message:
         st.session_state.display_turns.append(
@@ -351,12 +608,28 @@ with chat_col:
             st.write(user_message)
 
         with st.chat_message("assistant"):
-            with st.spinner("Thinking…"):
+            # Live progress. `run_agent` makes up to MAX_ITERATIONS sequential
+            # model round-trips; without this the panel would sit on a single
+            # opaque spinner for the whole turn.
+            with st.status("Thinking…", expanded=True) as status:
+                def on_event(event: dict) -> None:
+                    kind = event["type"]
+                    if kind == "model_call":
+                        status.update(label=f"Thinking… (step {event['iteration']})")
+                    elif kind == "tool_call_start":
+                        label = TOOL_LABELS.get(event["tool"], event["tool"])
+                        status.update(label=label)
+                        st.write(f"→ {label}")
+                    elif kind == "tool_call_end":
+                        note = "failed" if event["is_error"] else f"{event['duration_ms']} ms"
+                        st.write(f"   ✓ {event['tool']} ({note})")
+
                 try:
                     result = run_agent(
                         user_message,
                         dry_run=dry_run,
                         history=st.session_state.agent_history,
+                        on_event=on_event,
                     )
                     reply = result.get("reply", "")
                     tool_trace = result.get("tool_trace", [])
@@ -367,30 +640,21 @@ with chat_col:
                     st.session_state.agent_history.append(
                         {"role": "assistant", "content": reply}
                     )
+                    status.update(label="Done", state="complete", expanded=False)
                 except Exception as e:  # pylint: disable=broad-except
-                    reply = f"The agent hit an error and couldn't complete this turn: {e}"
+                    reply = friendly_agent_error(e)
                     tool_trace = []
+                    status.update(label="Failed", state="error", expanded=False)
 
             st.write(reply)
-            if tool_trace:
-                with st.expander(f"🔧 Agent tool trace ({len(tool_trace)} call(s))"):
-                    for call in tool_trace:
-                        st.markdown(f"**Tool:** `{call['tool']}`")
-                        tool_input = call.get("input") or {}
-                        if "sql" in tool_input:
-                            st.code(tool_input["sql"], language="sql")
-                        else:
-                            st.json(tool_input)
-                        output = call.get("output")
-                        if isinstance(output, str):
-                            try:
-                                st.json(json.loads(output))
-                            except (json.JSONDecodeError, TypeError):
-                                st.text(output)
-                        elif output is not None:
-                            st.json(output)
-                        st.divider()
+            render_tool_trace(tool_trace)
 
         st.session_state.display_turns.append(
             {"role": "assistant", "text": reply, "tool_trace": tool_trace}
         )
+
+    if st.session_state.display_turns:
+        if st.button("Clear chat", width="stretch"):
+            st.session_state.agent_history = []
+            st.session_state.display_turns = []
+            st.rerun()

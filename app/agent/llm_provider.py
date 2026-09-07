@@ -289,11 +289,37 @@ class GeminiProvider(LLMProvider):
     gate — stays in full control, exactly as with the other providers.
     """
 
-    DEFAULT_MODEL = "gemini-3.6-flash"
+    DEFAULT_MODEL = "gemini-3.8-flash"
+
+    # Free-tier capacity is per-model and moves around: a model that answers in
+    # a second one hour returns `503 UNAVAILABLE — currently experiencing high
+    # demand` the next. Rather than fail the turn (and, in a live demo, put a
+    # raw traceback on screen), fall through this list in order. Every entry is
+    # a flash-tier model with function calling, so the agent behaves the same
+    # whichever one answers.
+    FALLBACK_MODELS = (
+        "gemini-3.8-flash",
+        "gemini-3.7-flash",
+        "gemini-3.5-flash",
+        "gemini-3.5-flash-lite",
+    )
+
+    # Status codes worth retrying on another model: overloaded, rate-limited,
+    # or a transient backend error. A 400/404 is a real bug and must surface.
+    _TRANSIENT_STATUS = (429, 500, 502, 503, 504)
 
     def __init__(self, model: str | None = None):
         self.model = model or os.environ.get("GEMINI_MODEL", self.DEFAULT_MODEL)
         self._client = None
+        # Set once a fallback answers, so the rest of the conversation stays on
+        # the model that is actually serving instead of re-probing every turn.
+        self.active_model = self.model
+
+    def _models_to_try(self) -> list:
+        """The configured model first, then the remaining fallbacks in order."""
+        ordered = [self.active_model]
+        ordered += [m for m in self.FALLBACK_MODELS if m not in ordered]
+        return ordered
 
     def _get_client(self):
         # Imported lazily so importing this module never requires the
@@ -383,6 +409,32 @@ class GeminiProvider(LLMProvider):
             contents.append(types.Content(role=gemini_role, parts=parts))
         return contents, system_instruction
 
+    def _generate_with_failover(self, client, contents, config):
+        """Calls generate_content, moving to the next model on a transient error.
+
+        Raises the last error if every candidate model is unavailable, so a
+        genuine outage still surfaces rather than hanging.
+        """
+        last_error = None
+        for model in self._models_to_try():
+            try:
+                response = client.models.generate_content(
+                    model=model, contents=contents, config=config
+                )
+            except Exception as e:  # pylint: disable=broad-except
+                status = getattr(e, "code", None) or getattr(e, "status_code", None)
+                if status not in self._TRANSIENT_STATUS:
+                    raise
+                last_error = e
+                continue
+            self.active_model = model
+            return response
+
+        raise RuntimeError(
+            "Every Gemini model is currently unavailable "
+            f"({', '.join(self._models_to_try())}). The API reported: {last_error}"
+        ) from last_error
+
     def chat(self, messages: list[dict], tools: list[dict]) -> LLMResponse:
         from google.genai import types
 
@@ -395,9 +447,7 @@ class GeminiProvider(LLMProvider):
             automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
         )
 
-        response = client.models.generate_content(
-            model=self.model, contents=contents, config=config
-        )
+        response = self._generate_with_failover(client, contents, config)
 
         reply_text = response.text or ""
 

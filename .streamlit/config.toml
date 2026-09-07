@@ -1,0 +1,18 @@
+# Dark theme for the dashboard. The values mirror the chart palette defined in
+# app/dashboard/dashboard.py (PALETTE) so the page chrome and the Plotly figures
+# read as one system rather than two.
+[theme]
+base = "dark"
+primaryColor = "#3987e5"             # series slot 1 / accent
+backgroundColor = "#0d0d0d"          # page plane
+secondaryBackgroundColor = "#1a1a19" # card + chart surface
+textColor = "#ffffff"
+font = "sans serif"
+
+[server]
+# The dashboard is a local demo surface; skip the first-run email prompt so
+# `streamlit run` goes straight to the app.
+headless = true
+
+[browser]
+gatherUsageStats = false

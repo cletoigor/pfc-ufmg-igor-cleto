@@ -7,6 +7,8 @@ exercised with `dry_run=True`.
 """
 import json
 
+import duckdb
+
 import pytest
 
 from app.agent import tools as tools_module
@@ -22,11 +24,14 @@ def isolate_data_paths(tmp_path, monkeypatch):
     """Point the tools module at an empty tmp dir so tests never touch the
     real (or possibly absent) app/data/{warehouse.duckdb,marts,staging}."""
     fake_warehouse = tmp_path / "warehouse.duckdb"
-    fake_marts_glob = str(tmp_path / "marts" / "**" / "*.parquet")
     fake_staging_glob = str(tmp_path / "staging" / "**" / "*.parquet")
+    fake_mart_globs = {
+        table: str(tmp_path / "marts" / table / "**" / "*.parquet")
+        for table in tools_module.MART_GLOBS
+    }
 
     monkeypatch.setattr(tools_module, "WAREHOUSE_DB_PATH", str(fake_warehouse))
-    monkeypatch.setattr(tools_module, "MARTS_GLOB", fake_marts_glob)
+    monkeypatch.setattr(tools_module, "MART_GLOBS", fake_mart_globs)
     monkeypatch.setattr(tools_module, "STAGING_GLOB", fake_staging_glob)
     yield
 
@@ -119,3 +124,49 @@ def test_control_device_dry_run_case_insensitive_name():
     result_json = control_device("led strip", "on", dry_run=True)
     result = json.loads(result_json)
     assert result["device_id"] == "ebb50554f386a6d20fvbwv"
+
+
+# --- control_device addresses the right Tuya datapoint ---
+
+
+def test_action_to_commands_uses_the_devices_own_switch_code():
+    """Devices report on/off through different codes (switch_1 / switch_led /
+    switch); a command hardcoded to switch_1 would no-op on the others."""
+    assert tools_module._action_to_commands("off", "switch_led") == [
+        {"code": "switch_led", "value": False}
+    ]
+    assert tools_module._action_to_commands("on", "switch") == [
+        {"code": "switch", "value": True}
+    ]
+    # Unchanged default when nothing better is known.
+    assert tools_module._action_to_commands("on") == [{"code": "switch_1", "value": True}]
+
+
+def test_resolve_switch_code_falls_back_when_there_is_no_data():
+    # isolate_data_paths points every layer at an empty tmp dir.
+    assert tools_module.resolve_switch_code("whatever") == tools_module.DEFAULT_SWITCH_CODE
+
+
+def test_resolve_switch_code_reads_the_code_from_the_warehouse(tmp_path, monkeypatch):
+    warehouse = tmp_path / "wh.duckdb"
+    conn = duckdb.connect(str(warehouse))
+    try:
+        conn.execute(
+            """
+            CREATE TABLE device_state_intervals AS SELECT * FROM (VALUES
+                ('dev-1', 'switch_led', TIMESTAMP '2026-01-01 10:00:00'),
+                ('dev-1', 'switch_led', TIMESTAMP '2026-01-02 10:00:00'),
+                ('dev-2', 'switch',     TIMESTAMP '2026-01-02 10:00:00')
+            ) t(device_id, switch_code, interval_start)
+            """
+        )
+        # _warehouse_ready() looks for a known mart table.
+        conn.execute("CREATE TABLE device_metrics_daily AS SELECT 1 AS x")
+    finally:
+        conn.close()
+
+    monkeypatch.setattr(tools_module, "WAREHOUSE_DB_PATH", str(warehouse))
+
+    assert tools_module.resolve_switch_code("dev-1") == "switch_led"
+    assert tools_module.resolve_switch_code("dev-2") == "switch"
+    assert tools_module.resolve_switch_code("dev-unknown") == tools_module.DEFAULT_SWITCH_CODE

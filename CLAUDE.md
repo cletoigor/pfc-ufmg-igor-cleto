@@ -13,7 +13,7 @@ app/                         — Dagster pipeline + AI agent (entry point: app.d
   resources.py                 — persistent DuckDBResource (app/data/warehouse.duckdb)
   assets/
     ingestion.py                — raw_tuya_logs, staging_tuya_logs
-    marts.py                     — gold_device_metrics (hourly/daily rollups)
+    marts.py                     — gold_device_metrics (event, duration + on-time rollups)
   agent/
     tools.py                     — provider-neutral tool registry: query_iot_data, get_device_state, control_device
     tuya_control.py               — dry-run-safe Tuya command sending + device registry
@@ -28,7 +28,7 @@ app/                         — Dagster pipeline + AI agent (entry point: app.d
   data/
     raw/        — raw JSON files per device/date
     staging/    — partitioned Parquet (event_date=YYYY-MM-DD)
-    marts/      — gold-layer Parquet (hourly/daily rollups)
+    marts/      — gold-layer Parquet (hourly/daily/state_intervals/on_time_daily)
     warehouse.duckdb — persistent DuckDB warehouse (Dagster writes; agent/dashboard read read_only=True)
 dagster.yaml    — Dagster instance config
 workspace.yaml  — points Dagster to app.definitions
@@ -49,7 +49,11 @@ Three assets, split across `app/assets/ingestion.py` and `app/assets/marts.py`, 
 
 1. **`raw_tuya_logs`** (`assets/ingestion.py`) — fetches Tuya API logs, saves JSON to `app/data/raw/<device_id>/<YYYY-MM-DD>/`; credentials via `TuyaCredentials` Config using `EnvVar` (`ACCESS_ID`, `ACCESS_SECRET`, `API_ENDPOINT`). Fails loudly if zero files are saved in a run.
 2. **`staging_tuya_logs`** (`assets/ingestion.py`) — reads raw JSONs, transforms via DuckDB (persistent `DuckDBResource` from `resources.py`), writes partitioned Parquet to `app/data/staging/`.
-3. **`gold_device_metrics`** (`assets/marts.py`) — aggregates staging into per-device hourly/daily rollups (event counts, last-seen, on-time proxy), writing Parquet to `app/data/marts/{hourly,daily}/` and materializing `device_metrics_hourly` / `device_metrics_daily` tables in `app/data/warehouse.duckdb`.
+3. **`gold_device_metrics`** (`assets/marts.py`) — aggregates staging into four per-device tables, written as Parquet under `app/data/marts/{hourly,daily,state_intervals,on_time_daily}/` and materialized in `app/data/warehouse.duckdb`: `device_metrics_hourly` / `device_metrics_daily` (event counts, last-seen, on-time proxy), `device_state_intervals` (contiguous on/off stretches + `switch_code`, the Tuya datapoint that device actuates through), and `device_on_time_daily` (on_minutes, on_sessions, longest_session_minutes, overnight_on_minutes).
+
+**Timezone contract:** staging stores `event_time` in UTC (via `epoch_ms`, deliberately host-independent); the gold layer converts to local wall-clock via `LOCAL_UTC_OFFSET_HOURS` in `marts.py`, because every question asked of it ("work hours", "overnight") means local time.
+
+`staging_tuya_logs` and `gold_device_metrics` depend on their upstream via `deps=` rather than `ins=`, so they can be rematerialized without `raw_tuya_logs` (which needs live Tuya credentials the project no longer has). The demo dataset is synthetic — regenerate with `python scripts/seed_synthetic_data.py`.
 
 All three are wired into `tuya_processing_job`, triggered by `hourly_schedule` (`0 * * * *`).
 
@@ -59,7 +63,7 @@ The DuckDB warehouse at `app/data/warehouse.duckdb` is **persistent** (not in-me
 
 ## AI Agent (`app/agent/`)
 
-Runs by default against **Google's Gemini API** (free tier via an AI Studio key — no local RAM/GPU needed), through a provider abstraction (`agent/llm_provider.py`) that drives a bounded manual tool-calling loop in `agent/agent.py`. Selection is via `LLM_PROVIDER` env (default `"gemini"`); `GeminiProvider` uses `GEMINI_MODEL` (default `"gemini-2.5-flash"`) and requires `GEMINI_API_KEY`/`GOOGLE_API_KEY`. Note: with the Gemini provider, prompts (and tool schemas/results) are sent to Google's API. `OllamaProvider` (local, keyless, needs RAM + `ollama pull`) and `AnthropicProvider` (paid key) remain selectable via `LLM_PROVIDER=ollama` / `LLM_PROVIDER=anthropic`; `OllamaProvider` uses `OLLAMA_MODEL` (default `"qwen3:8b"`) and optional `OLLAMA_HOST`. `provider.is_available()` never raises — it returns `False` cleanly when a key/package/server is missing, which the dashboard uses to gate the chat panel.
+Runs by default against **Google's Gemini API** (free tier via an AI Studio key — no local RAM/GPU needed), through a provider abstraction (`agent/llm_provider.py`) that drives a bounded manual tool-calling loop in `agent/agent.py`. Selection is via `LLM_PROVIDER` env (default `"gemini"`); `GeminiProvider` uses `GEMINI_MODEL` (default `"gemini-3.8-flash"`, with automatic failover through `gemini-3.7-flash`/`gemini-3.5-flash`/`gemini-3.5-flash-lite` on a transient 503/429) and requires `GEMINI_API_KEY`/`GOOGLE_API_KEY`. Note: with the Gemini provider, prompts (and tool schemas/results) are sent to Google's API. `OllamaProvider` (local, keyless, needs RAM + `ollama pull`) and `AnthropicProvider` (paid key) remain selectable via `LLM_PROVIDER=ollama` / `LLM_PROVIDER=anthropic`; `OllamaProvider` uses `OLLAMA_MODEL` (default `"qwen3:8b"`) and optional `OLLAMA_HOST`. `provider.is_available()` never raises — it returns `False` cleanly when a key/package/server is missing, which the dashboard uses to gate the chat panel.
 
 Three provider-neutral tools registered in `agent/tools.py`'s `TOOLS` dict (plain callables + JSON-schema specs, rendered via `openai_tool_specs()`):
 
@@ -69,9 +73,29 @@ Three provider-neutral tools registered in `agent/tools.py`'s `TOOLS` dict (plai
 
 `agent/agent.py` exposes `run_agent(user_message, *, dry_run=True, history=None)` (unchanged signature), used by the Streamlit dashboard's chat panel.
 
-## Dashboard (`app/dashboard/`)
+## Web app (`app/api/` + `app/web/`) — the primary UI
 
-Streamlit app (`streamlit run app/dashboard/dashboard.py`): live per-device charts read from the gold marts (read-only DuckDB connection; always works, independent of the agent) plus a chat panel wired to `agent/agent.py`, showing the agent's tool-call trace (SQL it ran / commands it sent) inline. The chat input is gated on `get_provider().is_available()`; the guidance shown is provider-aware — for the default Gemini provider with no key: "Set GEMINI_API_KEY (free key from Google AI Studio: aistudio.google.com) to enable the agent."; for Ollama: "Local model not reachable. Install Ollama, run `ollama serve`, and `ollama pull qwen3:8b` (or set OLLAMA_MODEL)."; for Anthropic: "Set ANTHROPIC_API_KEY to enable the agent."
+`python -m app.api.server` (port 8000) serves both the API and the UI.
+
+- `app/api/data_access.py` — framework-free shared data layer: the
+  warehouse → marts → staging fallback (`load_metrics`, never raises), plus
+  `build_overview()` / `build_health()` which produce the JSON payloads. The
+  Streamlit app imports from here too, so the fallback logic has one
+  definition. `app/agent/tools.py` keeps its own `_open_connection()` on
+  purpose — it hands the agent a live connection for arbitrary SQL, a
+  different job.
+- `app/api/server.py` — Starlette (NOT FastAPI, which isn't installed).
+  `/api/overview`, `/api/health`, and `/api/agent/stream` (SSE). `run_agent` is
+  synchronous, so the SSE route runs it in a worker thread and its `on_event`
+  callback pushes onto an `asyncio.Queue` via `loop.call_soon_threadsafe` —
+  that is what makes steps appear live rather than all at once at the end.
+- `app/web/` — no build step, no npm, **no CDN** (nothing external can fail
+  mid-demo). Charts are hand-drawn inline SVG in `static/charts.js`.
+- `docs/api_contract.md` is the frozen contract between the two halves; change
+  it there before changing either side.
+
+**Dashboard (`app/dashboard/dashboard.py`) — fallback.** The earlier Streamlit
+UI, still maintained and still passing its AppTest smoke check.
 
 ## Key Tech Stack
 

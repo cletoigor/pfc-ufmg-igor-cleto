@@ -12,7 +12,6 @@ from tuya_connector import TuyaOpenAPI
 from dagster import (
     asset,
     AssetExecutionContext, # Added
-    AssetIn, # Added
     Config, # Added
     EnvVar, # Added
 )
@@ -228,13 +227,22 @@ def raw_tuya_logs(context: AssetExecutionContext, config: TuyaCredentials) -> st
 
 
 @asset(
-    ins={"raw_tuya_logs_path": AssetIn(key="raw_tuya_logs")}, # Declare dependency
+    # Declared as a `deps` edge rather than an `ins` input on purpose. Taking the
+    # raw directory as an *input* would mean this asset can only run when
+    # `raw_tuya_logs` has a stored output value to load — which makes it
+    # impossible to rematerialize the downstream layers without live Tuya
+    # credentials (the Cloud subscription has lapsed; see
+    # scripts/seed_synthetic_data.py, which writes the same raw layout). The
+    # location is a project convention shared with `raw_tuya_logs`, so resolving
+    # it from BASE_OUTPUT_DIR here keeps the lineage edge while letting
+    # `staging_tuya_logs` be materialized on its own.
+    deps=["raw_tuya_logs"],
     group_name="data_ingestion",
     required_resource_keys={"duckdb"}, # Declare resource requirement
 )
-def staging_tuya_logs(context: AssetExecutionContext, raw_tuya_logs_path: str) -> str:
+def staging_tuya_logs(context: AssetExecutionContext) -> str:
     """
-    Processes raw JSON logs from the raw_tuya_logs asset output directory
+    Processes raw JSON logs from the raw_tuya_logs output directory
     into a partitioned Parquet dataset using DuckDB.
 
     Reads JSON files, enriches data (timestamp, filename, device_name),
@@ -242,6 +250,7 @@ def staging_tuya_logs(context: AssetExecutionContext, raw_tuya_logs_path: str) -
     Returns the absolute path to the staging directory.
     """
     context.log.info("Starting Raw-to-Staging Processing Asset...")
+    raw_tuya_logs_path = os.path.abspath(os.path.join(_APP_DIR, BASE_OUTPUT_DIR))
     context.log.info(f"Input raw logs directory: {raw_tuya_logs_path}")
 
     # Define paths relative to the app directory
@@ -333,9 +342,16 @@ def staging_tuya_logs(context: AssetExecutionContext, raw_tuya_logs_path: str) -
                 rl.ingestion_timestamp_utc,
                 rl.ingested_by,
                 rl.filename,
-                to_timestamp(rl.event_time / 1000)::TIMESTAMP AS event_time,
+                -- Tuya reports event_time as epoch milliseconds. `epoch_ms` yields
+                -- the instant in UTC; the more obvious
+                -- `to_timestamp(event_time / 1000)::TIMESTAMP` would instead render
+                -- it in whatever timezone the *host machine* is set to, silently
+                -- changing what every downstream hour-of-day metric means depending
+                -- on where the pipeline happens to run. Staging is UTC by contract;
+                -- the gold layer converts to local time (see app/assets/marts.py).
+                epoch_ms(rl.event_time) AS event_time,
                 {select_device_name},
-                strftime(to_timestamp(rl.event_time / 1000), '%Y-%m-%d') AS event_date
+                strftime(epoch_ms(rl.event_time), '%Y-%m-%d') AS event_date
             FROM raw_logs rl
             {join_clause}
         ) TO '{staging_dir_abs}' (
