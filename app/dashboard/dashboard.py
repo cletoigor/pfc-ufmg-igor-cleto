@@ -211,11 +211,24 @@ with data_col:
 
         hourly_df = metrics.get("hourly")
         daily_df = metrics.get("daily")
+
+        # Hourly is the finer-grained view, but past a few days of history it
+        # turns into an unreadable wall of spikes — fall back to daily once
+        # the hourly range spans more than 3 days (or if daily is all we have).
+        hourly_span_days = None
+        if hourly_df is not None and not hourly_df.empty:
+            hourly_span_days = (
+                hourly_df["event_hour"].max() - hourly_df["event_hour"].min()
+            ).total_seconds() / 86400
+
+        use_hourly = hourly_span_days is not None and hourly_span_days <= 3
         chart_df, bucket_col, granularity_label = (
             (hourly_df, "event_hour", "hourly")
-            if hourly_df is not None and not hourly_df.empty
+            if use_hourly
             else (daily_df, "event_day", "daily")
         )
+        if chart_df is None or chart_df.empty:
+            chart_df, bucket_col, granularity_label = (hourly_df, "event_hour", "hourly")
 
         if chart_df is None or chart_df.empty:
             st.info("Data source is available but has no rows yet.")

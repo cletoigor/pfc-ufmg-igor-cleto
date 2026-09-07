@@ -30,7 +30,7 @@ class FakeProvider:
                     {
                         "name": "control_device",
                         "arguments": {
-                            "device_name": "Fita de LED",
+                            "device_name": "LED Strip",
                             "action": "on",
                             # The fake model tries to disable the safety gate;
                             # the loop must override this with the caller's dry_run.

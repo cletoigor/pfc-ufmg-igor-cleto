@@ -119,7 +119,7 @@ def test_chat_normalizes_function_call_then_final_text(monkeypatch):
             parts=[
                 _function_call_part(
                     "get_device_state",
-                    {"device_name": "Fita de LED"},
+                    {"device_name": "LED Strip"},
                     thought_signature=sig,
                 )
             ],
@@ -148,7 +148,7 @@ def test_chat_normalizes_function_call_then_final_text(monkeypatch):
     assert r1.tool_calls == [
         {
             "name": "get_device_state",
-            "arguments": {"device_name": "Fita de LED"},
+            "arguments": {"device_name": "LED Strip"},
             "thought_signature": sig,
         }
     ]
@@ -186,7 +186,7 @@ def test_run_agent_through_gemini_populates_tool_trace_and_enforces_dry_run(monk
             parts=[
                 _function_call_part(
                     "control_device",
-                    {"device_name": "Fita de LED", "action": "on", "dry_run": False},
+                    {"device_name": "LED Strip", "action": "on", "dry_run": False},
                     thought_signature=b"sig-xyz",
                 )
             ],

@@ -76,8 +76,8 @@ def test_get_device_state_unknown_device():
 
 
 def test_get_device_state_known_device_no_data():
-    # "Fita de LED" is a real entry in app/device_mapping.json.
-    result = get_device_state("Fita de LED")
+    # "LED Strip" is a real entry in app/device_mapping.json.
+    result = get_device_state("LED Strip")
     assert "No data yet" in result
 
 
@@ -91,12 +91,12 @@ def test_control_device_unknown_device_refuses():
 
 
 def test_control_device_unknown_action_refuses():
-    result = control_device("Fita de LED", "explode", dry_run=True)
+    result = control_device("LED Strip", "explode", dry_run=True)
     assert "Unknown action" in result
 
 
 def test_control_device_dry_run_returns_expected_payload():
-    result_json = control_device("Fita de LED", "on", dry_run=True)
+    result_json = control_device("LED Strip", "on", dry_run=True)
     result = json.loads(result_json)
 
     assert result["dry_run"] is True
@@ -108,7 +108,7 @@ def test_control_device_dry_run_returns_expected_payload():
 
 
 def test_control_device_dry_run_off_action():
-    result_json = control_device("Ventilador do quarto", "off", dry_run=True)
+    result_json = control_device("Bedroom Fan", "off", dry_run=True)
     result = json.loads(result_json)
 
     assert result["dry_run"] is True
@@ -116,6 +116,6 @@ def test_control_device_dry_run_off_action():
 
 
 def test_control_device_dry_run_case_insensitive_name():
-    result_json = control_device("fita de led", "on", dry_run=True)
+    result_json = control_device("led strip", "on", dry_run=True)
     result = json.loads(result_json)
     assert result["device_id"] == "ebb50554f386a6d20fvbwv"

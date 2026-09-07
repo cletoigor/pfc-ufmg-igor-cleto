@@ -168,7 +168,7 @@ def get_device_state(device_name: str) -> str:
     """Get the latest known reading / last-seen info for a named device.
 
     Args:
-        device_name: The device's friendly name (e.g. "Ventilador do quarto"),
+        device_name: The device's friendly name (e.g. "Bedroom Fan"),
             matched case-insensitively against the device registry.
     """
     registry = load_device_registry()
@@ -236,7 +236,7 @@ def control_device(device_name: str, action: str, dry_run: bool = True) -> str:
     """Actuate a named device (turn it on/off/toggle).
 
     Args:
-        device_name: The device's friendly name (e.g. "Fita de LED"), matched
+        device_name: The device's friendly name (e.g. "LED Strip"), matched
             case-insensitively against the device registry.
         action: One of "on", "off", or "toggle".
         dry_run: When True (the default), no real Tuya API call is made —
@@ -319,7 +319,7 @@ TOOLS: dict[str, dict] = {
                 "device_name": {
                     "type": "string",
                     "description": (
-                        "The device's friendly name (e.g. \"Fita de LED\"), "
+                        "The device's friendly name (e.g. \"LED Strip\"), "
                         "matched case-insensitively against the device registry."
                     ),
                 },
