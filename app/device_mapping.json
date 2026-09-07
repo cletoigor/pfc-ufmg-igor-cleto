@@ -1,8 +1,8 @@
 {
-  "ebb50554f386a6d20fvbwv": "LED Strip",
-  "ebb1ae44e3bb8945c7colh": "Living Room Switch",
-  "eb47e52ca43f9bc6349k2v": "Mosquito Repellent",
-  "ebf51d0d4012b176f2xhna": "Bedroom Fan",
-  "eb135cd2e81b1f85edglc6": "Office Outlet",
-  "eb7d274c03a716cc8cyrrk": "Office Lamp"
+  "demo000000000000001aa": "Device A - LED Strip",
+  "demo000000000000002bb": "Device B - Switch",
+  "demo000000000000003cc": "Device C - Repellent",
+  "demo000000000000004dd": "Device D - Fan",
+  "demo000000000000005ee": "Device E - Outlet",
+  "demo000000000000006ff": "Device F - Lamp"
 }
