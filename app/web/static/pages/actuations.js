@@ -4,10 +4,9 @@
 // and a three-step wizard for creating scenes, plus the saved-scene list with
 // run and delete.
 //
-// Safety: every request here carries the sidebar's SAFE/ARMED flag, and the API
-// treats anything other than an explicit `dry_run: false` as dry-run. In SAFE
-// mode the page shows the exact Tuya payload that would have been sent, which
-// is the point of the demo — you can see the command without sending it.
+// Every action here runs against the API's dry-run path: it returns the exact
+// Tuya payload it would have sent without sending it, which is the point of
+// the demo — you can see the command without touching a device.
 
 import { deleteJSON, getJSON, postJSON, state } from "../state.js";
 import {
@@ -51,42 +50,11 @@ export function mount(node) {
 export function render() {
   if (!container) return;
   clear(container);
-  container.appendChild(renderGateNotice());
   container.appendChild(renderToggles());
   container.appendChild(renderWizard());
   const scenesHolder = el("div");
   container.appendChild(scenesHolder);
   renderScenes(scenesHolder);
-}
-
-function renderGateNotice() {
-  const box = el("div", `gate-notice ${state.dryRun ? "is-safe" : "is-armed"}`);
-  box.appendChild(
-    el(
-      "strong",
-      null,
-      state.dryRun ? "Dry run — nothing is sent" : "Armed — commands reach the devices"
-    )
-  );
-  box.appendChild(
-    el(
-      "span",
-      null,
-      state.dryRun
-        ? "Every action below returns the exact Tuya payload it would have sent. Flip the switch in the sidebar to actuate for real."
-        : "Actions below will be sent to the Tuya Cloud API if credentials are configured."
-    )
-  );
-  // Worth saying plainly: the two gates are independent, and a reviewer will
-  // otherwise reasonably assume arming here armed everything.
-  box.appendChild(
-    el(
-      "span",
-      "gate-footnote",
-      "Scheduled scenes have a separate gate (SCENE_EXECUTION_DRY_RUN) — arming this panel does not arm the every-minute scheduler."
-    )
-  );
-  return box;
 }
 
 /* ---------------------------------------------------------------- toggles */
@@ -140,7 +108,7 @@ function renderToggle(device) {
     isOn = !isOn;
     paint();
     button.disabled = true;
-    status.textContent = state.dryRun ? "simulating…" : "sending…";
+    status.textContent = "simulating…";
     status.className = "toggle-status";
 
     const { ok, data } = await postJSON(`/api/devices/${encodeURIComponent(device.name)}/toggle`, {
@@ -158,10 +126,8 @@ function renderToggle(device) {
     }
 
     const command = data.payload?.commands?.[0];
-    status.textContent = data.dry_run
-      ? `would send ${command?.code} = ${command?.value}`
-      : `sent ${command?.code} = ${command?.value}`;
-    status.className = `toggle-status ${data.dry_run ? "is-dry" : "is-sent"}`;
+    status.textContent = `would send ${command?.code} = ${command?.value}`;
+    status.className = "toggle-status is-dry";
   });
 
   tile.append(head, button, meta, status);
@@ -477,7 +443,7 @@ function renderScene(scene, holder) {
   const result = el("div", "scene-result");
   const buttons = el("div", "scene-buttons");
 
-  const runButton = el("button", "btn btn-primary", state.dryRun ? "Run now (dry run)" : "Run now");
+  const runButton = el("button", "btn btn-primary", "Run now");
   runButton.type = "button";
   runButton.addEventListener("click", async () => {
     runButton.disabled = true;
@@ -495,7 +461,7 @@ function renderScene(scene, holder) {
       const item = el("li", entry.ok ? "is-ok" : "is-error");
       item.textContent = entry.error
         ? `${entry.device}: ${entry.error}`
-        : `${entry.device}: ${entry.dry_run ? "would send" : "sent"} ${command?.code} = ${command?.value}`;
+        : `${entry.device}: would send ${command?.code} = ${command?.value}`;
       list.appendChild(item);
     });
     result.appendChild(list);

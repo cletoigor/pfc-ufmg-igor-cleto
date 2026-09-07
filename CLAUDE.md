@@ -91,13 +91,15 @@ hand from the Actuations page or fired by `scene_scheduler_job`
 (`* * * * *`, which needs the Dagster **daemon**, not just the webserver).
 
 **Two independent safety gates, deliberately:**
-- Interactive: the dashboard's SAFE/ARMED switch, sent as `dry_run` per request.
-  Only a literal JSON `false` opens it.
+- Interactive: `dry_run` per request. Only a literal JSON `false` opens it, and
+  the UI never sends `false` — every actuation from the web app or the Streamlit
+  dashboard is a dry run that returns the payload instead of sending it.
 - Unattended: `SCENE_EXECUTION_DRY_RUN` (default `1`), read by the Dagster op.
 
-Arming the panel must not arm a job that fires at 03:00 with nobody watching.
-Underneath both, `send_device_command` still refuses to reach Tuya without
-credentials, so a misconfiguration fails closed.
+They are separate so an interactive `dry_run: false` from an API client cannot
+arm a job that fires at 03:00 with nobody watching. Underneath both,
+`send_device_command` still refuses to reach Tuya without credentials, so a
+misconfiguration fails closed.
 
 Start the UI: `dagster dev` from the project root (requires the Python venv in `app/.venv/` and a `.env` file with API credentials).
 

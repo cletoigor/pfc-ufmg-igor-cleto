@@ -19,9 +19,10 @@ export const state = {
   latestEvent: null,
   usingFixture: false,
 
-  // The interactive safety gate, shared by the agent panel, the device toggles
-  // and "run scene now" so the UI can never be SAFE in one place and ARMED in
-  // another. The unattended Dagster scheduler has its own separate gate.
+  // Every actuation the UI issues is a dry run: the API returns the payload it
+  // would have sent without sending it. Kept as state (rather than inlined at
+  // each call site) so the agent panel, the device toggles and "run scene now"
+  // all read one flag.
   dryRun: true,
   eventSource: null,
 

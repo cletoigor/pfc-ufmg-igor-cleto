@@ -515,51 +515,6 @@ button { font-family: inherit; }
   .agent-fab { align-self: flex-end; }
 }
 
-.dryrun-switch {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  width: 100%;
-  border: 1px solid var(--good);
-  background: var(--good-dim);
-  border-radius: var(--radius-md);
-  padding: var(--space-3);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 120ms ease, background-color 120ms ease;
-}
-
-.dryrun-switch.is-armed {
-  border-color: var(--critical);
-  background: var(--critical-dim);
-}
-
-.dryrun-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--good);
-  flex: 0 0 auto;
-  box-shadow: 0 0 0 4px var(--good-dim);
-}
-
-.dryrun-switch.is-armed .dryrun-dot {
-  background: var(--critical);
-  box-shadow: 0 0 0 4px var(--critical-dim);
-}
-
-.dryrun-copy { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-
-.dryrun-state {
-  font-weight: 700;
-  font-size: 12.5px;
-  color: var(--good);
-}
-.dryrun-switch.is-armed .dryrun-state { color: var(--critical); }
-
-.dryrun-consequence { font-size: 11.5px; color: var(--ink-2); }
-
 .chip-row {
   flex: 0 0 auto;
   display: flex;
@@ -754,20 +709,6 @@ code, pre {
   background: var(--surface);
 }
 
-.control-payload-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 999px;
-  margin-bottom: 6px;
-}
-
-.control-payload-status.not-sent { background: var(--good-dim); color: var(--good); }
-.control-payload-status.sent { background: var(--critical-dim); color: var(--critical); }
-
 .agent-input-row {
   flex: 0 0 auto;
   display: flex;
@@ -833,10 +774,11 @@ input:focus-visible {
 }
 
 /* ======================================================================
-   Light theme override. Opt-in via data-theme="light" on <html> (set by
-   static/theme.js); dark stays the bare-:root default so the app never
-   opens light on an unfamiliar machine mid-demo. Redefines colours only —
-   spacing, radii and layout are theme-independent.
+   Light theme override, applied via data-theme="light" on <html> (set by
+   static/theme.js and by the inline script in index.html). The tokens are
+   written dark-first — bare :root is dark — but the app stamps light unless
+   the viewer has chosen dark, so light is what it opens as. Redefines colours
+   only — spacing, radii and layout are theme-independent.
 ====================================================================== */
 :root[data-theme="light"] {
   --page: #f6f5f2;
@@ -907,16 +849,6 @@ input:focus-visible {
   font-size: 11.5px;
   color: var(--ink-3);
 }
-
-.dataset-note {
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--hairline);
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--ink-3);
-}
-.dataset-note code { font-size: 10.5px; color: var(--ink-2); }
 
 /* --- cards, headings -------------------------------------------------- */
 
@@ -1156,20 +1088,6 @@ button:disabled { opacity: 0.5; cursor: default; }
 
 /* --- actuations ------------------------------------------------------- */
 
-.gate-notice {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  border: 1px solid;
-  font-size: 12.5px;
-}
-.gate-notice.is-safe { background: var(--good-dim); border-color: var(--good-line); color: var(--ink-2); }
-.gate-notice.is-armed { background: var(--critical-dim); border-color: var(--critical); color: var(--ink-2); }
-.gate-notice strong { color: var(--ink-1); }
-.gate-footnote { color: var(--ink-3); font-size: 11.5px; }
-
 .toggle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -1189,7 +1107,6 @@ button:disabled { opacity: 0.5; cursor: default; }
 .toggle-meta { font-size: 11px; color: var(--ink-3); }
 .toggle-status { font-size: 11px; color: var(--ink-3); min-height: 14px; font-variant-numeric: tabular-nums; }
 .toggle-status.is-dry { color: var(--accent); }
-.toggle-status.is-sent { color: var(--good); }
 .toggle-status.is-error { color: var(--critical); }
 
 .toggle-switch {

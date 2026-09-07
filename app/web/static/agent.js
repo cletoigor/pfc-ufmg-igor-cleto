@@ -5,11 +5,7 @@
 // is a persistent dock available from every view, so it is wired once at boot
 // and never re-rendered by the router — collapsing it only hides it, so a
 // stream in flight survives both navigation and closing the panel.
-//
-// It reads `state.dryRun` — the same flag the device toggles and scene runs use
-// — so the safety gate is one switch, not one per panel.
 
-import { currentRouteName, renderActiveRoute } from "./router.js";
 import { state } from "./state.js";
 
 /** Enables or disables the composer according to provider availability. */
@@ -24,7 +20,6 @@ export function updateAgentAvailability(available) {
 
 export function wireAgentPanel() {
   wireAgentDock();
-  wireDryRunSwitch();
   wireChips();
   wireAgentForm();
 }
@@ -172,30 +167,6 @@ function renderMarkdown(source) {
 /* ----------------------------------------------------------------------
    Agent panel
 ---------------------------------------------------------------------- */
-function wireDryRunSwitch() {
-  const btn = document.getElementById("dryrun-switch");
-  const stateLabel = document.getElementById("dryrun-state");
-  const consequence = document.getElementById("dryrun-consequence");
-
-  btn.addEventListener("click", () => {
-    state.dryRun = !state.dryRun;
-    const armed = !state.dryRun;
-    btn.classList.toggle("is-armed", armed);
-    btn.setAttribute("aria-pressed", String(!armed));
-    if (armed) {
-      stateLabel.textContent = "ARMED — commands will be sent";
-      consequence.textContent = "Real commands will be sent to your devices. Tap to make safe.";
-    } else {
-      stateLabel.textContent = "SAFE — commands are simulated";
-      consequence.textContent = "Nothing will be sent to your devices. Tap to arm.";
-    }
-    // The Actuations page shows the same gate on its own buttons, so it has to
-    // hear about the change. No other view depends on it, and re-rendering one
-    // of those would refetch data for nothing.
-    if (currentRouteName() === "actuations") renderActiveRoute();
-  });
-}
-
 function wireChips() {
   document.getElementById("chip-row").addEventListener("click", (evt) => {
     const chip = evt.target.closest(".chip");
@@ -428,12 +399,6 @@ function renderToolOutput(step, payload) {
   if (payload.tool === "control_device" && parsed.payload) {
     const wrap = document.createElement("div");
     wrap.className = "control-payload";
-
-    const sent = parsed.dry_run === false;
-    const badge = document.createElement("span");
-    badge.className = `control-payload-status ${sent ? "sent" : "not-sent"}`;
-    badge.textContent = sent ? "SENT to device" : "NOT sent (dry run)";
-    wrap.appendChild(badge);
 
     const code = document.createElement("code");
     code.className = "sql-block";
