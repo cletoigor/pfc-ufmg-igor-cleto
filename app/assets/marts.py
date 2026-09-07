@@ -179,6 +179,7 @@ ORDER BY device_id, event_day
     deps=["staging_tuya_logs"],
     group_name="data_marts",
     required_resource_keys={"duckdb"},
+    kinds={"python", "duckdb"},
 )
 def gold_device_metrics(context: AssetExecutionContext) -> str:
     """

@@ -59,7 +59,7 @@ class TuyaCredentials(Config):
     )
 
 
-@asset(group_name="data_ingestion")
+@asset(group_name="data_ingestion", kinds={"python", "api"})
 def raw_tuya_logs(context: AssetExecutionContext, config: TuyaCredentials) -> str:
     """
     Fetches device status logs from the Tuya Cloud API for configured devices
@@ -239,6 +239,7 @@ def raw_tuya_logs(context: AssetExecutionContext, config: TuyaCredentials) -> st
     deps=["raw_tuya_logs"],
     group_name="data_ingestion",
     required_resource_keys={"duckdb"}, # Declare resource requirement
+    kinds={"python", "duckdb"},
 )
 def staging_tuya_logs(context: AssetExecutionContext) -> str:
     """

@@ -224,6 +224,7 @@ ORDER BY device_id, hour_of_day
     deps=["staging_tuya_logs"],
     group_name="data_marts",
     required_resource_keys={"duckdb"},
+    kinds={"python", "duckdb"},
 )
 def gold_energy_metrics(context: AssetExecutionContext) -> str:
     """
