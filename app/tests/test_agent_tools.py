@@ -151,9 +151,10 @@ def test_resolve_switch_code_reads_the_code_from_the_warehouse(tmp_path, monkeyp
     warehouse = tmp_path / "wh.duckdb"
     conn = duckdb.connect(str(warehouse))
     try:
+        conn.execute("CREATE SCHEMA gold")
         conn.execute(
             """
-            CREATE TABLE device_state_intervals AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_state_intervals AS SELECT * FROM (VALUES
                 ('dev-1', 'switch_led', TIMESTAMP '2026-01-01 10:00:00'),
                 ('dev-1', 'switch_led', TIMESTAMP '2026-01-02 10:00:00'),
                 ('dev-2', 'switch',     TIMESTAMP '2026-01-02 10:00:00')
@@ -161,7 +162,7 @@ def test_resolve_switch_code_reads_the_code_from_the_warehouse(tmp_path, monkeyp
             """
         )
         # _warehouse_ready() looks for a known mart table.
-        conn.execute("CREATE TABLE device_metrics_daily AS SELECT 1 AS x")
+        conn.execute("CREATE TABLE gold.device_metrics_daily AS SELECT 1 AS x")
     finally:
         conn.close()
 

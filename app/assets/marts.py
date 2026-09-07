@@ -214,6 +214,7 @@ def gold_device_metrics(context: AssetExecutionContext) -> str:
     duckdb_resource: DuckDBResource = context.resources.duckdb
     with duckdb_resource.get_connection() as conn:
         context.log.info("Acquired DuckDB connection from resource.")
+        conn.execute("CREATE SCHEMA IF NOT EXISTS gold")
 
         for granularity, bucket_expr, bucket_alias, out_dir, table_name in (
             (
@@ -221,14 +222,14 @@ def gold_device_metrics(context: AssetExecutionContext) -> str:
                 f"date_trunc('hour', {_LOCAL_EVENT_TIME})",
                 "event_hour",
                 hourly_dir_abs,
-                "device_metrics_hourly",
+                "gold.device_metrics_hourly",
             ),
             (
                 "daily",
                 f"date_trunc('day', {_LOCAL_EVENT_TIME})",
                 "event_day",
                 daily_dir_abs,
-                "device_metrics_daily",
+                "gold.device_metrics_daily",
             ),
         ):
             agg_query = _AGG_QUERY_TEMPLATE.format(
@@ -272,32 +273,32 @@ def gold_device_metrics(context: AssetExecutionContext) -> str:
         # These are what let the agent answer "how long was X on" / "did I leave
         # anything running overnight" instead of only counting events.
         try:
-            context.log.info("Materializing device_state_intervals in warehouse.duckdb...")
+            context.log.info("Materializing gold.device_state_intervals in warehouse.duckdb...")
             conn.execute(
-                "CREATE OR REPLACE TABLE device_state_intervals AS "
+                "CREATE OR REPLACE TABLE gold.device_state_intervals AS "
                 + _STATE_INTERVALS_QUERY.format(
                     staging_glob=staging_glob,
                     local_event_time=_LOCAL_EVENT_TIME,
                 )
             )
             interval_count = conn.execute(
-                "SELECT count(*) FROM device_state_intervals"
+                "SELECT count(*) FROM gold.device_state_intervals"
             ).fetchone()[0]
-            context.log.info(f"device_state_intervals: {interval_count} rows.")
+            context.log.info(f"gold.device_state_intervals: {interval_count} rows.")
 
-            context.log.info("Materializing device_on_time_daily in warehouse.duckdb...")
+            context.log.info("Materializing gold.device_on_time_daily in warehouse.duckdb...")
             conn.execute(
-                "CREATE OR REPLACE TABLE device_on_time_daily AS "
-                + _ON_TIME_DAILY_QUERY.format(intervals_table="device_state_intervals")
+                "CREATE OR REPLACE TABLE gold.device_on_time_daily AS "
+                + _ON_TIME_DAILY_QUERY.format(intervals_table="gold.device_state_intervals")
             )
             on_time_count = conn.execute(
-                "SELECT count(*) FROM device_on_time_daily"
+                "SELECT count(*) FROM gold.device_on_time_daily"
             ).fetchone()[0]
-            context.log.info(f"device_on_time_daily: {on_time_count} rows.")
+            context.log.info(f"gold.device_on_time_daily: {on_time_count} rows.")
 
             for table_name, partition_col, out_dir in (
-                ("device_state_intervals", "interval_start", intervals_dir_abs),
-                ("device_on_time_daily", "event_day", on_time_dir_abs),
+                ("gold.device_state_intervals", "interval_start", intervals_dir_abs),
+                ("gold.device_on_time_daily", "event_day", on_time_dir_abs),
             ):
                 context.log.info(f"Writing {table_name} Parquet to {out_dir}...")
                 conn.execute(

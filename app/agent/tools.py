@@ -78,7 +78,8 @@ def _warehouse_ready() -> bool:
             tables = {
                 row[0]
                 for row in conn.execute(
-                    "SELECT table_name FROM information_schema.tables"
+                    "SELECT table_name FROM information_schema.tables "
+                    "WHERE table_schema = 'gold'"
                 ).fetchall()
             }
             return any(t in tables for t in KNOWN_TABLES)
@@ -100,7 +101,13 @@ def _open_connection():
     message when no data source could be found at all.
     """
     if _warehouse_ready():
-        return duckdb.connect(WAREHOUSE_DB_PATH, read_only=True), "warehouse", None
+        conn = duckdb.connect(WAREHOUSE_DB_PATH, read_only=True)
+        # Gold tables live in the `gold` schema (bronze/silver hold the raw and
+        # staging layers); this makes unqualified table names in tool queries
+        # and in the model's SQL resolve there without every call site having
+        # to spell out `gold.`.
+        conn.execute("SET search_path = 'gold'")
+        return conn, "warehouse", None
 
     # Fall back to reading marts Parquet directly — one view per mart, since
     # each has its own schema.

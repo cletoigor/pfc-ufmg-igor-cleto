@@ -61,10 +61,11 @@ def test_overview_devices_filter(monkeypatch, tmp_path):
     warehouse = tmp_path / "wh.duckdb"
     conn = duckdb.connect(str(warehouse))
     try:
+        conn.execute("CREATE SCHEMA gold")
         end = pd.Timestamp("2026-09-06 22:51:24")
         conn.execute(
             """
-            CREATE TABLE device_state_intervals AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_state_intervals AS SELECT * FROM (VALUES
                 ('d1', 'Lamp', 'switch_1', TIMESTAMP '2026-09-06 17:00:00', ?, 231.4, true),
                 ('d2', 'Fan',  'switch_1', TIMESTAMP '2026-09-06 18:00:00', ?, 171.4, true)
             ) t(device_id, device_name, switch_code, interval_start, interval_end,
@@ -74,7 +75,7 @@ def test_overview_devices_filter(monkeypatch, tmp_path):
         )
         conn.execute(
             """
-            CREATE TABLE device_metrics_daily AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_metrics_daily AS SELECT * FROM (VALUES
                 ('d1', 'Lamp', DATE '2026-09-06', 10, TIMESTAMP '2026-09-06 17:10:00', 2),
                 ('d2', 'Fan',  DATE '2026-09-06', 15, TIMESTAMP '2026-09-06 22:51:24', 3)
             ) t(device_id, device_name, event_day, event_count, last_seen_at, on_event_count)
@@ -82,7 +83,7 @@ def test_overview_devices_filter(monkeypatch, tmp_path):
         )
         conn.execute(
             """
-            CREATE TABLE device_on_time_daily AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_on_time_daily AS SELECT * FROM (VALUES
                 ('d1', 'Lamp', DATE '2026-09-06', 231.4, 1, 231.4, 0.0),
                 ('d2', 'Fan',  DATE '2026-09-06', 171.4, 1, 171.4, 0.0)
             ) t(device_id, device_name, event_day, on_minutes, on_sessions,

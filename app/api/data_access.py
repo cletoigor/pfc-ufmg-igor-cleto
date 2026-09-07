@@ -95,14 +95,15 @@ def load_metrics() -> dict:
                 tables = {
                     row[0]
                     for row in conn.execute(
-                        "SELECT table_name FROM information_schema.tables"
+                        "SELECT table_name FROM information_schema.tables "
+                        "WHERE table_schema = 'gold'"
                     ).fetchall()
                 }
                 if tables & set(_MART_TABLES.values()):
                     frames = dict(empty)
                     for key, table in _MART_TABLES.items():
                         if table in tables:
-                            frames[key] = conn.execute(f"SELECT * FROM {table}").df()
+                            frames[key] = conn.execute(f"SELECT * FROM gold.{table}").df()
                     return {"source": "warehouse", "error": None, **frames}
             finally:
                 conn.close()

@@ -59,7 +59,11 @@ class TuyaCredentials(Config):
     )
 
 
-@asset(group_name="data_ingestion", kinds={"python", "api"})
+@asset(
+    group_name="data_ingestion",
+    required_resource_keys={"duckdb"},
+    kinds={"python", "api", "duckdb"},
+)
 def raw_tuya_logs(context: AssetExecutionContext, config: TuyaCredentials) -> str:
     """
     Fetches device status logs from the Tuya Cloud API for configured devices
@@ -221,6 +225,20 @@ def raw_tuya_logs(context: AssetExecutionContext, config: TuyaCredentials) -> st
             "Check Tuya API connectivity/credentials and device supported codes."
         )
 
+    # Materialize the raw layer as a bronze DuckDB table too, alongside the
+    # JSON files on disk — the medallion "bronze" layer, queryable like any
+    # other table rather than only reachable via glob + read_json_auto.
+    raw_glob = os.path.join(absolute_base_output_dir, "**", "*.json")
+    duckdb_resource: DuckDBResource = context.resources.duckdb
+    with duckdb_resource.get_connection() as conn:
+        conn.execute("CREATE SCHEMA IF NOT EXISTS bronze")
+        conn.execute(
+            "CREATE OR REPLACE TABLE bronze.raw_tuya_logs AS "
+            f"SELECT * FROM read_json_auto('{raw_glob}', format='auto', filename=true)"
+        )
+        bronze_rows = conn.execute("SELECT count(*) FROM bronze.raw_tuya_logs").fetchone()[0]
+        context.log.info(f"bronze.raw_tuya_logs: {bronze_rows} rows.")
+
     # Return the absolute path to the base directory where logs were saved.
     # The downstream asset will need this to know where to look for input.
     return absolute_base_output_dir
@@ -326,8 +344,8 @@ def staging_tuya_logs(context: AssetExecutionContext) -> str:
         else:
             context.log.warning("Skipping device name enrichment due to mapping load error.")
 
-        copy_query = f"""
-        COPY (
+        create_query = f"""
+        CREATE OR REPLACE TABLE silver.staging_tuya_logs AS
             WITH raw_logs AS (
                 SELECT *
                 FROM read_json_auto(
@@ -355,7 +373,15 @@ def staging_tuya_logs(context: AssetExecutionContext) -> str:
                 strftime(epoch_ms(rl.event_time), '%Y-%m-%d') AS event_date
             FROM raw_logs rl
             {join_clause}
-        ) TO '{staging_dir_abs}' (
+        ;
+        """
+
+        # The medallion "silver" layer: the same cleaned/enriched rows as the
+        # Parquet output below, materialized as a DuckDB table so it shows up
+        # in the warehouse's schema tree next to bronze and gold.
+        copy_query = f"""
+        COPY (SELECT * FROM silver.staging_tuya_logs)
+        TO '{staging_dir_abs}' (
             FORMAT PARQUET,
             PARTITION_BY (event_date),
             OVERWRITE_OR_IGNORE 1
@@ -363,6 +389,14 @@ def staging_tuya_logs(context: AssetExecutionContext) -> str:
         """
 
         try:
+            conn.execute("CREATE SCHEMA IF NOT EXISTS silver")
+            context.log.info(f"Executing query:\n{create_query}")
+            conn.execute(create_query)
+            silver_rows = conn.execute(
+                "SELECT count(*) FROM silver.staging_tuya_logs"
+            ).fetchone()[0]
+            context.log.info(f"silver.staging_tuya_logs: {silver_rows} rows.")
+
             context.log.info(f"Executing query:\n{copy_query}")
             conn.execute(copy_query)
             # Wrapped long line

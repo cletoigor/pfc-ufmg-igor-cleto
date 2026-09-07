@@ -257,10 +257,11 @@ def gold_energy_metrics(context: AssetExecutionContext) -> str:
 
     duckdb_resource: DuckDBResource = context.resources.duckdb
     with duckdb_resource.get_connection() as conn:
+        conn.execute("CREATE SCHEMA IF NOT EXISTS gold")
         try:
-            context.log.info("Materializing device_power_hourly in warehouse.duckdb...")
+            context.log.info("Materializing gold.device_power_hourly in warehouse.duckdb...")
             conn.execute(
-                "CREATE OR REPLACE TABLE device_power_hourly AS "
+                "CREATE OR REPLACE TABLE gold.device_power_hourly AS "
                 + _ENERGY_HOURLY_QUERY.format(
                     readings_cte=readings_cte,
                     power_scale=POWER_SCALE,
@@ -268,8 +269,10 @@ def gold_energy_metrics(context: AssetExecutionContext) -> str:
                     hold=MAX_SAMPLE_HOLD_MINUTES,
                 )
             )
-            hourly_rows = conn.execute("SELECT count(*) FROM device_power_hourly").fetchone()[0]
-            context.log.info(f"device_power_hourly: {hourly_rows} rows.")
+            hourly_rows = conn.execute(
+                "SELECT count(*) FROM gold.device_power_hourly"
+            ).fetchone()[0]
+            context.log.info(f"gold.device_power_hourly: {hourly_rows} rows.")
 
             if hourly_rows == 0:
                 # No electrical datapoints in staging at all. The downstream
@@ -281,29 +284,31 @@ def gold_energy_metrics(context: AssetExecutionContext) -> str:
                     "if this is the demo dataset."
                 )
 
-            context.log.info("Materializing device_power_daily in warehouse.duckdb...")
+            context.log.info("Materializing gold.device_power_daily in warehouse.duckdb...")
             conn.execute(
-                "CREATE OR REPLACE TABLE device_power_daily AS "
-                + _ENERGY_DAILY_QUERY.format(hourly_table="device_power_hourly")
+                "CREATE OR REPLACE TABLE gold.device_power_daily AS "
+                + _ENERGY_DAILY_QUERY.format(hourly_table="gold.device_power_hourly")
             )
-            daily_rows = conn.execute("SELECT count(*) FROM device_power_daily").fetchone()[0]
-            context.log.info(f"device_power_daily: {daily_rows} rows.")
+            daily_rows = conn.execute(
+                "SELECT count(*) FROM gold.device_power_daily"
+            ).fetchone()[0]
+            context.log.info(f"gold.device_power_daily: {daily_rows} rows.")
 
-            context.log.info("Materializing device_cusum_baseline in warehouse.duckdb...")
+            context.log.info("Materializing gold.device_cusum_baseline in warehouse.duckdb...")
             conn.execute(
-                "CREATE OR REPLACE TABLE device_cusum_baseline AS "
+                "CREATE OR REPLACE TABLE gold.device_cusum_baseline AS "
                 + _CUSUM_BASELINE_QUERY.format(
-                    hourly_table="device_power_hourly", holdout=BASELINE_HOLDOUT_DAYS
+                    hourly_table="gold.device_power_hourly", holdout=BASELINE_HOLDOUT_DAYS
                 )
             )
             baseline_rows = conn.execute(
-                "SELECT count(*) FROM device_cusum_baseline"
+                "SELECT count(*) FROM gold.device_cusum_baseline"
             ).fetchone()[0]
-            context.log.info(f"device_cusum_baseline: {baseline_rows} rows.")
+            context.log.info(f"gold.device_cusum_baseline: {baseline_rows} rows.")
 
             for table_name, partition_col, out_dir in (
-                ("device_power_hourly", "event_hour", power_hourly_dir),
-                ("device_power_daily", "event_day", power_daily_dir),
+                ("gold.device_power_hourly", "event_hour", power_hourly_dir),
+                ("gold.device_power_daily", "event_day", power_daily_dir),
             ):
                 context.log.info(f"Writing {table_name} Parquet to {out_dir}...")
                 conn.execute(

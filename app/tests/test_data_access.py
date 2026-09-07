@@ -56,7 +56,8 @@ def test_load_metrics_reads_warehouse_when_present(tmp_path, monkeypatch):
     warehouse = tmp_path / "warehouse.duckdb"
     conn = duckdb.connect(str(warehouse))
     try:
-        conn.execute("CREATE TABLE device_metrics_daily AS SELECT 1 AS event_count")
+        conn.execute("CREATE SCHEMA gold")
+        conn.execute("CREATE TABLE gold.device_metrics_daily AS SELECT 1 AS event_count")
     finally:
         conn.close()
     monkeypatch.setattr(data_access, "WAREHOUSE_DB_PATH", str(warehouse))
@@ -136,10 +137,11 @@ def _seed_warehouse_with_clipped_intervals(tmp_path, monkeypatch):
     warehouse = tmp_path / "warehouse.duckdb"
     conn = duckdb.connect(str(warehouse))
     try:
+        conn.execute("CREATE SCHEMA gold")
         clipped_end = pd.Timestamp("2026-09-06 22:51:24")
         conn.execute(
             """
-            CREATE TABLE device_state_intervals AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_state_intervals AS SELECT * FROM (VALUES
                 ('d1', 'Lamp', 'switch_1', TIMESTAMP '2026-09-06 17:00:00', ?, 231.4, true),
                 ('d2', 'Fan',  'switch_1', TIMESTAMP '2026-09-06 18:00:00', ?, 171.4, true)
             ) t(device_id, device_name, switch_code, interval_start, interval_end,
@@ -149,7 +151,7 @@ def _seed_warehouse_with_clipped_intervals(tmp_path, monkeypatch):
         )
         conn.execute(
             """
-            CREATE TABLE device_metrics_daily AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_metrics_daily AS SELECT * FROM (VALUES
                 ('d1', 'Lamp', DATE '2026-09-06', 10, TIMESTAMP '2026-09-06 17:10:00', 2),
                 ('d2', 'Fan',  DATE '2026-09-06', 15, TIMESTAMP '2026-09-06 22:51:24', 3)
             ) t(device_id, device_name, event_day, event_count, last_seen_at, on_event_count)
@@ -157,7 +159,7 @@ def _seed_warehouse_with_clipped_intervals(tmp_path, monkeypatch):
         )
         conn.execute(
             """
-            CREATE TABLE device_on_time_daily AS SELECT * FROM (VALUES
+            CREATE TABLE gold.device_on_time_daily AS SELECT * FROM (VALUES
                 ('d1', 'Lamp', DATE '2026-09-06', 231.4, 1, 231.4, 0.0),
                 ('d2', 'Fan',  DATE '2026-09-06', 171.4, 1, 171.4, 0.0)
             ) t(device_id, device_name, event_day, on_minutes, on_sessions,
