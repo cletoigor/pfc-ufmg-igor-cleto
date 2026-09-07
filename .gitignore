@@ -180,3 +180,11 @@ data/
 
 # Dagster temporary files
 tmp*/
+
+# Dagster instance state (DAGSTER_HOME is the repo root, next to dagster.yaml)
+.nux/
+.telemetry/
+history/
+schedules/
+storage/
+logs/
