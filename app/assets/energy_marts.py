@@ -328,7 +328,7 @@ def gold_energy_metrics(context: AssetExecutionContext) -> str:
             # partition on, so it is written as a single file.
             context.log.info(f"Writing device_cusum_baseline Parquet to {baseline_dir}...")
             conn.execute(
-                "COPY (SELECT * FROM device_cusum_baseline) TO "
+                "COPY (SELECT * FROM gold.device_cusum_baseline) TO "
                 f"'{os.path.join(baseline_dir, 'baseline.parquet')}' (FORMAT PARQUET);"
             )
         except duckdb.Error as e:
