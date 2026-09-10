@@ -43,6 +43,13 @@ Tuya Cloud API
                                                               (real actuation, opt-in)
 ```
 
+![Architecture swimlane diagram](docs/assets/architecture.svg)
+
+The diagram above reads left to right across five lanes — devices/Tuya,
+Dagster, storage, API & logic, and clients — and separately traces the
+control bus (red) that a device command follows through the three dry-run
+gates before it can ever reach a physical device.
+
 - **Ingest** — `raw_tuya_logs` pulls device status logs from the Tuya Cloud
   API and saves raw JSON under `app/data/raw/<device_id>/<date>/`.
 - **Stage** — `staging_tuya_logs` reads the raw JSON with DuckDB and writes a
