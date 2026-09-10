@@ -87,16 +87,16 @@ POWER_SAMPLE_INTERVAL = timedelta(minutes=15)
 #   floor         fraction of nominal drawn at the bottom of that 0..100 range
 #                 (an LED driver at 15% brightness still draws more than 15%)
 POWER_PROFILES = {
-    "Office Lamp": {"watts": 11.0, "power_factor": 0.95, "scales_with": None, "floor": 1.0},
-    "Office Outlet": {"watts": 140.0, "power_factor": 0.92, "scales_with": None, "floor": 1.0},
-    "Bedroom Fan": {
+    "Device F - Lamp": {"watts": 11.0, "power_factor": 0.95, "scales_with": None, "floor": 1.0},
+    "Device E - Outlet": {"watts": 140.0, "power_factor": 0.92, "scales_with": None, "floor": 1.0},
+    "Device D - Fan": {
         "watts": 55.0, "power_factor": 0.82, "scales_with": "fan_speed_percent", "floor": 0.35,
     },
-    "Mosquito Repellent": {"watts": 5.0, "power_factor": 0.99, "scales_with": None, "floor": 1.0},
-    "LED Strip": {
+    "Device C - Repellent": {"watts": 5.0, "power_factor": 0.99, "scales_with": None, "floor": 1.0},
+    "Device A - LED Strip": {
         "watts": 24.0, "power_factor": 0.90, "scales_with": "bright_value", "floor": 0.15,
     },
-    "Living Room Switch": {"watts": 60.0, "power_factor": 0.95, "scales_with": None, "floor": 1.0},
+    "Device B - Switch": {"watts": 60.0, "power_factor": 0.95, "scales_with": None, "floor": 1.0},
 }
 
 # Day-to-day variation in a device's draw. This is the spread the CUSUM Phase I
@@ -112,7 +112,7 @@ SAMPLE_NOISE_SPREAD = 0.02  # within-session ripple, deliberately smaller
 # invisible to one, but a persistent bias that CUSUM accumulates past h=5
 # within about a day of readings. That contrast is the argument section 3.3.2
 # of the monograph makes for CUSUM, so the demo dataset has to contain it.
-POWER_DRIFT_DEVICE = "Office Outlet"
+POWER_DRIFT_DEVICE = "Device E - Outlet"
 POWER_DRIFT_DAYS_AGO = 8
 POWER_DRIFT_FACTOR = 1.10
 
@@ -325,32 +325,32 @@ def _power_readings(
 
 
 PROFILES = {
-    "Office Lamp": {
+    "Device F - Lamp": {
         "switch_code": "switch_led",
         "sessions": _office_lamp_sessions,
         "extras": None,
     },
-    "Office Outlet": {
+    "Device E - Outlet": {
         "switch_code": "switch_1",
         "sessions": _office_outlet_sessions,
         "extras": None,
     },
-    "Bedroom Fan": {
+    "Device D - Fan": {
         "switch_code": "switch",
         "sessions": _bedroom_fan_sessions,
         "extras": _bedroom_fan_extras,
     },
-    "Mosquito Repellent": {
+    "Device C - Repellent": {
         "switch_code": "switch_1",
         "sessions": _mosquito_sessions,
         "extras": None,
     },
-    "LED Strip": {
+    "Device A - LED Strip": {
         "switch_code": "switch_led",
         "sessions": _led_strip_sessions,
         "extras": _led_strip_extras,
     },
-    "Living Room Switch": {
+    "Device B - Switch": {
         "switch_code": "switch_1",
         "sessions": _living_room_sessions,
         "extras": None,
@@ -361,7 +361,7 @@ PROFILES = {
 # in days back from the last generated day, so they always land inside the
 # window and stay in the "last two weeks" range that demo questions ask about.
 OVERNIGHT_ANOMALY_DAYS_AGO = (3, 9, 16)
-ANOMALY_DEVICE = "Office Lamp"
+ANOMALY_DEVICE = "Device F - Lamp"
 
 
 def load_device_mapping() -> dict:

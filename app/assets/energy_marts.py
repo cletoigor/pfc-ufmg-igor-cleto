@@ -147,7 +147,8 @@ SELECT
     stats.current_ma_min,
     coalesce(energy.energy_kwh, 0.0) AS energy_kwh
 FROM stats
-LEFT JOIN energy USING (device_id, device_name, event_hour)
+LEFT JOIN energy
+    ON stats.device_id = energy.device_id AND stats.event_hour = energy.event_hour
 ORDER BY stats.device_id, stats.event_hour
 """
 
